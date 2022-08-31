@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Template</title>
+
+
+
+
+    <link rel="stylesheet"
+        href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css" />
+
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet"
+        href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet"
+        href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <link rel="stylesheet"
+        href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/jQuery-3.6.0/jquery-3.6.0.js"></script>
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script
+        src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script
+        src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script
+        src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script
+        src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script
+        src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script
+        src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script
+        src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/plugins/jszip/jszip.min.js"></script>
+    <script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script
+        src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.js"></script>
+    <script src="~/js/moment.min.js"></script>
+    <script>
+            (function ($) {
+                $.fn.inputFilter = function (callback, errMsg) {
+                    return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function (e) {
+                        if (callback(this.value)) {
+                            // Accepted value
+                            if (["keydown", "mousedown", "focusout"].indexOf(e.type) >= 0) {
+                                $(this).removeClass("input-error");
+                                this.setCustomValidity("");
+                            }
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            // Rejected value - restore the previous one
+                            $(this).addClass("input-error");
+                            this.setCustomValidity(errMsg);
+                            this.reportValidity();
+                            this.value = this.oldValue;
+                            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                        } else {
+                            // Rejected value - nothing to restore
+                            this.value = "";
+                        }
+                    });
+                };
+            }(jQuery));
+    </script>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        @* Preloader *@
+        <div
+            class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__sake" src="~/dist/img/AdminLTELogo.png"
+                height="60" width="60" alt="logo">
+        </div>
+
+        @* Navbar partial *@
+        <partial name="_Navbar" />
+        @* Main sidebar container *@
+        <partial name="_MainSidebarContainer" />
+        <div class="content-wrapper bg-bni-accent pt-4">
+
+            @RenderBody()
+
+        </div>
+
+        <partial name="_Footer" />
+
+    </div>
+
+
+
+    @* lte script *@
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @*Script Js DataTable*@
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script
+        src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script
+        src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script
+        src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/select2/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+        $("aside").resize(function () {
+            console.log($(this).width())
+        })
+        console.log(document.querySelectorAll("aside"))
+        document.body.addEventListener("resize",function(){
+            console.log('ok')
+        })
+    </script>
+    @*Script Js DataTable*@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
