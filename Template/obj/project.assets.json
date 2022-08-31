@@ -11189,11 +11189,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\majid\\Downloads\\NewTemplate-master\\NewTemplate-master\\Template\\Template.csproj",
+      "projectUniqueName": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
       "projectName": "Template",
-      "projectPath": "C:\\Users\\majid\\Downloads\\NewTemplate-master\\NewTemplate-master\\Template\\Template.csproj",
+      "projectPath": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
       "packagesPath": "C:\\Users\\majid\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\majid\\Downloads\\NewTemplate-master\\NewTemplate-master\\Template\\obj\\",
+      "outputPath": "D:\\Project\\Project BNI\\Ririn\\Template\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\majid\\AppData\\Roaming\\NuGet\\NuGet.Config",

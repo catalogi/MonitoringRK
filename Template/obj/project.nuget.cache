@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "etAdNwCaWAjiMeZbPp1dS+oWWahdC30Dw++6uChFdGvqt5oMYef1PKNPHdB9+fU13BMQerhlFVrzZPOXeFPNuA==",
+  "dgSpecHash": "GiIPGLMWWv55CytKuMBb0Q2PP7lKxfxm9cZQKp9mPjrYJjJJPu4zMBAKk2K+6RryTWpu0KvsXPPqYGqevAcmkQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\majid\\Downloads\\NewTemplate-master\\NewTemplate-master\\Template\\Template.csproj",
+  "projectFilePath": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\majid\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\majid\\.nuget\\packages\\documentformat.openxml\\2.17.1\\documentformat.openxml.2.17.1.nupkg.sha512",

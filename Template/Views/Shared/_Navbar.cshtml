@@ -5,11 +5,11 @@
 @inject UserManager<User> UserManager
 @inject AppDbContext context
 
-@{
+@*@{
     var user = context.User.Where(x => x.UserName ==
             User.Identity.Name).FirstOrDefault();
     var nama = user.Nama + " (" + user.NPP + ")";
-}
+}*@
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
@@ -27,7 +27,7 @@
             </a>
         </li>
 
-        @if (SignInManager.IsSignedIn(User))
+        @*@if (SignInManager.IsSignedIn(User))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="Identity"
@@ -47,6 +47,6 @@
                     <i class="fas fa-sign-in-alt"></i>
                 </a>
             </li>
-        }
+        }*@
     </ul>
 </nav>
