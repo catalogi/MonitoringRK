@@ -5,29 +5,127 @@
 @inject UserManager<User> UserManager
 @inject AppDbContext context
 
-@{
+@*@{
     var user = context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault();
-}
+}*@
 
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar bg-bni-primary elevation-4"
-       style="overflow-y: auto; width: min-content;">
+<aside class="main-sidebar bg-bni-primary elevation-4 w-full">
     <!-- Brand Logo -->
     <a asp-action="Index" asp-controller="Home" class="brand-link">
-        <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+        <img src="~/dist/img/AdminLTELogo.png" alt="MonitoringRK"
              class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold text-bni-origin">
             Template
             <span class="text-bni-accent">PROJECT</span>
         </span>
     </a>
-    <nav class="mt-2">
-        <a class="nav-link" href="@Url.Action("Index","Home")">
-            <i class="fa fa-dashboard"></i>
-            <p>Dashboard</p>
-        </a>
-    </nav>
-    <!-- /.sidebar-menu -->
+    <div class="sidebar" style="overflow:hidden;">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header bg-bni-accent font-bold mx-2 rounded-sm mb-2">
+                    Master
+                </li>
+                <li class="nav-item">
+                    @*User Management*@
+                    <a asp-action="Index" asp-controller="UserManagement" class="nav-link">
+                        <i class="fas fa-users text-bni-accent nav-icon" aria-hidden="true"></i>
+                        <p class="text-bni-accent brand-text">
+                            Users
+                        </p>
+                    </a>
+                </li>
+
+                @*Menu Bank*@
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Bank" class="nav-link">
+                        <i class="fas fa-university text-bni-accent nav-icon" aria-hidden="true"></i>
+                        <p class="text-bni-accent brand-text">
+                            Bank
+                        </p>
+                    </a>
+                </li>
+
+                @* Menu Cabang*@
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                        <i class="fas fa-code-branch text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Cabang
+                        </p>
+                    </a>
+                </li>
+
+                <!-- Menu Monitoring Kliring -->
+                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                    Monitoring Kliring
+                </li>
+                
+                    <li class="nav-item">
+                        <a asp-action="Registrasi" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Registrasi
+                            </p>
+                        </a>
+                    </li>
+               
+                
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+
+                            <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                On Going
+                            </p>
+                        </a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
+                
+                <!-- Menu Monitoring RTGS -->
+                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                    Monitoring RTGS
+                </li>
+               
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                            <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Registrasi
+                            </p>
+                        </a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+
+                            <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                On Going
+                            </p>
+                        </a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
