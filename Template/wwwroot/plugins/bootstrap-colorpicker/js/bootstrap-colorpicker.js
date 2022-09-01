@@ -3621,8 +3621,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var defaults = {
-  barTemplate: '<div class="colorpicker-bar colorpicker-swatches">\n                    <div class="colorpicker-swatches--inner"></div>\n                </div>',
-  swatchTemplate: '<i class="colorpicker-swatch"><i class="colorpicker-swatch--inner"></i></i>'
+  barRirin: '<div class="colorpicker-bar colorpicker-swatches">\n                    <div class="colorpicker-swatches--inner"></div>\n                </div>',
+  swatchRirin: '<i class="colorpicker-swatch"><i class="colorpicker-swatch--inner"></i></i>'
 };
 
 /**
@@ -3658,7 +3658,7 @@ var Swatches = function (_Palette) {
         return;
       }
 
-      this.element = (0, _jquery2.default)(this.options.barTemplate);
+      this.element = (0, _jquery2.default)(this.options.barRirin);
       this.load();
       this.colorpicker.picker.append(this.element);
     }
@@ -3674,7 +3674,7 @@ var Swatches = function (_Palette) {
       swatchContainer.empty();
 
       _jquery2.default.each(this.colors, function (name, value) {
-        var $swatch = (0, _jquery2.default)(_this2.options.swatchTemplate).attr('data-name', name).attr('data-value', value).attr('title', isAliased ? name + ': ' + value : value).on('mousedown.colorpicker touchstart.colorpicker', function (e) {
+        var $swatch = (0, _jquery2.default)(_this2.options.swatchRirin).attr('data-name', name).attr('data-value', value).attr('title', isAliased ? name + ': ' + value : value).on('mousedown.colorpicker touchstart.colorpicker', function (e) {
           var $sw = (0, _jquery2.default)(this);
 
           // e.preventDefault();

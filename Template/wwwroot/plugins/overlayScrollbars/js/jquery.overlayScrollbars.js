@@ -398,7 +398,7 @@
             var _pluginsExtensions = [];
             var _pluginsOptions = (function () {
                 var type = COMPATIBILITY.type;
-                var possibleTemplateTypes = [
+                var possibleRirinTypes = [
                     TYPES.b, //boolean
                     TYPES.n, //number
                     TYPES.s, //string
@@ -412,28 +412,28 @@
                 var classNameAllowedValues = [TYPES.z, TYPES.s];
                 var numberAllowedValues = TYPES.n;
                 var booleanNullAllowedValues = [TYPES.z, TYPES.b];
-                var booleanTrueTemplate = [true, TYPES.b];
-                var booleanFalseTemplate = [false, TYPES.b];
-                var callbackTemplate = [null, [TYPES.z, TYPES.f]];
-                var updateOnLoadTemplate = [['img'], [TYPES.s, TYPES.a, TYPES.z]];
-                var inheritedAttrsTemplate = [['style', 'class'], [TYPES.s, TYPES.a, TYPES.z]];
+                var booleanTrueRirin = [true, TYPES.b];
+                var booleanFalseRirin = [false, TYPES.b];
+                var callbackRirin = [null, [TYPES.z, TYPES.f]];
+                var updateOnLoadRirin = [['img'], [TYPES.s, TYPES.a, TYPES.z]];
+                var inheritedAttrsRirin = [['style', 'class'], [TYPES.s, TYPES.a, TYPES.z]];
                 var resizeAllowedValues = 'n:none b:both h:horizontal v:vertical';
                 var overflowBehaviorAllowedValues = 'v-h:visible-hidden v-s:visible-scroll s:scroll h:hidden';
                 var scrollbarsVisibilityAllowedValues = 'v:visible h:hidden a:auto';
                 var scrollbarsAutoHideAllowedValues = 'n:never s:scroll l:leave m:move';
-                var optionsDefaultsAndTemplate = {
+                var optionsDefaultsAndRirin = {
                     className: ['os-theme-dark', classNameAllowedValues],                //null || string
                     resize: ['none', resizeAllowedValues],                               //none || both  || horizontal || vertical || n || b || h || v
-                    sizeAutoCapable: booleanTrueTemplate,                                //true || false
-                    clipAlways: booleanTrueTemplate,                                     //true || false
-                    normalizeRTL: booleanTrueTemplate,                                   //true || false
-                    paddingAbsolute: booleanFalseTemplate,                               //true || false
+                    sizeAutoCapable: booleanTrueRirin,                                //true || false
+                    clipAlways: booleanTrueRirin,                                     //true || false
+                    normalizeRTL: booleanTrueRirin,                                   //true || false
+                    paddingAbsolute: booleanFalseRirin,                               //true || false
                     autoUpdate: [null, booleanNullAllowedValues],                        //true || false || null
                     autoUpdateInterval: [33, numberAllowedValues],                       //number
-                    updateOnLoad: updateOnLoadTemplate,                                  //string || array || null
+                    updateOnLoad: updateOnLoadRirin,                                  //string || array || null
                     nativeScrollbarsOverlaid: {
-                        showNativeScrollbars: booleanFalseTemplate,                      //true || false
-                        initialize: booleanTrueTemplate                                  //true || false
+                        showNativeScrollbars: booleanFalseRirin,                      //true || false
+                        initialize: booleanTrueRirin                                  //true || false
                     },
                     overflowBehavior: {
                         x: ['scroll', overflowBehaviorAllowedValues],                    //visible-hidden  || visible-scroll || hidden || scroll || v-h || v-s || h || s
@@ -443,29 +443,29 @@
                         visibility: ['auto', scrollbarsVisibilityAllowedValues],         //visible || hidden || auto || v || h || a
                         autoHide: ['never', scrollbarsAutoHideAllowedValues],            //never || scroll || leave || move || n || s || l || m
                         autoHideDelay: [800, numberAllowedValues],                       //number
-                        dragScrolling: booleanTrueTemplate,                              //true || false
-                        clickScrolling: booleanFalseTemplate,                            //true || false
-                        touchSupport: booleanTrueTemplate,                               //true || false
-                        snapHandle: booleanFalseTemplate                                 //true || false
+                        dragScrolling: booleanTrueRirin,                              //true || false
+                        clickScrolling: booleanFalseRirin,                            //true || false
+                        touchSupport: booleanTrueRirin,                               //true || false
+                        snapHandle: booleanFalseRirin                                 //true || false
                     },
                     textarea: {
-                        dynWidth: booleanFalseTemplate,                                  //true || false
-                        dynHeight: booleanFalseTemplate,                                 //true || false
-                        inheritedAttrs: inheritedAttrsTemplate                           //string || array || null
+                        dynWidth: booleanFalseRirin,                                  //true || false
+                        dynHeight: booleanFalseRirin,                                 //true || false
+                        inheritedAttrs: inheritedAttrsRirin                           //string || array || null
                     },
                     callbacks: {
-                        onInitialized: callbackTemplate,                                 //null || function
-                        onInitializationWithdrawn: callbackTemplate,                     //null || function
-                        onDestroyed: callbackTemplate,                                   //null || function
-                        onScrollStart: callbackTemplate,                                 //null || function
-                        onScroll: callbackTemplate,                                      //null || function
-                        onScrollStop: callbackTemplate,                                  //null || function
-                        onOverflowChanged: callbackTemplate,                             //null || function
-                        onOverflowAmountChanged: callbackTemplate,                       //null || function
-                        onDirectionChanged: callbackTemplate,                            //null || function
-                        onContentSizeChanged: callbackTemplate,                          //null || function
-                        onHostSizeChanged: callbackTemplate,                             //null || function
-                        onUpdated: callbackTemplate                                      //null || function
+                        onInitialized: callbackRirin,                                 //null || function
+                        onInitializationWithdrawn: callbackRirin,                     //null || function
+                        onDestroyed: callbackRirin,                                   //null || function
+                        onScrollStart: callbackRirin,                                 //null || function
+                        onScroll: callbackRirin,                                      //null || function
+                        onScrollStop: callbackRirin,                                  //null || function
+                        onOverflowChanged: callbackRirin,                             //null || function
+                        onOverflowAmountChanged: callbackRirin,                       //null || function
+                        onDirectionChanged: callbackRirin,                            //null || function
+                        onContentSizeChanged: callbackRirin,                          //null || function
+                        onHostSizeChanged: callbackRirin,                             //null || function
+                        onUpdated: callbackRirin                                      //null || function
                     }
                 };
                 var convert = function (template) {
@@ -485,7 +485,7 @@
                         }
                         return obj;
                     };
-                    return recursive(FRAMEWORK.extend(true, {}, optionsDefaultsAndTemplate));
+                    return recursive(FRAMEWORK.extend(true, {}, optionsDefaultsAndRirin));
                 };
 
                 return {
@@ -550,7 +550,7 @@
                                             currType = templateTypes[i];
                                             templateValueType = type(currType);
                                             //if currtype is string and starts with restrictedStringPrefix and end with restrictedStringSuffix
-                                            isRestrictedValue = templateValueType == TYPES.s && inArray(currType, possibleTemplateTypes) === -1;
+                                            isRestrictedValue = templateValueType == TYPES.s && inArray(currType, possibleRirinTypes) === -1;
                                             if (isRestrictedValue) {
                                                 errorPossibleTypes.push(TYPES.s);
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Template.Data;
+using Ririn.Data;
 
 #nullable disable
 
@@ -228,7 +228,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Alasan", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Alasan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -245,7 +245,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Alasan");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Bank", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -273,7 +273,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Bank");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Cabang", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Cabang", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,7 +300,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Cabang");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Kelompok", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Kelompok", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -333,7 +333,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Kelompok");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Keterangan", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Keterangan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -350,7 +350,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Keterangan");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Status", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Status", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -371,7 +371,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Status");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Testkey", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Testkey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -413,7 +413,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Testkey");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.TypeTrans", b =>
+            modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -435,7 +435,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("TypeTrans");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Unit", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Unit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -469,7 +469,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Unit");
                 });
 
-            modelBuilder.Entity("Template.Models.Transaksi.MonitoringRK", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRK", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -583,7 +583,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("MonitoringRK");
                 });
 
-            modelBuilder.Entity("Template.Models.Transaksi.MonitoringRTGS", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRTGS", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -662,7 +662,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("MonitoringRTGS");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.User", b =>
+            modelBuilder.Entity("Ririn.Models.Master.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -736,13 +736,13 @@ namespace ASK_Core.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Testkey", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Testkey", b =>
                 {
-                    b.HasOne("Template.Models.Master.Keterangan", "Keterangan")
+                    b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
                         .WithMany()
                         .HasForeignKey("KeteranganId");
 
-                    b.HasOne("Template.Models.Master.Unit", "Unit")
+                    b.HasOne("Ririn.Models.Master.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
 
@@ -751,59 +751,59 @@ namespace ASK_Core.Migrations
                     b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.TypeTrans", b =>
+            modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
                 {
-                    b.HasOne("Template.Models.Master.Unit", "Unit")
+                    b.HasOne("Ririn.Models.Master.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
 
                     b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.Unit", b =>
+            modelBuilder.Entity("Ririn.Models.Master.Unit", b =>
                 {
-                    b.HasOne("Template.Models.Master.Kelompok", "Kelompok")
+                    b.HasOne("Ririn.Models.Master.Kelompok", "Kelompok")
                         .WithMany()
                         .HasForeignKey("KelompokId");
 
                     b.Navigation("Kelompok");
                 });
 
-            modelBuilder.Entity("Template.Models.Transaksi.MonitoringRK", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRK", b =>
                 {
-                    b.HasOne("Template.Models.Master.User", "Accepted")
+                    b.HasOne("Ririn.Models.Master.User", "Accepted")
                         .WithMany()
                         .HasForeignKey("AcceptedId1");
 
-                    b.HasOne("Template.Models.Master.Alasan", "Alasan")
+                    b.HasOne("Ririn.Models.Master.Alasan", "Alasan")
                         .WithMany()
                         .HasForeignKey("AlasanId");
 
-                    b.HasOne("Template.Models.Master.Bank", "Bank")
+                    b.HasOne("Ririn.Models.Master.Bank", "Bank")
                         .WithMany()
                         .HasForeignKey("BankId");
 
-                    b.HasOne("Template.Models.Master.Cabang", "Cabang")
+                    b.HasOne("Ririn.Models.Master.Cabang", "Cabang")
                         .WithMany()
                         .HasForeignKey("CabangId");
 
-                    b.HasOne("Template.Models.Master.User", "Creater")
+                    b.HasOne("Ririn.Models.Master.User", "Creater")
                         .WithMany()
                         .HasForeignKey("CreaterId");
 
-                    b.HasOne("Template.Models.Master.Keterangan", "Keterangan")
+                    b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
                         .WithMany()
                         .HasForeignKey("KeteranganId");
 
-                    b.HasOne("Template.Models.Master.Status", "Status")
+                    b.HasOne("Ririn.Models.Master.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Template.Models.Master.Testkey", "Testkey")
+                    b.HasOne("Ririn.Models.Master.Testkey", "Testkey")
                         .WithMany()
                         .HasForeignKey("TestkeyId");
 
-                    b.HasOne("Template.Models.Master.TypeTrans", "Type")
+                    b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
 
@@ -826,29 +826,29 @@ namespace ASK_Core.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Template.Models.Transaksi.MonitoringRTGS", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRTGS", b =>
                 {
-                    b.HasOne("Template.Models.Master.Bank", "Bank")
+                    b.HasOne("Ririn.Models.Master.Bank", "Bank")
                         .WithMany()
                         .HasForeignKey("BankId");
 
-                    b.HasOne("Template.Models.Master.Cabang", "Cabang")
+                    b.HasOne("Ririn.Models.Master.Cabang", "Cabang")
                         .WithMany()
                         .HasForeignKey("CabangId");
 
-                    b.HasOne("Template.Models.Master.Keterangan", "Keterangan")
+                    b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
                         .WithMany()
                         .HasForeignKey("KeteranganId");
 
-                    b.HasOne("Template.Models.Master.Status", "Status")
+                    b.HasOne("Ririn.Models.Master.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Template.Models.Master.Testkey", "Testkey")
+                    b.HasOne("Ririn.Models.Master.Testkey", "Testkey")
                         .WithMany()
                         .HasForeignKey("TestkeyId");
 
-                    b.HasOne("Template.Models.Master.TypeTrans", "Type")
+                    b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
 
@@ -865,13 +865,13 @@ namespace ASK_Core.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Template.Models.Master.User", b =>
+            modelBuilder.Entity("Ririn.Models.Master.User", b =>
                 {
-                    b.HasOne("Template.Models.Master.Kelompok", "Kelompok")
+                    b.HasOne("Ririn.Models.Master.Kelompok", "Kelompok")
                         .WithMany()
                         .HasForeignKey("KelompokId");
 
-                    b.HasOne("Template.Models.Master.Unit", "Unit")
+                    b.HasOne("Ririn.Models.Master.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
 

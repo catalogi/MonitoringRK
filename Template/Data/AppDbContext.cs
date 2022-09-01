@@ -1,11 +1,11 @@
-﻿using Template.Models.Master;
+﻿using Ririn.Models.Master;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Template.Models.Transaksi;
+using Ririn.Models.Transaksi;
 
-namespace Template.Data
+namespace Ririn.Data
 {
     public class AppDbContext : IdentityDbContext
     {

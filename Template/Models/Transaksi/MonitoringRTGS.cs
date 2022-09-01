@@ -1,6 +1,6 @@
-﻿using Template.Models.Master;
+﻿using Ririn.Models.Master;
 
-namespace Template.Models.Transaksi
+namespace Ririn.Models.Transaksi
 {
     public class MonitoringRTGS : BaseModel
     {
