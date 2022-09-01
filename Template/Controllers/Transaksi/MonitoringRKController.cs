@@ -8,5 +8,9 @@ namespace ASK_Core.Controllers.Transaksi
         {
             return View();
         }
+        public IActionResult Ongoing()
+        {
+            return View();
+        }
     }
 }
