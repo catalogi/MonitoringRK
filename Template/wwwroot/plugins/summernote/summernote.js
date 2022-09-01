@@ -9515,8 +9515,8 @@ var HintPopover = /*#__PURE__*/function () {
       return node;
     }
   }, {
-    key: "createItemTemplates",
-    value: function createItemTemplates(hintIdx, items) {
+    key: "createItemRirins",
+    value: function createItemRirins(hintIdx, items) {
       var hint = this.hints[hintIdx];
       return items.map(function (item
       /*, idx */
@@ -9571,7 +9571,7 @@ var HintPopover = /*#__PURE__*/function () {
         items = items || [];
 
         if (items.length) {
-          $group.html(_this3.createItemTemplates(idx, items));
+          $group.html(_this3.createItemRirins(idx, items));
 
           _this3.show();
         }

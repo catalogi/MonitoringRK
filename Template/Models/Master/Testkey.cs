@@ -1,4 +1,4 @@
-﻿namespace Template.Models.Master
+﻿namespace Ririn.Models.Master
 {
     public class Testkey : BaseModel
     {

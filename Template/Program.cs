@@ -1,5 +1,5 @@
-using Template.Data;
-using Template.Models.Master;
+using Ririn.Data;
+using Ririn.Models.Master;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

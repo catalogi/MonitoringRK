@@ -1,9 +1,9 @@
-﻿using Template.Data;
-using Template.Models.Master;
+﻿using Ririn.Data;
+using Ririn.Models.Master;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
 
-namespace Template.Data
+namespace Ririn.Data
 {
     public static class AutoAddUser
     {

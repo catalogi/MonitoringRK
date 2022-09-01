@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Template.Models.Master
+namespace Ririn.Models.Master
 {
     public class User : IdentityUser
     {

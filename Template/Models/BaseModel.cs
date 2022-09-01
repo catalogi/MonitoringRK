@@ -1,4 +1,4 @@
-﻿namespace Template.Models
+﻿namespace Ririn.Models
 {
     public class BaseModel
     {

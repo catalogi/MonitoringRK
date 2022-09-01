@@ -1,4 +1,4 @@
-namespace Template.Data
+namespace Ririn.Data
 {
     public class Connection
     {
