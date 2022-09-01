@@ -466,7 +466,7 @@ namespace ASK_Core.Migrations
                     b.ToTable("Unit");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRK", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.T_Kliring", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -577,10 +577,10 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("MonitoringRK");
+                    b.ToTable("T_Kliring");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRTGS", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.T_RTGS", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -656,7 +656,7 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("MonitoringRTGS");
+                    b.ToTable("T_RTGS");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.User", b =>
@@ -766,7 +766,7 @@ namespace ASK_Core.Migrations
                     b.Navigation("Kelompok");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRK", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.T_Kliring", b =>
                 {
                     b.HasOne("Ririn.Models.Master.User", "Accepted")
                         .WithMany()
@@ -823,7 +823,7 @@ namespace ASK_Core.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Transaksi.MonitoringRTGS", b =>
+            modelBuilder.Entity("Ririn.Models.Transaksi.T_RTGS", b =>
                 {
                     b.HasOne("Ririn.Models.Master.Bank", "Bank")
                         .WithMany()

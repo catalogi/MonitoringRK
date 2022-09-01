@@ -28,8 +28,8 @@ namespace Ririn.Data
         #endregion
 
         #region Transaksi
-        public DbSet<MonitoringRK> MonitoringRK {get; set; }
-        public DbSet<MonitoringRTGS> MonitoringRTGS { get; set; }
+        public DbSet<T_Kliring> T_Kliring {get; set; }
+        public DbSet<T_RTGS> T_RTGS { get; set; }
         #endregion
     }
 }

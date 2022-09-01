@@ -18,6 +18,12 @@ namespace Ririn.Controllers.Master
             return View();
         }
 
+        public IActionResult GetAll()
+        {
+            var result = _context.Bank.ToList();
+            return Ok(new {data = result});
+        }
+
         public IActionResult Save(Bank bank)
         {
             if(bank.Id == 0)
@@ -35,6 +41,12 @@ namespace Ririn.Controllers.Master
             _context.SaveChanges();
 
             return Ok(bank);
+        }
+
+        public IActionResult Delete(int Id)
+        {
+            //_context.Entry(del).state = entitystate.modified
+            return Ok();
         }
     }
 
