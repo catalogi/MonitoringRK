@@ -10,7 +10,7 @@ namespace Ririn.Models.Transaksi
         public string NoReferensi { get; set; }
         public string NamaPenerima { get; set; }
         public Bank Bank { get; set; }
-        public int? BankId { get; set; }
+        public int BankId { get; set; }
         public string NomorRekening { get; set; }
         public decimal Nominal { get; set; }
         public Cabang Cabang { get; set; }
@@ -31,9 +31,9 @@ namespace Ririn.Models.Transaksi
         public string path { get; set; }
         public DateTime? TanggalDone { get; set; }
         public User Creater { get; set; }
-        public int? CreateId { get; set; }
-        public User Accepted { get; set; }
-        public int? AcceptedId { get; set; }
+        public string? CreaterId { get; set; }
+        public User Acceptor { get; set; }
+        public string? AcceptorId { get; set; }
 
     }
 }

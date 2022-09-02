@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
 
@@ -18,10 +19,15 @@ namespace Ririn.Controllers.Master
             return View();
         }
 
-        public IActionResult GetAll()
+        public JsonResult Get()
         {
             var result = _context.Bank.ToList();
-            return Ok(new {data = result});
+            return Json(new {data = result});
+        }
+        public JsonResult GetById(int Id)
+        {
+            var data = _context.Bank.Single(x => x.Id == Id);
+            return Json(new { data = data });
         }
 
         public JsonResult Save(Bank bank)
@@ -37,16 +43,25 @@ namespace Ririn.Controllers.Master
                 data.KodeBIC = bank.KodeBIC;
                 data.KodeKliring = bank.KodeKliring;
                 data.IsDeleted = false;
+                _context.Entry(data).State = EntityState.Modified;
             }
             _context.SaveChanges();
 
-            return Ok(bank);
+            return Json(bank);
         }
 
-        public IActionResult Delete(int Id)
+        public JsonResult Delete(int Id)
         {
-            //_context.Entry(del).state = entitystate.modified
-            return Ok();
+            bool result = false;
+            Bank bank = _context.Bank.Single(x => x.Id == Id);
+            if(bank != null)
+            {
+                bank.IsDeleted = true;
+                _context.Entry(bank).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
         }
     }
 

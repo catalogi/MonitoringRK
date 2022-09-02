@@ -13,175 +13,80 @@ namespace Ririn.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        //private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(SignInManager<User> signInManager,
             UserManager<User> userManager, AppDbContext context,
-            RoleManager<IdentityRole> roleManager)
+            /*RoleManager<IdentityRole> roleManager*/)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = _roleManager;
+            //_roleManager = _roleManager;
             _context = context;
         }
 
-        public void addUsers(){
+        public async Task<JsonResult> Save(RegisterVM data)
+        {
+            var success = false;
 
-            //insert KCP
-            #region 
-            //int index = 0;
-            //var data = _context.KantorCabangPembantu.Where(x=>x.KantorCabangUtama.WilayahId == 1).ToList();
-
-            //foreach(var item in data){
-            //    string npp = "10";
-            //    if(index.ToString().Length == 1){
-            //         npp += "000" + index;
-            //    }
-            //    else if(index.ToString().Length == 2){
-            //         npp += "00" + index;
-            //    }
-            //    else if(index.ToString().Length == 3){
-            //         npp += "0" + index;
-            //    }
-            //    else{
-            //        npp += index;
-            //    }
-
-            //    var kcu = _context.KantorCabangUtama.Where(x=>x.Id == item.KantorCabangUtamaId).FirstOrDefault();
-            //    var wil = _context.Wilayah.Where(x=>x.Id == kcu!.WilayahId).FirstOrDefault();
-
-            //    User user = new User{
-            //        Nama = "KCP " + item.Nama,
-            //        NPP = npp,
-            //        UserName = npp,
-            //        JabatanId = 1,
-            //        KantorCabangPembantuId = item.Id,
-            //        KantorCabangUtamaId = kcu!.Id,
-            //        WilayahId = wil!.Id
-            //    };
-            //    var pwd = "BNI"+npp;
-            //    _userManager.CreateAsync(user, pwd).Wait();
-            //    index++;
-            //}
-            #endregion
-
-            //insert KCU
-            #region 
-            //int index = 0;
-            //var data = _context.KantorCabangUtama.ToList();
-
-            //foreach (var item in data)
-            //{
-            //    string npp = "20";
-            //    if (index.ToString().Length == 1)
-            //    {
-            //        npp += "000" + index;
-            //    }
-            //    else if (index.ToString().Length == 2)
-            //    {
-            //        npp += "00" + index;
-            //    }
-            //    else if (index.ToString().Length == 3)
-            //    {
-            //        npp += "0" + index;
-            //    }
-            //    else
-            //    {
-            //        npp += index;
-            //    }
-
-            //    var wil = _context.Wilayah.Where(x => x.Id == item.WilayahId).FirstOrDefault();
-            //    //var wil = _context.Wilayah.Where(x => x.Id == kcu!.WilayahId).FirstOrDefault();
-
-            //    User user = new User
-            //    {
-            //        Nama = "KCU " + item.Nama,
-            //        NPP = npp,
-            //        UserName = npp,
-            //        JabatanId = 1,
-            //        //KantorCabangPembantuId = item.Id,
-            //        KantorCabangUtamaId = item.Id,
-            //        WilayahId = wil!.Id
-            //    };
-            //    var pwd = "BNI" + npp;
-            //    _userManager.CreateAsync(user, pwd).Wait();
-            //    index++;
-            //}
-            #endregion
-
-            //insert Wilayah
-            #region 
-            //int index = 0;
-            //var data = _context.Wilayah.ToList();
-
-            //foreach (var item in data)
-            //{
-            //    string npp = "30";
-            //    if (index.ToString().Length == 1)
-            //    {
-            //        npp += "000" + index;
-            //    }
-            //    else if (index.ToString().Length == 2)
-            //    {
-            //        npp += "00" + index;
-            //    }
-            //    else if (index.ToString().Length == 3)
-            //    {
-            //        npp += "0" + index;
-            //    }
-            //    else
-            //    {
-            //        npp += index;
-            //    }
-
-            //    //var wil = _context.Wilayah.Where(x => x.Id == item.WilayahId).FirstOrDefault();
-            //    //var wil = _context.Wilayah.Where(x => x.Id == kcu!.WilayahId).FirstOrDefault();
-
-            //    User user = new User
-            //    {
-            //        Nama = item.Nama,
-            //        NPP = npp,
-            //        UserName = npp,
-            //        JabatanId = 1,
-            //        //KantorCabangPembantuId = item.Id,
-            //        //KantorCabangUtamaId = item.Id,
-            //       WilayahId = item.Id
-            //    };
-            //    var pwd = "BNI" + npp;
-            //    _userManager.CreateAsync(user, pwd).Wait();
-            //    index++;
-            //}
-            #endregion
-
-            //insert OPR
-            #region 
-
-            User user = new User
+            if (data.Id == null)
             {
-                Nama = "Admin",
-                NPP = "80001",
-                UserName = "80001",
-                KelompokId = null,
-                UnitId = null
+                var user = new User
+                {
+                    Nama = data.Nama,
+                    NPP = data.NPP,
+                    UserName = data.NPP,
+                    UnitId = data.UnitId,
+                    KelompokId = data.KelompokId,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                };
+                var pwd = "BNI" + data.NPP;
+                var result = await _userManager.CreateAsync(user, pwd);
+                if (result.Succeeded)
+                {
+                    var createdUser = await _userManager.FindByNameAsync(data.NPP);
 
-            };
-            var pwd = "BNI" + "80001";
-            _userManager.CreateAsync(user, pwd).Wait();
-
-            #endregion
-        }
-
-        public void addNewRole(){
-            List<string> roleName = new List<string>{
-                "Admin", "Inputer", "Penyelia", "Pengelola","Pimkel"
-            };
-            foreach(var item in roleName){
-                var role = new IdentityRole();
-                role.Name = item;
-                role.NormalizedName = item;
-                _context.Roles.Add(role);
-                _context.SaveChanges();
+                    success = true;
+                    foreach (var item in data.Roles)
+                    {
+                        var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
+                    }
+                    return Json(success);
+                }
             }
+            else
+            {
+                var UserDb = _context.User.Single(x=>x.NPP == data.NPP);
+                UserDb.Nama = data.Nama;
+                UserDb.NPP = data.NPP;
+                UserDb.KelompokId = data.KelompokId;
+                UserDb.UnitId = data.UnitId;
+
+                var result = await _userManager.UpdateAsync(UserDb);
+                if (result.Succeeded)
+                {
+                    var role = _userManager.GetRolesAsync(UserDb);
+
+                    //Remove Role From USer
+                    foreach(var item in role.Result)
+                    {
+                        await _userManager.RemoveFromRoleAsync(UserDb, item);
+                    }
+
+                    //Add Role to User
+                    foreach(var item in data.Roles)
+                    {
+                        var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
+                    }
+                }
+                    success = true;
+            }
+
+            return Json(success);
         }
 
         [HttpGet]
