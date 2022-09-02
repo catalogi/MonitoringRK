@@ -24,7 +24,7 @@ namespace Ririn.Controllers.Master
             return Ok(new {data = result});
         }
 
-        public IActionResult Save(Bank bank)
+        public JsonResult Save(Bank bank)
         {
             if(bank.Id == 0)
             {
