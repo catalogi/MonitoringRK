@@ -17,13 +17,18 @@ namespace Ririn.Controllers.Master
         {
             return View();
         }
-        public IActionResult GetAll()
+        public JsonResult Get()
         {
-            var result = _context.Cabang.ToList();
-            return Ok(new { data = result });
+            var data = _context.Cabang.ToList();
+            return Json(new { data = data });
+        }
+        public JsonResult GetById(int Id)
+        {
+            var data = _context.Cabang.Single(x => x.Id == Id);
+            return Json(new { data = data });
         }
 
-        public IActionResult Save(Cabang cabang)
+        public JsonResult Save(Cabang cabang)
         {
             if (cabang.Id == 0)
             {
@@ -36,10 +41,24 @@ namespace Ririn.Controllers.Master
                 data.KodeCabang = cabang.KodeCabang;
                 data.Sandi = cabang.Sandi;
                 data.isDeleted = false;
+                _context.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
             }
             _context.SaveChanges();
 
-            return Ok(cabang);
+            return Json(cabang);
+        }
+        public JsonResult Delete(int Id)
+        {
+            bool result = false;
+            var data = _context.Cabang.Single(x => x.Id == Id);
+            if (data != null)
+            {
+                _context.Cabang.Remove(data);
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(data);
         }
     }
 }

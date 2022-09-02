@@ -42,6 +42,7 @@ namespace Ririn.Controllers.Master
                 data.KodeBIC = bank.KodeBIC;
                 data.KodeKliring = bank.KodeKliring;
                 data.IsDeleted = false;
+                _context.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             }
             _context.SaveChanges();
 
