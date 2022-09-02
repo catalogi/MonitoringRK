@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
 
@@ -17,6 +18,7 @@ namespace Ririn.Controllers.Master
         {
             return View();
         }
+<<<<<<< HEAD
         public JsonResult Get()
         {
             var data = _context.Cabang.ToList();
@@ -26,6 +28,12 @@ namespace Ririn.Controllers.Master
         {
             var data = _context.Cabang.Single(x => x.Id == Id);
             return Json(new { data = data });
+=======
+        public JsonResult GetAll()
+        {
+            var result = _context.Cabang.ToList();
+            return Json(new { data = result });
+>>>>>>> 578c1a2cd60608e95790b07704cba8346f10834e
         }
 
         public JsonResult Save(Cabang cabang)
@@ -41,8 +49,12 @@ namespace Ririn.Controllers.Master
                 data.KodeCabang = cabang.KodeCabang;
                 data.Sandi = cabang.Sandi;
                 data.isDeleted = false;
+<<<<<<< HEAD
                 _context.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
+=======
+                _context.Entry(data).State= EntityState.Modified;
+>>>>>>> 578c1a2cd60608e95790b07704cba8346f10834e
             }
             _context.SaveChanges();
 
@@ -51,6 +63,7 @@ namespace Ririn.Controllers.Master
         public JsonResult Delete(int Id)
         {
             bool result = false;
+<<<<<<< HEAD
             var data = _context.Cabang.Single(x => x.Id == Id);
             if (data != null)
             {
@@ -59,6 +72,17 @@ namespace Ririn.Controllers.Master
                 result = true;
             }
             return Json(data);
+=======
+            var data = _context.Cabang.Single(x=>x.Id==Id);
+            if (data != null)
+            {
+                data.isDeleted=true;
+                _context.Entry(data).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
+>>>>>>> 578c1a2cd60608e95790b07704cba8346f10834e
         }
     }
 }
