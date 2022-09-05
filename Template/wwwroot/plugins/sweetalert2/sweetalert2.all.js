@@ -1431,7 +1431,7 @@
   };
 
   const swalStringParams = ['swal-title', 'swal-html', 'swal-footer'];
-  const getTemplateParams = params => {
+  const getRirinParams = params => {
     const template = typeof params.template === 'string' ? document.querySelector(params.template) : params.template;
 
     if (!template) {
@@ -3279,7 +3279,7 @@
   };
 
   const prepareParams = (userParams, mixinParams) => {
-    const templateParams = getTemplateParams(userParams);
+    const templateParams = getRirinParams(userParams);
     const params = Object.assign({}, defaultParams, mixinParams, templateParams, userParams); // precedence is described in #2131
 
     params.showClass = Object.assign({}, defaultParams.showClass, params.showClass);

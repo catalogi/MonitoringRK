@@ -1,12 +1,12 @@
-﻿using Template.Data;
-using Template.Models.Master;
-//using Template.ViewModels;
+﻿using Ririn.Data;
+using Ririn.Models.Master;
+//using Ririn.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Template.ViewModels;
+using Ririn.ViewModels;
 
-namespace Template.Controllers
+namespace Ririn.Controllers
 {
     public class AccountController : Controller
     {

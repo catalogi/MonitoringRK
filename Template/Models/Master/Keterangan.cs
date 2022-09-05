@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Template.Models.Master
+namespace Ririn.Models.Master
 {
     [Table("Keterangan")]
     public class Keterangan 

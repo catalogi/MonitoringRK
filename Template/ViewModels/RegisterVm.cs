@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Template.ViewModels
+namespace Ririn.ViewModels
 {
     public class RegisterVM
     {

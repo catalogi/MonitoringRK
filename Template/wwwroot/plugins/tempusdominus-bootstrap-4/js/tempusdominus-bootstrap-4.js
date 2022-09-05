@@ -2075,13 +2075,13 @@ var TempusDominusBootstrap4 = function ($) {
       }
     };
 
-    _proto2._getDatePickerTemplate = function _getDatePickerTemplate() {
-      var headTemplate = $('<thead>').append($('<tr>').append($('<th>').addClass('prev').attr('data-action', 'previous').append(this._iconTag(this._options.icons.previous))).append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', "" + (this._options.calendarWeeks ? '6' : '5'))).append($('<th>').addClass('next').attr('data-action', 'next').append(this._iconTag(this._options.icons.next)))),
-          contTemplate = $('<tbody>').append($('<tr>').append($('<td>').attr('colspan', "" + (this._options.calendarWeeks ? '8' : '7'))));
-      return [$('<div>').addClass('datepicker-days').append($('<table>').addClass('table table-sm').append(headTemplate).append($('<tbody>'))), $('<div>').addClass('datepicker-months').append($('<table>').addClass('table-condensed').append(headTemplate.clone()).append(contTemplate.clone())), $('<div>').addClass('datepicker-years').append($('<table>').addClass('table-condensed').append(headTemplate.clone()).append(contTemplate.clone())), $('<div>').addClass('datepicker-decades').append($('<table>').addClass('table-condensed').append(headTemplate.clone()).append(contTemplate.clone()))];
+    _proto2._getDatePickerRirin = function _getDatePickerRirin() {
+      var headRirin = $('<thead>').append($('<tr>').append($('<th>').addClass('prev').attr('data-action', 'previous').append(this._iconTag(this._options.icons.previous))).append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', "" + (this._options.calendarWeeks ? '6' : '5'))).append($('<th>').addClass('next').attr('data-action', 'next').append(this._iconTag(this._options.icons.next)))),
+          contRirin = $('<tbody>').append($('<tr>').append($('<td>').attr('colspan', "" + (this._options.calendarWeeks ? '8' : '7'))));
+      return [$('<div>').addClass('datepicker-days').append($('<table>').addClass('table table-sm').append(headRirin).append($('<tbody>'))), $('<div>').addClass('datepicker-months').append($('<table>').addClass('table-condensed').append(headRirin.clone()).append(contRirin.clone())), $('<div>').addClass('datepicker-years').append($('<table>').addClass('table-condensed').append(headRirin.clone()).append(contRirin.clone())), $('<div>').addClass('datepicker-decades').append($('<table>').addClass('table-condensed').append(headRirin.clone()).append(contRirin.clone()))];
     };
 
-    _proto2._getTimePickerMainTemplate = function _getTimePickerMainTemplate() {
+    _proto2._getTimePickerMainRirin = function _getTimePickerMainRirin() {
       var topRow = $('<tr>'),
           middleRow = $('<tr>'),
           bottomRow = $('<tr>');
@@ -2162,11 +2162,11 @@ var TempusDominusBootstrap4 = function ($) {
       return $('<div>').addClass('timepicker-picker').append($('<table>').addClass('table-condensed').append([topRow, middleRow, bottomRow]));
     };
 
-    _proto2._getTimePickerTemplate = function _getTimePickerTemplate() {
+    _proto2._getTimePickerRirin = function _getTimePickerRirin() {
       var hoursView = $('<div>').addClass('timepicker-hours').append($('<table>').addClass('table-condensed')),
           minutesView = $('<div>').addClass('timepicker-minutes').append($('<table>').addClass('table-condensed')),
           secondsView = $('<div>').addClass('timepicker-seconds').append($('<table>').addClass('table-condensed')),
-          ret = [this._getTimePickerMainTemplate()];
+          ret = [this._getTimePickerMainRirin()];
 
       if (this._isEnabled('h')) {
         ret.push(hoursView);
@@ -2235,10 +2235,10 @@ var TempusDominusBootstrap4 = function ($) {
       return row.length === 0 ? '' : $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
     };
 
-    _proto2._getTemplate = function _getTemplate() {
+    _proto2._getRirin = function _getRirin() {
       var template = $('<div>').addClass(("bootstrap-datetimepicker-widget dropdown-menu " + (this._options.calendarWeeks ? 'tempusdominus-bootstrap-datetimepicker-widget-with-calendar-weeks' : '') + " " + ((this._useFeatherIcons() ? 'tempusdominus-bootstrap-datetimepicker-widget-with-feather-icons' : '') + " ")).trim()),
-          dateView = $('<div>').addClass('datepicker').append(this._getDatePickerTemplate()),
-          timeView = $('<div>').addClass('timepicker').append(this._getTimePickerTemplate()),
+          dateView = $('<div>').addClass('datepicker').append(this._getDatePickerRirin()),
+          timeView = $('<div>').addClass('timepicker').append(this._getTimePickerRirin()),
           content = $('<ul>').addClass('list-unstyled'),
           toolbar = $('<li>').addClass(("picker-switch" + (this._options.collapse ? ' accordion-toggle' : '') + " " + ("" + (this._useFeatherIcons() ? 'picker-switch-with-feathers-icons' : ''))).trim()).append(this._getToolbar());
 
@@ -3214,7 +3214,7 @@ var TempusDominusBootstrap4 = function ($) {
         this._setValue(currentMoment, 0);
       }
 
-      this.widget = this._getTemplate();
+      this.widget = this._getRirin();
 
       this._fillDow();
 

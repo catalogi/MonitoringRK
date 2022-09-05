@@ -1,16 +1,16 @@
-﻿using Template.Models;
-//using Template.ViewModels;
+﻿using Ririn.Models;
+//using Ririn.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Template.Data;
+using Ririn.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Template.Models.Master;
+using Ririn.Models.Master;
 using Microsoft.Data.SqlClient;
 using Dapper;
 
-namespace Template.Controllers
+namespace Ririn.Controllers
 {
     //[Authorize]
     public class HomeController : Controller
