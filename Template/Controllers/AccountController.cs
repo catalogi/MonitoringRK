@@ -25,6 +25,20 @@ namespace Ririn.Controllers
             //_roleManager = _roleManager;
             _context = context;
         }
+        public void addNewRole()
+        {
+            List<string> roleName = new List<string>{
+                "Admin", "Inputer", "Checker", "Approver","Auditor","Reviewer"
+            };
+            foreach (var item in roleName)
+            {
+                var role = new IdentityRole();
+                role.Name = item;
+                role.NormalizedName = item;
+                _context.Roles.Add(role);
+                _context.SaveChanges();
+            }
+        }
         public IActionResult Index()
         {
             return View();
@@ -39,10 +53,15 @@ namespace Ririn.Controllers
             var data = _context.User.Single(x => x.Id == Id);
             return Json(new { data = data });
         }
+        public JsonResult GetKelompok()
+        {
+            var result = _context.Kelompok.ToList();
+            return Json(result);
+        }
 
         public async Task<JsonResult> Save(RegisterVM data)
         {
-            var success = true;
+            var success = false;
 
             if (data.Id != null)
             {
