@@ -43,11 +43,8 @@ namespace Ririn.Controllers.Master
                 data.KodeBIC = bank.KodeBIC;
                 data.KodeKliring = bank.KodeKliring;
                 data.IsDeleted = false;
-<<<<<<< HEAD
-                _context.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-=======
                 _context.Entry(data).State = EntityState.Modified;
->>>>>>> 578c1a2cd60608e95790b07704cba8346f10834e
+
             }
             _context.SaveChanges();
 
@@ -61,7 +58,7 @@ namespace Ririn.Controllers.Master
             if(bank != null)
             {
                 bank.IsDeleted = true;
-                _context.Entry(bank).State = EntityState.Modified;
+                _context.Bank.Remove(bank);
                 _context.SaveChanges();
                 result = true;
             }

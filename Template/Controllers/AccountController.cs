@@ -14,9 +14,10 @@ namespace Ririn.Controllers
         private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
         //private readonly RoleManager<IdentityRole> _roleManager;
+        
 
         public AccountController(SignInManager<User> signInManager,
-            UserManager<User> userManager, AppDbContext context,
+            UserManager<User> userManager, AppDbContext context
             /*RoleManager<IdentityRole> roleManager*/)
         {
             _signInManager = signInManager;
@@ -24,12 +25,26 @@ namespace Ririn.Controllers
             //_roleManager = _roleManager;
             _context = context;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public JsonResult Get()
+        {
+            var data = _context.User.ToList().OrderBy(x => x.Nama);
+            return Json(new { data = data });
+        }
+        public JsonResult GetById(string Id)
+        {
+            var data = _context.User.Single(x => x.Id == Id);
+            return Json(new { data = data });
+        }
 
         public async Task<JsonResult> Save(RegisterVM data)
         {
-            var success = false;
+            var success = true;
 
-            if (data.Id == null)
+            if (data.Id != null)
             {
                 var user = new User
                 {
@@ -60,7 +75,7 @@ namespace Ririn.Controllers
             }
             else
             {
-                var UserDb = _context.User.Single(x=>x.NPP == data.NPP);
+                var UserDb = _context.User.SingleOrDefault(x=>x.NPP == data.NPP);
                 UserDb.Nama = data.Nama;
                 UserDb.NPP = data.NPP;
                 UserDb.KelompokId = data.KelompokId;
