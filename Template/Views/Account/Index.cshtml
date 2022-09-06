@@ -27,20 +27,15 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Kelompok</label>
                         <div class="col-sm-6">
-                            <select id="Kelompok" data-placement="choose" class="form-control select2">
-                                <option selected="select" value="Pilih Kelompok">Pilih Kelompok</option>
-                                <option value="1">PGO</option>
-                                <option value="2">KKR</option>
+                            <select id="kelompok" name="kelompok" data-placement="choose" class="form-control select2">
+                                <option value="">--Kelompok--</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Unit</label>
                         <div class="col-sm-6">
-                            <select id="Role" data-placement="choose" class="form-control select2 Tipe">
-                                <option selected="selected" value="Admin">Admin</option>
-                                <option value="1">Kliring</option>
-                                <option value="2">RTGS</option>
+                            <select id="unit" name="unit" data-placement="choose" class="form-control select2 Tipe">
                             </select>
                         </div>
                     </div>
@@ -48,7 +43,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="Save" onclick="Save();">Simpan</button>
+                <button type="button" class="btn btn-primary" id="Save" onclick="Validation();">Simpan</button>
                 <button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>
             </div>
         </div>
@@ -60,7 +55,6 @@
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info" style="background-color:#319DA0">
                 <h3 class="card-title font-weight-bold">User Management</h3>
-                <p class="card-text">tambah / perbarui / hapus data</p>
                 <a class="btn btn-danger float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>
             </div>
             <div class="card-body">
@@ -90,7 +84,7 @@
     function read() {
         var t = $("#table").DataTable({
             "ajax": {
-                "url": "@Url.Action("Get","Account")",
+                "url": "@Url.Action("GetList","Account")",
                 "type": "GET",
                 "datatype": "json"
             },
@@ -113,7 +107,30 @@
                 cell.innerHTML = i + 1;
             });
         }).draw();
+
+        $,ajax({
+            url:"@Url.Action("GetAllKelompok","Master")",
+            type:"get",
+            dataType:"json",
+            success:function({data}){
+
+            }
+        })
     }
+    $("select[name=KelompokId]").on("change", function() {
+        $.ajax({
+            url: "@Url.Action("GetUnitBy","Master")/"+$(this).val(),
+            type:"get",
+            dataType:"json",
+            success:function({data}){
+                $("select[name=UnitId]").empty();
+                $("select[name=UnitId]").append(`<option value="">--Unit--</option>`)
+                $.each(data, function(i,Unit){
+                    $("select[name=UnitId]").append(`<option value="${Unit.Id}">${Unit.nama}`)
+                })
+            }
+        });
+    });
     function Save() {
         console.log(data);
         debugger;
@@ -151,7 +168,7 @@
         })
     }
     function Edit() {
-        
+
         console.log(data);
         var data = new Object();
         //data.id = $("#UserId").val();

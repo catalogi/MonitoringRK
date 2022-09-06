@@ -26,6 +26,11 @@ namespace Ririn.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public async Task<JsonResult> Save(RegisterVM data)
         {
             var success = false;
@@ -105,41 +110,26 @@ namespace Ririn.Controllers
 
         #region Get Data
 
-        public IActionResult GetList(string? Id)
+        public JsonResult GetList(string? Id)
         {
             if (Id != null)
             {
                 var result = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.Id == Id).SingleOrDefault();
-                return Ok(new { data = result });
+                return Json(result);
             }
             else
             {
                 var result = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).ToList();
-                return Ok(new { data = result });
+                return Json(result);
             }
         }
 
-        public IActionResult GetById(string id)
+        public IActionResult GetById(string? id)
         {
             var result = _context.User.Where(x => x.Id == id).FirstOrDefault();
             return Ok(new { data = result });
         }
 
-        public IActionResult GetKelompok()
-        {
-            var result = _context.Kelompok.ToList();
-            return Ok(new { data = result });
-        }
-        public IActionResult GetUnit()
-        {
-            var result = _context.Unit.ToList();
-            return Ok(new { data = result });
-        }
-        public JsonResult GetUnitBy(int? id)
-        {
-            var result = _context.Unit.Include(x => x.Kelompok).Where(x => x.KelompokId == id).ToList();
-            return Json(result);
-        }
 
         public IActionResult GetRoles(string? Id)
         {
