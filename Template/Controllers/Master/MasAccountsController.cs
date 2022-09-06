@@ -1,13 +1,13 @@
-﻿using Template.Data;
-using Template.Models.Master;
-using Template.ViewModels;
+﻿using Ririn.Data;
+using Ririn.Models.Master;
+using Ririn.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Template.Controllers.Transaction
+namespace Ririn.Controllers.Transaction
 {
     public class MasAccountsController : Controller
     {

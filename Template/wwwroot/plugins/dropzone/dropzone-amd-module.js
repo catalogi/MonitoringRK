@@ -7560,7 +7560,7 @@ var defaultOptions = {
    *       .innerHTML
    *
    */
-  previewTemplate: preview_template,
+  previewRirin: preview_template,
 
   /*
    Those functions register themselves to the events on init and handle all
@@ -7603,8 +7603,8 @@ var defaultOptions = {
     }
 
     if (this.previewsContainer && !this.options.disablePreviews) {
-      file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
-      file.previewTemplate = file.previewElement; // Backwards compatibility
+      file.previewElement = Dropzone.createElement(this.options.previewRirin.trim());
+      file.previewRirin = file.previewElement; // Backwards compatibility
 
       this.previewsContainer.appendChild(file.previewElement);
 
@@ -7923,7 +7923,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
     _this.element.dropzone = _assertThisInitialized(_this);
     var elementOptions = (left = Dropzone.optionsForElement(_this.element)) != null ? left : {};
     _this.options = Dropzone.extend({}, src_options, elementOptions, options != null ? options : {});
-    _this.options.previewTemplate = _this.options.previewTemplate.replace(/\n*/g, ""); // If the browser failed, just call the fallback and leave
+    _this.options.previewRirin = _this.options.previewRirin.replace(/\n*/g, ""); // If the browser failed, just call the fallback and leave
 
     if (_this.options.forceFallback || !Dropzone.isBrowserSupported()) {
       return _possibleConstructorReturn(_this, _this.options.fallback.call(_assertThisInitialized(_this)));

@@ -1,18 +1,23 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Template.ViewModels
+namespace Ririn.ViewModels
 {
     public class RegisterVM
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nama { get; set; }
         public string NPP { get; set; }
         public int? KelompokId { get; set; }
         public int? UnitId { get; set; }
+        public ICollection<RoleVM> Roles { get; set; }
 
     }
 
+    public class RoleVM
+    {
+        public string RoleName { get; set; }
+    }
     public class LoginVM
     {
         [Required]
