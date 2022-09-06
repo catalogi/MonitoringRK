@@ -36,6 +36,27 @@ namespace Ririn.Controllers.Transaksi
             var result = _context.T_Kliring.ToList();
             return Ok(new { data = result });
         }
+        public JsonResult GetTypes()
+        {
+            var data = _context.TypeTrans.Where(x => x.Type == "Kliring" +
+            "").ToList();
+            return Json(data);
+        }
+        public JsonResult GetBank()
+        {
+            var data = _context.Bank.ToList();
+            return Json(data);
+        }
+        public JsonResult GetAlasan()
+        {
+            var data = _context.Alasan.ToList();
+            return Json(data);
+        }
 
+        public JsonResult GetCabang()
+        {
+            var data = _context.Cabang.ToList();
+            return Json(data);
+        }
     }
 }

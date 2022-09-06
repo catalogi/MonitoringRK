@@ -474,22 +474,16 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AcceptedId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AcceptedId1")
+                    b.Property<string>("AcceptorId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("AlasanId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BankId")
+                    b.Property<int>("BankId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CabangId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreateId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Createdate")
@@ -559,7 +553,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AcceptedId1");
+                    b.HasIndex("AcceptorId");
 
                     b.HasIndex("AlasanId");
 
@@ -768,9 +762,9 @@ namespace ASK_Core.Migrations
 
             modelBuilder.Entity("Ririn.Models.Transaksi.T_Kliring", b =>
                 {
-                    b.HasOne("Ririn.Models.Master.User", "Accepted")
+                    b.HasOne("Ririn.Models.Master.User", "Acceptor")
                         .WithMany()
-                        .HasForeignKey("AcceptedId1");
+                        .HasForeignKey("AcceptorId");
 
                     b.HasOne("Ririn.Models.Master.Alasan", "Alasan")
                         .WithMany()
@@ -778,7 +772,9 @@ namespace ASK_Core.Migrations
 
                     b.HasOne("Ririn.Models.Master.Bank", "Bank")
                         .WithMany()
-                        .HasForeignKey("BankId");
+                        .HasForeignKey("BankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Ririn.Models.Master.Cabang", "Cabang")
                         .WithMany()
@@ -804,7 +800,7 @@ namespace ASK_Core.Migrations
                         .WithMany()
                         .HasForeignKey("TypeId");
 
-                    b.Navigation("Accepted");
+                    b.Navigation("Acceptor");
 
                     b.Navigation("Alasan");
 

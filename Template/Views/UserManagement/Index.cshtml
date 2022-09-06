@@ -1,0 +1,81 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        <input type="text" id="UserId" />
+                        <label class="col-sm-3 control-label">Nama</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="Nama" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">NPP</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="NPP" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Kelompok</label>
+                        <div class="col-sm-6">
+                            <select required Id="Kelompok" data-placement="choose" class="form-control select2"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Role</label>
+                        <div class="col-sm-6">
+                            <select id="Role" data-placement="choose" class="form-control select2 Tipe">
+                                <option selected="selected" value="Admin">Admin</option>
+                                <option value="Kliring">Kliring</option>
+                                <option value="RTGS">RTGS</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="Save" onclick="Validation();">Simpan</button>
+                <button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container">
+        <div class="card" style="background-color:white">
+    <div class="card-header card-header-info" style="background-color:#319DA0">
+        <h3 class="card-title font-weight-bold">User Management</h3>
+        <p class="card-text">tambah / perbarui / hapus data</p>
+        <a class="btn btn-danger float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>
+    </div>
+    <div class="card-body">
+        <table id="table" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>NPP</th>
+                    <th>Unit</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+    </div>
+</section>
+
