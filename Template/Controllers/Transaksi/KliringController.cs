@@ -43,11 +43,11 @@ namespace Ririn.Controllers.Transaksi
         public IActionResult GetAll()
         {
             var result = _context.T_Kliring.Include(x => x.BankId)
-                .Include(x => x.KeteranganId)
-                .Include(x=>x.AlasanId)
-                .Include(x=>x.TestkeyId)
-                .Include(x=>x.BankId)
-                .Include(x=>x.CabangId).ToList();
+                .Include(x => x.Keterangan)
+                .Include(x=>x.Alasan)
+                .Include(x=>x.Testkey)
+                .Include(x=>x.Bank)
+                .Include(x=>x.Cabang).ToList();
             return Ok(new { data = result });
         }
 
