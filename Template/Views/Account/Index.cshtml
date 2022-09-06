@@ -114,7 +114,7 @@
             dataType:"json",
             success:function({data}){
                 $.Each(data, function(i, kel){
-                    $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option>`)
+                    $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
                 })
             }
         })

@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <div class="container">
+<div class="card">
+            <div class="card-header card-header-info" style="background-color:lightblue">
+                <h4 class="card-title font-weight-bolder">Register</h4>
+        <p class="card-text">TesKey / Surat</p>
+    </div>
+    <div class="card-body">
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4">
+                <label class="bmd-label-floating">Tipe Surat</label>
+                <br />
+                <select required Id="Tipe" data-placement="choose" class="form-control select2 Tipe"></select>
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="bmd-label-floating">Tanggal Transaksi</label>
+                <input id="TanggalTRX" type="date" class="form-control datepicker" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 NoReferensi">
+                <label class="control-label">Nomor Referensi</label>
+                <input id="NoReferensi" type="text" class="form-control" />
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="bmd-label-floating">Divisi / Cabang</label>
+                <br />
+                <select required Id="Cabang" data-placement="choose" class="form-control select2"></select>
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4">
+                <label class="bmd-label-floating">Tanggal Surat</label>
+                <input id="TanggalSurat" type="date" class="form-control datepicker" />
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="bmd-label-floating">Tanggal TestKey</label>
+                <input id="TanggalTK" type="tel" class="form-control datepicker" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4">
+                <label class="bmd-label-floating">Nomor Surat</label>
+                <input id="NomorSurat" type="text" class="form-control" />
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="control-label">Nomor Teskey</label>
+                <input id="NoTeskey" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 Nama">
+                <label class="control-label">Nama</label>
+                <input id="Nama" type="text" class="form-control" />
+            </div>
+            <div class="col-md-4 offset-md-1 NomorRekening">
+                <label class="control-label">Nomor Rekening</label>
+                <input id="NomorRekening" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4">
+                <label class="control-label ">Nominal</label>
+                <input id="Nominal" type="text" class="form-control number" />
+            </div>
+            <div class="col-md-4 offset-md-1 ">
+                <label class="control-label ">Nominal Seharusnya</label>
+                <input id="Nominal2" type="text" class="form-control number" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 BTujuan">
+                <label class="control-label">Bank</label>
+                <select required Id="BTujuan" data-placement="choose" class="form-control select2 bank"></select>
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 Reason">
+                <label class="control-label">Alasan</label>
+                <br />
+                <select required Id="Reason" onchange="AddReason();" data-placement="choose" class="form-control select2"></select>
+                <div id="Reason-div">
+                    <label class="control-label">New Reason</label>
+                    <br />
+                    <input id="newReason" class="form-control" type="text" />
+                </div>
+            </div>
+            <div class="col-md-4 offset-md-1 Evidence">
+                <label class="control-label">Evidence</label>
+                <br />
+                <input type="hidden" id="Path" />
+                <input type="file" class="inputFileHidden" accept=".pdf" id="Upload" style="min-width:100%">
+                @*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
+            </div>
+        </div>
+        <div class="offset-md-8">
+            <a class="btn btn-primary text-white" id="Save">Save</a>
+            <a class="btn btn-primary text-white" href="@Url.Action("Index","Home")" style="margin-left:10px;">Back</a>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function (){
+            GetTypes();
+            GetBank();
+            GetAlasan();
+            GetCabang();
+        })
+
+        function GetTypes(){
+            $.ajax({
+                "url":"@Url.Action("GetTypes","Kliring")",
+                "type":"Get",
+                "datatype":"json"
+            }).then((result)=>{
+                var Tipe = $("#Tipe");
+                Tipe.html('');
+                $("<option></option>").val('').text('Pilih Tipe Surat').appendTo(Tipe);
+                $.each(result,function (i,value){
+                    $("<option></option>").val(value.id).text(value.Type).appendTo(Tipe);
+                });
+            })
+        }
+
+        function GetBank(){
+            $.ajax({
+                "url": "@Url.Action("GetBank","Kliring")",
+                "type":"Get"
+                "datatype":"json"
+            }).then((result)=> {
+                var bank = $("#BTujuan");
+                bank.html('');
+                $("<option></option>").val('').text('Pilih Bank').appendTo(bank);
+                $.each(result, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.Name).appendTo(bank);
+                    });
+            })
+        }      
+        
+        function GetAlasan(){
+            $.ajax({
+                "url": "@Url.Action("GetAlasan","Kliring")",
+                "type":"Get"
+                "datatype":"json"
+            }).then((result)=> {
+                var alasan = $("#Reason");
+                alasan.html('');
+                $("<option></option>").val('').text('Pilih Alasan').appendTo(alasan);
+                $.each(result, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.Name).appendTo(alasan);
+                    });
+            })
+        }      
+        
+        function GetCabang(){
+            $.ajax({
+                "url": "@Url.Action("GetCabang","Kliring")",
+                "type":"Get"
+                "datatype":"json"
+            }).then((result)=> {
+                var cabang = $("#Cabang");
+                cabang.html('');
+                $("<option></option>").val('').text('Pilih Cabang').appendTo(cabang);
+                $.each(result, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.Name).appendTo(cabang);
+                    });
+            })
+        }
+
+    </script>
+}
