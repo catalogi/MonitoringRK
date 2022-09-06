@@ -166,11 +166,11 @@
                 "type":"Get"
                 "datatype":"json"
             }).then((result)=> {
-                var cabang = $("#Cabang");
-                cabang.html('');
-                $("<option></option>").val('').text('Pilih Cabang').appendTo(cabang);
+                var Cabang = $("#Cabang");
+                Cabang.html('');
+                $("<option></option>").val('').text('Pilih Cabang').appendTo(Cabang);
                 $.each(result, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.Name).appendTo(cabang);
+                    $("<option></option>").val(value.id).text(value.Name).appendTo(Cabang);
                     });
             })
         }
