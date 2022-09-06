@@ -113,7 +113,9 @@
             type:"get",
             dataType:"json",
             success:function({data}){
-
+                $.Each(data, function(i, kel){
+                    $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option>`)
+                })
             }
         })
     }
@@ -126,7 +128,7 @@
                 $("select[name=UnitId]").empty();
                 $("select[name=UnitId]").append(`<option value="">--Unit--</option>`)
                 $.each(data, function(i,Unit){
-                    $("select[name=UnitId]").append(`<option value="${Unit.Id}">${Unit.nama}`)
+                    $("select[name=UnitId]").append(`<option value="${Unit.Id}">${Unit.nama}</option>`)
                 })
             }
         });
