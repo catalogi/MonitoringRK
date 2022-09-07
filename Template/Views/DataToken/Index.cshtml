@@ -11,24 +11,75 @@
                 <h4 class="modal-title" id="myModalLabel">Input Data</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="form-group row">
-                        <input type="hidden" id="cabangId" />
-                        <label class="col-sm-3 control-label">Nama Cabang</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="nama" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Kelompok</label>
+                            <select id="kelompok" name="kelompok" data-placement="choose" class="form-control select2">
+                            </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label">kode Cabang</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kode" />
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">NPP</label>
+                            <input type="text" class="form-control" name="NPP" id="NPP">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label">Sandi Outlet</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="sandi" />
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Modul</label>
+                            <select id="modul" name="modul" data-placement="choose" class="form-control select2">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">User Id</label>
+                            <input type="text" class="form-control" name="userid" id="userid">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">User ID Token</label>
+                            <input type="text" class="form-control" name="useridtoken" id="useridtoken">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="nama">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Perpanjang Token</label>
+                            <input type="date" class="form-control datepicker" name="perpanjangtoken" id="perpanjangtoken">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Group</label>
+                            <input type="text" class="form-control" name="group" id="group">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" id="keterangan">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Approval Limit</label>
+                            <input type="text" class="form-control" name="approve" id="approve">
                         </div>
                     </div>
                 </div>
@@ -80,6 +131,6 @@
 
 <script>
     $(document).ready(function() {
-        read();
-    })
+        $('#table').DataTable();
+    });
 </script>

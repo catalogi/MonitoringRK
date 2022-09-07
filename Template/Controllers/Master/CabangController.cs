@@ -24,11 +24,17 @@ namespace Ririn.Controllers.Master
                 .Where(x=>x.isDeleted == false).ToList();
             return Json(new { data = data });
         }
+        public JsonResult GetById(int Id)
+        {
+            var data = _context.Cabang.Single(x => x.Id == Id);
+            return Json(new { data = data });
+        }
 
         public JsonResult Save(Cabang cabang)
         {
             if (cabang.Id == 0)
             {
+                cabang.isDeleted = false;
                 _context.Cabang.Add(cabang);
             }
             else
