@@ -30,14 +30,7 @@ namespace Ririn.Controllers
         {
             return View();
         }
-        public IActionResult GetAll()
-        {
-            var user = _context.User
-                .Include(x => x.Kelompok)
-                .Include(y => y.Unit)
-                .ToList();
-            return Ok(new { data = user });
-        }
+
         public async Task<JsonResult> Save(RegisterVM data)
         {
             var success = false;
@@ -64,16 +57,16 @@ namespace Ririn.Controllers
                     var createdUser = await _userManager.FindByNameAsync(data.NPP);
 
                     success = true;
-                    foreach (var item in data.Roles)
-                    {
-                        var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
-                    }
+                    //foreach (var item in data.Roles)
+                    //{
+                    //    var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
+                    //}
                     return Json(success);
                 }
             }
             else
             {
-                var UserDb = _context.User.Single(x => x.NPP == data.NPP);
+                var UserDb = _context.User.Single(x => x.Id == data.Id);
                 UserDb.Nama = data.Nama;
                 UserDb.NPP = data.NPP;
                 UserDb.KelompokId = data.KelompokId;
@@ -91,14 +84,14 @@ namespace Ririn.Controllers
                     }
 
                     //Add Role to User
-                    foreach (var item in data.Roles)
-                    {
-                        var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
-                    }
+                    //foreach (var item in data.Roles)
+                    //{
+                    //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
+                    //}
+                    
                 }
                 success = true;
             }
-
             return Json(success);
         }
 
@@ -115,43 +108,29 @@ namespace Ririn.Controllers
             return Json(result);
         }
 
+
         #region Get Data
 
-        public IActionResult GetList(string? Id)
+        public JsonResult GetList(string? Id)
         {
             if (Id != null)
             {
                 var result = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.Id == Id).SingleOrDefault();
-                return Ok(new { data = result });
+                return Json(new { data = result });
             }
             else
             {
                 var result = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).ToList();
-                return Ok(new { data = result });
+                return Json(new { data = result });
             }
         }
 
-        public IActionResult GetById(string id)
+        public JsonResult GetById(string? id)
         {
             var result = _context.User.Where(x => x.Id == id).FirstOrDefault();
-            return Ok(new { data = result });
+            return Json(new { data = result });
         }
 
-        public IActionResult GetKelompok()
-        {
-            var result = _context.Kelompok.ToList();
-            return Ok(new { data = result });
-        }
-        public IActionResult GetUnit()
-        {
-            var result = _context.Unit.ToList();
-            return Ok(new { data = result });
-        }
-        public JsonResult GetUnitBy(int? id)
-        {
-            var result = _context.Unit.Include(x => x.Kelompok).Where(x => x.KelompokId == id).ToList();
-            return Json(result);
-        }
 
         public IActionResult GetRoles(string? Id)
         {
@@ -174,7 +153,7 @@ namespace Ririn.Controllers
             List<string> roleName = new List<string>() {
             "Admin","Kliring","RTGS","Helpdesk"
             };
-            foreach(var item in roleName)
+            foreach (var item in roleName)
             {
                 var role = new IdentityRole();
                 role.Name = item;

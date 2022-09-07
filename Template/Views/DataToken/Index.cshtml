@@ -1,0 +1,85 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        <input type="hidden" id="cabangId" />
+                        <label class="col-sm-3 control-label">Nama Cabang</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="nama" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">kode Cabang</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="kode" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Sandi Outlet</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="sandi" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="Save" onclick="Validation();">Simpan</button>
+                <button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container">
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Data Token</h3>
+
+                <a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>
+            </div>
+            <div class="card-body ">
+                <table id="table" class="table table-bordered">
+                    <thead style="background-color:#319DA0">
+                        <tr>
+                            <th rowspan="2">No</th>
+                            <th rowspan="3">Kel</th>
+                            <th rowspan="4">Modul</th>
+                            <th colspan="5">Pemegang Token</th>
+                            <th rowspan="5">User ID Token</th>
+                            <th rowspan="6">Perpanjangan Token Expired</th>
+                            <th rowspan="7">Keterangan</th>
+                        </tr>
+                        <tr>
+                            <th>NPP</th>
+                            <th>User Id</th>
+                            <th>Nama</th>
+                            <th>Group</th>
+                            <th>Approval Limit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        read();
+    })
+</script>

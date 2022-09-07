@@ -45,14 +45,14 @@
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
-            <div class="card-header card-header-info" style="background-color:#319DA0">
-                <h3 class="card-title">Master Bank</h3>
-                <p class="card-text">tambah / perbarui / hapus data</p>
-                <a class="btn btn-danger float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Master Bank</h3>
+                
+                <a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>
             </div>
             <div class="card-body ">
                 <table id="table" class="table table-bordered">
-                    <thead>
+                    <thead style="background-color:#319DA0">
                         <tr>
                             <th>No</th>
                             <th>Nama Bank</th>
@@ -74,6 +74,7 @@
         read();
     })
 
+
     function read() {
         var t = $("#table").DataTable({
             "ajax": {
@@ -88,7 +89,7 @@
                 { "data": "kodeKliring" },
                 {
                     "render": function(data, type, row) {
-                        return "<button class ='btn btn-warning btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                        return "<button class ='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
                             "<button class ='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fas fa-trash'></i></button>";
                     },
                 },
@@ -109,10 +110,10 @@
         }).then((result) => {
             if (result != null) {
                 console.log(result);
-                $("#bankId").val(result.data.Id);
-                $("#bankname").val(result.data.Nama);
-                $("#kodeBIC").val(result.data.KodeBIC);
-                $("#kodekliring").val(result.data.KodeKliring);
+                $("#bankId").val(result.data.id);
+                $("#bankname").val(result.data.nama);
+                $("#kodeBIC").val(result.data.kodeBIC);
+                $("#kodekliring").val(result.data.kodeKliring);
                 $("#myModal").modal('show');
                 $("#Update").show();
                 $("#Save").hide();
@@ -120,8 +121,10 @@
         })
     }
     function Save() {
+        console.log(data);
         debugger;
         var data = new Object();
+        data.Id = $("#bankId").val();
         data.Nama = $("#bankname").val();
         data.KodeBIC = $("#kodeBIC").val();
         data.KodeKliring = $("#kodekliring").val();
@@ -155,12 +158,12 @@
     }
     function Edit() {
         var data = new Object();
-        dat.Id = $("#bankId").val();
+        data.Id = $("#bankId").val();
         data.Nama = $("#bankname").val();
-        data.KodeBIC = $("#kodebank").val();
+        data.KodeBIC = $("#kodeBIC").val();
         data.KodeKliring = $("#kodekliring").val();
         $.ajax({
-            "url": "@Url.Action("Update","Bank")",
+            "url": "@Url.Action("Save","Bank")",
             "type": "POST",
             "datatype": "json",
             "data": data
