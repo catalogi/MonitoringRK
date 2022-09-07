@@ -74,6 +74,7 @@
         read();
     })
 
+
     function read() {
         var t = $("#table").DataTable({
             "ajax": {
@@ -109,10 +110,10 @@
         }).then((result) => {
             if (result != null) {
                 console.log(result);
-                $("#bankId").val(result.data.Id);
-                $("#bankname").val(result.data.Nama);
-                $("#kodeBIC").val(result.data.KodeBIC);
-                $("#kodekliring").val(result.data.KodeKliring);
+                $("#bankId").val(result.data.id);
+                $("#bankname").val(result.data.nama);
+                $("#kodeBIC").val(result.data.kodeBIC);
+                $("#kodekliring").val(result.data.kodeKliring);
                 $("#myModal").modal('show');
                 $("#Update").show();
                 $("#Save").hide();
@@ -120,8 +121,10 @@
         })
     }
     function Save() {
+        console.log(data);
         debugger;
         var data = new Object();
+        data.Id = $("#bankId").val();
         data.Nama = $("#bankname").val();
         data.KodeBIC = $("#kodeBIC").val();
         data.KodeKliring = $("#kodekliring").val();
@@ -155,12 +158,12 @@
     }
     function Edit() {
         var data = new Object();
-        dat.Id = $("#bankId").val();
+        data.Id = $("#bankId").val();
         data.Nama = $("#bankname").val();
-        data.KodeBIC = $("#kodebank").val();
+        data.KodeBIC = $("#kodeBIC").val();
         data.KodeKliring = $("#kodekliring").val();
         $.ajax({
-            "url": "@Url.Action("Update","Bank")",
+            "url": "@Url.Action("Save","Bank")",
             "type": "POST",
             "datatype": "json",
             "data": data

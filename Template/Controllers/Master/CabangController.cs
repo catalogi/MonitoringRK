@@ -20,8 +20,8 @@ namespace Ririn.Controllers.Master
         }
         public JsonResult GetAll()
         {
-            var result = _context.Cabang.ToList();
-            return Json(new { data = result });
+            var data = _context.Cabang.ToList();
+            return Json(new { data = data });
         }
 
         public JsonResult Save(Cabang cabang)
@@ -37,7 +37,6 @@ namespace Ririn.Controllers.Master
                 data.KodeCabang = cabang.KodeCabang;
                 data.Sandi = cabang.Sandi;
                 data.isDeleted = false;
-                _context.Entry(data).State= EntityState.Modified;
             }
             _context.SaveChanges();
 
