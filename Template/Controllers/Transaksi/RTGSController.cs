@@ -27,6 +27,11 @@ namespace Ririn.Controllers.Transaksi
                 .ToList();
             return Ok(new { data = result });
         }
-        
+        public JsonResult GetType()
+        {
+            var result = _context.TypeTrans
+                .Include(x => x.Unit).Where(x => x.UnitId == 4).ToList();
+            return Json(new { data = result });
+        }
     }
 }

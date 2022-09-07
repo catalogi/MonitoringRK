@@ -28,6 +28,7 @@ namespace Ririn.Controllers.Master
         {
             if (cabang.Id == 0)
             {
+                cabang.isDeleted = false;
                 _context.Cabang.Add(cabang);
             }
             else

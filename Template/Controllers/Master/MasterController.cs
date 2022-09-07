@@ -40,7 +40,8 @@ namespace Ririn.Controllers.Master
 
         public JsonResult GetType()
         {
-            var result = _context.TypeTrans.ToList();
+            var result = _context.TypeTrans
+                .Include(x => x.Unit).ToList();
             return Json(new { data = result });
         }
         public JsonResult GetCabang()

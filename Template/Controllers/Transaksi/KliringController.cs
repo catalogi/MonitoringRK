@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
+using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
 
@@ -53,39 +54,34 @@ namespace Ririn.Controllers.Transaksi
 
         public JsonResult GetType()
         {
-            var result = _context.TypeTrans.ToList();
-            return Json(new { data = result });
-        }
-        public JsonResult GetCabang()
-        {
-            var result = _context.Cabang.ToList();
-            return Json(new {data = result });
-        }
-        public JsonResult GetBank()
-        {
-            var result = _context.Bank.ToList();
-            return Json(new { data = result });
-        }
-        public JsonResult GetAlasan()
-        {
-            var result = _context.Alasan.ToList();
+            var result = _context.TypeTrans
+                .Include(x => x.Unit).Where(x => x.UnitId == 3).ToList();
             return Json(new { data = result });
         }
         #endregion
         //[HttpPost]
-        //public Task<JsonResult> Save(KliringVM data)
+        //public Task<JsonResult> Save(TranshVM data)
         //{
         //    var success = false;
         //    try
         //    {
         //        if (data.Id == null)
         //        {
+
+        //            var teskey = new Testkey
+        //            {
+        //                NomorTestkey = data.NomorTe
+        //            }
         //            var kliring = new T_Kliring
         //            {
         //                TypeId = data.TypeId,
         //                BankId = data.BankId,
         //                CabangId = data.CabangId,
         //                TestkeyId = data.TestKeyId,
+        //                TanggalSurat = data.TanggalSurat,
+        //                TanggalTRX = data.TanggalTRX,
+        //                NomorRekening = data.NomorRekening,
+
 
 
 
