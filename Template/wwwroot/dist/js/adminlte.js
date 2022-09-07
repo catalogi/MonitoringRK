@@ -42,10 +42,10 @@
     content: '.card-body',
     loadInContent: true,
     loadOnInit: true,
-    loadErrorTemplate: true,
+    loadErrorRirin: true,
     responseType: '',
-    overlayTemplate: '<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>',
-    errorTemplate: '<span class="text-danger"></span>',
+    overlayRirin: '<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>',
+    errorRirin: '<span class="text-danger"></span>',
     onLoadStart: function onLoadStart() {},
     onLoadDone: function onLoadDone(response) {
       return response;
@@ -58,7 +58,7 @@
       this._element = element;
       this._parent = element.parents(SELECTOR_CARD$1).first();
       this._settings = $__default["default"].extend({}, Default$c, settings);
-      this._overlay = $__default["default"](this._settings.overlayTemplate);
+      this._overlay = $__default["default"](this._settings.overlayRirin);
 
       if (element.hasClass(CLASS_NAME_CARD$1)) {
         this._parent = element;
@@ -93,8 +93,8 @@
       }, this._settings.responseType !== '' && this._settings.responseType).fail(function (jqXHR, textStatus, errorThrown) {
         _this._removeOverlay();
 
-        if (_this._settings.loadErrorTemplate) {
-          var msg = $__default["default"](_this._settings.errorTemplate).text(errorThrown);
+        if (_this._settings.loadErrorRirin) {
+          var msg = $__default["default"](_this._settings.errorRirin).text(errorThrown);
 
           _this._parent.find(_this._settings.content).empty().append(msg);
         }

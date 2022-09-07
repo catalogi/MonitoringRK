@@ -213,7 +213,7 @@
             this._controller = $.extend({}, defaultController, getOrApply(this.controller, this));
         },
 
-        renderTemplate: function(source, context, config) {
+        renderRirin: function(source, context, config) {
             args = [];
             for(var key in config) {
                 args.push(config[key]);
@@ -465,13 +465,13 @@
 
         _createHeaderRow: function() {
             if($.isFunction(this.headerRowRenderer))
-                return $(this.renderTemplate(this.headerRowRenderer, this));
+                return $(this.renderRirin(this.headerRowRenderer, this));
 
             var $result = $("<tr>").addClass(this.headerRowClass);
 
             this._eachField(function(field, index) {
                 var $th = this._prepareCell("<th>", field, "headercss", this.headerCellClass)
-                    .append(this.renderTemplate(field.headerTemplate, field))
+                    .append(this.renderRirin(field.headerRirin, field))
                     .appendTo($result);
 
                 if(this.sorting && field.sorting) {
@@ -494,13 +494,13 @@
 
         _createFilterRow: function() {
             if($.isFunction(this.filterRowRenderer))
-                return $(this.renderTemplate(this.filterRowRenderer, this));
+                return $(this.renderRirin(this.filterRowRenderer, this));
 
             var $result = $("<tr>").addClass(this.filterRowClass);
 
             this._eachField(function(field) {
                 this._prepareCell("<td>", field, "filtercss")
-                    .append(this.renderTemplate(field.filterTemplate, field))
+                    .append(this.renderRirin(field.filterRirin, field))
                     .appendTo($result);
             });
 
@@ -509,13 +509,13 @@
 
         _createInsertRow: function() {
             if($.isFunction(this.insertRowRenderer))
-                return $(this.renderTemplate(this.insertRowRenderer, this));
+                return $(this.renderRirin(this.insertRowRenderer, this));
 
             var $result = $("<tr>").addClass(this.insertRowClass);
 
             this._eachField(function(field) {
                 this._prepareCell("<td>", field, "insertcss")
-                    .append(this.renderTemplate(field.insertTemplate, field))
+                    .append(this.renderRirin(field.insertRirin, field))
                     .appendTo($result);
             });
 
@@ -600,14 +600,14 @@
 
             return $("<tr>").addClass(this.noDataRowClass)
                 .append($("<td>").addClass(this.cellClass).attr("colspan", amountOfFields)
-                    .append(this.renderTemplate(this.noDataContent, this)));
+                    .append(this.renderRirin(this.noDataContent, this)));
         },
 
         _createRow: function(item, itemIndex) {
             var $result;
 
             if($.isFunction(this.rowRenderer)) {
-                $result = this.renderTemplate(this.rowRenderer, this, { item: item, itemIndex: itemIndex });
+                $result = this.renderRirin(this.rowRenderer, this, { item: item, itemIndex: itemIndex });
             } else {
                 $result = $("<tr>");
                 this._renderCells($result, item);
@@ -668,9 +668,9 @@
 
             var args = { value: fieldValue, item : item };
             if($.isFunction(field.cellRenderer)) {
-                $result = this.renderTemplate(field.cellRenderer, field, args);
+                $result = this.renderRirin(field.cellRenderer, field, args);
             } else {
-                $result = $("<td>").append(this.renderTemplate(field.itemTemplate || fieldValue, field, args));
+                $result = $("<td>").append(this.renderRirin(field.itemRirin || fieldValue, field, args));
             }
 
             return this._prepareCell($result, field);
@@ -1254,7 +1254,7 @@
 
         _createEditRow: function(item) {
             if($.isFunction(this.editRowRenderer)) {
-                return $(this.renderTemplate(this.editRowRenderer, this, { item: item, itemIndex: this._itemIndex(item) }));
+                return $(this.renderRirin(this.editRowRenderer, this, { item: item, itemIndex: this._itemIndex(item) }));
             }
 
             var $result = $("<tr>").addClass(this.editRowClass);
@@ -1263,7 +1263,7 @@
                 var fieldValue = this._getItemFieldValue(item, field);
 
                 this._prepareCell("<td>", field, "editcss")
-                    .append(this.renderTemplate(field.editTemplate || "", field, { value: fieldValue, item: item }))
+                    .append(this.renderRirin(field.editRirin || "", field, { value: fieldValue, item: item }))
                     .appendTo($result);
             });
 
@@ -1872,25 +1872,25 @@
         sorting: true,
         sorter: "string", // name of SortStrategy or function to compare elements
 
-        headerTemplate: function() {
+        headerRirin: function() {
             return (this.title === undefined || this.title === null) ? this.name : this.title;
         },
 
-        itemTemplate: function(value, item) {
+        itemRirin: function(value, item) {
             return value;
         },
 
-        filterTemplate: function() {
+        filterRirin: function() {
             return "";
         },
 
-        insertTemplate: function() {
+        insertRirin: function() {
             return "";
         },
 
-        editTemplate: function(value, item) {
+        editRirin: function(value, item) {
             this._value = value;
-            return this.itemTemplate(value, item);
+            return this.itemRirin(value, item);
         },
 
         filterValue: function() {
@@ -1937,7 +1937,7 @@
         autosearch: true,
 		readOnly: false,
 
-        filterTemplate: function() {
+        filterRirin: function() {
             if(!this.filtering)
                 return "";
 
@@ -1956,16 +1956,16 @@
             return $result;
         },
 
-        insertTemplate: function() {
+        insertRirin: function() {
             if(!this.inserting)
                 return "";
 
             return this.insertControl = this._createTextBox();
         },
 
-        editTemplate: function(value) {
+        editRirin: function(value) {
             if(!this.editing)
-                return this.itemTemplate.apply(this, arguments);
+                return this.itemRirin.apply(this, arguments);
 
             var $result = this.editControl = this._createTextBox();
             $result.val(value);
@@ -2046,16 +2046,16 @@
 
     TextAreaField.prototype = new TextField({
 
-        insertTemplate: function() {
+        insertRirin: function() {
             if(!this.inserting)
                 return "";
 
             return this.insertControl = this._createTextArea();
         },
 
-        editTemplate: function(value) {
+        editRirin: function(value) {
             if(!this.editing)
-                return this.itemTemplate.apply(this, arguments);
+                return this.itemRirin.apply(this, arguments);
 
             var $result = this.editControl = this._createTextArea();
             $result.val(value);
@@ -2098,7 +2098,7 @@
         align: "center",
         valueType: numberValueType,
 
-        itemTemplate: function(value) {
+        itemRirin: function(value) {
             var items = this.items,
                 valueField = this.valueField,
                 textField = this.textField,
@@ -2118,7 +2118,7 @@
             return (result === undefined || result === null) ? "" : result;
         },
 
-        filterTemplate: function() {
+        filterRirin: function() {
             if(!this.filtering)
                 return "";
 
@@ -2134,16 +2134,16 @@
             return $result;
         },
 
-        insertTemplate: function() {
+        insertRirin: function() {
             if(!this.inserting)
                 return "";
 
             return this.insertControl = this._createSelect();
         },
 
-        editTemplate: function(value) {
+        editRirin: function(value) {
             if(!this.editing)
-                return this.itemTemplate.apply(this, arguments);
+                return this.itemRirin.apply(this, arguments);
 
             var $result = this.editControl = this._createSelect();
             (value !== undefined) && $result.val(value);
@@ -2207,14 +2207,14 @@
         align: "center",
         autosearch: true,
 
-        itemTemplate: function(value) {
+        itemRirin: function(value) {
             return this._createCheckbox().prop({
                 checked: value,
                 disabled: true
             });
         },
 
-        filterTemplate: function() {
+        filterRirin: function() {
             if(!this.filtering)
                 return "";
 
@@ -2252,16 +2252,16 @@
             return $result;
         },
 
-        insertTemplate: function() {
+        insertRirin: function() {
             if(!this.inserting)
                 return "";
 
             return this.insertControl = this._createCheckbox();
         },
 
-        editTemplate: function(value) {
+        editRirin: function(value) {
             if(!this.editing)
-                return this.itemTemplate.apply(this, arguments);
+                return this.itemRirin.apply(this, arguments);
 
             var $result = this.editControl = this._createCheckbox();
             $result.prop("checked", value);
@@ -2349,7 +2349,7 @@
             this._configInitialized = true;
         },
 
-        headerTemplate: function() {
+        headerRirin: function() {
             if(!this._configInitialized) {
                 this._initConfig();
             }
@@ -2369,7 +2369,7 @@
             return this._createModeSwitchButton();
         },
 
-        itemTemplate: function(value, item) {
+        itemRirin: function(value, item) {
             var $result = $([]);
 
             if(this.editButton) {
@@ -2383,16 +2383,16 @@
             return $result;
         },
 
-        filterTemplate: function() {
+        filterRirin: function() {
             var $result = this._createSearchButton();
             return this.clearFilterButton ? $result.add(this._createClearFilterButton()) : $result;
         },
 
-        insertTemplate: function() {
+        insertRirin: function() {
             return this._createInsertButton();
         },
 
-        editTemplate: function() {
+        editRirin: function() {
             return this._createUpdateButton().add(this._createCancelEditButton());
         },
 

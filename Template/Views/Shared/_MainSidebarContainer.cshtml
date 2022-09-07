@@ -1,266 +1,144 @@
-@using Template.Models.Master
-@using Template.Data
+@using Ririn.Models.Master
+@using Ririn.Data
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject AppDbContext context
 
-@{
+@*@{
     var user = context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault();
-}
+}*@
 
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar bg-bni-primary elevation-4"
-       style="overflow-y: auto; width: min-content;">
+<aside class="main-sidebar bg-bni-primary elevation-4 w-full">
     <!-- Brand Logo -->
     <a asp-action="Index" asp-controller="Home" class="brand-link">
-        <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+        <img src="~/dist/img/AdminLTELogo.png" alt="MonitoringRK"
              class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold text-bni-origin">
-            Template
+            Ririn
             <span class="text-bni-accent">PROJECT</span>
         </span>
     </a>
-    <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column"
-            data-widget="treeview" role="menu" data-accordion="false">
-            @if (SignInManager.IsSignedIn(User))
-            {
-                @if (user!.KelompokId == null && user.UnitId == null )
-                {
-                    <li class="nav-header bg-bni-accent font-bold mx-2 rounded-sm
-                mb-2">
-                        Master
-                    </li>
-                    <li class="nav-item mx-2 rounded-sm">
-                        @{
+    <div class="sidebar" style="overflow:hidden;">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header bg-bni-accent font-bold mx-2 rounded-sm mb-2">
+                    Master
+                </li>
+                <li class="nav-item">
+                    @*User Management*@
+                    <a asp-action="Index" asp-controller="Account" class="nav-link">
+                        <i class="fas fa-users text-bni-accent nav-icon" aria-hidden="true"></i>
+                        <p class="text-bni-accent brand-text">
+                            Users
+                        </p>
+                    </a>
+                </li>
 
-                            var outlete = new Dictionary<string, string>(){
-                {"kelompok","Kelompok"},
-                {"unit","Unit"},
-                
-                };
-                        }
-                        <a href="#" class="nav-link text-bni-accent">
-                            <i class="nav-icon fas fa-globe text-bni-accent"></i>
-                            <p class="text-bni-accent">
-                                Kelompok & Layanan
-                                <i class="fas fa-angle-left text-bni-accent right"></i>
-                            </p>
-                        </a>
+                @*Menu Bank*@
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Bank" class="nav-link">
+                        <i class="fas fa-university text-bni-accent nav-icon" aria-hidden="true"></i>
+                        <p class="text-bni-accent brand-text">
+                            Bank
+                        </p>
+                    </a>
+                </li>
 
+                @* Menu Cabang*@
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                        <i class="fas fa-code-branch text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Cabang
+                        </p>
+                    </a>
+                </li>
 
-                        <ul class="nav nav-treeview mx-2 rounded-sm">
-                            @foreach (var item in outlete)
-                            {
-                                <li class="nav-item">
-                                    <a asp-controller="@item.Key" asp-action="Index" class="nav-link" data-bs-toggle="tooltip"
-                                       data-bs-placement="top" title="@item.Value">
-                                        <i class="nav-icon fas w-2 fa-circle text-bni-accent"></i>
-                                        <p class="text-bni-accent" style="font-size: 12px;">
-                                            @item.Value
-                                        </p>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+                <!-- Menu Monitoring Kliring -->
+                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                    Monitoring Kliring
+                </li>
 
-                    @* <li class="nav-item">
-            <a asp-action="Index" asp-controller="Status" class="nav-link">
-            <i class="nav-icon fas fa-info-circle"></i>
-            <p>Status</p>
-            </a>
-            </li> *@
-                    <li class="nav-item mx-2 rounded-sm">
-                        @{
-
-                            var linkkartu = new Dictionary<string, string>(){
-                {"kartu","Kartu"},
-                {"kategoriKartu","Kategori Kartu"},
-                {"productkartu","Product Kartu"}
-                };
-                        }
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-credit-card text-bni-accent"></i>
-                            <p class="text-bni-accent">
-                                Kartu
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview mx-2 rounded-sm">
-                            @foreach (var item in linkkartu)
-                            {
-                                <li class="nav-item">
-                                    <a asp-controller="@item.Key" asp-action="Index"
-                           class="nav-link" data-bs-toggle="tooltip"
-                           data-bs-placement="top" title="@item.Value">
-                                        <i class="nav-icon fas w-2 fa-circle text-bni-accent"></i>
-                                        <p class="text-bni-accent" style="font-size: 12px;">
-                                            @item.Value
-                                        </p>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
-                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                        OPR
-                    </li>
-                    <li class="nav-item">
-                        @{
-                            var transaksiLinks = new Dictionary<string, string>(){
-                {"Home","Dashboard"},
-                {"TransaksiKartu","Upload Distribusi"},
-                };
-                        }
-                        <ul class="nav mx-2 rounded-sm">
-                            @foreach (var item in transaksiLinks)
-                            {
-                                <li class="nav-item">
-                                    <a asp-controller="@item.Key" asp-action="Index"
-                           class="nav-link" data-bs-toggle="tooltip"
-                           data-bs-placement="top" title="@item.Value">
-                                        <i class="nav-icon fas w-2 fa-circle text-bni-accent"></i>
-                                        <p class="text-bni-accent" style="font-size: 12px;">
-                                            @item.Value
-                                        </p>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
-                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                        User Management
-                    </li>
-                    <ul class="nav mx-2">
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="MasAccounts" class="nav-link">
-                                <i class="fas fa-users text-bni-accent nav-icon"></i>
-                                <p class="text-bni-accent" style="font-size: 12px;">Users</p>
-                            </a>
-                        </li>
-                    </ul>
-                };
-                if (user!.KelompokId != null && user.UnitId == null )
-                {
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                        <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Registrasi
+                        </p>
+                    </a>
+                </li>
 
 
-                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                        Wilayah
-                    </li>
-                    <li class="nav-item">
-                        <ul class="nav mx-2 rounded-sm">
-                            <li class="nav-item">
-                                <a asp-action="Dashwilayah" asp-controller="Home"
-                           class="nav-link">
-                                    <i class="fas fa-circle text-bni-accent nav-icon"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#"
-                           class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Approval
-                                    </p>
-                                </a>
-                            </li>
-                                                        <li class="nav-item">
-                                <a href="#"
-                           class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                       Approval Forward KCP
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                }
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
 
-                //KCU
-                else if (user.KelompokId != null && user.UnitId != null)
-                {
-                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                        Kantor Cabang Utama
-                    </li>
-                    <li class="nav-item">
-                        <ul class="nav mx-2 rounded-sm">
-                            <li class="nav-item">
-                                <a href="@Url.Action("DashKCU","Home")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("DistribusiKCP","TransaksiKartu")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Distribusi KCP
-                                    </p>
-                                </a>
-                            </li>                            
-                            <li class="nav-item">
-                                <a href="@Url.Action("LaporanAkhirHari","TransaksiKartu")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Input Stok Keluar
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("ApprovalAkhirHari","Approval")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Approval Stok Keluar
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("SwitchKCU","SwitchStok")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Permintaan Stok
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("ApprovalSwitchKCP","Approval")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Approval Switch Kartu
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("Index","Confirmation")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Konfirmasi Stok Diterima
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("ConfirmationSwitches","Confirmation")" class="nav-link">
-                                    <i class="nav-icon fas fa-circle text-bni-accent"></i>
-                                    <p class="text-bni-accent" style="font-size: 12px;">
-                                        Konfirmasi Switch Diterima
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                }
-               }
-        </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
+                        <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            On Going
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Monitoring
+                        </p>
+                    </a>
+                </li>
+
+                <!-- Menu Monitoring RTGS -->
+                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                    Monitoring RTGS
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                        <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Registrasi
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+
+                        <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            On Going
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Monitoring
+                        </p>
+                    </a>
+                </li>
+
+                 <!-- Helpdesk -->
+                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                    Helpdesk
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="DataToken" class="nav-link">
+                        <i class="fas fa-database text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Data Token
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>

@@ -1538,7 +1538,7 @@ function isEqualBoxedPrimitive(val1, val2) {
 
   return isSymbolObject(val2) && Symbol.prototype.valueOf.call(val1) === Symbol.prototype.valueOf.call(val2);
 } // Notes: Type tags are historical [[Class]] properties that can be set by
-// FunctionTemplate::SetClassName() in C++ or Symbol.toStringTag in JS
+// FunctionRirin::SetClassName() in C++ or Symbol.toStringTag in JS
 // and retrieved using Object.prototype.toString.call(obj) in JS
 // See https://tc39.github.io/ecma262/#sec-object.prototype.tostring
 // for a list of tags pre-defined in the spec.
