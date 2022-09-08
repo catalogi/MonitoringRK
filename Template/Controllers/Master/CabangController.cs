@@ -20,7 +20,8 @@ namespace Ririn.Controllers.Master
         }
         public JsonResult GetAll()
         {
-            var data = _context.Cabang.ToList();
+            var data = _context.Cabang
+                .Where(x => x.isDeleted == false).ToList();
             return Json(new { data = data });
         }
 
@@ -28,11 +29,12 @@ namespace Ririn.Controllers.Master
         {
             if (cabang.Id == 0)
             {
+                cabang.isDeleted = false;
                 _context.Cabang.Add(cabang);
             }
             else
             {
-                var data = _context.Cabang.Where(x=>x.Id == cabang.Id).FirstOrDefault();
+                var data = _context.Cabang.Where(x => x.Id == cabang.Id).FirstOrDefault();
                 data.Nama = cabang.Nama;
                 data.KodeCabang = cabang.KodeCabang;
                 data.Sandi = cabang.Sandi;
@@ -45,10 +47,10 @@ namespace Ririn.Controllers.Master
         public JsonResult Delete(int Id)
         {
             bool result = false;
-            var data = _context.Cabang.Single(x=>x.Id==Id);
+            var data = _context.Cabang.Single(x => x.Id == Id);
             if (data != null)
             {
-                data.isDeleted=true;
+                data.isDeleted = true;
                 _context.Entry(data).State = EntityState.Modified;
                 _context.SaveChanges();
                 result = true;

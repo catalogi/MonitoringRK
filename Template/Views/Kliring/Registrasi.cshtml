@@ -2,16 +2,20 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <section class="content">
     <div class="container">
-<div class="card">
-            <div class="card-header card-header-info" style="background-color:lightblue">
-                <h4 class="card-title font-weight-bolder">Register</h4>
-        <p class="card-text">TesKey / Surat</p>
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h4 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Register</h4>
+                <p class="card-text font-weight-bolder">TesKey / Surat</p>
     </div>
     <div class="card-body">
         <div class="row" style="margin-left:20px">
             <div class="col-md-4">
+                        <input type="hidden" id="regisId" />
                 <label class="bmd-label-floating">Tipe Surat</label>
                 <br />
                 <select required name="Tipe" data-placement="choose" class="form-control select2 Tipe">
@@ -88,7 +92,7 @@
                 <br />
                 <select required Id="Alasan" name="Alasan" onchange="AddReason();" data-placement="choose" class="form-control select2"></select>
                 <div id="Alasan-div">
-                    <label class="control-label">New Reason</label>
+                    <label class="control-label">Alasan Lain</label>
                     <br />
                     <input id="newReason" class="form-control" type="text" />
                 </div>
@@ -119,6 +123,9 @@
             GetCabang();
             GetType();
             GetBank();
+            $(".select2").select2({
+                "theme": "classic"
+            })
         })
 
         function GetType(){
@@ -195,6 +202,43 @@
                     $("select[name=Alasan]").append('<option value="">--Pilih Alasan--</option>')
                     $.each(data, function(i,value){
                         $("select[name=Alasan]").append(`<option value="${value.Id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function Save() {
+            console.log(data);
+            debugger;
+            var data = new Object();
+            data.Id = $("#regisId").val();
+            data.Nama = $("#bankname").val();
+            data.KodeBIC = $("#kodeBIC").val();
+            data.KodeKliring = $("#kodekliring").val();
+            $.ajax({
+                "url": "@Url.Action("Save","Bank")",
+                "type": "POST",
+                "datatype": "json",
+                "data": data
+            }).then((result) => {
+                if (result != false) {
+                    Swal.fire(
+                        'Success!',
+                        'Data Berhasil Diinput!.',
+                        'success'
+                    ).then(() => {
+                        $("#myModal").modal('hide');
+                        $('#table').DataTable().ajax.reload();
+                    })
+                }
+                else {
+                    Swal.fire(
+                        'Failed!',
+                        'Data Tidak Berhasil Diinput!.',
+                        'Failed'
+                    ).then(() => {
+                        $("#myModal").modal('hide');
+                        $('#table').DataTable().ajax.reload();
                     })
                 }
             })

@@ -6,11 +6,11 @@
 <section class="content">
     <div class="container">
         <div class="card">
-            <div class="card-header" style="background-color:lightblue">
-                <h2 class="card-title font-weight-bolder" style="background-color:##a0d5f2">
+            <div class="card-header">
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">
                     Report
                     </h2>
-                <p class="card-text">Retur Kliring</p>
+                <p class="card-text font-weight-bolder">Retur Kliring</p>
             </div>
             <div class="card-body">
                 <div class="form-group row">
@@ -25,7 +25,7 @@
                 <div class="form-group row">
                     <label class="col-md-2">Tipe</label>
                     <div class="col-md-3">
-                        <select required id="Tipe" data-placement="choose" class="form-control select2 Tipe"></select>
+                        <select required id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe"></select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -37,3 +37,27 @@
         </div>
     </div>
 </section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            GetType();
+        });
+
+        function GetType() {
+            $.ajax({
+                url: "@Url.Action("GetType","Master")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    //console.log(data);
+                    //$("select[id=Tipe]").empty();
+                    $("select[name=Tipe]").append('<option value="">Pilih Tipe Surat</option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
+                    })
+                }
+            })
+        }
+    </script>
+}
