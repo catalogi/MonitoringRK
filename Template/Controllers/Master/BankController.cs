@@ -34,6 +34,7 @@ namespace Ririn.Controllers.Master
         {
             if(bank.Id == 0)
             {
+                bank.IsDeleted = false;
                 _context.Bank.Add(bank);
             }
             else
