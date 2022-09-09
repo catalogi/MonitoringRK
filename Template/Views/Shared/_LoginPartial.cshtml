@@ -1,0 +1,25 @@
+@using Ririn.Models.Master;
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity"
+            asp-page="/Account/Manage/Index" title="Manage">Hello
+                @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="@Url.Action("LogOut","Account")">Logout!</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity"
+            asp-page="@Url.Action("Login","Account")">Login</a>
+        </li>
+    }
+</ul>
