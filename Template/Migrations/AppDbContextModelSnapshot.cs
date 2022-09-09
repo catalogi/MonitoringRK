@@ -297,6 +297,63 @@ namespace ASK_Core.Migrations
                     b.ToTable("Cabang");
                 });
 
+            modelBuilder.Entity("Ririn.Models.Master.DataToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal?>("ApprovalLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Group")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("KelompokId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Keterangan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ModulId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NPP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nama")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TokenExpired")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIdToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KelompokId");
+
+                    b.HasIndex("ModulId");
+
+                    b.ToTable("DataToken");
+                });
+
             modelBuilder.Entity("Ririn.Models.Master.Kelompok", b =>
                 {
                     b.Property<int>("Id")
@@ -305,10 +362,7 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Createdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Deletedate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsDeleted")
@@ -322,7 +376,7 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Updatedate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -345,6 +399,23 @@ namespace ASK_Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Keterangan");
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.Modul", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nama")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Modul");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Status", b =>
@@ -376,10 +447,7 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Createdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Deletedate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsDeleted")
@@ -398,7 +466,7 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Updatedate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -440,10 +508,7 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Createdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Deletedate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsDeleted")
@@ -456,7 +521,7 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Updatedate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -486,14 +551,11 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("CabangId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Createdate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreaterId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("Deletedate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Durasi")
                         .HasColumnType("int");
@@ -544,7 +606,7 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Updatedate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("path")
@@ -588,10 +650,7 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("CabangId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Createdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Deletedate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Followup")
@@ -633,7 +692,7 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Updatedate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -657,7 +716,7 @@ namespace ASK_Core.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int?>("KelompokId")
+                    b.Property<int>("KelompokId")
                         .HasColumnType("int");
 
                     b.Property<string>("NPP")
@@ -666,7 +725,7 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Nama")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UnitId")
+                    b.Property<int>("UnitId")
                         .HasColumnType("int");
 
                     b.HasIndex("KelompokId");
@@ -725,6 +784,25 @@ namespace ASK_Core.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.DataToken", b =>
+                {
+                    b.HasOne("Ririn.Models.Master.Kelompok", "Kelompok")
+                        .WithMany()
+                        .HasForeignKey("KelompokId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ririn.Models.Master.Modul", "Modul")
+                        .WithMany()
+                        .HasForeignKey("ModulId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kelompok");
+
+                    b.Navigation("Modul");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Testkey", b =>
@@ -862,11 +940,15 @@ namespace ASK_Core.Migrations
                 {
                     b.HasOne("Ririn.Models.Master.Kelompok", "Kelompok")
                         .WithMany()
-                        .HasForeignKey("KelompokId");
+                        .HasForeignKey("KelompokId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Ririn.Models.Master.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId");
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kelompok");
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 
 namespace Ririn.Controllers.Transaksi
@@ -18,8 +19,19 @@ namespace Ririn.Controllers.Transaksi
 
         public IActionResult GetAll()
         {
-            var result = _context.T_RTGS.ToList();
+            var result = _context.T_RTGS
+                .Include(x=>x.Bank)
+                .Include(x=>x.Cabang)
+                .Include(x=>x.Keterangan)
+                .Include(x=>x.Testkey)
+                .ToList();
             return Ok(new { data = result });
+        }
+        public JsonResult GetType()
+        {
+            var result = _context.TypeTrans
+                .Include(x => x.Unit).Where(x => x.UnitId == 4).ToList();
+            return Json(new { data = result });
         }
     }
 }

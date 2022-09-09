@@ -1,5 +1,4 @@
 ﻿using Ririn.Models.Master;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +24,8 @@ namespace Ririn.Data
         public DbSet<Status> Status { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<TypeTrans> TypeTrans { get; set; }
+        public DbSet<Modul> Modul { get; set; }
+        public DbSet<DataToken> DataToken { get; set; }
         #endregion
 
         #region Transaksi
