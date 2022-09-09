@@ -58,9 +58,57 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult GetType()
         {
             var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 3).ToList();
+                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
             return Json(new { data = result });
         }
+
+       
+
+        public JsonResult SaveReason(string reason)
+        {
+            int data = 0;
+            var exist = _context.Alasan.Where(x => x.Nama== reason).Count();
+            if (exist == 0)
+            {
+                Alasan reasons = new Alasan();
+                reasons.Nama = reason;
+                //reasons.Createdate = DateTime.Now;
+                _context.Alasan.Add(reasons);
+                _context.SaveChanges();
+                data = reasons.Id;
+            }
+            else
+            {
+                var id = _context.Alasan.Single(x => x.Nama== reason).Id;
+                data = id;
+            }
+
+            return Json(data);
+        }
+
+        //public DateTime AddDays(DateTime date, int count)
+        //{
+        //    DateTime dateTime = date.Date.AddDays(count);
+        //    if (IsHoliday(dateTime) || IsWeekEnd(dateTime))
+        //    {
+        //        do
+        //        {
+        //            dateTime = dateTime.AddDays(1);
+        //        } while (IsHoliday(dateTime) || IsWeekEnd(dateTime));
+        //    }
+        //    return dateTime;
+        //}
+
+        //private bool IsHoliday(DateTime date)
+        //{
+        //    return _context.Holidays.Select(x => x.Date).Contains(date);
+        //}
+
+        //private bool IsWeekEnd(DateTime date)
+        //{
+        //    return date.DayOfWeek == DayOfWeek.Saturday
+        //        || date.DayOfWeek == DayOfWeek.Sunday;
+        //}
         #endregion
 
         #region Save Data

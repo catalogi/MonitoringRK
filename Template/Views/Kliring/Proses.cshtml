@@ -5,9 +5,9 @@
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
-            <div class="card-header card-header-info" style="background-color:lightblue">
-                <h2 class="card-title font-weight-bolder">Proses</h2>
-                <p class="card-text">Transaksi Kliring Belum Selesai</p>
+            <div class="card-header card-header-info">
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+                <p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
                 @*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
             </div>
             <div class="card-body ">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <table id="table" class="table table-bordered">
-                    <thead>
+                    <thead style="background-color:#319DA0">
                         <tr>
                             <th>No.</th>
                             <th>Bank</th>
@@ -54,7 +54,7 @@
 
         function GetType() {
             $.ajax({
-                url: "@Url.Action("GetType","Master")",
+                url: "@Url.Action("GetType","Kliring")",
                 type: "Get",
                 dataType: "json",
                 success: function ({ data }) {
