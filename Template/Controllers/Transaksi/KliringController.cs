@@ -86,29 +86,6 @@ namespace Ririn.Controllers.Transaksi
             return Json(data);
         }
 
-        //public DateTime AddDays(DateTime date, int count)
-        //{
-        //    DateTime dateTime = date.Date.AddDays(count);
-        //    if (IsHoliday(dateTime) || IsWeekEnd(dateTime))
-        //    {
-        //        do
-        //        {
-        //            dateTime = dateTime.AddDays(1);
-        //        } while (IsHoliday(dateTime) || IsWeekEnd(dateTime));
-        //    }
-        //    return dateTime;
-        //}
-
-        //private bool IsHoliday(DateTime date)
-        //{
-        //    return _context.Holidays.Select(x => x.Date).Contains(date);
-        //}
-
-        //private bool IsWeekEnd(DateTime date)
-        //{
-        //    return date.DayOfWeek == DayOfWeek.Saturday
-        //        || date.DayOfWeek == DayOfWeek.Sunday;
-        //}
         #endregion
 
         #region Save Data
