@@ -38,12 +38,12 @@ namespace Ririn.Controllers.Master
             return Json(result);
         }
 
-        public JsonResult GetType()
-        {
-            var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
-            return Json(new { data = result });
-        }
+        //public JsonResult GetType()
+        //{
+        //    var result = _context.TypeTrans
+        //        .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
+        //    return Json(new { data = result });
+        //}
         public JsonResult GetCabang()
         {
             var result = _context.Cabang.ToList();
