@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ASK_Core.Migrations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
@@ -10,9 +11,11 @@ namespace Ririn.Controllers.Transaksi
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-        public KliringController (AppDbContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
 
@@ -45,10 +48,10 @@ namespace Ririn.Controllers.Transaksi
         {
             var result = _context.T_Kliring.Include(x => x.BankId)
                 .Include(x => x.Keterangan)
-                .Include(x=>x.Alasan)
-                .Include(x=>x.Testkey)
-                .Include(x=>x.Bank)
-                .Include(x=>x.Cabang).ToList();
+                .Include(x => x.Alasan)
+                .Include(x => x.Testkey)
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang).ToList();
             return Ok(new { data = result });
         }
 
@@ -59,41 +62,89 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
         #endregion
-        //[HttpPost]
-        //public Task<JsonResult> Save(TranshVM data)
-        //{
-        //    var success = false;
-        //    try
-        //    {
-        //        if (data.Id == null)
-        //        {
 
-        //            var teskey = new Testkey
-        //            {
-        //                NomorTestkey = data.NomorTe
-        //            }
-        //            var kliring = new T_Kliring
-        //            {
-        //                TypeId = data.TypeId,
-        //                BankId = data.BankId,
-        //                CabangId = data.CabangId,
-        //                TestkeyId = data.TestKeyId,
-        //                TanggalSurat = data.TanggalSurat,
-        //                TanggalTRX = data.TanggalTRX,
-        //                NomorRekening = data.NomorRekening,
+        #region Save Data
+        [HttpPost]
+        public IActionResult Save(TranshVM data)
+        {
+            var success = false;
+            //var user = GetCurrentUser();
 
+            if (data.Id == null)
+            {
+                var testkey = new Testkey
+                {
+                    NomorTestkey = data.NomorTestKey,
+                    TanggalTestKey = data.TanggalTestkey,
+                    KeteranganId = data.KeteranganId,
+                    UnitId = data.UnitId
+                };
+                _context.Testkey.Add(testkey);
+                _context.SaveChanges();
+                foreach (var item in data.klirings)
+                {
+                    if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+                    {
+                        _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                    }
+                    string webRootPath = _webHostEnvironment.WebRootPath;
+                    string path = Path.Combine(webRootPath, "File/Lampiran/");
+                    string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
+                    Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
+                    Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
+                    var kliring = new T_Kliring
+                    {
+                        NomorSurat = item.NomorSurat,
+                        TanggalSurat = item.TanggalSurat,
+                        NoReferensi = item.NoReferensi,
+                        NamaPenerima = item.NamaPenerima,
+                        BankId = item.BankId,
+                        NomorRekening = item.NomorRekening,
+                        Nominal = item.Nominal,
+                        CabangId = item.CabangId,
+                        TanggalTRX = item.TanggalTRX,
+                        TestkeyId = testkey.Id,
+                        KeteranganId = item.KeteranganId,
+                        AlasanId = item.AlasanId,
+                        NominalSeharusnya = item.NominalSeharusnya,
+                        TypeId = item.TypeId,
+                        path = generateNamaFile,
+                        StatusId = 1,
+                        Durasi = 0,
+                        //CreaterId= User.Id
 
+                    };
+                    _context.T_Kliring.Add(kliring);
+                }
+                _context.SaveChanges();
+                success = true;
+            }
+            else
+            {
+                var kliring = new T_Kliring
+                {
+                    NomorSurat = item.NomorSurat,
+                    TanggalSurat = item.TanggalSurat,
+                    NoReferensi = item.NoReferensi,
+                    NamaPenerima = item.NamaPenerima,
+                    BankId = item.BankId,
+                    NomorRekening = item.NomorRekening,
+                    Nominal = item.Nominal,
+                    CabangId = item.CabangId,
+                    TanggalTRX = item.TanggalTRX,
+                    TestkeyId = testkey.Id,
+                    KeteranganId = item.KeteranganId,
+                    AlasanId = item.AlasanId,
+                    NominalSeharusnya = item.NominalSeharusnya,
+                    
 
+                };
+                _context.Entry(kliring).State = EntityState.Modified;
+            }
+            return Ok(success);
 
-        //            }
-        //            success = true;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
+        }
+        #endregion
 
     }
 }

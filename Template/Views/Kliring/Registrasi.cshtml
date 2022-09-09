@@ -14,7 +14,9 @@
             <div class="col-md-4">
                 <label class="bmd-label-floating">Tipe Surat</label>
                 <br />
-                <select required Id="Tipe" data-placement="choose" class="form-control select2 Tipe"></select>
+                <select required name="Tipe" data-placement="choose" class="form-control select2 Tipe">
+                    <option value="">--- Pilih Tipe ---</option>
+                </select>
             </div>
             <div class="col-md-4 offset-md-1">
                 <label class="bmd-label-floating">Tanggal Transaksi</label>
@@ -29,7 +31,7 @@
             <div class="col-md-4 offset-md-1">
                 <label class="bmd-label-floating">Divisi / Cabang</label>
                 <br />
-                <select required Id="Cabang" data-placement="choose" class="form-control select2"></select>
+                <select required Id="Cabang" name="cabang" data-placement="choose" class="form-control select2"></select>
             </div>
         </div>
         <div class="row" style="margin-left:20px">
@@ -75,15 +77,17 @@
         <div class="row" style="margin-left:20px">
             <div class="col-md-4 BTujuan">
                 <label class="control-label">Bank</label>
-                <select required Id="BTujuan" data-placement="choose" class="form-control select2 bank"></select>
+                <select required Id="BTujuan" name="banktj" data-placement="choose" class="form-control select2 bank">
+                            <option value="">--Pilih Bank--</option>
+                </select>
             </div>
         </div>
         <div class="row" style="margin-left:20px">
-            <div class="col-md-4 Reason">
+            <div class="col-md-4 Alasan">
                 <label class="control-label">Alasan</label>
                 <br />
-                <select required Id="Reason" onchange="AddReason();" data-placement="choose" class="form-control select2"></select>
-                <div id="Reason-div">
+                <select required Id="Alasan" name="Alasan" onchange="AddReason();" data-placement="choose" class="form-control select2"></select>
+                <div id="Alasan-div">
                     <label class="control-label">New Reason</label>
                     <br />
                     <input id="newReason" class="form-control" type="text" />
@@ -109,71 +113,93 @@
 @section scripts{
     <script>
         $(document).ready(function (){
-            GetTypes();
-            GetBank();
+            //GetTypes();
+            //GetBank();
             GetAlasan();
             GetCabang();
+            GetType();
+            GetBank();
         })
 
-        function GetTypes(){
+        function GetType(){
             $.ajax({
-                "url":"@Url.Action("GetTypes","Kliring")",
-                "type":"Get",
-                "datatype":"json"
-            }).then((result)=>{
-                var Tipe = $("#Tipe");
-                Tipe.html('');
-                $("<option></option>").val('').text('Pilih Tipe Surat').appendTo(Tipe);
-                $.each(result,function (i,value){
-                    $("<option></option>").val(value.id).text(value.Type).appendTo(Tipe);
+                url: "@Url.Action("GetType","Master")",
+                type: "Get",
+                dataType: "json",
+                success:function({data}){
+                    //console.log(data);
+                    //$("select[id=Tipe]").empty();
+                    //$("select[id=Tipe]").append('<option value="">--Tipe--</option>')
+                    $.each(data, function(i,value){
+                        $("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
+                    })
+                }
+            })  
+        }
+        
+        //function GetBank(){
+        //    $.ajax({
+        //        url: "@Url.Action("GetBank","Master")",
+        //        type: "Get",
+        //        dataType: "json",
+        //        success:function({data}){
+        //            console.log(data);
+        //            $("select[name=banktj]").empty();
+        //            $("select[name=banktj]").append('<option value="">--Pilih Bank--</option>')
+        //            $.each(data, function(i,value){
+        //                $("select[name=banktj]").append(`<option value="${value.Id}">${value.nama}</option>`)
+        //            })
+        //        }
+        //    })
+        //}
+
+        function GetBank() {
+            $.ajax({
+                url: "@Url.Action("GetBank", "Master")",
+                type: "Get",
+                datatype: "json"
+            }).then(({data}) => {
+                var bank = $("#BTujuan");
+                bank.html('');
+                $("<option></option>").val('').text('---Pilih Bank---').appendTo(bank);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(bank);
                 });
             })
         }
-
-        function GetBank(){
-            $.ajax({
-                "url": "@Url.Action("GetBank","Kliring")",
-                "type":"Get"
-                "datatype":"json"
-            }).then((result)=> {
-                var bank = $("#BTujuan");
-                bank.html('');
-                $("<option></option>").val('').text('Pilih Bank').appendTo(bank);
-                $.each(result, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.Name).appendTo(bank);
-                    });
-            })
-        }      
-        
-        function GetAlasan(){
-            $.ajax({
-                "url": "@Url.Action("GetAlasan","Kliring")",
-                "type":"Get"
-                "datatype":"json"
-            }).then((result)=> {
-                var alasan = $("#Reason");
-                alasan.html('');
-                $("<option></option>").val('').text('Pilih Alasan').appendTo(alasan);
-                $.each(result, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.Name).appendTo(alasan);
-                    });
-            })
-        }      
         
         function GetCabang(){
             $.ajax({
-                "url": "@Url.Action("GetCabang","Kliring")",
-                "type":"Get"
-                "datatype":"json"
-            }).then((result)=> {
-                var cabang = $("#Cabang");
-                cabang.html('');
-                $("<option></option>").val('').text('Pilih Cabang').appendTo(cabang);
-                $.each(result, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.Name).appendTo(cabang);
-                    });
+                url: "@Url.Action("GetCabang","Master")",
+                type: "Get",
+                dataType: "json",
+                success:function({data}){
+                    console.log(data);
+                    $("select[name= cabang]").empty();
+                    $("select[name=cabang]").append('<option value="">--Pilih Cabang--</option>')
+                    $.each(data, function(i,value){
+                        $("select[name=cabang]").append(`<option value="${value.Id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        } 
+        
+        function GetAlasan(){
+            $.ajax({
+                url: "@Url.Action("GetAlasan","Master")",
+                type: "Get",
+                dataType: "json",
+                success:function({data}){
+                    console.log(data);
+                    $("select[name=Alasan]").empty();
+                    $("select[name=Alasan]").append('<option value="">--Pilih Alasan--</option>')
+                    $.each(data, function(i,value){
+                        $("select[name=Alasan]").append(`<option value="${value.Id}">${value.nama}</option>`)
+                    })
+                }
             })
         }
+
 
     </script>
 }

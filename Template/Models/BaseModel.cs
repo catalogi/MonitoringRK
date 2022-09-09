@@ -2,8 +2,16 @@
 {
     public class BaseModel
     {
-        public DateTime? Createdate { get; set; }
-        public DateTime? Updatedate { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public bool? IsDeleted { get; set; }
+
+        public BaseModel()
+        {
+            this.CreateDate = DateTime.UtcNow;
+            this.IsDeleted = false;
+        }
     }
+   
+
 }

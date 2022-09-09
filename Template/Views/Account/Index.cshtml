@@ -36,6 +36,7 @@
                         <label class="col-sm-3 control-label">Unit</label>
                         <div class="col-sm-6">
                             <select id="unit" name="unit" data-placement="choose" class="form-control select2 Tipe">
+                                <option value="">--Unit--</option>
                             </select>
                         </div>
                     </div>
@@ -108,27 +109,28 @@
             });
         }).draw();
 
-        $,ajax({
+        $.ajax({
             url:"@Url.Action("GetAllKelompok","Master")",
             type:"get",
             dataType:"json",
             success:function({data}){
-                $.Each(data, function(i, kel){
-                    $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
+                $.each(data, function(i, kel){
+                    $("select[name=kelompok]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
                 })
             }
         })
     }
-    $("select[name=KelompokId]").on("change", function() {
+    $("select[name=kelompok]").on("change", function() {
+        
         $.ajax({
             url: "@Url.Action("GetUnitBy","Master")/"+$(this).val(),
             type:"get",
             dataType:"json",
             success:function({data}){
-                $("select[name=UnitId]").empty();
-                $("select[name=UnitId]").append(`<option value="">--Unit--</option>`)
+                $("select[name=unit]").empty();
+                $("select[name=unit]").append(`<option value="">--Unit--</option>`)
                 $.each(data, function(i,Unit){
-                    $("select[name=UnitId]").append(`<option value="${Unit.Id}">${Unit.nama}</option>`)
+                    $("select[name=unit]").append(`<option value="${Unit.Id}">${Unit.nama}</option>`)
                 })
             }
         });

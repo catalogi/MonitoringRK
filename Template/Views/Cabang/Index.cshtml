@@ -75,7 +75,7 @@
     function read() {
         var t = $("#table").DataTable({
             "ajax": {
-                "url": "@Url.Action("Get","Cabang")",
+                "url": "@Url.Action("GetAll","Cabang")",
                 "type": "Get",
                 "datatype": "json"
             },

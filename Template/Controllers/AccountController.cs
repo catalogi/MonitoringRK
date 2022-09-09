@@ -115,12 +115,12 @@ namespace Ririn.Controllers
             if (Id != null)
             {
                 var result = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.Id == Id).SingleOrDefault();
-                return Json(result);
+                return Json(new { data = result });
             }
             else
             {
                 var result = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).ToList();
-                return Json(result);
+                return Json(new { data = result });
             }
         }
 
@@ -152,7 +152,7 @@ namespace Ririn.Controllers
             List<string> roleName = new List<string>() {
             "Admin","Kliring","RTGS","Helpdesk"
             };
-            foreach(var item in roleName)
+            foreach (var item in roleName)
             {
                 var role = new IdentityRole();
                 role.Name = item;
