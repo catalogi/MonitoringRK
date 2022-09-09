@@ -686,7 +686,7 @@ tr td a {
 }
 
 tr td a:hover {
-  background-color: var(--bni-secondary) !important;
+  background-color: var(--bni-secondary);
   color: var(--bni-accent) !important;
 }
 .table tbody tr td {

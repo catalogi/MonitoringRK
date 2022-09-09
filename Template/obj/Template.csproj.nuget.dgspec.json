@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {}
+    "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {
+    "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
+        "projectUniqueName": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
         "projectName": "Template",
-        "projectPath": "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
-        "packagesPath": "C:\\Users\\1397\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\obj\\",
+        "projectPath": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
+        "packagesPath": "C:\\Users\\majid\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\Project BNI\\Ririn\\Template\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\1397\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\majid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -93,7 +93,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -105,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
