@@ -36,6 +36,10 @@ bld/
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 <<<<<<< HEAD
+/Template/bin
+/Template/obj
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 /Template/bin
 /Template/obj
@@ -45,6 +49,7 @@ bld/
 /Template/bin
 /Template/obj
 >>>>>>> e4545e910249df0c4fd8e2b73abbe8187db4cdc7
+>>>>>>> 59a08a8939e64fcf6ce7cd70b14fa85f1c96a18a
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
