@@ -24,6 +24,11 @@ namespace Ririn.Controllers.Master
         public JsonResult GetAllKelompok()
         {
             var result = _context.Kelompok.ToList();
+            return Json(new { data = result});
+        }
+        public JsonResult GetModul()
+        {
+            var result = _context.Modul.ToList();
             return Json(new { data = result });
         }
         public JsonResult GetAllUnit()
@@ -35,7 +40,7 @@ namespace Ririn.Controllers.Master
         public JsonResult GetUnitBy(int? Id)
         {
             var result = _context.Unit.Include(x => x.Kelompok).Where(x => x.KelompokId == Id);
-            return Json(new{ data = result });
+            return Json(new { data = result });
         }
 
         public JsonResult GetType()

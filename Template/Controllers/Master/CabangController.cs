@@ -20,7 +20,13 @@ namespace Ririn.Controllers.Master
         }
         public JsonResult GetAll()
         {
-            var data = _context.Cabang.ToList();
+            var data = _context.Cabang
+                .Where(x=>x.isDeleted == false).ToList();
+            return Json(new { data = data });
+        }
+        public JsonResult GetById(int Id)
+        {
+            var data = _context.Cabang.Single(x => x.Id == Id);
             return Json(new { data = data });
         }
 

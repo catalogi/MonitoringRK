@@ -1,0 +1,396 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="hidden" id="idToken" />
+                            <label for="nomorRefrensi">Kelompok</label>
+                            <select id="kelompok" name="kelompok" data-placement="choose" class="form-control select2">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">NPP</label>
+                            <input type="text" class="form-control" name="NPP" id="NPP">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Modul</label>
+                            <select id="modul" name="modul" data-placement="choose" class="form-control select2">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">User Id</label>
+                            <input type="text" class="form-control" name="userid" id="userid">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">User ID Token</label>
+                            <input type="text" class="form-control" name="useridtoken" id="useridtoken">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="nama">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Perpanjang Token</label>
+                            <input type="date" class="form-control datepicker" name="perpanjangtoken" id="perpanjangtoken">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Group</label>
+                            <input type="text" class="form-control" name="group" id="group">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" id="keterangan">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Approval Limit</label>
+                            <input type="text" class="form-control" name="approve" id="approve">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="Save" onclick="Validation();">Simpan</button>
+                <button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container">
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Data Token</h3>
+
+                <a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>
+            </div>
+            <div class="card-body ">
+                <table id="table" class="table table-bordered table-responsive" style="width:100%">
+                    <thead style="text-align:center">
+                        <tr class="bg-info" style="color:white!important">
+                            <th rowspan="2" style="vertical-align:middle">No</th>
+                            <th rowspan="2" style="vertical-align:middle">Kel</th>
+                            <th rowspan="2" style="vertical-align:middle">Modul</th>
+                            <th colspan="5" style="vertical-align:middle">Pemegang Token</th>
+                            <th rowspan="2" style="vertical-align:middle">User ID Token</th>
+                            <th rowspan="2" style="vertical-align:middle">Perpanjangan Token Expired</th>
+                            <th rowspan="2" style="vertical-align:middle">Keterangan</th>
+                            <th rowspan="2" style="vertical-align:middle">Action</th>
+                        </tr>
+                        <tr class="bg-warning">
+                            <th style="vertical-align:middle">NPP</th>
+                            <th style="vertical-align:middle">User Id</th>
+                            <th style="vertical-align:middle">Nama</th>
+                            <th style="vertical-align:middle">Group</th>
+                            <th style="vertical-align:middle">Approval Limit</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        //LoadTable();
+        $("#table").DataTable({
+            lengthChange: false,
+            autoWidth: false,
+
+            ajax: {
+                "url": "@Url.Action("GetData","DataToken")",
+                "type": "GET",
+                "dataType": "json",
+
+            },
+            "columns": [
+
+                {
+                    render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                },
+                {
+                    "data": "kelompok.nama"
+                },
+                {
+                    "data": "modul.nama"
+                },
+                {
+                    "data": "npp"
+                },
+                {
+                    "data": "userId"
+                },
+                {
+                    "data": "nama"
+                },
+                {
+                    "data": "group"
+                },
+                {
+                    "data": "approvalLimit"
+                }, {
+                    "data": "userIdToken"
+                }, {
+                    "data": "tokenExpired"
+                }, {
+                    "data": "keterangan"
+                },
+                {
+                    render: function(data, type, row) {
+                        return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                            "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
+                    },
+                },
+            ]
+        });
+
+        
+        $.ajax({
+            url: "@Url.Action("GetAllKelompok","Master")",
+            type: "get",
+            dataType: "json",
+            success: function({ data }) {
+
+                $("select[name=kelompok]").empty();
+                $("select[name=kelompok]").append(`<option value="">--Kelompok--</option>`)
+                $.each(data, function(i, value) {
+                    $("select[name=kelompok]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            }
+        })
+
+        $.ajax({
+            url: "@Url.Action("GetModul","Master")",
+            type: "get",
+            dataType: "json",
+            success: function({ data }) {
+
+                $("select[name=modul]").empty();
+                $("select[name=modul]").append(`<option value="">--Modul--</option>`)
+                $.each(data, function(i, value) {
+                    $("select[name=modul]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            }
+        })
+    });
+
+    function Save() {
+        debugger;
+        var data = new Object();
+        data.KelompokId = $("#kelompok").val();
+        data.ModulId = $("#modul").val();
+        data.NPP = $("#NPP").val();
+        data.UserId = $("#userid").val();
+        data.Nama = $("#nama").val();
+        data.Group = $("#group").val();
+        data.ApprovalLimit = $("#approve").val();
+        data.UserIdToken = $("#useridtoken").val();
+        data.TokenExpired = $("#perpanjangtoken").val();
+        data.Keterangan = $("#keterangan").val();
+        $.ajax({
+            "url": "@Url.Action("Save","DataToken")",
+            "type": "POST",
+            "datatype": "json",
+            "data": data
+        }).then((result) => {
+            if (result != false) {
+                Swal.fire(
+                    'Success!',
+                    'Data Berhasil Diinput!.',
+                    'success'
+                ).then(() => {
+                    $("#myModal").modal('hide');
+                    $('#table').DataTable().ajax.reload();
+                })
+            }
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Data Tidak Berhasil Diinput!.',
+                    'error'
+                ).then(() => {
+                    $("#myModal").modal('hide');
+                    $('#table').DataTable().ajax.reload();
+                })
+            }
+        })
+    }
+    function GetById(Id) {
+        $.ajax({
+            "url": "@Url.Action("GetById","DataToken")",
+            "type": "GET",
+            "datatype": "json",
+            "data": { Id: Id }
+        }).then((result) => {
+            if (result != null) {
+                console.log(result);
+                $("#idToken").val(result.data.id);
+                $("#kelompok").val(result.data.kelompokId);
+                $("#modul").val(result.data.modulId);
+                $("#NPP").val(result.data.npp);
+                $("#userid").val(result.data.userId);
+                $("#nama").val(result.data.nama);
+                $("#group").val(result.data.group);
+                $("#approve").val(result.data.approvalLimit);
+                $("#useridtoken").val(result.data.userIdToken);
+                $("#perpanjangtoken").val(result.data.tokenExpired);
+                $("#keterangan").val(result.data.keterangan);
+                $("#myModal").modal('show');
+                $("#Update").show();
+                $("#Save").hide();
+            }
+        })
+    }
+    function Edit() {
+        debugger;
+        var data = new Object();
+        data.Id = $("#idToken").val();
+        data.KelompokId = $("#kelompok").val();
+        data.ModulId = $("#modul").val();
+        data.NPP = $("#NPP").val();
+        data.UserId = $("#userid").val();
+        data.Nama = $("#nama").val();
+        data.Group = $("#group").val();
+        data.ApprovalLimit = $("#approve").val();
+        data.UserIdToken = $("#useridtoken").val();
+        data.TokenExpired = $("#perpanjangtoken").val();
+        data.Keterangan = $("#keterangan").val();
+        $.ajax({
+            "url": "@Url.Action("Save","DataToken")",
+            "type": "POST",
+            "datatype": "json",
+            "data": data
+        }).then((result) => {
+            if (result != false) {
+                Swal.fire(
+                    'Success!',
+                    'Data Berhasil Diinput!.',
+                    'success'
+                ).then(() => {
+                    $("#myModal").modal('hide');
+                    $('#table').DataTable().ajax.reload();
+                })
+            }
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Data Tidak Berhasil Diinput!.',
+                    'Failed'
+                ).then(() => {
+                    $("#myModal").modal('hide');
+                    $('#table').DataTable().ajax.reload();
+                })
+            }
+        })
+    }
+    function Delete(Id) {
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Data Terhapus Tidak Bisa Dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    "url": "@Url.Action("Delete","DataToken")",
+                    "datatype": "json",
+                    "data": { Id: Id }
+                }).then((result) => {
+                    debugger;
+                    if (result.data != 0) {
+                        Swal.fire(
+                            'Success!',
+                            'Data Terhapus.',
+                            'success'
+                        ).then(() => {
+                            $('#table').DataTable().ajax.reload();
+                        })
+                    }
+                    else {
+                        Swal.fire(
+                            'Failed!',
+                            'Data Tidak Terhapus.',
+                            'failed'
+                        ).then(() => {
+                            $('#table').DataTable().ajax.reload();
+                        })
+                    }
+                    $("#myModal").modal('hide');
+                    $('#table').DataTable().ajax.reload();
+                })
+            }
+        })
+    }
+
+    function ClearScreen() {
+        $("#idToken").val('');
+        $("#kelompok").val('');
+        $("#modul").val('');
+        $("#npp").val('');
+        $("#userId").val('');
+        $("#nama").val('');
+        $("#group").val('');
+        $("#approve").val('');
+        $("#userIdToken").val('');
+        $("#tokenExpired").val('');
+        $("#keterangan").val('');
+        $("#Update").hide();
+        $("#Save").show();
+    }
+
+    function Validation() {
+        debugger;
+        if ($("#NPP").val() == "" || $("#NPP").val() == " ") {
+            Swal.fire('mohon isi field');
+        }
+        else if ($("#idToken").val() == "" || $("#idToken").val() == " ") {
+            Save();
+        }
+        else {
+            Edit($("#idToken").val());
+        }
+    }
+
+</script>

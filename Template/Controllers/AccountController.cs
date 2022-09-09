@@ -57,16 +57,16 @@ namespace Ririn.Controllers
                     var createdUser = await _userManager.FindByNameAsync(data.NPP);
 
                     success = true;
-                    foreach (var item in data.Roles)
-                    {
-                        var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
-                    }
+                    //foreach (var item in data.Roles)
+                    //{
+                    //    var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
+                    //}
                     return Json(success);
                 }
             }
             else
             {
-                var UserDb = _context.User.Single(x => x.NPP == data.NPP);
+                var UserDb = _context.User.Single(x => x.Id == data.Id);
                 UserDb.Nama = data.Nama;
                 UserDb.NPP = data.NPP;
                 UserDb.KelompokId = data.KelompokId;
@@ -84,14 +84,14 @@ namespace Ririn.Controllers
                     }
 
                     //Add Role to User
-                    foreach (var item in data.Roles)
-                    {
-                        var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
-                    }
+                    //foreach (var item in data.Roles)
+                    //{
+                    //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
+                    //}
+                    
                 }
                 success = true;
             }
-
             return Json(success);
         }
 
@@ -107,6 +107,7 @@ namespace Ririn.Controllers
             }
             return Json(result);
         }
+
 
         #region Get Data
 
@@ -124,10 +125,10 @@ namespace Ririn.Controllers
             }
         }
 
-        public IActionResult GetById(string? id)
+        public JsonResult GetById(string? id)
         {
             var result = _context.User.Where(x => x.Id == id).FirstOrDefault();
-            return Ok(new { data = result });
+            return Json(new { data = result });
         }
 
 

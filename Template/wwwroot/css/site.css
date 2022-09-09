@@ -486,7 +486,7 @@ nav .nav-item a.nav-link:hover > * {
 }
 thead {
   text-align: center;
-  background-color: var(--bni-origin) !important;
+  background-color: var(--bni-origin);
   color: var(--bni-accent);
 }
 

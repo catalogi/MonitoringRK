@@ -44,14 +44,13 @@
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
-            <div class="card-header card-header-info" style="background-color:#319DA0">
-                <h3 class="card-title">Master Cabang</h3>
-                <p class="card-text">tambah / perbarui / hapus data</p>
-                <a class="btn btn-danger float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Master Cabang</h3>                
+                <a class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>
             </div>
             <div class="card-body ">
                 <table id="table" class="table table-bordered">
-                    <thead>
+                    <thead style="background-color:#319DA0">
                         <tr>
                             <th>No</th>
                             <th>Nama Cabang</th>
@@ -85,7 +84,7 @@
                 { "data": "sandi" },
                 {
                     "render": function(data, type, row) {
-                        return "<button class='btn btn-warning btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                        return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
                             "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
                     },
                 },
@@ -236,6 +235,7 @@
         $("#Save").show();
     }
     function Validation() {
+        debugger;
         if ($("#nama").val() == "" || $("#nama").val() == " ") {
             Swal.fire('mohon isi field nama cabang');
         }

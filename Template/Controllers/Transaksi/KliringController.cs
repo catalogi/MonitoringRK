@@ -69,7 +69,14 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUser();
-
+            #region upload File Lampiran
+            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            {
+                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "File/Lampiran/");
+            #endregion
             if (data.Id == null)
             {
                 var testkey = new Testkey
@@ -83,12 +90,7 @@ namespace Ririn.Controllers.Transaksi
                 _context.SaveChanges();
                 foreach (var item in data.klirings)
                 {
-                    if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-                    {
-                        _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-                    }
-                    string webRootPath = _webHostEnvironment.WebRootPath;
-                    string path = Path.Combine(webRootPath, "File/Lampiran/");
+
                     string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
                     Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
                     Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
@@ -121,30 +123,50 @@ namespace Ririn.Controllers.Transaksi
             }
             else
             {
-                var kliring = new T_Kliring
+                var testkey = new Testkey
                 {
-                    NomorSurat = item.NomorSurat,
-                    TanggalSurat = item.TanggalSurat,
-                    NoReferensi = item.NoReferensi,
-                    NamaPenerima = item.NamaPenerima,
-                    BankId = item.BankId,
-                    NomorRekening = item.NomorRekening,
-                    Nominal = item.Nominal,
-                    CabangId = item.CabangId,
-                    TanggalTRX = item.TanggalTRX,
-                    TestkeyId = testkey.Id,
-                    KeteranganId = item.KeteranganId,
-                    AlasanId = item.AlasanId,
-                    NominalSeharusnya = item.NominalSeharusnya,
-                    
-
+                    NomorTestkey = data.NomorTestKey,
+                    TanggalTestKey = data.TanggalTestkey,
+                    KeteranganId = data.KeteranganId,
+                    UnitId = data.UnitId
                 };
-                _context.Entry(kliring).State = EntityState.Modified;
+                _context.Entry(testkey).State = EntityState.Modified;
+                _context.SaveChanges();
+                foreach (var item in data.klirings)
+                {
+
+                    string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
+                    Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
+                    Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
+                    var kliring = new T_Kliring
+                    {
+                        NomorSurat = item.NomorSurat,
+                        TanggalSurat = item.TanggalSurat,
+                        NoReferensi = item.NoReferensi,
+                        NamaPenerima = item.NamaPenerima,
+                        BankId = item.BankId,
+                        NomorRekening = item.NomorRekening,
+                        Nominal = item.Nominal,
+                        CabangId = item.CabangId,
+                        TanggalTRX = item.TanggalTRX,
+                        TestkeyId = testkey.Id,
+                        KeteranganId = item.KeteranganId,
+                        AlasanId = item.AlasanId,
+                        NominalSeharusnya = item.NominalSeharusnya,
+                        TypeId = item.TypeId,
+                        path = generateNamaFile,
+
+
+                    };
+
+                    _context.Entry(kliring).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    success = true;
+                }
+
             }
             return Ok(success);
-
+            #endregion
         }
-        #endregion
-
     }
 }
