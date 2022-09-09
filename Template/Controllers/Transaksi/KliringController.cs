@@ -59,58 +59,77 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-        public JsonResult Save(Models.Transaksi.T_Kliring data)
+        //public JsonResult Save(Models.Transaksi.T_Kliring data)
+        //{
+
+        //    bool status = false;
+        //    if (data.Id == 0)
+        //    {
+        //        data.Createdate = DateTime.Now;
+        //        data.path = data.path;
+        //        data.TanggalDone = data.Createdate;
+        //        //data.isDone = false;
+        //        data.KeteranganId = 1;
+        //        _context.T_Kliring.Add(data);
+        //        _context.SaveChanges();
+        //        var MrkId = data.Id;
+        //        var tk = new Testkey();
+        //        tk.KeteranganId = MrkId;
+        //        tk.NomorTestkey = data.Testkey.NomorTestkey;
+        //        tk.Tanggal = data.TanggalDone.Value;
+        //        _context.Testkey.Add(tk);
+        //        status = true;
+        //    }
+        //    else
+        //    {
+        //        var dataDb = _context.T_Kliring.Single(x => x.Id == data.Id);
+        //        dataDb.NamaPenerima = data.NamaPenerima;
+        //        dataDb.NomorRekening = data.NomorRekening;
+        //        dataDb.AlasanId = data.AlasanId;
+        //        dataDb.TanggalSurat = data.TanggalSurat;
+        //        dataDb.BankId = data.BankId;
+        //        dataDb.CabangId = data.CabangId;
+        //        dataDb.TypeId = data.TypeId;
+        //        dataDb.NomorSurat = data.NomorSurat;
+        //        dataDb.Nominal = data.Nominal;
+        //        dataDb.TanggalTRX = data.TanggalTRX;
+        //        status = true;
+        //    }
+        //    _context.SaveChanges();
+        //    return Json(status);
+        //}
+
+        public JsonResult Save(T_Kliring t_Kliring)
         {
-            //string path = Path.Combine(_host.WebRootPath, "ScreenCapture");
-            //if (!Directory.Exists(path))
-            //{
-            //    Directory.CreateDirectory(path); //Create directory if it doesn't exist
-            //}
-
-
-            //string imgName = data.NoTeskey.Replace("/", "-") + ".jpg";
-            //string imgPath = Path.Combine(path, imgName);
-            //string converted = data.Path.Replace("data:image/png;base64,", "");
-
-            //byte[] imageBytes = Convert.FromBase64String(converted);
-
-            //System.IO.File.WriteAllBytes(imgPath, imageBytes);
-
-            bool status = false;
-            if (data.Id == 0)
+            if (t_Kliring.Id == 0)
             {
-                data.Createdate = DateTime.Now;
-                data.path = data.path;
-                data.TanggalDone = data.Createdate;
-                //data.isDone = false;
-                data.KeteranganId = 1;
-                _context.T_Kliring.Add(data);
-                _context.SaveChanges();
-                var MrkId = data.Id;
-                var tk = new Testkey();
-                tk.KeteranganId = MrkId;
-                tk.NomorTestkey = data.Testkey.NomorTestkey;
-                tk.Tanggal = data.TanggalDone.Value;
-                _context.Testkey.Add(tk);
-                status = true;
+
+                _context.T_Kliring.Add(t_Kliring);
             }
             else
             {
-                var dataDb = _context.T_Kliring.Single(x => x.Id == data.Id);
-                dataDb.NamaPenerima = data.NamaPenerima;
-                dataDb.NomorRekening = data.NomorRekening;
-                dataDb.AlasanId = data.AlasanId;
-                dataDb.TanggalSurat = data.TanggalSurat;
-                dataDb.BankId = data.BankId;
-                dataDb.CabangId = data.CabangId;
-                dataDb.TypeId = data.TypeId;
-                dataDb.NomorSurat = data.NomorSurat;
-                dataDb.Nominal = data.Nominal;
-                dataDb.TanggalTRX = data.TanggalTRX;
-                status = true;
+                var data = _context.T_Kliring.Where(x => x.Id == t_Kliring.Id).FirstOrDefault();
+                data.TypeId = t_Kliring.TypeId;
+                data.TanggalTRX = t_Kliring.TanggalTRX;
+                data.NoReferensi = t_Kliring.NoReferensi;
+                data.CabangId = t_Kliring.CabangId;
+                data.TanggalSurat = t_Kliring.TanggalSurat;
+                data.Testkey = t_Kliring.Testkey;
+                data.NomorSurat = t_Kliring.NomorSurat;
+                data.Testkey.NomorTestkey = t_Kliring.Testkey.NomorTestkey;
+                data.NamaPenerima = t_Kliring.NamaPenerima;
+                data.NomorRekening = t_Kliring.NomorRekening;
+                data.Nominal = t_Kliring.Nominal;
+                data.NominalSeharusnya = t_Kliring.NominalSeharusnya;
+                data.BankId = t_Kliring.BankId;
+                data.AlasanId = t_Kliring.AlasanId;
+                data.IsDeleted = false;
+                data.Updatedate = DateTime.Now;
+                _context.Entry(data).State = EntityState.Modified;
             }
             _context.SaveChanges();
-            return Json(status);
+
+            return Json(t_Kliring);
         }
 
         public JsonResult SaveReason(string reason)
