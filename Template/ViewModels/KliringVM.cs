@@ -6,7 +6,7 @@ using System.Net.Mail;
 namespace Ririn.ViewModels
 {
     public class KliringVM
-    {
+    {       
         public int? Id { get; set; }
         public string NomorSurat { get; set; }
         public DateTime TanggalSurat { get; set; }
@@ -47,3 +47,6 @@ namespace Ririn.ViewModels
         public string FileName { get; set; }
     }
 }
+
+
+// ini punya rudi //
