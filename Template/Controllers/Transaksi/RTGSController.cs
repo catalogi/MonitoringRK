@@ -38,17 +38,17 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        public IActionResult Save(TranshVM data)
+        public IActionResult Save(KliringVM data)
         {
             var success = false;
             if (data == null)
             {
                 var testkey = new Testkey
                 {
-                    NomorTestkey = data.NomorTestKey,
-                    TanggalTestKey = data.TanggalTestkey,
-                    KeteranganId = data.KeteranganId,
-                    UnitId = data.UnitId,
+                    //NomorTestkey = data.NomorTestKey,
+                    //Tanggal = data.TanggalTestKey,
+                    //KeteranganId = data.KeteranganId,
+                    //UnitId = data.UnitId,
                 };
                 success = true;
             }

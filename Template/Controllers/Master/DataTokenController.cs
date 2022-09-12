@@ -57,6 +57,18 @@ namespace Ririn.Controllers.Master
 
             return Json(datatoken);
         }
+        public JsonResult PerpanjangTanggal(int Id)
+        {
+            try
+            {
+                var data = _context.DataToken.Single(x => x.Id == Id);
+                if(data)
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
         public JsonResult Delete(int Id)
         {
             bool result = false;

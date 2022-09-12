@@ -1,4 +1,5 @@
 ﻿using ASK_Core.Migrations;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
@@ -62,12 +63,12 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-       
+
 
         public JsonResult SaveReason(string reason)
         {
             int data = 0;
-            var exist = _context.Alasan.Where(x => x.Nama== reason).Count();
+            var exist = _context.Alasan.Where(x => x.Nama == reason).Count();
             if (exist == 0)
             {
                 Alasan reasons = new Alasan();
@@ -79,7 +80,7 @@ namespace Ririn.Controllers.Transaksi
             }
             else
             {
-                var id = _context.Alasan.Single(x => x.Nama== reason).Id;
+                var id = _context.Alasan.Single(x => x.Nama == reason).Id;
                 data = id;
             }
 
@@ -90,7 +91,7 @@ namespace Ririn.Controllers.Transaksi
 
         #region Save Data
         [HttpPost]
-        public IActionResult Save(TranshVM data)
+        public IActionResult Save(KliringVM data)
         {
             var success = false;
             //var user = GetCurrentUser();
@@ -101,93 +102,75 @@ namespace Ririn.Controllers.Transaksi
             }
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "File/Lampiran/");
+            string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
+            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
             #endregion
             if (data.Id == null)
             {
-                var testkey = new Testkey
+                foreach (var item in data.Testkeys)
                 {
-                    NomorTestkey = data.NomorTestKey,
-                    TanggalTestKey = data.TanggalTestkey,
-                    KeteranganId = data.KeteranganId,
-                    UnitId = data.UnitId
-                };
-                _context.Testkey.Add(testkey);
-                _context.SaveChanges();
-                foreach (var item in data.klirings)
-                {
-
-                    string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
-                    Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
-                    Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-                    var kliring = new T_Kliring
+                    var teskey = new Testkey
                     {
-                        NomorSurat = item.NomorSurat,
-                        TanggalSurat = item.TanggalSurat,
-                        NoReferensi = item.NoReferensi,
-                        NamaPenerima = item.NamaPenerima,
-                        BankId = item.BankId,
-                        NomorRekening = item.NomorRekening,
-                        Nominal = item.Nominal,
-                        CabangId = item.CabangId,
-                        TanggalTRX = item.TanggalTRX,
-                        TestkeyId = testkey.Id,
-                        KeteranganId = item.KeteranganId,
-                        AlasanId = item.AlasanId,
-                        NominalSeharusnya = item.NominalSeharusnya,
-                        TypeId = item.TypeId,
-                        path = generateNamaFile,
-                        StatusId = 1,
-                        Durasi = 0,
-                        //CreaterId= User.Id
-
+                        NomorTestkey = item.NomorTestKey,
+                        Tanggal = item.TanggalTestKey
                     };
-                    _context.T_Kliring.Add(kliring);
+                    _context.Testkey.Add(teskey);
+                    _context.SaveChanges();
                 }
+                var kliring = new T_Kliring
+                {
+                    NomorSurat = data.NomorSurat,
+                    TanggalSurat = data.TanggalSurat,
+                    NoReferensi = data.NoReferensi,
+                    NamaPenerima = data.NamaPenerima,
+                    NomorRekening = data.NomorRekening,
+                    Nominal = data.Nominal,
+                    TanggalTRX = data.TanggalTRX,
+                    NominalSeharusnya = data.NominalSeharusnya,
+                    path = generateNamaFile,
+                    BankId = data.BankId,
+                    CabangId = data.CabangId,
+                    AlasanId = data.AlasanId,
+                    TypeId = data.TypeId,
+                    StatusId = 1,
+                    Durasi = 0
+
+                };
+                _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
-                success = true;
             }
             else
             {
-                var testkey = new Testkey
+                foreach(var item in data.Testkeys)
                 {
-                    NomorTestkey = data.NomorTestKey,
-                    TanggalTestKey = data.TanggalTestkey,
-                    KeteranganId = data.KeteranganId,
-                    UnitId = data.UnitId
-                };
-                _context.Entry(testkey).State = EntityState.Modified;
-                _context.SaveChanges();
-                foreach (var item in data.klirings)
-                {
-
-                    string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
-                    Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
-                    Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-                    var kliring = new T_Kliring
+                    var teskey = new Testkey
                     {
-                        NomorSurat = item.NomorSurat,
-                        TanggalSurat = item.TanggalSurat,
-                        NoReferensi = item.NoReferensi,
-                        NamaPenerima = item.NamaPenerima,
-                        BankId = item.BankId,
-                        NomorRekening = item.NomorRekening,
-                        Nominal = item.Nominal,
-                        CabangId = item.CabangId,
-                        TanggalTRX = item.TanggalTRX,
-                        TestkeyId = testkey.Id,
-                        KeteranganId = item.KeteranganId,
-                        AlasanId = item.AlasanId,
-                        NominalSeharusnya = item.NominalSeharusnya,
-                        TypeId = item.TypeId,
-                        path = generateNamaFile,
-
-
+                        NomorTestkey = item.NomorTestKey,
+                        Tanggal = item.TanggalTestKey,
                     };
-
-                    _context.Entry(kliring).State = EntityState.Modified;
+                    _context.Entry(teskey).State = EntityState.Modified;
                     _context.SaveChanges();
-                    success = true;
                 }
+                var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
+                
+                result.NomorSurat = data.NomorSurat;
+                result.TanggalSurat = data.TanggalSurat;
+                result.NoReferensi= data.NoReferensi;
+                result.NamaPenerima = data.NamaPenerima;
+                result.NomorRekening = data.NomorRekening;
+                result.Nominal = data.Nominal;
+                result.TanggalTRX = data.TanggalTRX;
+                result.NominalSeharusnya = data.NominalSeharusnya;
+                result.path = generateNamaFile;
+                result.BankId = data.BankId;
+                result.CabangId = data.CabangId;
+                result.AlasanId = data.AlasanId;
+                result.TypeId = data.TypeId;
+                result.Durasi = data.Durasi;
+
+                _context.Entry(result).State = EntityState.Modified;
+                _context.SaveChanges();
 
             }
             return Ok(success);
