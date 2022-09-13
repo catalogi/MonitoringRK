@@ -102,7 +102,7 @@
 						<label class="control-label">Evidence</label>
 						<br />
 						<input type="hidden" id="Path" />
-						<input type="file" class="inputFileHidden" accept=".pdf" id="Upload" style="min-width:100%">
+						<input type="file" class="inputFileHidden" id="path" accept=".pdf" id="Upload" style="min-width:100%">
 						@*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
 					</div>
 				</div>
@@ -235,7 +235,7 @@
 		//    })
 		//}
 
-		function p(){}
+
 
 		//function Save() {
 		//	debugger;
@@ -293,7 +293,7 @@
             var isAllValid = true;
             //validate order items
             $('#ItemError').text('');
-            //var canvas = document.getElementById('Path');
+            var canvas = document.getElementById('Path');
             //var dataURL = canvas.toDataURL();
             var errorItemCount = 0;
             //debugger;
@@ -405,6 +405,7 @@
             }
 
             if (isAllValid) {
+				
                 var data = new Object();
                     data.NomorSurat = $("#NomorSurat").val();
                     data.TanggalSurat = $("#TanggalSurat").val();
@@ -414,13 +415,14 @@
                     data.Nominal = minkoma($("#Nominal").val());
                     data.BankId = $("#BTujuan").val();
                     data.AlasanId = $("#Alasan").val();
-                    data.path = $("#Path").val();
+                    data.Path = $("#path").val();
 					data.TanggalTRX = $("#TanggalTRX").val(),
 					data.TanggalTestKey = $("#TanggalTK").val(),
                     data.NomorTestKey = $("#NoTeskey").val();
 					data.NoReferensi = $("#NoReferensi").val();
                     data.CabangId = $("#Cabang").val();
                     data.NominalSeharusnya = $("#Nominal2").val();
+					console.log(data);
                 if ($("#Alasan").val() == 'custom') {
                     var reason = $("#alasanLain").val()
                     $.ajax({
@@ -429,12 +431,12 @@
                         "dataType": "json",
                         "data": { reason: reason }
                     }).then((result) => {
-                        data.reasonId = result;
+                        data.alasanId = result;
                         $.ajax({
                             url: '@Url.Action("Save","Kliring")',
                             type: 'Post',
                             dataType: "json",
-                            data: data,
+                            data: {data:data},
                             success: function (data) {
                                 if (data == true) {
                                     swal.fire('Successfully saved');
@@ -453,8 +455,10 @@
                             url: '@Url.Action("Save","Kliring")',
                             type: 'Post',
                             dataType: "json",
-                            data: data,
+                            data: {data:data},
+							
                             success: function (data) {
+								console.log(data)
                                 if (data == true) {
                                     swal.fire('Successfully saved');
                                     //here we will clear the form

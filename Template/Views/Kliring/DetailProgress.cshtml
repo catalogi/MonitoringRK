@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Detail Progress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var count = 1;
+}
+
+<section class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title">Detail</h4>
+                <p class="card-text">TesKey / Surat</p>
+                <a class="btn btn-primary text-white pull-right" id="edit">Edit</a>
+
+            </div>
+            <div class="card-body">
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4">
+                        <label class="bmd-label-floating">Tipe Surat</label>
+                        <br />
+                        <input type="hidden" id="formId" value="" />
+                        <select required Id="Tipe" data-placement="choose" class="form-control select2 Tipe" ></select>
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="bmd-label-floating">Tanggal TRX</label>
+                        <input id="TanggalTRX" type="text" class="form-control datepicker" />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 NoReferensi">
+                        <label class="control-label">Nomor Referensi</label>
+                        <input id="NoReferensi" type="text" class="form-control" />
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="bmd-label-floating">Divisi / Cabang</label>
+                        <br />
+                        <select required Id="Cabang" data-placement="choose" class="form-control select2" ></select>
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4">
+                        <label class="bmd-label-floating">Tanggal Surat</label>
+                        <input id="TanggalSurat" type="tel" class="form-control datepicker" value="" />
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="bmd-label-floating">Tanggal TestKey</label>
+                        <input id="TanggalTK" type="tel" class="form-control datepicker"  />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4">
+                        <label class="bmd-label-floating">Nomor Surat</label>
+                        <input id="NomorSurat" type="text" class="form-control" value=""  />
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="control-label">Nomor Teskey</label>
+                        <input id="NoTeskey" type="text" class="form-control" value=""  />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 Nama">
+                        <label class="control-label">Nama</label>
+                        <input id="Nama" type="text" class="form-control" value=""  />
+                    </div>
+                    <div class="col-md-4 offset-md-1 NomorRekening">
+                        <label class="control-label">Nomor Rekening</label>
+                        <input id="NomorRekening" type="text" class="form-control" value=""  />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4">
+                        <label class="control-label ">Nominal</label>
+                        <input id="Nominal" type="text" class="form-control number" value=""  />
+                    </div>
+                    <div class="col-md-4 offset-md-1 ">
+                        <label class="control-label ">Nominal Seharusnya</label>
+                        <input id="Nominal2" type="text" class="form-control number"  />
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 BTujuan">
+                        <label class="control-label">Bank</label>
+                        <select required Id="BTujuan" data-placement="choose" class="form-control select2 bank" ></select>
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 Reason">
+                        <label class="control-label">Reason</label>
+                        <br />
+                        <select required Id="Reason" onchange="AddReason();" data-placement="choose" class="form-control select2"></select>
+                        <div id="Reason-div">
+                            <label class="control-label">New Reason</label>
+                            <br />
+                            <input id="newReason" class="form-control" type="text"  />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			$(".select2").select2({
+				"theme": "classic"
+			});
+		});
+
+	</script>
+}

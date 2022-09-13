@@ -23,7 +23,7 @@ namespace Ririn.ViewModels
         public int TypeId { get; set; }
         public int StatusId { get; set; }
         public int Durasi { get; set; }
-        public Attachment Path { get; set; }
+        public Attachment? Path { get; set; }
         public DateTime? TanggalDone { get; set; }
         public string? CreaterId { get; set; }
         public string? AcceptorId { get; set; }
@@ -43,8 +43,8 @@ namespace Ririn.ViewModels
 
     public class Attachment
     {
-        public string Base64 { get; set; }
-        public string FileName { get; set; }
+        public string? Base64 { get; set; }
+        public string? FileName { get; set; }
     }
 }
 

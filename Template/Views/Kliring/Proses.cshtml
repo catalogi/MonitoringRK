@@ -1,114 +1,144 @@
 ﻿@{
-    ViewBag.Title = "Proses";
+	ViewBag.Title = "Proses";
 }
 
 <section class="content">
-    <div class="container">
-        <div class="card" style="background-color:white">
-            <div class="card-header card-header-info">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
-                <p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
-                @*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
-            </div>
-            <div class="card-body ">
-                <div class="row" style="margin-left:20px;margin-bottom:20px">
-                    <label class="bmd-label-floating">Tipe Surat</label>
+	<div class="container">
+		<div class="card" style="background-color:white">
+			<div class="card-header card-header-info">
+				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+				<p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
+				@*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
+			</div>
+			<div class="card-body ">
+				<div class="row" style="margin-left:20px;margin-bottom:20px">
+					<label class="bmd-label-floating">Tipe Surat</label>
 
-                    <div class="col-md-4">
-                        <select required Id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe">
-                            @*<option value="">--- Pilih Tipe ---</option>*@
-                        </select>
-                    </div>
-                </div>
-                <table id="table" class="table table-bordered">
-                    <thead style="background-color:#319DA0">
-                        <tr>
-                            <th>No.</th>
-                            <th>Bank</th>
-                            <th>No. Rekening</th>
-                            <th>Nominal</th>
-                            <th>Nasabah Penerima</th>
-                            <th>Alasan</th>
-                            <th>Durasi</th>
-                            <th>Tipe Transaksi</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+					<div class="col-md-4">
+						<select required Id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe">
+							@*<option value="">--- Pilih Tipe ---</option>*@
+						</select>
+					</div>
+				</div>
+				<table id="table" class="table table-bordered table-responsive display nowrap" style="width:100%">
+					<thead style="background-color:#319DA0">
+						<tr>
+							<th>No.</th>
+							<th>Bank</th>
+							<th style="vertical-align:middle">No. Rekening</th>
+							<th>Nominal</th>
+							<th>Nasabah Penerima</th>
+							<th>Alasan</th>
+							<th>Durasi</th>
+							<th>Tipe Transaksi</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </section>
 
 @section scripts{
 
- <script>
+	<script>
 
-      $(document).ready(function () {  
-            GetType();
-            Read();
-        });
+		$(document).ready(function () {
+			GetType();
+			Read();
+			$(".select2").select2({
+				"theme": "classic"
+			});
+		});
 
 
-        function GetType() {
-            $.ajax({
-                url: "@Url.Action("GetType","Kliring")",
-                type: "Get",
-                dataType: "json",
-                success: function ({ data }) {
-                    //console.log(data);
-                    //$("select[id=Tipe]").empty();
-                    $("select[name=Tipe]").append('<option value="">--Tipe--</option>')
-                    $.each(data, function (i, value) {
-                        $("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
-                    })
-                }
-            })
-        }
+		function GetType() {
+			$.ajax({
+				url: "@Url.Action("GetType","Kliring")",
+				type: "Get",
+				dataType: "json",
+				success: function ({ data }) {
+					//console.log(data);
+					//$("select[id=Tipe]").empty();
+					$("select[name=Tipe]").append('<option value="">--Tipe--</option>')
+					$.each(data, function (i, value) {
+						$("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
+					})
+				}
+			})
+		}
 
-        function Read() {
-            var t = $("#table").DataTable({
-                "ajax": {
-                    "url": "@Url.Action("GetList","Account")",
-                    "type": "GET",
-                    "datatype": "json"
-                },
-                "columns": [
-                    { "data": null },
-                    { "data": "Bank" },
-                    { "data": "No.Rek" },
-                    { "data": "Nominal" },
-                    { "data": "Nasabah Penerima" },
-                    { "data": "Alasan" },
-                    { "data": "Durasi" },
-                    { "data": "Tipe-Transaksi" },
-                    {
-                        "render": function (data, type, row) {
-                            return "<button class='btn btn-warning btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
-                        },
+		function Read() {
+			var t = $("#table").DataTable({
+				//lengthChange: false,
+				//autoWidth: false,
+				"ajax": {
+					
+					"url": "@Url.Action("GetAll","Kliring")",
+					"type": "GET",
+					"datatype": "json"
+				},
+				"columns": [
+					{ "data": null },
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
+					{ "data": "nominal" },
+					{ "data": "namaPenerima" },
+					{ "data": "alasan.nama" },
+					{
+						"render": function (data, type, row) {
+							return row.durasi + " Hari";
+						}
+					},
+					{ "data": "type.type" },
+					{
+						"render": function (data, type, row) {
+							return "<a class='btn btn-sm btn-info text-white' href='@Url.Action("DetailProgress","Kliring")/" + row.id + "'><i class='fas fa-edit'></i></a> " +
+								"<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
+						},
 
-                    },
-                ]
-            })
-            t.on('order.dt search.dt', function () {
-                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                    cell.innerHTML = i + 1;
-                });
-            }).draw();
+					},
+				]
+			})
+			t.on('order.dt search.dt', function () {
+				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+					cell.innerHTML = i + 1;
+				});
+			}).draw();
 
-            $, ajax({
-                url: "@Url.Action("GetAllKelompok","Master")",
-                type: "get",
-                dataType: "json",
-                success: function ({ data }) {
-                    $.Each(data, function (i, kel) {
-                        $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
-                    })
-                }
-            })
-        }
-   </script>
+			$.ajax({
+				url: "@Url.Action("GetAllKelompok","Master")",
+				type: "get",
+				dataType: "json",
+				success: function ({ data }) {
+					$.each(data, function (i, kel) {
+						$("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
+					})
+				}
+			})
+		}
+
+		function GetById(Id) {
+			$.ajax({
+				"url": "@Url.Action("GetById","Kliring")",
+				"type": "GET",
+				"datatype": "json",
+				"data": { Id: Id }
+			}).then((result) => {
+				if (result != null) {
+					console.log(result);
+					$("#bankId").val(result.data.id);
+					$("#bankname").val(result.data.nama);
+					$("#kodeBIC").val(result.data.kodeBIC);
+					$("#kodekliring").val(result.data.kodeKliring);
+					$("#myModal").modal('show');
+					$("#Update").show();
+					$("#Save").hide();
+				}
+			})
+		}
+	</script>
    }
