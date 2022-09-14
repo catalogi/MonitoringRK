@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {}
+    "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {
+    "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
+        "projectUniqueName": "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
         "projectName": "Template",
-        "projectPath": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
+        "projectPath": "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
         "packagesPath": "C:\\Users\\1397\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\obj\\",
+        "outputPath": "C:\\Users\\1397\\source\\repos\\catalogi\\MonitoringRK\\MonitoringRK\\Template\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\1397\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,11 +46,19 @@
             },
             "DocumentFormat.OpenXml": {
               "target": "Package",
-              "version": "[2.17.1, )"
+              "version": "[2.18.0, )"
             },
             "EPPlus": {
               "target": "Package",
               "version": "[6.0.7, )"
+            },
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            },
+            "Microsoft.AspNet.Identity.EntityFramework": {
+              "target": "Package",
+              "version": "[2.2.3, )"
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",

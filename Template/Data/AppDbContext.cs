@@ -1,8 +1,8 @@
-﻿using Ririn.Models.Master;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
+
 
 namespace Ririn.Data
 {
