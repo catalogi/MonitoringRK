@@ -3,6 +3,41 @@
 *@
 @{
 }
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="hidden" id="idTokenP" />
+
+                                <label for="nomorRefrensi">Token Exp</label>
+                                <input type="date" class="form-control datepicker" readonly="readonly" name="tokenexp" id="tokenexp">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="nomorRefrensi">Token perpanjang</label>
+                                <input type="date" class="form-control datepicker" name="tokenpanjang" id="tokenpanjang">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary" id="Save" onclick="Validation();">Simpan</button>*@
+                <button type="button" class="btn btn-primary" id="Update" onclick="Perbarui();">Perbarui</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -103,9 +138,24 @@
                 <a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>
             </div>
             <div class="card-body ">
-                <table id="table" class="table table-bordered table-responsive" style="width:100%">
+                <div class="row" style="margin-left:20px">
+                    <div class="col-sm-3">
+                        <label class="bmd-label-floating">Tanggal Awal</label>
+                        <input id="awalfilter" type="date" class="form-control daterange">
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="bmd-label-floating">Tanggal Akhir</label>
+                        <input id="akhirfilter" type="date" class="form-control daterange">
+                    </div>
+
+                    <div class="col-md-1">
+                        <br>
+                        <button class="btn btn-sm btn-primary" onclick="Filter()">Filter</button>
+                    </div>
+                </div>
+                <table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
                     <thead style="text-align:center">
-                        <tr class="bg-info" style="color:white!important">
+                        <tr class="bg-info" style="color:white!important; height:1px;">
                             <th rowspan="2" style="vertical-align:middle">No</th>
                             <th rowspan="2" style="vertical-align:middle">Kel</th>
                             <th rowspan="2" style="vertical-align:middle">Modul</th>
@@ -170,20 +220,24 @@
                 }, {
                     "data": "userIdToken"
                 }, {
-                    "data": "tokenExpired"
+                    render: (data, type, row, meta) => {
+                        return moment(row.tokenExpired).format('DD MMMM YYYY');
+                    }
                 }, {
                     "data": "keterangan"
                 },
                 {
                     render: function(data, type, row) {
-                        return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                            "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
+                        var date = moment(row.tokenExpired).format('YYYY-MM-DD');
+                        return `<button class='btn btn-success btn-sm text-white' onclick = "Perpanjang(${row.id},'${date}')"><i class='fas fa-calendar-alt'></i></button>
+                                    <button class='btn btn-primary btn-sm text-white' onclick = "GetById(${row.id})"><i class='fas fa-edit'></i></button>
+                                    <button class='btn btn-danger btn-sm text-white' onclick = "Delete(${row.id})"><i class='fas fa-trash'></i></button>`;
                     },
                 },
             ]
         });
 
-        
+
         $.ajax({
             url: "@Url.Action("GetAllKelompok","Master")",
             type: "get",
@@ -203,7 +257,6 @@
             type: "get",
             dataType: "json",
             success: function({ data }) {
-
                 $("select[name=modul]").empty();
                 $("select[name=modul]").append(`<option value="">--Modul--</option>`)
                 $.each(data, function(i, value) {
@@ -254,6 +307,7 @@
             }
         })
     }
+
     function GetById(Id) {
         $.ajax({
             "url": "@Url.Action("GetById","DataToken")",
@@ -261,6 +315,7 @@
             "datatype": "json",
             "data": { Id: Id }
         }).then((result) => {
+            var four = result.data.tokenExpired;
             if (result != null) {
                 console.log(result);
                 $("#idToken").val(result.data.id);
@@ -272,13 +327,111 @@
                 $("#group").val(result.data.group);
                 $("#approve").val(result.data.approvalLimit);
                 $("#useridtoken").val(result.data.userIdToken);
-                $("#perpanjangtoken").val(result.data.tokenExpired);
+                $("#perpanjangtoken").val(moment(result.data.tokenExpired).format("YYYY-MM-DD"));
                 $("#keterangan").val(result.data.keterangan);
                 $("#myModal").modal('show');
                 $("#Update").show();
                 $("#Save").hide();
             }
         })
+    }
+    function Filter() {
+        debugger;
+        var date = $("#awalfilter").val();
+        var date1 = $("#akhirfilter").val();
+        var awal = date.substring(0, 10);
+        var akhir = date1.substring(0, 10);
+        $("#table").DataTable({
+            ajax: {
+                "url": "@Url.Action("Filter","DataToken")",
+                "type": "Get",
+                "data": { Awal: awal, Akhir: akhir },
+                "dataType": "json",
+            },
+            destroy: "true",
+            columns: [
+                {
+                    render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                },
+                {
+                    "data": "kelompok.nama"
+                },
+                {
+                    "data": "modul.nama"
+                },
+                {
+                    "data": "npp"
+                },
+                {
+                    "data": "userId"
+                },
+                {
+                    "data": "nama"
+                },
+                {
+                    "data": "group"
+                },
+                {
+                    "data": "approvalLimit"
+                }, {
+                    "data": "userIdToken"
+                }, {
+                    render: (data, type, row, meta) => {
+                        return moment(row.tokenExpired).format('DD MMMM YYYY');
+                    }
+                }, {
+                    "data": "keterangan"
+                },
+                {
+                    render: function(data, type, row) {
+                        return `<button class='btn btn-success btn-sm text-white' onclick = "Perpanjang(${row.id},${row})"><i class='fas fa-calendar-alt'></i></button>
+                                    <button class='btn btn-primary btn-sm text-white' onclick = "GetById(${row.id})"><i class='fas fa-edit'></i></button>
+                                    <button class='btn btn-danger btn-sm text-white' onclick = "Delete(${row.id})"><i class='fas fa-trash'></i></button>`;
+                    },
+                },
+
+
+            ]
+        })
+    }
+    function Perpanjang(Id, date) {
+        //debugger;
+        console.log(Id, date);
+        $("#myModal1").modal('show');
+        $("#idTokenP").val(Id);     
+        $("#tokenexp").val(date); 
+        
+        
+    }
+    function Perbarui() {
+        var idTokenP = $("#idTokenP").val();
+        var tokenP = $("#tokenpanjang").val();
+
+        console.log(tokenP,idTokenP);
+        $.ajax({
+            "url": "@Url.Action("PerpanjangToken","DataToken")",
+            "type": "POST",
+            "datatype": "json",
+            "data": { date: tokenP, idToken:idTokenP }
+        }).then((result) => {
+            if (result != false) {
+                Swal.fire(
+                    'Success!',
+                    'Data Berhasil Diupdate!.',
+                    'success'
+                ).then(() => {
+                    location.reload(true);
+                })
+            }
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Data Tidak Berhasil Diupdate!.',
+                    'error'
+                )
+            }
+        })
+
     }
     function Edit() {
         debugger;
@@ -293,6 +446,8 @@
         data.ApprovalLimit = $("#approve").val();
         data.UserIdToken = $("#useridtoken").val();
         data.TokenExpired = $("#perpanjangtoken").val();
+        
+        
         data.Keterangan = $("#keterangan").val();
         $.ajax({
             "url": "@Url.Action("Save","DataToken")",
@@ -364,6 +519,7 @@
         })
     }
 
+
     function ClearScreen() {
         $("#idToken").val('');
         $("#kelompok").val('');
@@ -382,7 +538,7 @@
 
     function Validation() {
         debugger;
-        if ($("#NPP").val() == "" || $("#NPP").val() == " ") {
+        if ($("#perpanjangtoken").val() == "" || $("#perpanjangtoken").val() == " ") {
             Swal.fire('mohon isi field');
         }
         else if ($("#idToken").val() == "" || $("#idToken").val() == " ") {
@@ -392,5 +548,6 @@
             Edit($("#idToken").val());
         }
     }
+
 
 </script>

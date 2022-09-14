@@ -8,93 +8,97 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ASK_Core
 build_property.RootNamespace = ASK_Core
-build_property.ProjectDir = D:\Project\Project BNI\Ririn\Template\
+build_property.ProjectDir = C:\Users\1397\source\repos\MonitoringRK\MonitoringRK\Template\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Project\Project BNI\Ririn\Template
+build_property.MSBuildProjectDirectory = C:\Users\1397\source\repos\MonitoringRK\MonitoringRK\Template
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Project/Project BNI/Ririn/Template/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Account/Index.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Account/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Account/Login.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Bank/Index.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Bank/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Cabang/Index.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Cabang/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FiYW5nXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/DataToken/Index.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/DataToken/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVRva2VuXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Home/Index.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Home/Privacy.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Kliring/Monitoring.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Kliring/Monitoring.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2xpcmluZ1xNb25pdG9yaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Kliring/Proses.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Kliring/Proses.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2xpcmluZ1xQcm9zZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Kliring/Registrasi.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Kliring/Registrasi.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2xpcmluZ1xSZWdpc3RyYXNpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Kliring/Reports.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Kliring/Reports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2xpcmluZ1xSZXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/Error.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Libur/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlidXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/_Footer.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/_MainSidebarContainer.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/_MainSidebarContainer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NYWluU2lkZWJhckNvbnRhaW5lci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/_Navbar.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/_Navbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/_ViewImports.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/_ViewStart.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project/Project BNI/Ririn/Template/Views/Shared/_Layout.cshtml]
+[C:/Users/1397/source/repos/MonitoringRK/MonitoringRK/Template/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-dqofgvy3no
