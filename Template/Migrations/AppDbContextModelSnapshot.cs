@@ -401,6 +401,29 @@ namespace ASK_Core.Migrations
                     b.ToTable("Keterangan");
                 });
 
+            modelBuilder.Entity("Ririn.Models.Master.Libur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Hari")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Keterangan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TanggalLibur")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Libur");
+                });
+
             modelBuilder.Entity("Ririn.Models.Master.Modul", b =>
                 {
                     b.Property<int>("Id")
@@ -460,7 +483,7 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Tanggal")
+                    b.Property<DateTime>("TanggalTestKey")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UnitId")
@@ -486,7 +509,7 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Nama")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -644,6 +667,9 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("AcceptorId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("BankId")
                         .HasColumnType("int");
 
@@ -653,7 +679,16 @@ namespace ASK_Core.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Followup")
+                    b.Property<string>("CreaterId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Durasi")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FollowUp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsDeleted")
@@ -689,17 +724,24 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("TestkeyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("path")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AcceptorId");
 
                     b.HasIndex("BankId");
 
                     b.HasIndex("CabangId");
+
+                    b.HasIndex("CreaterId");
 
                     b.HasIndex("KeteranganId");
 
@@ -899,6 +941,10 @@ namespace ASK_Core.Migrations
 
             modelBuilder.Entity("Ririn.Models.Transaksi.T_RTGS", b =>
                 {
+                    b.HasOne("Ririn.Models.Master.User", "Acceptor")
+                        .WithMany()
+                        .HasForeignKey("AcceptorId");
+
                     b.HasOne("Ririn.Models.Master.Bank", "Bank")
                         .WithMany()
                         .HasForeignKey("BankId");
@@ -906,6 +952,10 @@ namespace ASK_Core.Migrations
                     b.HasOne("Ririn.Models.Master.Cabang", "Cabang")
                         .WithMany()
                         .HasForeignKey("CabangId");
+
+                    b.HasOne("Ririn.Models.Master.User", "Creater")
+                        .WithMany()
+                        .HasForeignKey("CreaterId");
 
                     b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
                         .WithMany()
@@ -921,11 +971,17 @@ namespace ASK_Core.Migrations
 
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Acceptor");
 
                     b.Navigation("Bank");
 
                     b.Navigation("Cabang");
+
+                    b.Navigation("Creater");
 
                     b.Navigation("Keterangan");
 

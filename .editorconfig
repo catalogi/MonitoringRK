@@ -2,3 +2,6 @@
 
 # IDE0047: Remove unnecessary parentheses
 dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = none

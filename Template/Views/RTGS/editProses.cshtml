@@ -1,0 +1,213 @@
+﻿@{
+    ViewBag.Title = "Monitoring";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="content">
+    <div class="container">
+<div class="card">
+    <div class="card-header card=header-info">
+        <h4 class="card-title">Register</h4>
+        <p class="card-category">Teskey Masuk / Keluar</p>
+    </div>
+    <div class="card-body">
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4">
+                <label class="bmd-label-floating">Jenis RTGS</label>
+                <br />
+                <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                    <option value="">--pilih Tipe--</option>
+                </select>
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="control-label" id="lbank">Bank Pengirim</label>
+                <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
+                    <option value="">--Pilih Bank--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 Cabang">
+                <label class="bmd-label-floating">Cabang</label>
+                <br />
+                <select required id="Cabang" data-placement="choose" class="form-control select2">
+                    <option value="">--Pilih Cabang--</option>
+                </select>
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="bmd-label-floating">Nomor Surat / Ni / Memo</label>
+                <input id="NomorSurat" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 NoReferensi">
+                <label class="control-label">REL TRN</label>
+                <input id="RelTRN" type="text" class="form-control" />
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="control-label">TRN Pesan Admin</label>
+                <input id="TRN" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4">
+                <label class="bmd-label-floating">Nominal</label>
+                <input id="Nominal" type="text" class="form-control number" />
+            </div>
+            <div class="col-md-4 offset-md-1 Tanggal">
+                <label class="bmd-label-floating">Tanggal Proses</label>
+                <input id="Tanggal" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-4 Lampiran">
+                <label class="control-label">Lampiran Bukti</label>
+                <br />
+                <canvas style="border:1px solid grey;" id="Path"></canvas>
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <label class="control-label">No Test Key</label>
+                <input id="TestKey" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="offset-md-8">
+            <a class="btn btn-primary text-white" id="Update">Save</a>
+            <a class="btn btn-default text-black" href="@Url.Action("Index, Home")" style="margin-left:10px;">Back</a>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+@section scripts {
+<script>
+
+    $(document).ready(function () {
+        //GetJenis();
+        //GetById();
+        GetCabang();
+        //load();
+        $(".select2").select2({
+            "theme": "classic"
+        })
+    });
+
+        $('#Update').click(function () {
+            debugger;
+            var isAllValid = true;
+            $('#ItemError').text('');
+            var canvas = document.getElementById('Path');
+            var dataURL = canvas.toDataURL();
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+                isAllValid = false;
+            }
+
+            if ($('#Jenis').val() == '') {
+                $('#Jenis').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Jenis').removeClass('is-invalid');
+            }
+            if ($('#Tanggal').val() == '') {
+                $('#Tanggal').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Tanggal').removeClass('is-invalid');
+            }
+            if ($('#Cabang').val() == '') {
+                $('#Cabang').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Cabang').removeClass('is-invalid');
+            }
+            if ($('#NomerSurat').val() == '') {
+                $('#NomerSurat').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#NomerSurat').removeClass('is-invalid');
+            }
+            if ($('#RelTRN').val() == '') {
+                $('#RelTRN').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#RelTRN').removeClass('is-invalid');
+            }
+            if ($('#BankTujuan').val() == '') {
+                $('#BankTujuan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#BankTujuan').removeClass('is-invalid');
+            }
+            if ($('#Nominal').val() == '') {
+                $('#Nominal').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Nominal').removeClass('is-invalid');
+            }
+            if ($('#Keterangan').val() == '') {
+                $('#Keterangan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Keterangan').removeClass('is-invalid');
+            }
+
+            if (isAllValid) {
+                var data = new Object();
+                data.typeId = $('#Jenis').val();
+                data.tanggal = $("#Tanggal").val();
+                data.cabangId = $("#Cabang").val();
+                data.nomerSurat = $("#NomorSurat").val();
+                data.relTRN = $("#RelTRN").val();
+                data.bankTujuanId = $("#BankTujuan").val();
+                data.nominal = minkoma($("#Nominal").val());
+                data.keterangan = $("#Keterangan").val();
+                data.nomerTestkey = $("#TestKey").val();
+                data.path = dataURL;
+                data.tRN = $("#TRN").val();
+
+                $.ajax({
+                    url: '@Url.Action("Save","MonitoringRTGS")',
+                    type: 'Post',
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        if (data == true) {
+                            swal.fire('Successfully saved');
+                            //here we will clear the form
+                            //location.href = "@Url.Action("Index","MemoITR")";
+                        }
+                        else {
+                            alert('Error');
+                        }
+                    }
+                });
+            }
+        })
+
+        function GetCabang() {
+            $.ajax({
+                url: "@Url.Action("GetCabang","Master")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=Cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+
+
+</script>
+}

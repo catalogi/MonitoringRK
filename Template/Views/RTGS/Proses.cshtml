@@ -1,146 +1,447 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Proses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">-</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-horizontal">
-                    <input type="hidden" id="MonitoringId" />
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <label class="control-label">Follow Up</label>
-                            <select required id="Keterangan" data-placement="choose" class="form-control select2"></select>
-                        </div>
+<section class="content">
+    <div class="container">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit</h4>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <label class="control-label">Follow Up Tambahan</label>
-                            <textarea id="keterangan" class="form-control" style="resize:none;height:30px"></textarea>
-                        </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
+                                        <br />
+                                        <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
+                                            <option value="">--pilih Tipe--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Bank Pengirim</label>
+                                        <br />
+                                        <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
+                                            <option value="">--Pilih Bank--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Cabang</label>
+                                        <br />
+                                        <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%">
+                                            <option value="">--Pilih Cabang--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Nomor Surat / Ni / Memo</label>
+                                        <input id="NomorSurat" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">REL TRN</label>
+                                        <input id="RelTRN" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
+                                        <input id="TRN" type="text" class="form-control number" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Nominal</label>
+                                        <input id="Nominal" type="text" class="form-control number" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Tanggal Proses</label>
+                                        <input id="TanggalProses" type="date" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
+                                        <br />
+                                        <canvas style="border:1px solid grey;" id="Path"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">No TestKey</label>
+                                        <input id="Testkey" type="text" class="form-control number" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                            <label class="control-label">Tgl TestKey</label>
-                            <input class="form-control" type="date" id="tgl" />
-                        </div>
-                        <div class="col-sm-5">
-                            <label class="control-label">Nomor TestKey</label>
-                            <input class="form-control" id="Testkey" />
-                        </div>
-                        <div class="col-sm-1">
-                            <a class="btn btn-success text-white btn-sm" id="add">< class="fa fa-plus"></i></a>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                            <label class="control-label">Keterangan TestKey</label>
-                            <input class="form-control" id="TestkeyDesc"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                        <table class="table table-responsive" id="detailItems">
-                            <thead>
-                                <tr>
-                                    <td>Tgl TestKey</td>
-                                    <td>No TestKey</td>
-                                    <td>Keterangan</td>
-                                    <td>$nbsp;</td>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                            </table>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-infi" id="" onclick="AddTestKey();">Ubah</button>
+                        <button type="button" class="btn btn-primary" id="update" onclick="Update();">Selesai</button>
                     </div>
                 </div>
             </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-            <button type="button" class="btn btn-infi" id="" onclick="AddTestKey();">Ubah</button>
-            <button type="button" class="btn btn-primary" id="update" onclick="Update();">Selesai</button>
         </div>
-        </div>
-    </div>
-</div>
 
-<div class="card" style="background-color:white">
-    <div class="card-header card-header-info">
-        <h2 class="card-title">Proses</h2>
-        <p class="card-category">Transaksi RTGS Belum Selesai</p>
-    </div>
-    <div class="card-body">
-        <div class="row" style="margin-left:20px;margin-bottom:20px">
-            <label class="bmd-label-floating">Tipe Surat</label>
-            <div class="col-md-4">
-                <select required id="tipe" data-placement="choose" class="form-control select2 tipe"></select>
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h2 class="card-title">Proses</h2>
+                <p class="card-category">Transaksi RTGS Belum Selesai</p>
+            </div>
+            <div class="card-body table-responsive">
+                <div class="row" style="margin-left:20px;margin-bottom:20px">
+                    <label class="bmd-label-floating">Tipe Surat</label>
+                    <div class="col-md-4">
+                        <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                            <option value="">--pilih Tipe--</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="table" class="table-bordered table-info">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tipe Surat</th>
+                            <th>Tanggal</th>
+                            <th>Cabang</th>
+                            <th>Nomor Surat / Ni / Memo</th>
+                            <th>TRN</th>
+                            <th>REL TRN</th>
+                            <th>Bank Tujuan</th>
+                            <th>Nominal</th>
+                            <th>Durasi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
-        <table id="table" class="table-bordered table-info">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Tipe Surat</th>
-                    <th>Tanggal</th>
-                    <th>Cabang</th>
-                    <th>Nomor Surat / Ni / Memo</th>
-                    <th>TRN</th>
-                    <th>REL TRN</th>
-                    <th>Bank Tujuan</th>
-                    <th>Nominal</th>
-                    <th>Durasi</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-        </table>
+
     </div>
-</div>
+</section>
 
 @section scripts {
-<script>
-    
-     $(document).ready(function() {
-        read();
-    })
-    
-    function read() {
-        var t = $("#table").DataTable({
-            "ajax": {
-                "url": "@Url.Action("GetAll","Kliring")",
-                "type": "Get",
-                "datatype": "json"
-            },
-            "columns": [
-                { "data": null },
-                { "data": "TipeSurat" },
-                { "data": "Tanggal" },
-                { "data": "Cabang" },
-                { "data": "NomorSurat" },
-                { "data": "TRN" },
-                { "data": "RelTRN" },
-                { "data": "BankTujuan" },
-                { "data": "Nominal" },
-                { "data": "Durasi" },
-                {
-                    "render": function(data, type, row) {
-                        return "<button class='btn btn-primary btn-sm text-white' onclick=GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                                        "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>" ;
-                                        },
-                                        },
-                                        ]
-                                        })
-                                        t.on('order.dt search.dt', function() {
-                                        t.column(0, { search: 'applied' , order: 'applied' }).nodes().each(function(cell, i) {
-                                        cell.innerHTML=i + 1;
-                                        });
-                                        }).draw();
-                                        }
+    <script>
 
-</script>
+        $(document).ready(function () {
+            read();
+            load();
+            GetCabang();
+            GetBank();
+            //GetById();
+            $(".select2").select2({
+                "theme": "classic"
+            })
+        });
+
+        function read() {
+            var t = $("#table").DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetAll","RTGS")",
+                    "type": "Get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": null },
+                    { "data": "type.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return moment(row.tanggalProses).format('DD MMMM YYYY');
+                        }
+                    },
+                    { "data": "cabang.nama" },
+                    { "data": "nomorSurat" },
+                    { "data": "trn" },
+                    { "data": "relTRN" },
+                    { "data": "bank.nama" },
+                    { "data": "nominal" },
+                    { "data": "durasi" },
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
+                        },
+                    },
+                ]
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        }
+
+        function GetById(Id) {
+            $.ajax({
+                "url": "@Url.Action("GetById","RTGS")",
+                "type": "GET",
+                "datatype": "json",
+                "data": { Id: Id }
+            }).then((result) => {
+                if (result != null) {
+                    debugger;
+                    console.log(result);
+                    $("#MonitoringId").val(result.data.id);
+                    $("#Jenisj").val(result.data.typeId).change();
+                    $("#Cabang").val(result.data.cabangId).change();
+                    $("#BankTujuan").val(result.data.bankId).change();
+                    $("#NomorSurat").val(result.data.nomorSurat);
+                    $("#RelTRN").val(result.data.relTRN);
+                    $("#TRN").val(result.data.trn);
+                    $("#TanggalProses").val(moment(result.data.tanggalProses).format("YYYY-MM-DD"));
+                    $("#Testkey").val(result.data.testkeyId);
+                    $("#Nominal").val(result.data.nominal);
+                    $("#myModal").modal('show');
+                    $("#Save").hide();
+                }
+            })
+        }
+
+        function load() {
+            $.ajax({
+                url: "@Url.Action("GetType","RTGS")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=Jenisj]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function GetBank() {
+            $.ajax({
+                url: "@Url.Action("GetBank","Master")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=BankTujuan]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function GetCabang() {
+            $.ajax({
+                url: "@Url.Action("GetCabang","Master")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=Cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function minkoma(angka) {
+            var bil = angka;
+            var loop = Math.floor(angka.length / 3);
+            for (var i = 0; i < loop; i++) {
+                bil = bil.replace(',', '');
+            }
+            return bil;
+        }
+
+        $('#Save').click(function () {
+            debugger;
+            var isAllValid = true;
+            $('#ItemError').text('');
+            var canvas = document.getElementById('Path');
+            var dataURL = canvas.toDataURL();
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+                isAllValid = false;
+            }
+
+            if ($('#Jenis').val() == '') {
+                $('#Jenis').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Jenis').removeClass('is-invalid');
+            }
+            if ($('#Tanggal').val() == '') {
+                $('#Tanggal').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Tanggal').removeClass('is-invalid');
+            }
+            if ($('#Cabang').val() == '') {
+                $('#Cabang').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Cabang').removeClass('is-invalid');
+            }
+            if ($('#NomerSurat').val() == '') {
+                $('#NomerSurat').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#NomerSurat').removeClass('is-invalid');
+            }
+            if ($('#RelTRN').val() == '') {
+                $('#RelTRN').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#RelTRN').removeClass('is-invalid');
+            }
+            if ($('#BankTujuan').val() == '') {
+                $('#BankTujuan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#BankTujuan').removeClass('is-invalid');
+            }
+            if ($('#Nominal').val() == '') {
+                $('#Nominal').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Nominal').removeClass('is-invalid');
+            }
+            if ($('#Keterangan').val() == '') {
+                $('#Keterangan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Keterangan').removeClass('is-invalid');
+            }
+
+            if (isAllValid) {
+                var data = new Object();
+                data.typeId = $('#Jenis').val();
+                data.tanggal = $("#Tanggal").val();
+                data.cabangId = $("#Cabang").val();
+                data.nomerSurat = $("#NomorSurat").val();
+                data.relTRN = $("#RelTRN").val();
+                data.bankTujuanId = $("#BankTujuan").val();
+                data.nominal = minkoma($("#Nominal").val());
+                data.keterangan = $("#Keterangan").val();
+                data.nomerTestkey = $("#TestKey").val();
+                data.path = dataURL;
+                data.tRN = $("#TRN").val();
+
+                $.ajax({
+                    url: '@Url.Action("Save","MonitoringRTGS")',
+                    type: 'Post',
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        if (data == true) {
+                            swal.fire('Successfully saved');
+                            //here we will clear the form
+                            //location.href = "@Url.Action("Index","MemoITR")";
+                        }
+                        else {
+                            alert('Error');
+                        }
+                    }
+                });
+            }
+        })
+        function retrieveImageFromClipboardAsBlob(pasteEvent, callback) {
+
+            if (pasteEvent.clipboardData == false) {
+                if (typeof (callback) == "function") {
+                    callback(undefined);
+                }
+            };
+            var items = pasteEvent.clipboardData.items;
+            if (items == undefined) {
+                if (typeof (callback) == "function") {
+                    callback(undefined);
+                }
+            };
+            for (var i = 0; i < items.length; i++) {
+                // Skip content if not image
+                if (items[i].type.indexOf("image") == -1) continue;
+                // Retrieve image on clipboard as blob
+                var blob = items[i].getAsFile();
+                console.log(blob)
+                if (typeof (callback) == "function") {
+                    callback(blob);
+                }
+            }
+        }
+
+        window.addEventListener("paste", function (e) { // MEMBACA DAN MENAMPILKAN HASIL PASTE GAMBAR
+
+            // Handle the event
+            retrieveImageFromClipboardAsBlob(e, function (imageBlob) {
+                // If there's an image, display it in the canvas
+                if (imageBlob) {
+                    var canvas = document.getElementById("Path");
+                    var ctx = canvas.getContext('2d');
+
+                    // Create an image to render the blob on the canvas
+                    var img = new Image();
+
+                    // Once the image loads, render the img on the canvas
+                    img.onload = function () {
+                        canvas.style.width = '100%';
+                        canvas.style.height = '100%';
+                        // Update dimensions of the canvas with the dimensions of the image
+                        canvas.width = this.width;
+                        canvas.height = this.height;
+
+                        // Draw the image
+                        ctx.drawImage(img, 0, 0);
+                    };
+
+                    // Crossbrowser support for URL
+                    var URLObj = window.URL || window.webkitURL;
+
+                    // Creates a DOMString containing a URL representing the object given in the parameter
+                    // namely the original Blob
+                    img.src = URLObj.createObjectURL(imageBlob);
+                }
+            });
+        }, false);
+        $(document).on("keyup", ".number", (function (event) {
+
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+        }));
+
+
+    </script>
 }

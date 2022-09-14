@@ -34,7 +34,7 @@ namespace Ririn.Controllers.Master
         public JsonResult GetAllUnit()
         {
             var result = _context.Unit.ToList();
-            return Json(result);
+            return Json(new { data = result });
         }
 
         public JsonResult GetUnitBy(int? Id)
@@ -66,6 +66,6 @@ namespace Ririn.Controllers.Master
         }
     }
 
-   
-    
+
+
 }

@@ -26,6 +26,7 @@ namespace Ririn.Data
         public DbSet<TypeTrans> TypeTrans { get; set; }
         public DbSet<Modul> Modul { get; set; }
         public DbSet<DataToken> DataToken { get; set; }
+        public DbSet<Libur> Libur { get; set; }
         #endregion
 
         #region Transaksi

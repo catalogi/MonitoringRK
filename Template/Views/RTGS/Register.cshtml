@@ -96,7 +96,7 @@
                 DataType: "json",
                 success: function ({ data }) {
                     $.each(data, function (i, value) {
-                        $("select[name=Jenis]").append(`<option value="${value.Id}">${value.type}</option>`)
+                        $("select[name=Jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })

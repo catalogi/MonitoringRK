@@ -1,4 +1,5 @@
 ﻿using Ririn.Models.Master;
+using System.Text.Json.Serialization;
 
 namespace Ririn.Models.Transaksi
 {
@@ -15,17 +16,23 @@ namespace Ririn.Models.Transaksi
         public int? BankId { get; set; }
         public decimal Nominal { get; set; }
         public DateTime? TanggalDone { get; set; }
-        public string? Followup { get; set; }
-        public bool IsDone { get; set; }
+        public string? FollowUp { get; set; }
         public Testkey Testkey { get; set; }
         public int? TestkeyId { get; set; }
         public TypeTrans Type { get; set; }
-        public int? TypeId { get; set; }
+        public int TypeId { get; set; }
         public Keterangan Keterangan { get; set; }
         public int? KeteranganId { get; set; }
         public Status Status { get; set; }
         public int? StatusId { get; set; }
-        public string Path { get; set; }
+        public string? path { get; set; }
+        public int? Durasi { get; set; }
+        public User Creater { get; set; }
+        public string? CreatorId { get; set; }
+        [JsonIgnore]
+        public User Acceptor { get; set; }
+        public string? AcceptorId { get; set; }
+
 
     }
 }
