@@ -77,9 +77,9 @@ namespace Ririn.Controllers.Master
             if (data != null)
             {
                 data.IsDeleted = true;
-                _context.DataToken.Remove(data);               
+                _context.DataToken.Remove(data);
                 _context.SaveChanges();
-                
+
             }
             return Json(result);
         }
