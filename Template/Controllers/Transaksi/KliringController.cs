@@ -74,22 +74,22 @@ namespace Ririn.Controllers.Transaksi
 
 
 
-        public JsonResult SaveReason(string reason)
+        public JsonResult SaveAlasan(string alasan)
         {
             int data = 0;
-            var exist = _context.Alasan.Where(x => x.Nama == reason).Count();
+            var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
             if (exist == 0)
             {
-                Alasan reasons = new Alasan();
-                reasons.Nama = reason;
+                Alasan alasans = new Alasan();
+                alasans.Nama = reason;
                 //reasons.Createdate = DateTime.Now;
-                _context.Alasan.Add(reasons);
+                _context.Alasan.Add(alasans);
                 _context.SaveChanges();
-                data = reasons.Id;
+                data = alasa.Id;
             }
             else
             {
-                var id = _context.Alasan.Single(x => x.Nama == reason).Id;
+                var id = _context.Alasan.Single(x => x.Nama == alasan).Id;
                 data = id;
             }
 
@@ -104,17 +104,17 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUser();
-            //#region upload File Lampiran
-            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            //{
-            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            //}
-            //string webRootPath = _webHostEnvironment.WebRootPath;
-            //string path = Path.Combine(webRootPath, "File/Lampiran/");
-            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
-            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-            //#endregion
+            #region upload File Lampiran
+            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            {
+                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "File/Lampiran/");
+            string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
+            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
+            #endregion
             if (data.Id == null)
             {
                 foreach (var item in data.Testkeys)
@@ -148,37 +148,7 @@ namespace Ririn.Controllers.Transaksi
                 };
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
-                //var IdKliring = kliring.Id;
-
-                //var pathFile = "";
-                //var noRek = data.NomorRekening;
-                //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-                //{
-                //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-                //}
-                //string wwwPath = this._webHostEnvironment.WebRootPath;
-                //string contentPath = this._webHostEnvironment.ContentRootPath;
-                //string path = Path.Combine(wwwPath, "File/Lampiran/");
-                //if (!Directory.Exists(path))
-                //{
-                //    Directory.CreateDirectory(path);
-                //}
-
-                //if (file.FileName.EndsWith("pdf") || file.FileName.EndsWith("PDF"))
-                //{
-                //    var ext = Path.GetExtension(file.FileName);
-                //    pathFile = noRek + ext;
-                //    var fileNames = Path.Combine(path, pathFile);
-                //    using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
-                //    {
-                //        file.CopyTo(stream);
-                //        stream.Close();
-                //    }
-                //    var result = _context.T_Kliring.Where(x => x.Id == IdKliring).SingleOrDefault();
-                //    result.path = fileNames;
-                //    _context.Entry(result).State = EntityState.Modified;
-                //    _context.SaveChanges();
-                //}
+                
 
             }
             else
@@ -283,5 +253,5 @@ namespace Ririn.Controllers.Transaksi
 
 
 }
-#endregion
+
 

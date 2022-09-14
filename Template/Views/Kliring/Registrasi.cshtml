@@ -393,9 +393,51 @@
             formData["NominalSeharusnya"] = $('input#Nominal2').val();
             formData["BankId"] = $('select[name=banktj]').val();
             formData["AlasanId"] = $('select[name=Alasan]').val();
-            formData["AlasanId"] = $('select[name=AlasanLain]').val();
+            //formData["AlasanId"] = $('select[name=AlasanLain]').val();
             formData["TestkeyId"] = ArraytestKey;
 
+            const b64 = await FileToBase(files[0]);
+            const file = {
+                base64:b64,
+                fileName:files[0].name
+            }
+            formData['file'] = file;
+
+            if($('#Alasan').val()== 'custom'){
+                var alasan = $('#alasanLain').val()
+                $.ajax({
+                    url:"@Url.Action("SaveAlasan","Kliring")",
+                    type:"POST",
+                    dataTye: "json",
+                    data:{alasan:alasan}
+                }).then((result)=>{
+                    formData["AlasanId"]= result;
+
+                    $.ajax({
+                        url:"@Url.Action("Save","Kliring")",
+                        type:"POST",
+                        contentType:"application/json; charset=utf-8",
+                        dataType:"json",
+                        data: JSON.stringify(formData),
+                        success:function(response){
+                            Swal.fire({
+                                icon:"suuccess",
+                                title:"Berhasil",
+                                text:"Data Berhasil Disimpan"
+                            });
+                        },
+                        error:(err)=>{
+                            Swal.fire({
+                                icon:"error",
+                                title:"Error",
+                                text:"Data Gagal DIsimpan"
+                            })
+                        }
+                    })
+                })
+            }else{
+
+            }
 
         }
 
