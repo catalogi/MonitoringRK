@@ -27,7 +27,7 @@ namespace Ririn.ViewModels
         public DateTime? TanggalDone { get; set; }
         public string? CreaterId { get; set; }
         public string? AcceptorId { get; set; }
-        public List<TestKeyVM> Testkeys { get; set; }
+        public IEnumerable<TestKeyVM>? Testkeys { get; set; }
     }
 
 

@@ -1,22 +1,31 @@
-﻿using ASK_Core.Migrations;
-using DocumentFormat.OpenXml.Office.CustomUI;
+﻿
+
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
+//using Syncfusion.Pdf.Parsing;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Parsing;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Ririn.Controllers.Transaksi
 {
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+       private readonly IWebHostEnvironment _webHostEnvironment;
         public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            
         }
 
 
@@ -95,17 +104,17 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUser();
-            #region upload File Lampiran
-            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            {
-                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            }
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "File/Lampiran/");
-            string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
-            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-            #endregion
+            //#region upload File Lampiran
+            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            //{
+            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            //}
+            //string webRootPath = _webHostEnvironment.WebRootPath;
+            //string path = Path.Combine(webRootPath, "File/Lampiran/");
+            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
+            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
+            //#endregion
             if (data.Id == null)
             {
                 foreach (var item in data.Testkeys)
@@ -128,7 +137,7 @@ namespace Ririn.Controllers.Transaksi
                     Nominal = data.Nominal,
                     TanggalTRX = data.TanggalTRX,
                     NominalSeharusnya = data.NominalSeharusnya,
-                    path = generateNamaFile,
+                    path = null,
                     BankId = data.BankId,
                     CabangId = data.CabangId,
                     AlasanId = data.AlasanId,
@@ -139,10 +148,42 @@ namespace Ririn.Controllers.Transaksi
                 };
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
+                //var IdKliring = kliring.Id;
+
+                //var pathFile = "";
+                //var noRek = data.NomorRekening;
+                //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+                //{
+                //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                //}
+                //string wwwPath = this._webHostEnvironment.WebRootPath;
+                //string contentPath = this._webHostEnvironment.ContentRootPath;
+                //string path = Path.Combine(wwwPath, "File/Lampiran/");
+                //if (!Directory.Exists(path))
+                //{
+                //    Directory.CreateDirectory(path);
+                //}
+
+                //if (file.FileName.EndsWith("pdf") || file.FileName.EndsWith("PDF"))
+                //{
+                //    var ext = Path.GetExtension(file.FileName);
+                //    pathFile = noRek + ext;
+                //    var fileNames = Path.Combine(path, pathFile);
+                //    using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
+                //    {
+                //        file.CopyTo(stream);
+                //        stream.Close();
+                //    }
+                //    var result = _context.T_Kliring.Where(x => x.Id == IdKliring).SingleOrDefault();
+                //    result.path = fileNames;
+                //    _context.Entry(result).State = EntityState.Modified;
+                //    _context.SaveChanges();
+                //}
+
             }
             else
             {
-                foreach(var item in data.Testkeys)
+                foreach (var item in data.Testkeys)
                 {
                     var teskey = new Testkey
                     {
@@ -153,16 +194,16 @@ namespace Ririn.Controllers.Transaksi
                     _context.SaveChanges();
                 }
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
-                
+
                 result.NomorSurat = data.NomorSurat;
                 result.TanggalSurat = data.TanggalSurat;
-                result.NoReferensi= data.NoReferensi;
+                result.NoReferensi = data.NoReferensi;
                 result.NamaPenerima = data.NamaPenerima;
                 result.NomorRekening = data.NomorRekening;
                 result.Nominal = data.Nominal;
                 result.TanggalTRX = data.TanggalTRX;
                 result.NominalSeharusnya = data.NominalSeharusnya;
-                result.path = generateNamaFile;
+                //result.path = generateNamaFile;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
                 result.AlasanId = data.AlasanId;
@@ -176,5 +217,71 @@ namespace Ririn.Controllers.Transaksi
             return Ok(success);
             #endregion
         }
+
+        //#region compres to upload pdf
+        //public IActionResult PdfCompress(IFormFile file, string noRek)
+        //{
+        //    try
+        //    {
+        //        var pathFile = "";
+        //        if (file != null)
+        //        {
+        //            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+        //            {
+        //                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+        //            }
+        //            string wwwPath = this._webHostEnvironment.WebRootPath;
+        //            //string wwwPath ="";
+        //            string contentPath = this._webHostEnvironment.ContentRootPath;
+        //            string path = Path.Combine(wwwPath, "File/Lampiran/");
+        //            if (!Directory.Exists(path))
+        //            {
+        //                Directory.CreateDirectory(path);
+        //            }
+
+        //            if (file.FileName.EndsWith("pdf") || file.FileName.EndsWith("PDF"))
+        //            {
+        //                var ext = Path.GetExtension(file.FileName);
+        //                pathFile = noRek + ext;
+        //                var fileNames = Path.Combine(path, pathFile);
+        //                using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
+        //                {
+        //                    file.CopyTo(stream);
+        //                }
+        //                FileStream inputDocument = new FileStream(fileNames, FileMode.Open, FileAccess.Read);
+        //                PdfLoadedDocument loadedDocument = new PdfLoadedDocument(inputDocument);
+        //                PdfCompressionOptions options = new PdfCompressionOptions();
+        //                options.CompressImages = true;
+        //                options.ImageQuality = 20;
+        //                loadedDocument.Compress(options);
+        //                //loadedDocument.FileStructure.IncrementalUpdate = false;
+        //                //loadedDocument.Compression = PdfCompressionLevel.Normal;
+        //                using (MemoryStream outputDocument = new MemoryStream())
+        //                {
+
+        //                    loadedDocument.Save(outputDocument);
+        //                    loadedDocument.Close(true);
+        //                    loadedDocument.Dispose();
+        //                    outputDocument.Position = 0;
+        //                    using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
+        //                    {
+        //                        outputDocument.CopyTo(stream);
+        //                    }
+
+        //                }
+        //            }
+        //        }
+        //        return Ok(pathFile);
+        //    }catch(Exception e)
+        //    {
+        //        return BadRequest(e);
+        //    }
+        //}
+        //#endregion
     }
+
+
+
 }
+#endregion
+

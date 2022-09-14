@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "V4mjqNyODECC4iVpkg+n8/KOzrqxofSSxpJRVLYqtJo=",
+  "Hash": "jiMXSCkTUEox1ijuoREhkDUZbuI05AVoFE2t+JbpO7A=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2295,12 +2295,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\DataKCU.xlsx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Lampiran\\1009091.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "File/DataKCU.xlsx",
+      "RelativePath": "File/Lampiran/1009091.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2309,15 +2309,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\DataKCU.xlsx"
+      "OriginalItemSpec": "wwwroot\\File\\Lampiran\\1009091.pdf"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\DummyOutUpload.xlsx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Lampiran\\112111.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "File/DummyOutUpload.xlsx",
+      "RelativePath": "File/Lampiran/112111.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2326,15 +2326,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\DummyOutUpload.xlsx"
+      "OriginalItemSpec": "wwwroot\\File\\Lampiran\\112111.pdf"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial.xlsx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Lampiran\\1121111.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "File/Initial.xlsx",
+      "RelativePath": "File/Lampiran/1121111.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2343,15 +2343,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial.xlsx"
+      "OriginalItemSpec": "wwwroot\\File\\Lampiran\\1121111.pdf"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial-KCP - cicadas.xlsx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Lampiran\\120120211.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "File/Initial-KCP - cicadas.xlsx",
+      "RelativePath": "File/Lampiran/120120211.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2360,15 +2360,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial-KCP - cicadas.xlsx"
+      "OriginalItemSpec": "wwwroot\\File\\Lampiran\\120120211.pdf"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial-KCP -JAPATI.xlsx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Lampiran\\1421110.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "File/Initial-KCP -JAPATI.xlsx",
+      "RelativePath": "File/Lampiran/1421110.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2377,15 +2377,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial-KCP -JAPATI.xlsx"
+      "OriginalItemSpec": "wwwroot\\File\\Lampiran\\1421110.pdf"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial-KCP -pangandaran.xlsx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Lampiran\\29009892.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "File/Initial-KCP -pangandaran.xlsx",
+      "RelativePath": "File/Lampiran/29009892.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2394,58 +2394,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial-KCP -pangandaran.xlsx"
-    },
-    {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial-KCP.xlsx",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "File/Initial-KCP.xlsx",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial-KCP.xlsx"
-    },
-    {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial-KCU-Bandung.xlsx",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "File/Initial-KCU-Bandung.xlsx",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial-KCU-Bandung.xlsx"
-    },
-    {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Initial-KCU-Banjar.xlsx",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "File/Initial-KCU-Banjar.xlsx",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\Initial-KCU-Banjar.xlsx"
+      "OriginalItemSpec": "wwwroot\\File\\Lampiran\\29009892.pdf"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\bg.jpg",

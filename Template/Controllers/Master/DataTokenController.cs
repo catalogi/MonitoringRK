@@ -58,19 +58,19 @@ namespace Ririn.Controllers.Master
 
             return Json(datatoken);
         }
-        public IActionResult PerpanjangToken (TokenVM data)
+        public IActionResult PerpanjangToken(TokenVM data)
         {
             var success = false;
-            if(data.Id != null)
+            if (data.Id != null)
             {
                 var expired = _context.DataToken.Where(x => x.Id == data.Id).FirstOrDefault();
-               expired.TokenExpired = data.TokenExpired;
+                expired.TokenExpired = data.TokenExpired;
                 _context.Entry(expired).State = EntityState.Modified;
             }
             _context.SaveChanges();
             return Ok(data);
         }
-         public JsonResult Delete(int Id)
+        public JsonResult Delete(int Id)
         {
             bool result = false;
             var data = _context.DataToken.Single(x => x.Id == Id);
