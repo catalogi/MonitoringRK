@@ -21,7 +21,7 @@
 						<select required id="tipe" name="tipe" data-placement="choose" class="form-control select2 Tipe">
 							<option value="">--- Pilih Tipe Surat ---</option>
 						</select>
-					
+
 					</div>
 					<div class="col-md-4 offset-md-1">
 						<label class="bmd-label-floating">Tanggal Transaksi</label>
@@ -98,8 +98,8 @@
 							<input id="alasanLain" class="form-control" type="text" />
 						</div>
 					</div>
-					<div class="col-md-4 offset-md-1 Evidence">
-						<label class="control-label">Evidence</label>
+					<div class="col-md-4 offset-md-1 Bukti">
+						<label class="control-label">Lampiran Bukti</label>
 						<br />
 						<input type="hidden" id="Path" />
 						<input type="file" class="inputFileHidden" id="path" accept=".pdf" id="Upload" style="min-width:100%">
@@ -183,7 +183,7 @@
 				type: "Get",
 				dataType: "json",
 				success: function ({ data }) {
-					
+
 					$("select[name= cabang]").empty();
 					$("select[name=cabang]").append('<option value="">--Pilih Cabang--</option>')
 					$.each(data, function (i, value) {
@@ -241,7 +241,7 @@
 		//	debugger;
 		//	var data = new Object();
 		//	data.TypeId = $("#tipe").val();
-			
+
 		//	data.TanggalTRX = $("#TanggalTRX").val();
 		//	data.NoReferensi = $("#NoReferensi").val();
 		//	data.CabangId = $("#Cabang").val();
@@ -290,191 +290,221 @@
 
 		$('#Save').click(function () {
 			//debugger;
-            var isAllValid = true;
-            //validate order items
-            $('#ItemError').text('');
-            var canvas = document.getElementById('Path');
-            //var dataURL = canvas.toDataURL();
-            var errorItemCount = 0;
-            //debugger;
-            if (errorItemCount > 0) {
-                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
-                isAllValid = false;
-            }
+			var isAllValid = true;
+			//validate order items
+			$('#ItemError').text('');
+			var canvas = document.getElementById('Path');
+			//var dataURL = canvas.toDataURL();
+			var errorItemCount = 0;
+			//debugger;
+			if (errorItemCount > 0) {
+				$('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+				isAllValid = false;
+			}
 
-            if ($('#NomorSurat').val().trim() == '' && $('#tipe').val() == 2) {
-                $('#NomorSurat').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#NomorSurat').removeClass('is-invalid');
-            }
+			if ($('#NomorSurat').val().trim() == '' && $('#tipe').val() == 2) {
+				$('#NomorSurat').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#NomorSurat').removeClass('is-invalid');
+			}
 
 			if ($('#TanggalSurat').val() == '') {
-                $("#TanggalSurat").addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $("#TanggalSurat").removeClass('is-invalid');
-            }
+				$("#TanggalSurat").addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$("#TanggalSurat").removeClass('is-invalid');
+			}
 
-            if ($('#tipe').val() == '') {
-                $("#tipe").addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#tipe').removeClass('is-invalid');
-            }
-            if ($('#Nama').val() == '') {
-                $('#Nama').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Nama').removeClass('is-invalid');
-            }
-            if ($('#NomorRekening').val() == '') {
-                $('#NomorRekening').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#NomorRekening').removeClass('is-invalid');
-            }
-            if ($('#Nominal').val() == '') {
-                $('#Nominal').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Nominal').siblings('span.error').css('visibility', 'hidden');
-            }
+			if ($('#tipe').val() == '') {
+				$("#tipe").addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#tipe').removeClass('is-invalid');
+			}
+			if ($('#Nama').val() == '') {
+				$('#Nama').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#Nama').removeClass('is-invalid');
+			}
+			if ($('#NomorRekening').val() == '') {
+				$('#NomorRekening').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#NomorRekening').removeClass('is-invalid');
+			}
+			if ($('#Nominal').val() == '') {
+				$('#Nominal').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#Nominal').siblings('span.error').css('visibility', 'hidden');
+			}
 
-            if ($('#BPengirim').val() == '') {
-                $('#BPengirim').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#BPengirim').siblings('span.error').css('visibility', 'hidden');
-            }
+			if ($('#BPengirim').val() == '') {
+				$('#BPengirim').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#BPengirim').siblings('span.error').css('visibility', 'hidden');
+			}
 
-            if ($('#BTujuan').val() == '') {
-                $('#BTujuan').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#BTujuan').siblings('span.error').css('visibility', 'hidden');
-            }
+			if ($('#BTujuan').val() == '') {
+				$('#BTujuan').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#BTujuan').siblings('span.error').css('visibility', 'hidden');
+			}
 
-            if ($('#Alasan').val() == '') {
-                $('#Alasan').siblings('span.error').css('visibility', 'visible');
+			if ($('#Alasan').val() == '') {
+				$('#Alasan').siblings('span.error').css('visibility', 'visible');
 				$('.Alasan').addClass('has-error');
-                isAllValid = false;
-            }
-            else {
-                $('#Alasan').siblings('span.error').css('visibility', 'hidden');
-            }
-            if ($('#Cabang').val() == '') {
-                $('#Cabang').siblings('span.error').css('visibility', 'visible');
-                $('.Cabang').addClass('has-error');
-                isAllValid = false;
-            }
-            else {
-                $('#Cabang').siblings('span.error').css('visibility', 'hidden');
-            }
-            if ($('#NoTeskey').val() == '') {
-                $('#NoTeskey').siblings('span.error').css('visibility', 'visible');
-                $('.NoTeskey').addClass('has-error');
-                isAllValid = false;
-            }
-            else {
-                $('#NoTeskey').siblings('span.error').css('visibility', 'hidden');
-            }
-            if ($('#TanggalTRX').val() == '') {
-                $('#TanggalTRX').siblings('span.error').css('visibility', 'visible');
-                $('.TanggalTRX').addClass('has-error');
-                isAllValid = false;
-            }
-            else {
-                $('#TanggalTRX').siblings('span.error').css('visibility', 'hidden');
-            }
-            if ($('#NoReferensi').val() == '') {
-                $('#NoReferensi').siblings('span.error').css('visibility', 'visible');
-                $('.NoReferensi').addClass('has-error');
-                isAllValid = false;
-            }
-            else {
-                $('#NoReferensi').siblings('span.error').css('visibility', 'hidden');
-            }
+				isAllValid = false;
+			}
+			else {
+				$('#Alasan').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#Cabang').val() == '') {
+				$('#Cabang').siblings('span.error').css('visibility', 'visible');
+				$('.Cabang').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#Cabang').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#NoTeskey').val() == '') {
+				$('#NoTeskey').siblings('span.error').css('visibility', 'visible');
+				$('.NoTeskey').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#NoTeskey').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#TanggalTRX').val() == '') {
+				$('#TanggalTRX').siblings('span.error').css('visibility', 'visible');
+				$('.TanggalTRX').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#TanggalTRX').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#NoReferensi').val() == '') {
+				$('#NoReferensi').siblings('span.error').css('visibility', 'visible');
+				$('.NoReferensi').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#NoReferensi').siblings('span.error').css('visibility', 'hidden');
+			}
 
-            if (isAllValid) {
-				
-                var data = new Object();
-                    data.NomorSurat = $("#NomorSurat").val();
-                    data.TanggalSurat = $("#TanggalSurat").val();
-                    data.TypeId = $("#tipe").val();
-                    data.NamaPenerima = $("#Nama").val();
-                    data.NomorRekening = $("#NomorRekening").val();
-                    data.Nominal = minkoma($("#Nominal").val());
-                    data.BankId = $("#BTujuan").val();
-                    data.AlasanId = $("#Alasan").val();
-                    data.Path = $("#path").val();
-					data.TanggalTRX = $("#TanggalTRX").val(),
-					data.TanggalTestKey = $("#TanggalTK").val(),
-                    data.NomorTestKey = $("#NoTeskey").val();
-					data.NoReferensi = $("#NoReferensi").val();
-                    data.CabangId = $("#Cabang").val();
-                    data.NominalSeharusnya = $("#Nominal2").val();
-					console.log(data);
-                if ($("#Alasan").val() == 'custom') {
-                    var reason = $("#alasanLain").val()
-                    $.ajax({
-                        "url": "@Url.Action("SaveReason","Kliring")",
-                        "type": 'post',
-                        "dataType": "json",
-                        "data": { reason: reason }
-                    }).then((result) => {
-                        data.alasanId = result;
-                        $.ajax({
-                            url: '@Url.Action("Save","Kliring")',
-                            type: 'Post',
-                            dataType: "json",
-                            data: {data:data},
-                            success: function (data) {
-                                if (data == true) {
-                                    swal.fire('Successfully saved');
-                                    //here we will clear the form
-                                    location.href = "@Url.Action("Proses","Kliring")";
-                                }
-                                else {
-                                    alert('Error');
-                                }
-                            }
-                        });
-                    })
-                }
-                else {
-                            $.ajax({
-                            url: '@Url.Action("Save","Kliring")',
-                            type: 'Post',
-                            dataType: "json",
-                            data: {data:data},
-							
-                            success: function (data) {
-								console.log(data)
-                                if (data == true) {
-                                    swal.fire('Successfully saved');
-                                    //here we will clear the form
-                                    location.href = "@Url.Action("Proses","Kliring")";
-                                }
-                                else {
-                                    alert('Error');
-                                }
-                            }
-                        });
-                }
-            }
+			if (isAllValid) {
+				debugger;
+				var data = new Object();
+				data.NomorSurat = $("#NomorSurat").val();
+				data.TanggalSurat = $("#TanggalSurat").val();
+				data.TypeId = $("#tipe").val();
+				data.NamaPenerima = $("#Nama").val();
+				data.NomorRekening = $("#NomorRekening").val();
+				data.Nominal = minkoma($("#Nominal").val());
+				data.BankId = $("#BTujuan").val();
+				data.AlasanId = $("#Alasan").val();
+				data.AlasanLain = $("#alasanLain").val();
+				data.Path = null;
+				data.TanggalTRX = $("#TanggalTRX").val();
+				data.TanggalTestKey = $("#TanggalTK").val();
+				data.NomorTestKey = $("#NoTeskey").val();
+				data.NoReferensi = $("#NoReferensi").val();
+				data.CabangId = $("#Cabang").val();
+				data.NominalSeharusnya = $("#Nominal2").val();
+				console.log(data);
 
-            $(this).val('Please wait...');
+				$.ajax({
+					url: '@Url.Action("Save","Kliring")',
+					type: 'Post',
+					dataType: "json",
+					data: data,
 
-        })
+					success: function (response) {
+						Swal.fire({
+							icon:"success",
+							title:"Berhasil",
+							text: "Data Berhasil Di Tambah"
+						}).then(function(){
+							location.href = '@Url.Action("Proses","Kliring")';
+						});;
+						
+					}, error:(err)=>{
+						Swal.fire({
+							icon: "error",
+							title: "Gagal",
+							text: "Data Gagal Di Tambah"
+						}).then(function(){
+							location.reload();
+						});
+						//location.href = "@Url.Action("Proses","Kliring")";
+					}
+				});
+				//          if ($("#Alasan").val() == 'custom') {
+				//              var reason = $("#alasanLain").val()
+				//              $.ajax({
+				//                  "url": "@Url.Action("SaveReason","Kliring")",
+				//                  "type": 'post',
+				//                  "dataType": "json",
+				//                  "data": { reason: reason }
+				//              }).then((result) => {
+				//debugger;
+				//console.log(result);
+				//                  data.alasanId = result;
+				//                  $.ajax({
+				//                      url: '@Url.Action("Save","Kliring")',
+				//                      type: 'Post',
+				//                      dataType: "json",
+				//                      data: {data:data},
+				//                      success: function (data) {
+				//                          if (data == true) {
+				//                              swal.fire('Successfully saved');
+				//                              //here we will clear the form
+				//                              location.href = "@Url.Action("Proses","Kliring")";
+				//                          }
+				//                          else {
+				//                              alert('Error');
+				//                          }
+				//                      }
+				//                  });
+				//              })
+				//          }
+				//          else {
+				//                      $.ajax({
+				//                      url: '@Url.Action("Save","Kliring")',
+				//                      type: 'Post',
+				//                      dataType: "json",
+				//                      data: {data:data},
+
+				//                      success: function (data) {
+				//		console.log(data)
+				//                          if (data == true) {
+				//                              swal.fire('Successfully saved');
+				//                              //here we will clear the form
+				//                              location.href = "@Url.Action("Proses","Kliring")";
+				//                          }
+				//                          else {
+				//                              alert('Error');
+				//                          }
+				//                      }
+				//                  });
+				//          }
+				      }
+
+				$(this).val('Please wait...');
+
+			})
 
 		$(document).on("keyup", ".number", (function (event) {
 

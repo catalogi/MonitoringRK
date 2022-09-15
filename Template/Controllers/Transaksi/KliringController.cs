@@ -66,7 +66,10 @@ namespace Ririn.Controllers.Transaksi
 
         public JsonResult GetById(int Id)
         {
-            var data = _context.T_Kliring.Single(x => x.Id == Id);
+            var data = _context.T_Kliring
+                .Include(x=>x.Testkey)
+                .Include(x=>x.Type)
+                .Where(x=>x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
 
@@ -131,31 +134,66 @@ namespace Ririn.Controllers.Transaksi
             var success = false;
             //var user = GetCurrentUser();
             #region upload File Lampiran
-            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            {
-                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            }
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "File/Lampiran");
+            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            //{
+            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            //}
+            //string webRootPath = _webHostEnvironment.WebRootPath;
+            //string path = Path.Combine(webRootPath, "File/Lampiran");
 
-            string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
+            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
 
-            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
+            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
             #endregion
             //try
             //{
             if (data.Id == null)
             {
-                foreach (var item in data.Testkeys)
+                var tkDAta = _context.Testkey.Where(x => x.NomorTestkey == data.NomorTestKey && x.Tanggal == data.TanggalTestKey).FirstOrDefault();
+                if (tkDAta == null)
                 {
                     var teskey = new Testkey
                     {
-                        NomorTestkey = item.NomorTestKey,
-                        Tanggal = item.TanggalTestKey
+                        NomorTestkey = data.NomorTestKey,
+                        Tanggal = data.TanggalTestKey
                     };
                     _context.Testkey.Add(teskey);
                     _context.SaveChanges();
+                }
+                else
+                {
+                    var teskey = new Testkey
+                    {
+                        NomorTestkey = data.NomorTestKey,
+                        Tanggal = data.TanggalTestKey
+                    };
+                    _context.Testkey.Add(teskey);
+                    _context.SaveChanges();
+                }
+
+                var alasanmajid = 0;
+
+                if (data.AlasanId == null)
+                {
+                    if (data.AlasanLain != null)
+                    {
+                        var newalasan = new Alasan
+                        {
+
+                            Nama = data.AlasanLain,
+                        };
+                        _context.Add(newalasan);
+                        _context.SaveChanges();
+
+                        alasanmajid = newalasan.Id;
+                    }
+
+                }
+                else
+                {
+                   
+                    alasanmajid = data.AlasanId??0;
                 }
                 var kliring = new T_Kliring
                 {
@@ -167,10 +205,11 @@ namespace Ririn.Controllers.Transaksi
                     Nominal = data.Nominal,
                     TanggalTRX = data.TanggalTRX,
                     NominalSeharusnya = data.NominalSeharusnya,
-                    Path = generateNamaFile,
+                    TestkeyId = teskey.Id,
+                    Path = null,
                     BankId = data.BankId,
                     CabangId = data.CabangId,
-                    AlasanId = data.AlasanId,
+                    AlasanId = alasanmajid,
                     TypeId = data.TypeId,
                     StatusId = 1,
                     Durasi = 0
@@ -181,16 +220,15 @@ namespace Ririn.Controllers.Transaksi
             }
             else
             {
-                foreach (var item in data.Testkeys)
-                {
-                    var teskey = new Testkey
-                    {
-                        NomorTestkey = item.NomorTestKey,
-                        Tanggal = item.TanggalTestKey,
-                    };
-                    _context.Entry(teskey).State = EntityState.Modified;
-                    _context.SaveChanges();
-                }
+                var datateskey= _context.Testkey.Where(x=>x.NomorTestkey = data.NomorTestKey && x.Tanggal == data.TanggalTestKey ).
+                //if(data.NomorTestKey && data.TanggalTestKey != null) { 
+                //    var teskey = new Testkey
+                //    {
+                //        NomorTestkey = data.NomorTestKey,
+                //        Tanggal = data.TanggalTestKey,
+                //    };
+                //    _context.Entry(teskey).State = EntityState.Modified;
+                //    _context.SaveChanges();
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 result.NomorSurat = data.NomorSurat;
@@ -201,16 +239,33 @@ namespace Ririn.Controllers.Transaksi
                 result.Nominal = data.Nominal;
                 result.TanggalTRX = data.TanggalTRX;
                 result.NominalSeharusnya = data.NominalSeharusnya;
-                result.Path = generateNamaFile;
+                result.Path = null;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
-                result.AlasanId = data.AlasanId;
+                if (data.AlasanId == null)
+                {
+                    if (data.AlasanLain != null)
+                    {
+                        var newalasan = new Alasan
+                        {
+
+                            Nama = data.AlasanLain,
+                        };
+                        _context.Add(newalasan);
+                        _context.SaveChanges();
+                        result.AlasanId = newalasan.Id;
+                    };
+                }
+                else
+                {
+                    result.AlasanId = data.AlasanId;
+                }
                 result.TypeId = data.TypeId;
                 result.Durasi = data.Durasi;
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
-
+                success = true;
             }
             return Json(success);
             //}

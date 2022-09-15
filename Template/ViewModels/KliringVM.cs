@@ -27,19 +27,22 @@ namespace Ririn.ViewModels
         public DateTime? TanggalDone { get; set; }
         public string? CreaterId { get; set; }
         public string? AcceptorId { get; set; }
-        public List<TestKeyVM> Testkeys { get; set; }
-    }
-
-
-    public class TestKeyVM
-    {
-        public int? Id { get; set; }
         public string NomorTestKey { get; set; }
+        public string? AlasanLain { get; set; }
         public DateTime TanggalTestKey { get; set; }
-        //public int KeteranganId { get; set; }
-        //public int UnitId { get; set; }
-
+        //public List<TestKeyVM> Testkeys { get; set; }
     }
+
+
+    //public class TestKeyVM
+    //{
+    //    public int? Id { get; set; }
+    //    public string NomorTestKey { get; set; }
+    //    public DateTime TanggalTestKey { get; set; }
+    //    //public int KeteranganId { get; set; }
+    //    //public int UnitId { get; set; }
+
+    //}
 
     public class Attachment
     {

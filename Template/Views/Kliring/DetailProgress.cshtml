@@ -1,115 +1,224 @@
-﻿
-@{
-    ViewBag.Title = "Detail Progress";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    //var count = 1;
+﻿@{
+	ViewBag.Title = "Detail Progress";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	//var count = 1;
 }
 
 <section class="content">
-    <div class="container">
-        <div class="card">
-            <div class="card-header card-header-info">
-                <h4 class="card-title">Detail</h4>
-                <p class="card-text">TesKey / Surat</p>
-                <a class="btn btn-primary text-white pull-right" id="edit">Edit</a>
+	<div class="container">
+		<div class="card" style="background-color:white">
+			<div class="card-header card-header-info">
+				<h4 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Detail</h4>
+				<p class="card-text font-weight-bolder">TesKey / Surat</p>
+				<div class="offset-md-12">
+				<a class="btn btn-primary text-white pull-right" id="edit">Edit</a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4">
+						<label class="bmd-label-floating">Tipe Surat</label>
+						<br />
+						<input type="hidden" id="formId" value="Id" />
+						<select required Id="Tipe" data-placement="choose" class="form-control select2 Tipe" disabled></select>
+					</div>
+					<div class="col-md-4 offset-md-1">
+						<label class="bmd-label-floating">Tanggal TRX</label>
+						<input id="TanggalTRX" type="date" class="form-control" disabled value="TanggalTRX" />
+					</div>
+				</div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4 NoReferensi">
+						<label class="control-label">Nomor Referensi</label>
+						<input id="NoReferensi" type="text" class="form-control" disabled/>
+					</div>
+					<div class="col-md-4 offset-md-1">
+						<label class="bmd-label-floating">Divisi / Cabang</label>
+						<br />
+						<select required Id="Cabang" data-placement="choose" class="form-control select2" disabled></select>
+					</div>
+				</div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4">
+						<label class="bmd-label-floating">Tanggal Surat</label>
+						<input id="TanggalSurat" type="date" class="form-control datepicker" value="" disabled />
+					</div>
+					<div class="col-md-4 offset-md-1">
+						<label class="bmd-label-floating">Tanggal TestKey</label>
+						<input id="TanggalTK" type="date" class="form-control datepicker" disabled />
+					</div>
+				</div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4">
+						<label class="bmd-label-floating">Nomor Surat</label>
+						<input id="NomorSurat" type="text" class="form-control" value="NomorSurat" disabled />
+					</div>
+					<div class="col-md-4 offset-md-1">
+						<label class="control-label">Nomor Teskey</label>
+						<input id="NoTeskey" type="text" class="form-control" value="" disabled />
+					</div>
+				</div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4 Nama">
+						<label class="control-label">Nama</label>
+						<input id="Nama" type="text" class="form-control" value="" disabled />
+					</div>
+					<div class="col-md-4 offset-md-1 NomorRekening">
+						<label class="control-label">Nomor Rekening</label>
+						<input id="NomorRekening" type="text" class="form-control" value="" disabled />
+					</div>
+				</div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4">
+						<label class="control-label ">Nominal</label>
+						<input id="Nominal" type="text" class="form-control number" value="" disabled />
+					</div>
+					<div class="col-md-4 offset-md-1 ">
+						<label class="control-label ">Nominal Seharusnya</label>
+						<input id="Nominal2" type="text" class="form-control number" disabled />
+					</div>
+				</div>
 
-            </div>
-            <div class="card-body">
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4">
-                        <label class="bmd-label-floating">Tipe Surat</label>
-                        <br />
-                        <input type="hidden" id="formId" value="" />
-                        <select required Id="Tipe" data-placement="choose" class="form-control select2 Tipe" ></select>
-                    </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="bmd-label-floating">Tanggal TRX</label>
-                        <input id="TanggalTRX" type="text" class="form-control datepicker" />
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 NoReferensi">
-                        <label class="control-label">Nomor Referensi</label>
-                        <input id="NoReferensi" type="text" class="form-control" />
-                    </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="bmd-label-floating">Divisi / Cabang</label>
-                        <br />
-                        <select required Id="Cabang" data-placement="choose" class="form-control select2" ></select>
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4">
-                        <label class="bmd-label-floating">Tanggal Surat</label>
-                        <input id="TanggalSurat" type="tel" class="form-control datepicker" value="" />
-                    </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="bmd-label-floating">Tanggal TestKey</label>
-                        <input id="TanggalTK" type="tel" class="form-control datepicker"  />
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4">
-                        <label class="bmd-label-floating">Nomor Surat</label>
-                        <input id="NomorSurat" type="text" class="form-control" value=""  />
-                    </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="control-label">Nomor Teskey</label>
-                        <input id="NoTeskey" type="text" class="form-control" value=""  />
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 Nama">
-                        <label class="control-label">Nama</label>
-                        <input id="Nama" type="text" class="form-control" value=""  />
-                    </div>
-                    <div class="col-md-4 offset-md-1 NomorRekening">
-                        <label class="control-label">Nomor Rekening</label>
-                        <input id="NomorRekening" type="text" class="form-control" value=""  />
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4">
-                        <label class="control-label ">Nominal</label>
-                        <input id="Nominal" type="text" class="form-control number" value=""  />
-                    </div>
-                    <div class="col-md-4 offset-md-1 ">
-                        <label class="control-label ">Nominal Seharusnya</label>
-                        <input id="Nominal2" type="text" class="form-control number"  />
-                    </div>
-                </div>
-
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 BTujuan">
-                        <label class="control-label">Bank</label>
-                        <select required Id="BTujuan" data-placement="choose" class="form-control select2 bank" ></select>
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 Reason">
-                        <label class="control-label">Reason</label>
-                        <br />
-                        <select required Id="Reason" onchange="AddReason();" data-placement="choose" class="form-control select2"></select>
-                        <div id="Reason-div">
-                            <label class="control-label">New Reason</label>
-                            <br />
-                            <input id="newReason" class="form-control" type="text"  />
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4 BTujuan">
+						<label class="control-label">Bank</label>
+						<select required Id="BTujuan" data-placement="choose" class="form-control select2" disabled></select>
+					</div>
+				</div>
+				<div class="row" style="margin-left:20px">
+					<div class="col-md-4 Alasan">
+						<label class="control-label">Alasan</label>
+						<br />
+						<select required Id="Alasan" onchange="AddAlasan();" data-placement="choose" class="form-control select2" disabled></select>
+						<div id="Alasan-div">
+							<label class="control-label">Alasan Lain</label>
+							<br />
+							<input id="AlasanLain" class="form-control" type="text" />
+						</div>
+					</div>
+					<div class="offset-md-8">
+						<a class="btn btn-primary text-white" id="Save">Save</a>
+						<a class="btn btn-primary text-white" href="@Url.Action("Index","Home")" style="margin-left:10px;">Back</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 @section scripts{
 	<script>
 		$(document).ready(function () {
+			GetType();
+			GetCabang();
+			GetBank();
+			GetAlasan();
+			$("#Alasan-div").hide();
 			$(".select2").select2({
 				"theme": "classic"
 			});
+
 		});
+
+		$("#edit").click(function (){
+			$("#edit").hide();
+			$("#formId").removeAttr('disabled');
+			$("#NomorSurat").removeAttr('disabled');
+			$("#TanggalSurat").removeAttr('disabled');
+			$("#Tipe").removeAttr('disabled');
+			$("#Nama").removeAttr('disabled');
+			$("#NomorRekening").removeAttr('disabled');
+			$("#Nominal").removeAttr('disabled');
+			$("#BTujuan").removeAttr('disabled');
+			$("#Alasan").removeAttr('disabled');
+			$("#Path").removeAttr('disabled');
+			$("#TanggalTRX").removeAttr('disabled');
+			$("#TanggalTK").removeAttr('disabled');
+			$("#NoTeskey").removeAttr('disabled');
+			$("#NoReferensi").removeAttr('disabled');
+			$("#Cabang").removeAttr('disabled');
+			$("#Nominal2").removeAttr('disabled');
+		})
+
+		//$('.form-file-simple .inputFileVisible').click(function(){
+		//	$(this).siblings('.inputFileHidden').trigger('click');
+		//})
+
+		function GetType() {
+			$.ajax({
+				"url": "@Url.Action("GetType","Kliring")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var type = $("#Tipe");
+				type.html('');
+				$("<option></option>").val('').text('--- Pilih Tipe Surat ---').appendTo(type);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.type).appendTo(type);
+				});
+			});
+		}
+
+		function GetCabang() {
+			$.ajax({
+				"url": "@Url.Action("GetCabang","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var cabang = $("#Cabang");
+				cabang.html('');
+				$("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(cabang);
+				});
+			});
+		}
+
+		function GetBank() {
+			$.ajax({
+				"url": "@Url.Action("GetBank","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var bank = $("#BTujuan");
+				bank.html('');
+				$("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(bank);
+				});
+			});
+		}
+
+
+		function GetAlasan() {
+			$.ajax({
+				"url": "@Url.Action("GetAlasan","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var alasan = $("#Alasan");
+				alasan.html('');
+				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
+				$("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+				});
+			});
+		}
+
+		function AddAlasan() {
+			var alasan = $("#Alasan").val();
+			if (alasan == 'custom') {
+				$("#Alasan-div").show();
+			}
+			else {
+				$("#Alasan-div").hide();
+			}
+		}
 
 	</script>
 }
