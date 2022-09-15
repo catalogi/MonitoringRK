@@ -10,5 +10,9 @@
         //public Unit Unit { get; set; }
         //public int? UnitId { get; set; }
 
+        internal string Replace(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -81,11 +81,11 @@ namespace Ririn.Controllers.Transaksi
             if (exist == 0)
             {
                 Alasan alasans = new Alasan();
-                alasans.Nama = reason;
+                alasans.Nama = alasan;
                 //reasons.Createdate = DateTime.Now;
                 _context.Alasan.Add(alasans);
                 _context.SaveChanges();
-                data = alasa.Id;
+                data = alasans.Id;
             }
             else
             {

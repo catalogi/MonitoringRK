@@ -351,6 +351,7 @@
         //}
 
         async function Save() {
+            debugger;
             //const iTypeId = $('select[name=tipe]');
             //const iTanggalTrx = $('input[name=tanggalTrx]');
             //const iNoReferensi = $('input[name=noReferensi]');
@@ -364,7 +365,7 @@
             //const iBankId = $('select[name=banktj]');
             //const iAlasanId = $('select[name=Alasan]');
             //const iAlasanId = $('input[name=alasanLain]');
-            const itotal = ('input[name=nomorTestkey]');
+            const itotal = ('input[name=nomorTestkey]').length;
             const iNomorTestkey = $('input[name=nomorTestkey]');
             const iTanggalTestKey = $('input[name=tanggalTestkey]');
             const ifiles = $('input[file]').prop('files');
@@ -373,12 +374,12 @@
 
             const ArraytestKey = []
 
-            for (let i = 0; i < total; i++) {
+            for (let i = 0; i < itotal; i++) {
                 const testkey = {
-                    TanggalTestKey = iTanggalTestKey[i].value,
-                    Nomortestkey = iNomorTestkey[i].value,
+                    tanggalTestkey : iTanggalTestKey[i].value,
+                    nomorTestkey : iNomorTestkey[i].value,
                 }
-                ArraytestKey.push(testKey);
+                ArraytestKey.push(testkey);
             }
 
             formData["TypeId"] = $('select[name=tipe]').val();
@@ -402,7 +403,7 @@
                 fileName:files[0].name
             }
             formData['file'] = file;
-
+            console.log(formData);
             if($('#Alasan').val()== 'custom'){
                 var alasan = $('#alasanLain').val()
                 $.ajax({
@@ -430,13 +431,34 @@
                             Swal.fire({
                                 icon:"error",
                                 title:"Error",
-                                text:"Data Gagal DIsimpan"
+                                text:"Data Gagal Disimpan!"
                             })
                         }
                     })
                 })
             }else{
+                $.ajax({
+                    url: "@Url.Action("Save","Kliring")",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataTye: "json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data Berhasil Disimpan"
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text:"Data Gagal Disimpan!"
+                        })
+                    }
 
+                })
             }
 
         }
