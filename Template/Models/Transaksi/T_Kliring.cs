@@ -28,7 +28,7 @@ namespace Ririn.Models.Transaksi
         public Status Status { get; set; }
         public int? StatusId { get; set; }
         public int Durasi { get; set; }
-        public string path { get; set; }
+        public string? Path { get; set; }
         public DateTime? TanggalDone { get; set; }
         public User Creater { get; set; }
         public string? CreaterId { get; set; }
