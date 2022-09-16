@@ -16,8 +16,10 @@ namespace Ririn.Models.Transaksi
         public Cabang Cabang { get; set; }
         public int? CabangId { get; set; }
         public DateTime TanggalTRX { get; set; }
-        public Testkey Testkey { get; set; }
-        public int? TestkeyId { get; set; }
+        //public Testkey Testkey { get; set; }
+        //public int? TestkeyId { get; set; }
+        public DateTime TanggalTestkey { get; set; }
+        public string NomorTestkey { get; set; }
         public Keterangan Keterangan { get; set; }
         public int? KeteranganId { get; set; }
         public Alasan Alasan { get; set; }

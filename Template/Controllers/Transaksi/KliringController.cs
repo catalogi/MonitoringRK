@@ -50,7 +50,6 @@ namespace Ririn.Controllers.Transaksi
             var result = _context.T_Kliring
                 .Include(x => x.Keterangan)
                 .Include(x => x.Alasan)
-                .Include(x => x.Testkey)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
                 .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 1).ToList();
@@ -67,9 +66,8 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult GetById(int Id)
         {
             var data = _context.T_Kliring
-                .Include(x=>x.Testkey)
-                .Include(x=>x.Type)
-                .Where(x=>x.Type.UnitId == 1).Single(x => x.Id == Id);
+                .Include(x => x.Type)
+                .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
 
@@ -125,6 +123,20 @@ namespace Ririn.Controllers.Transaksi
             return Json(data);
         }
 
+        public JsonResult Delete(int Id)
+        {
+            bool result = false;
+            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
+            if (kliring != null)
+            {
+                kliring.IsDeleted = true;
+                _context.Entry(kliring).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
+        }
+
         #endregion
 
         #region Save Data
@@ -150,29 +162,18 @@ namespace Ririn.Controllers.Transaksi
             //{
             if (data.Id == null)
             {
-                var tkDAta = _context.Testkey.Where(x => x.NomorTestkey == data.NomorTestKey && x.Tanggal == data.TanggalTestKey).FirstOrDefault();
-                if (tkDAta == null)
-                {
-                    var teskey = new Testkey
-                    {
-                        NomorTestkey = data.NomorTestKey,
-                        Tanggal = data.TanggalTestKey
-                    };
-                    _context.Testkey.Add(teskey);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    var teskey = new Testkey
-                    {
-                        NomorTestkey = data.NomorTestKey,
-                        Tanggal = data.TanggalTestKey
-                    };
-                    _context.Testkey.Add(teskey);
-                    _context.SaveChanges();
-                }
+                //#region Tambah Data Testkey
+                //var teskey = new Testkey
+                //{
+                //    NomorTestkey = data.NomorTestKey,
+                //    Tanggal = data.TanggalTestKey
+                //};
+                //_context.Testkey.Add(teskey);
+                //_context.SaveChanges();
+                //#endregion
 
-                var alasanmajid = 0;
+
+                var alasanLain = 0;
 
                 if (data.AlasanId == null)
                 {
@@ -186,14 +187,14 @@ namespace Ririn.Controllers.Transaksi
                         _context.Add(newalasan);
                         _context.SaveChanges();
 
-                        alasanmajid = newalasan.Id;
+                        alasanLain = newalasan.Id;
                     }
 
                 }
                 else
                 {
-                   
-                    alasanmajid = data.AlasanId??0;
+
+                    alasanLain = data.AlasanId ?? 0;
                 }
                 var kliring = new T_Kliring
                 {
@@ -204,12 +205,13 @@ namespace Ririn.Controllers.Transaksi
                     NomorRekening = data.NomorRekening,
                     Nominal = data.Nominal,
                     TanggalTRX = data.TanggalTRX,
+                    TanggalTestkey = data.TanggalTestKey,
+                    NomorTestkey = data.NomorTestKey,
                     NominalSeharusnya = data.NominalSeharusnya,
-                    TestkeyId = teskey.Id,
                     Path = null,
                     BankId = data.BankId,
                     CabangId = data.CabangId,
-                    AlasanId = alasanmajid,
+                    AlasanId = alasanLain,
                     TypeId = data.TypeId,
                     StatusId = 1,
                     Durasi = 0
@@ -220,15 +222,10 @@ namespace Ririn.Controllers.Transaksi
             }
             else
             {
-                var datateskey= _context.Testkey.Where(x=>x.NomorTestkey = data.NomorTestKey && x.Tanggal == data.TanggalTestKey ).
-                //if(data.NomorTestKey && data.TanggalTestKey != null) { 
-                //    var teskey = new Testkey
-                //    {
-                //        NomorTestkey = data.NomorTestKey,
-                //        Tanggal = data.TanggalTestKey,
-                //    };
-                //    _context.Entry(teskey).State = EntityState.Modified;
-                //    _context.SaveChanges();
+
+                //if (data.NomorTestKey != null && data.TanggalTestKey != null)
+                //{
+
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 result.NomorSurat = data.NomorSurat;
@@ -238,6 +235,8 @@ namespace Ririn.Controllers.Transaksi
                 result.NomorRekening = data.NomorRekening;
                 result.Nominal = data.Nominal;
                 result.TanggalTRX = data.TanggalTRX;
+                result.TanggalTestkey = data.TanggalTestKey;
+                result.NomorTestkey = data.NomorTestKey;
                 result.NominalSeharusnya = data.NominalSeharusnya;
                 result.Path = null;
                 result.BankId = data.BankId;
@@ -276,4 +275,6 @@ namespace Ririn.Controllers.Transaksi
             #endregion
         }
     }
+
+
 }
