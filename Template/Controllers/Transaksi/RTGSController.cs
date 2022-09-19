@@ -52,12 +52,9 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
-<<<<<<< HEAD
-                .Include(x => x.Testkey)
+                
                 .Include(x=>x.Type)
                 .Where(x=>x.IsDeleted == false && x.StatusId == 1 && x.Type.UnitId==2)
-=======
->>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
                 .ToList();
             return Json(new { data = result });
         }
@@ -77,7 +74,7 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-<<<<<<< HEAD
+
         //public IActionResult Save(TranshVM rtgs)
         //{
         //    var success = false;
@@ -94,7 +91,7 @@ namespace Ririn.Controllers.Transaksi
         //    }
         //    return Ok(success);
         //}
-=======
+
         public IActionResult Save(KliringVM data)
         {
             var success = false;
@@ -106,6 +103,5 @@ namespace Ririn.Controllers.Transaksi
             return Ok(success);
         }
 
->>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
     }
 }

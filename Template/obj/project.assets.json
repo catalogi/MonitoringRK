@@ -11669,10 +11669,7 @@
       "DocumentFormat.OpenXml >= 2.18.0",
       "EPPlus >= 6.0.7",
       "EntityFramework >= 6.4.4",
-<<<<<<< HEAD
       "Microsoft.AspNet.Identity.EntityFramework >= 2.2.3",
-=======
->>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.8",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.8",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.8",
@@ -11684,16 +11681,11 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\1394\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\1405\\.nuget\\packages\\": {}
->>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\Template.csproj",
       "projectName": "Template",
       "projectPath": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\Template.csproj",
@@ -11702,16 +11694,6 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\1394\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-      "projectUniqueName": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\Template.csproj",
-      "projectName": "Template",
-      "projectPath": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\Template.csproj",
-      "packagesPath": "C:\\Users\\1405\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\1405\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11753,13 +11735,10 @@
             "target": "Package",
             "version": "[6.4.4, )"
           },
-<<<<<<< HEAD
           "Microsoft.AspNet.Identity.EntityFramework": {
             "target": "Package",
             "version": "[2.2.3, )"
           },
-=======
->>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.8, )"

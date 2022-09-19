@@ -10,7 +10,7 @@ namespace ASK_Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "path",
+                name: "Path",
                 table: "T_RTGS",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -37,7 +37,7 @@ namespace ASK_Core.Migrations
                 name: "Libur");
 
             migrationBuilder.DropColumn(
-                name: "path",
+                name: "Path",
                 table: "T_RTGS");
         }
     }
