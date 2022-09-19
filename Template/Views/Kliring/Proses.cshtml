@@ -1,114 +1,640 @@
 ﻿@{
-    ViewBag.Title = "Proses";
+	ViewBag.Title = "Proses";
 }
 
-<section class="content">
-    <div class="container">
-        <div class="card" style="background-color:white">
-            <div class="card-header card-header-info">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
-                <p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
-                @*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
-            </div>
-            <div class="card-body ">
-                <div class="row" style="margin-left:20px;margin-bottom:20px">
-                    <label class="bmd-label-floating">Tipe Surat</label>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Input Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal">
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4 ">
+							<label class="bmd-label-floating">Tipe Surat</label>
+							<br />
+						
+							<input type="hidden" id="formId" value="Id" />
+							<select required Id="Tipe2" data-placement="choose" class="form-control select2 Tipe" style="width:100%" ></select>
+						</div>
+						<div class="col-md-4 offset-md-1">
+							<label class="bmd-label-floating">Tanggal TRX</label>
+							<input id="TanggalTRX" type="date" class="form-control" value="TanggalTRX" />
+						</div>
+					</div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4 NoReferensi">
+							<label class="control-label">Nomor Referensi</label>
+							<input id="NoReferensi" type="text" class="form-control"  />
+						</div>
+						<div class="col-md-4 offset-md-1">
+							<label class="bmd-label-floating">Divisi / Cabang</label>
+							<br />
+							<select required Id="Cabang" data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
+						</div>
+					</div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4">
+							<label class="bmd-label-floating">Tanggal Surat</label>
+							<input id="TanggalSurat" type="date" class="form-control datepicker" value=""  />
+						</div>
+						<div class="col-md-4 offset-md-1">
+							<label class="bmd-label-floating">Tanggal TestKey</label>
+							<input id="TanggalTK" type="date" class="form-control datepicker"  />
+						</div>
+					</div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4">
+							<label class="bmd-label-floating">Nomor Surat</label>
+							<input id="NomorSurat" type="text" class="form-control" value="NomorSurat"  />
+						</div>
+						<div class="col-md-4 offset-md-1">
+							<label class="control-label">Nomor Teskey</label>
+							<input id="NoTeskey" type="text" class="form-control" value=""  />
+						</div>
+					</div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4 Nama">
+							<label class="control-label">Nama</label>
+							<input id="Nama" type="text" class="form-control" value=""  />
+						</div>
+						<div class="col-md-4 offset-md-1 NomorRekening">
+							<label class="control-label">Nomor Rekening</label>
+							<input id="NomorRekening" type="text" class="form-control" value=""  />
+						</div>
+					</div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4">
+							<label class="control-label ">Nominal</label>
+							<input id="Nominal" type="text" class="form-control number" value=""  />
+						</div>
+						<div class="col-md-4 offset-md-1 ">
+							<label class="control-label ">Nominal Seharusnya</label>
+							<input id="Nominal2" type="text" class="form-control number"  />
+						</div>
+					</div>
 
-                    <div class="col-md-4">
-                        <select required Id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe">
-                            @*<option value="">--- Pilih Tipe ---</option>*@
-                        </select>
-                    </div>
-                </div>
-                <table id="table" class="table table-bordered">
-                    <thead style="background-color:#319DA0">
-                        <tr>
-                            <th>No.</th>
-                            <th>Bank</th>
-                            <th>No. Rekening</th>
-                            <th>Nominal</th>
-                            <th>Nasabah Penerima</th>
-                            <th>Alasan</th>
-                            <th>Durasi</th>
-                            <th>Tipe Transaksi</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4 BTujuan">
+							<label class="control-label">Bank</label>
+							<select required Id="BTujuan" data-placement="choose" class="form-control select2" style="width:100%"></select>
+						</div>
+					</div>
+					<div class="row" style="margin-left:20px">
+						<div class="col-md-4 Alasan">
+							<label class="control-label">Alasan</label>
+							<br />
+							<select required Id="Alasan" onchange="AddAlasan();" data-placement="choose" class="form-control select2" style="width:100%"></select>
+							<div id="Alasan-div">
+								<label class="control-label">Alasan Lain</label>
+								<br />
+								<input id="AlasanLain" class="form-control" type="text" />
+							</div>
+						</div>
+						@*<div class="offset-md-8">
+							<a class="btn btn-primary text-white" id="Save">Save</a>
+							<a class="btn btn-primary text-white" href="@Url.Action("Index","Home")" style="margin-left:10px;">Back</a>
+						</div>*@
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Simpan</button>
+				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="content">
+	<div class="container">
+		<div class="card" style="background-color:white">
+			<div class="card-header card-header-info">
+				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+				<p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
+				@*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
+
+				@*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
+			</div>
+			<div class="card-body ">
+				<div class="row" style="margin-left:20px;margin-bottom:20px">
+					<label class="bmd-label-floating">Tipe Surat</label>
+
+					<div class="col-md-4">
+						<select required Id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe">
+							@*<option value="">--- Pilih Tipe ---</option>*@
+						</select>
+					</div>
+				</div>
+				<table id="table" class="table table-bordered table-responsive " style="width:100%">
+					@*display nowrap*@
+					<thead style="background-color:#319DA0">
+						<tr>
+							<th>No.</th>
+							<th>Bank</th>
+							<th style="vertical-align:middle">No. Rekening</th>
+							<th>Nominal</th>
+							<th>Nasabah Penerima</th>
+							<th>Alasan</th>
+							<th>Durasi</th>
+							<th>Tipe Transaksi</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </section>
 
 @section scripts{
 
- <script>
+	<script>
 
-      $(document).ready(function () {  
-            GetType();
-            Read();
-        });
+		$(document).ready(function () {
+			GetType();
+			GetType2();
+			GetBank();
+			GetCabang();
+			GetAlasan();
+			Read();
+			$("#Alasan-div").hide();
+			$(".select2").select2({
+				"theme": "classic"
+			});
+		});
 
 
-        function GetType() {
-            $.ajax({
-                url: "@Url.Action("GetType","Kliring")",
-                type: "Get",
-                dataType: "json",
-                success: function ({ data }) {
-                    //console.log(data);
-                    //$("select[id=Tipe]").empty();
-                    $("select[name=Tipe]").append('<option value="">--Tipe--</option>')
-                    $.each(data, function (i, value) {
-                        $("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
-                    })
-                }
-            })
-        }
+		function GetType() {
+			$.ajax({
+				url: "@Url.Action("GetType","Kliring")",
+				type: "Get",
+				dataType: "json",
+				success: function ({ data }) {
+					//console.log(data);
+					//$("select[id=Tipe]").empty();
+					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
+					$.each(data, function (i, value) {
+						$("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
+					})
+				}
+			})
+		}
 
-        function Read() {
-            var t = $("#table").DataTable({
-                "ajax": {
-                    "url": "@Url.Action("GetList","Account")",
-                    "type": "GET",
-                    "datatype": "json"
-                },
-                "columns": [
-                    { "data": null },
-                    { "data": "Bank" },
-                    { "data": "No.Rek" },
-                    { "data": "Nominal" },
-                    { "data": "Nasabah Penerima" },
-                    { "data": "Alasan" },
-                    { "data": "Durasi" },
-                    { "data": "Tipe-Transaksi" },
-                    {
-                        "render": function (data, type, row) {
-                            return "<button class='btn btn-warning btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
-                        },
+		function GetType2() {
+			$.ajax({
+				"url": "@Url.Action("GetType","Kliring")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var type = $("#Tipe2");
+				type.html('');
+				$("<option></option>").val('').text('--- Pilih Tipe Surat ---').appendTo(type);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.type).appendTo(type);
+				});
+			});
+		}
 
-                    },
-                ]
-            })
-            t.on('order.dt search.dt', function () {
-                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                    cell.innerHTML = i + 1;
-                });
-            }).draw();
+		function GetCabang() {
+			$.ajax({
+				"url": "@Url.Action("GetCabang","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var cabang = $("#Cabang");
+				cabang.html('');
+				$("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(cabang);
+				});
+			});
+		}
 
-            $, ajax({
-                url: "@Url.Action("GetAllKelompok","Master")",
-                type: "get",
-                dataType: "json",
-                success: function ({ data }) {
-                    $.Each(data, function (i, kel) {
-                        $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
-                    })
-                }
-            })
-        }
-   </script>
+		function GetBank() {
+			$.ajax({
+				"url": "@Url.Action("GetBank","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var bank = $("#BTujuan");
+				bank.html('');
+				$("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(bank);
+				});
+			});
+		}
+
+		function GetAlasan() {
+			$.ajax({
+				"url": "@Url.Action("GetAlasan","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				console.log(data)
+				var alasan = $("#Alasan");
+				alasan.html('');
+				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
+				$("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+				});
+			});
+		}
+
+		function AddAlasan() {
+			var alasan = $("#Alasan").val();
+			if (alasan == 'custom') {
+				$("#Alasan-div").show();
+			}
+			else {
+				$("#Alasan-div").hide();
+			}
+		}
+
+		function Read() {
+			var t = $("#table").DataTable({
+				//lengthChange: false,
+				//autoWidth: false,
+				"ajax": {
+
+					"url": "@Url.Action("GetAll","Kliring")",
+					"type": "GET",
+					"datatype": "json"
+				},
+				"columns": [
+					{ "data": null },
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
+					{ "data": "nomorTestkey" },
+					{ "data": "namaPenerima" },
+					{ "data": "alasan.nama" },
+					{
+						"render": function (data, type, row) {
+							return row.durasi + " Hari";
+						}
+					},
+					{ "data": "type.type" },
+					{
+						"render": function (data, type, row) {
+							return "<button class='btn btn-primary btn-sm text-white'><i class='fa fa-plus'></i></button>" + 
+							"<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>" +
+								"<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> ";
+						},
+
+					},
+				]
+			})
+			t.on('order.dt search.dt', function () {
+				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+					cell.innerHTML = i + 1;
+				});
+			}).draw();
+
+			$.ajax({
+				url: "@Url.Action("GetAllKelompok","Master")",
+				type: "get",
+				dataType: "json",
+				success: function ({ data }) {
+					$.each(data, function (i, kel) {
+						$("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
+					})
+				}
+			})
+		}
+
+		function GetById(Id) {
+			$("#myModal").modal('show');
+			$.ajax({
+				"url": "@Url.Action("GetById","Kliring")",
+				"type": "GET",
+				"datatype": "json",
+				"data": { Id: Id }
+			}).then((result) => {
+				if (result != null) {
+					console.log(result);
+					$("#formId").val(result.data.id).change;
+					$("#Tipe2").val(result.data.typeId).change();
+					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
+					$("#NoReferensi").val(result.data.noReferensi);
+					$("#Cabang").val(result.data.cabangId).change();
+					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
+					$("#TanggalTK").val(moment(result.data.tanggaltestkey).format('YYYY-MM-DD')).change();
+					$("#NomorSurat").val(result.data.nomorSurat);
+					$("#NoTeskey").val(result.data.nomorTestkey).change();
+					$("#Nama").val(result.data.namaPenerima);
+					$("#NomorRekening").val(result.data.nomorRekening);
+					$("#Nominal").val(result.data.nominal);
+					$("#Nominal2").val(result.data.nominalSeharusnya);
+					$("#BTujuan").val(result.data.bankId).change();
+					$("#Alasan").val(result.data.alasanId).change();
+					$("#myModal").modal('show');
+					$("#").show();
+					$("#Save").hide();
+				}
+			})
+		}
+
+		function Delete(Id){
+			Swal.fire({
+				title:'Yang Bener ?????',
+				text: "Kalo DiHapus Hilang Loh!!!",
+				icon: 'warning',
+				showCancelButton:true,
+				confirmButtonColor:'#3085d6',
+				cancelButtonColor:'#d33',
+				confirmButtonText:'Yes',
+			}).then((result)=> {
+				if(result.value){
+					$.ajax({
+						"url":"@Url.Action("Delete","Kliring")",
+						"datatype":"json",
+						"data":{Id:Id}
+					}).then((result) =>{
+						if(result.data != 0){
+						Swal.fire(
+							'Success!',
+							'Data Terhapus',
+							'success'
+						).then(()=>{
+							$('#table').DataTable().ajax.reload();
+						})
+						}
+						else{
+							Swal.fire(
+								'Failed!',
+								'Data Tidak Terhapus',
+								'success'
+							).then(()=>{
+								$('#table').DataTable().ajax.reload();
+							})
+						}
+						$("#myModal").modal('hide');
+						$('#table_role').DataTable().ajax.reload();
+					})
+				}
+			})
+		}
+
+		function Edit() {
+			debugger;
+			var isAllValid = true;
+			//validate order items
+			$('#ItemError').text('');
+			var canvas = document.getElementById('Path');
+			//var dataURL = canvas.toDataURL();
+			var errorItemCount = 0;
+			//debugger;
+			if (errorItemCount > 0) {
+				$('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+				isAllValid = false;
+			}
+
+			if ($('#NomorSurat').val().trim() == '' && $('#tipe').val() == 2) {
+				$('#NomorSurat').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#NomorSurat').removeClass('is-invalid');
+			}
+
+			if ($('#TanggalSurat').val() == '') {
+				$("#TanggalSurat").addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$("#TanggalSurat").removeClass('is-invalid');
+			}
+
+			if ($('#Tipe2').val() == '') {
+				$("#Tipe2").addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#Tipe2').removeClass('is-invalid');
+			}
+			if ($('#Nama').val() == '') {
+				$('#Nama').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#Nama').removeClass('is-invalid');
+			}
+			if ($('#NomorRekening').val() == '') {
+				$('#NomorRekening').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#NomorRekening').removeClass('is-invalid');
+			}
+			if ($('#Nominal').val() == '') {
+				$('#Nominal').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#Nominal').siblings('span.error').css('visibility', 'hidden');
+			}
+
+			if ($('#BPengirim').val() == '') {
+				$('#BPengirim').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#BPengirim').siblings('span.error').css('visibility', 'hidden');
+			}
+
+			if ($('#BTujuan').val() == '') {
+				$('#BTujuan').addClass('is-invalid');
+				isAllValid = false;
+			}
+			else {
+				$('#BTujuan').siblings('span.error').css('visibility', 'hidden');
+			}
+
+			if ($('#Alasan').val() == '') {
+				$('#Alasan').siblings('span.error').css('visibility', 'visible');
+				$('.Alasan').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#Alasan').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#Cabang').val() == '') {
+				$('#Cabang').siblings('span.error').css('visibility', 'visible');
+				$('.Cabang').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#Cabang').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#NoTeskey').val() == '') {
+				$('#NoTeskey').siblings('span.error').css('visibility', 'visible');
+				$('.NoTeskey').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#NoTeskey').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#TanggalTRX').val() == '') {
+				$('#TanggalTRX').siblings('span.error').css('visibility', 'visible');
+				$('.TanggalTRX').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#TanggalTRX').siblings('span.error').css('visibility', 'hidden');
+			}
+			if ($('#NoReferensi').val() == '') {
+				$('#NoReferensi').siblings('span.error').css('visibility', 'visible');
+				$('.NoReferensi').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#NoReferensi').siblings('span.error').css('visibility', 'hidden');
+			}
+
+			if (isAllValid) {
+				debugger;
+				var data = new Object();
+				data.Id = $("#formId").val();
+				data.NomorSurat = $("#NomorSurat").val();
+				data.TanggalSurat = $("#TanggalSurat").val();
+				data.TypeId = $("#Tipe2").val();
+				data.NamaPenerima = $("#Nama").val();
+				data.NomorRekening = $("#NomorRekening").val();
+				data.Nominal = minkoma($("#Nominal").val());
+				data.BankId = $("#BTujuan").val();
+				data.AlasanId = $("#Alasan").val();
+				data.AlasanLain = $("#alasanLain").val();
+				data.Path = null;
+				data.TanggalTRX = $("#TanggalTRX").val();
+				data.TanggalTestKey = $("#TanggalTK").val();
+				data.NomorTestKey = $("#NoTeskey").val();
+				data.NoReferensi = $("#NoReferensi").val();
+				data.CabangId = $("#Cabang").val();
+				data.NominalSeharusnya = $("#Nominal2").val();
+				console.log(data);
+
+				$.ajax({
+					url: '@Url.Action("Save","Kliring")',
+					type: 'Post',
+					dataType: "json",
+					data: data,
+
+					success: function (response) {
+						Swal.fire({
+							icon: "success",
+							title: "Berhasil",
+							text: "Data Berhasil Di Tambah"
+						}).then(function () {
+							location.href = '@Url.Action("Proses","Kliring")';
+						});;
+
+					}, error: (err) => {
+						Swal.fire({
+							icon: "error",
+							title: "Gagal",
+							text: "Data Gagal Di Tambah"
+						}).then(function () {
+							location.reload();
+						});
+						//location.href = "@Url.Action("Proses","Kliring")";
+					}
+				});
+				//          if ($("#Alasan").val() == 'custom') {
+				//              var reason = $("#alasanLain").val()
+				//              $.ajax({
+				//                  "url": "@Url.Action("SaveReason","Kliring")",
+				//                  "type": 'post',
+				//                  "dataType": "json",
+				//                  "data": { reason: reason }
+				//              }).then((result) => {
+				//debugger;
+				//console.log(result);
+				//                  data.alasanId = result;
+				//                  $.ajax({
+				//                      url: '@Url.Action("Save","Kliring")',
+				//                      type: 'Post',
+				//                      dataType: "json",
+				//                      data: {data:data},
+				//                      success: function (data) {
+				//                          if (data == true) {
+				//                              swal.fire('Successfully saved');
+				//                              //here we will clear the form
+				//                              location.href = "@Url.Action("Proses","Kliring")";
+				//                          }
+				//                          else {
+				//                              alert('Error');
+				//                          }
+				//                      }
+				//                  });
+				//              })
+				//          }
+				//          else {
+				//                      $.ajax({
+				//                      url: '@Url.Action("Save","Kliring")',
+				//                      type: 'Post',
+				//                      dataType: "json",
+				//                      data: {data:data},
+
+				//                      success: function (data) {
+				//		console.log(data)
+				//                          if (data == true) {
+				//                              swal.fire('Successfully saved');
+				//                              //here we will clear the form
+				//                              location.href = "@Url.Action("Proses","Kliring")";
+				//                          }
+				//                          else {
+				//                              alert('Error');
+				//                          }
+				//                      }
+				//                  });
+				//          }
+			}
+
+			$(this).val('Please wait...');
+
+		}
+
+		$(document).on("keyup", ".number", (function (event) {
+
+			// skip for arrow keys
+			if (event.which >= 37 && event.which <= 40) return;
+
+			// format number
+			$(this).val(function (index, value) {
+				return value
+					.replace(/\D/g, "")
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+					;
+			});
+		}));
+
+		function minkoma(angka) {
+			var bil = angka;
+			var loop = Math.floor(angka.length / 3);
+			for (var i = 0; i < loop; i++) {
+				bil = bil.replace(',', '');
+			}
+			return bil;
+		}
+		
+		function Validation(){
+			debugger;
+			if ($("#TanggalTRX").val() == "" || $("#TanggalTRX").val() == "") {
+				Swal.fire('mohon apa hayooo ???');
+			}
+			else {
+				Edit($("#formId").val());
+
+			}
+		}
+	</script>
    }

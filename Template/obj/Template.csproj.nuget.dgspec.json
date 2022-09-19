@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\Template.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\1394\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\Template.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\Template.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\Template.csproj",
+        "projectName": "Template",
+        "projectPath": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\Template.csproj",
+        "packagesPath": "C:\\Users\\1405\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\1405\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -56,10 +73,13 @@
               "target": "Package",
               "version": "[6.4.4, )"
             },
+<<<<<<< HEAD
             "Microsoft.AspNet.Identity.EntityFramework": {
               "target": "Package",
               "version": "[2.2.3, )"
             },
+=======
+>>>>>>> 82fa281188b366f4ab71c58a3727e9f0aeeaaf0c
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.8, )"

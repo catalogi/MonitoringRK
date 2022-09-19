@@ -37,7 +37,7 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\File\Lampiran\" />
+    <Folder Include="wwwroot\File\Lampiran\NewFolder\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
