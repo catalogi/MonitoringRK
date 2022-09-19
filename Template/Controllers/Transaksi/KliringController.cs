@@ -13,7 +13,7 @@ using Ririn.ViewModels;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
-
+using System.Text.Json.Nodes;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -59,7 +59,6 @@ namespace Ririn.Controllers.Transaksi
             var result = _context.T_Kliring
                 .Include(x => x.Keterangan)
                 .Include(x => x.Alasan)
-                .Include(x => x.Testkey)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
                 .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 1).ToList();
@@ -73,6 +72,13 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
+        public JsonResult GetById(int Id)
+        {
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
+            return Json(new { data = data });
+        }
 
 
         public JsonResult SaveAlasan(string alasan)
@@ -95,6 +101,20 @@ namespace Ririn.Controllers.Transaksi
             }
 
             return Json(data);
+        }
+
+        public JsonResult Delete(int Id)
+        {
+            bool result = false;
+            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
+            if (kliring != null)
+            {
+                kliring.IsDeleted = true;
+                _context.Entry(kliring).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
         }
 
         #endregion
@@ -120,28 +140,18 @@ namespace Ririn.Controllers.Transaksi
             #endregion
             if (data.Id == null)
             {
-                //foreach (var item in data.Testkeys)
+                //#region Tambah Data Testkey
+                //var teskey = new Testkey
                 //{
-                //    var teskey = new Testkey
-                //    {
-                //        NomorTestkey = data.NomorTestKey,
-                //        Tanggal = data.TanggalTestKey
-                //    };
-                //    _context.Testkey.Add(teskey);
-                //    _context.SaveChanges();
-                //}
-                //else
-                //{
-                    var teskey = new Testkey
-                    {
-                        NomorTestkey = data.NomorTestKey,
-                        Tanggal = data.TanggalTestKey
-                    };
-                    _context.Testkey.Add(teskey);
-                    _context.SaveChanges();
-                //}
+                //    NomorTestkey = data.NomorTestKey,
+                //    Tanggal = data.TanggalTestKey
+                //};
+                //_context.Testkey.Add(teskey);
+                //_context.SaveChanges();
+                //#endregion
 
-                var alasanmajid = 0;
+
+                var alasanLain = 0;
 
                 if (data.AlasanId == null)
                 {
@@ -155,14 +165,14 @@ namespace Ririn.Controllers.Transaksi
                         _context.Add(newalasan);
                         _context.SaveChanges();
 
-                        alasanmajid = newalasan.Id;
+                        alasanLain = newalasan.Id;
                     }
 
                 }
                 else
                 {
-                   
-                    alasanmajid = data.AlasanId??0;
+
+                    alasanLain = data.AlasanId ?? 0;
                 }
                 var kliring = new T_Kliring
                 {
@@ -173,11 +183,13 @@ namespace Ririn.Controllers.Transaksi
                     NomorRekening = data.NomorRekening,
                     Nominal = data.Nominal,
                     TanggalTRX = data.TanggalTRX,
+                    TanggalTestkey = data.TanggalTestKey,
+                    NomorTestkey = data.NomorTestKey,
                     NominalSeharusnya = data.NominalSeharusnya,
                     Path = null,
                     BankId = data.BankId,
                     CabangId = data.CabangId,
-                    AlasanId = alasanmajid,
+                    AlasanId = alasanLain,
                     TypeId = data.TypeId,
                     StatusId = 1,
                     Durasi = 0
@@ -185,20 +197,11 @@ namespace Ririn.Controllers.Transaksi
                 };
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
-                
+                success = true;
 
             }
             else
-            {
-                
-                    var teskey = new Testkey
-                    {
-                        NomorTestkey = data.NomorTestKey,
-                        Tanggal = data.TanggalTestKey,
-                    };
-                    _context.Entry(teskey).State = EntityState.Modified;
-                    _context.SaveChanges();
-                
+            { 
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 result.NomorSurat = data.NomorSurat;
@@ -208,6 +211,8 @@ namespace Ririn.Controllers.Transaksi
                 result.NomorRekening = data.NomorRekening;
                 result.Nominal = data.Nominal;
                 result.TanggalTRX = data.TanggalTRX;
+                result.TanggalTestkey = data.TanggalTestKey;
+                result.NomorTestkey = data.NomorTestKey;
                 result.NominalSeharusnya = data.NominalSeharusnya;
                 //result.path = generateNamaFile;
                 result.BankId = data.BankId;
@@ -218,76 +223,26 @@ namespace Ririn.Controllers.Transaksi
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
+                success = true;
 
             }
             return Json(success);
             #endregion
         }
 
-        //#region compres to upload pdf
-        //public IActionResult PdfCompress(IFormFile file, string noRek)
-        //{
-        //    try
-        //    {
-        //        var pathFile = "";
-        //        if (file != null)
-        //        {
-        //            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-        //            {
-        //                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-        //            }
-        //            string wwwPath = this._webHostEnvironment.WebRootPath;
-        //            //string wwwPath ="";
-        //            string contentPath = this._webHostEnvironment.ContentRootPath;
-        //            string path = Path.Combine(wwwPath, "File/Lampiran/");
-        //            if (!Directory.Exists(path))
-        //            {
-        //                Directory.CreateDirectory(path);
-        //            }
+        public JsonResult Done(int id)
+        {
+            var success = false;
+            var data = _context.T_Kliring.Where(x=>x.Id == id).FirstOrDefault();
+            if(data != null)
+            {
 
-        //            if (file.FileName.EndsWith("pdf") || file.FileName.EndsWith("PDF"))
-        //            {
-        //                var ext = Path.GetExtension(file.FileName);
-        //                pathFile = noRek + ext;
-        //                var fileNames = Path.Combine(path, pathFile);
-        //                using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
-        //                {
-        //                    file.CopyTo(stream);
-        //                }
-        //                FileStream inputDocument = new FileStream(fileNames, FileMode.Open, FileAccess.Read);
-        //                PdfLoadedDocument loadedDocument = new PdfLoadedDocument(inputDocument);
-        //                PdfCompressionOptions options = new PdfCompressionOptions();
-        //                options.CompressImages = true;
-        //                options.ImageQuality = 20;
-        //                loadedDocument.Compress(options);
-        //                //loadedDocument.FileStructure.IncrementalUpdate = false;
-        //                //loadedDocument.Compression = PdfCompressionLevel.Normal;
-        //                using (MemoryStream outputDocument = new MemoryStream())
-        //                {
-
-        //                    loadedDocument.Save(outputDocument);
-        //                    loadedDocument.Close(true);
-        //                    loadedDocument.Dispose();
-        //                    outputDocument.Position = 0;
-        //                    using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
-        //                    {
-        //                        outputDocument.CopyTo(stream);
-        //                    }
-
-        //                }
-        //            }
-        //        }
-        //        return Ok(pathFile);
-        //    }catch(Exception e)
-        //    {
-        //        return BadRequest(e);
-        //    }
-        //}
-        //#endregion
+                _context.Entry(data).State = EntityState.Modified;
+            }
+            return Json(success);
+        }
+        
     }
 
 
-
 }
-
-

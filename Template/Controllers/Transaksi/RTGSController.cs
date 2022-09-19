@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using ASK_Core.ViewModels;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
@@ -14,7 +15,7 @@ namespace Ririn.Controllers.Transaksi
         private readonly AppDbContext _context;
         private readonly IHostingEnvironment _host;
         public RTGSController(AppDbContext context, IHostingEnvironment host)
-         
+
         {
             _context = context;
             _host = host;
@@ -52,9 +53,6 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
-                .Include(x => x.Testkey)
-                .Include(x=>x.Type)
-                .Where(x=>x.IsDeleted == false && x.StatusId == 1 && x.Type.UnitId==2)
                 .ToList();
             return Json(new { data = result });
         }
@@ -65,30 +63,64 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-        public JsonResult GetById(int Id)
+        public IActionResult Save(KliringVM data)
         {
-            var data = _context.T_RTGS
-                .Include(x => x.Type.Unit)
-                .Where(x=>x.Type.UnitId == 2).Single(x => x.Id == Id);
-            return Json(new { data = data });
+            var success = false;
+            if (data == null)
+            {
+
+                success = true;
+            }
+            return Ok(success);
         }
         #endregion
 
-        //public IActionResult Save(TranshVM rtgs)
-        //{
-        //    var success = false;
-        //    if (rtgs == null)
-        //    {
-        //        var testkey = new Testkey
-        //        {
-        //            NomorTestkey = rtgs.NomorTestkey,
-        //            TanggalTestKey = rtgs.TanggalTestkey,
-        //            KeteranganId = rtgs.KeteranganId,
-        //            UnitId = rtgs.UnitId,
-        //        };
-        //        success = true;
-        //    }
-        //    return Ok(success);
-        //}
+        public JsonResult Save(RtgsVM data)
+        {
+            var success = false;
+            //var user = GetCurrentUSer();
+            #region Upload file
+            #endregion
+            if (data == null)
+            {
+                var rtgs = new T_RTGS
+                {
+                    TypeId = data.TypeId,
+                    BankId = data.BankId,
+                    CabangId = data.CabangId,
+                    KeteranganId = data.KeteranganId,
+                    RelTRN = data.RelRTN,
+                    TRN = data.TRN,
+                    Nominal = data.Nominal,
+                    NomorSurat = data.NomorSurat,
+                    NomorTestkey = data.NomorTestkey,
+                    TanggalProses = data.TanggalProses,
+                    Path = null,
+                    StatusId = 1,
+                    Durasi = 0
+                };
+                _context.T_RTGS.Add(rtgs);
+                _context.SaveChanges();
+                success = true;
+            }
+            else
+            {
+                var result = _context.T_RTGS.Where(x => x.Id == data.Id).FirstOrDefault();
+                result.TypeId = data.TypeId;
+                result.BankId = data.BankId;
+                result.CabangId = data.CabangId;
+                result.KeteranganId = data.KeteranganId;
+                result.RelTRN = data.RelRTN;
+                result.TRN = data.TRN;
+                result.Nominal = data.Nominal;
+                result.NomorSurat = data.NomorSurat;
+                result.NomorTestkey = data.NomorTestkey;
+                result.TanggalProses = data.TanggalProses;
+                _context.Entry(result).State = EntityState.Modified;
+                _context.SaveChanges();
+                success = true;
+            }
+            return Json(success);
+        }
     }
 }

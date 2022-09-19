@@ -150,7 +150,7 @@
                     $("select[name=tipe]").empty();
                     $("select[name=tipe]").append('<option value="">-- Pilih Tipe Surat --</option>')
                     $.each(data, function (i, value) {
-                        $("select[name=tipe]").append(`<option value="${value.id}">${value.type}</option>`)
+                        $("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
@@ -432,7 +432,7 @@
 				data.NoReferensi = $("#NoReferensi").val();
 				data.CabangId = $("#Cabang").val();
 				data.NominalSeharusnya = $("#Nominal2").val();
-				console.log(data);
+				console.table(data);
 
 				$.ajax({
 					url: '@Url.Action("Save","Kliring")',
