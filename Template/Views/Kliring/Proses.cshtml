@@ -20,7 +20,7 @@
 						</div>
 						<div class="col-md-4 offset-md-1">
 							<label class="bmd-label-floating">Tanggal TRX</label>
-							<input id="TanggalTRX" type="date" class="form-control" value="TanggalTRX" />
+							<input id="TanggalTRX" type="date" class="form-control datepicker" value="" />
 						</div>
 					</div>
 					<div class="row" style="margin-left:20px">
@@ -191,7 +191,7 @@
 				"type": "Get",
 				"datatype": "json"
 			}).then(({ data }) => {
-				console.log(data)
+				//console.table(data)
 				var type = $("#Tipe2");
 				type.html('');
 				$("<option></option>").val('').text('--- Pilih Tipe Surat ---').appendTo(type);
@@ -207,7 +207,7 @@
 				"type": "Get",
 				"datatype": "json"
 			}).then(({ data }) => {
-				console.log(data)
+				//console.table(data)
 				var cabang = $("#Cabang");
 				cabang.html('');
 				$("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
@@ -223,7 +223,7 @@
 				"type": "Get",
 				"datatype": "json"
 			}).then(({ data }) => {
-				console.log(data)
+				//console.table(data)
 				var bank = $("#BTujuan");
 				bank.html('');
 				$("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
@@ -239,7 +239,7 @@
 				"type": "Get",
 				"datatype": "json"
 			}).then(({ data }) => {
-				console.log(data)
+				//console.table(data)
 				var alasan = $("#Alasan");
 				alasan.html('');
 				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
@@ -323,7 +323,7 @@
 					console.log(result);
 					$("#formId").val(result.data.id).change;
 					$("#Tipe2").val(result.data.typeId).change();
-					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
+					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('0:yyyy-MM-dd')).change();
 					$("#NoReferensi").val(result.data.noReferensi);
 					$("#Cabang").val(result.data.cabangId).change();
 					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));

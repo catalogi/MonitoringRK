@@ -5,6 +5,26 @@
 
 <section class="content">
     <div class="container">
+    <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="doneModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="doneModalLabel">Follow Up</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="recipient-name" class=" col-form-label">Follow Up</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -109,7 +129,7 @@
 
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info">
-                <h2 class="card-title">Proses</h2>
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
                 <p class="card-category">Transaksi RTGS Belum Selesai</p>
             </div>
             <div class="card-body table-responsive">
@@ -121,20 +141,20 @@
                         </select>
                     </div>
                 </div>
-                <table id="table" class="table-bordered table-info">
+                <table id="table" class=" table table-bordered table-info table-responsive display nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Tipe Surat</th>
-                            <th>Tanggal</th>
-                            <th>Cabang</th>
-                            <th>Nomor Surat / Ni / Memo</th>
-                            <th>TRN</th>
-                            <th>REL TRN</th>
-                            <th>Bank Tujuan</th>
-                            <th>Nominal</th>
-                            <th>Durasi</th>
-                            <th>Aksi</th>
+                            <th >No.</th>
+                            <th style="vertical-align:middle">Tipe Surat</th>
+                            <th style="vertical-align:middle">Tanggal</th>
+                            <th style="vertical-align:middle">Cabang</th>
+                            <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
+                            <th style="vertical-align:middle">TRN</th>
+                            <th style="vertical-align:middle">REL TRN</th>
+                            <th style="vertical-align:middle">Bank Tujuan</th>
+                            <th style="vertical-align:middle">Nominal</th>
+                            <th style="vertical-align:middle">Durasi</th>
+                            <th style="vertical-align:middle">Aksi</th>
                         </tr>
                     </thead>
                 </table>
@@ -160,6 +180,8 @@
 
         function read() {
             var t = $("#table").DataTable({
+                lengthChange: false,
+                autoWidth: false,
                 "ajax": {
                     "url": "@Url.Action("GetAll","RTGS")",
                     "type": "Get",
@@ -182,8 +204,9 @@
                     { "data": "durasi" },
                     {
                         "render": function (data, type, row) {
-                            return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
+                            return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> " +
+                                "<button class='btn btn-primary btn-sm text-white' onclick = Done('" + row.id + "');><i class='fas fa-check-square'></i></button>";
                         },
                     },
                 ]
@@ -219,6 +242,10 @@
                     $("#Save").hide();
                 }
             })
+        }
+
+        function Done(Id) {
+            $('#')
         }
 
         function load() {
@@ -267,6 +294,44 @@
                 bil = bil.replace(',', '');
             }
             return bil;
+        }
+
+        function Delete(Id) {
+            Swal.fire({
+                title: 'Hapus Data?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        "url": "@Url.Action("Delete", "RTGS")",
+                        "datatype": "json",
+                        "data": { Id: Id }
+                    }).then((result) => {
+                        if (result != false) {
+                            Swal.fire(
+                                'Success!',
+                                '',
+                                'success'
+                            ).then(() => {
+                                arguments('#table').DataTable().ajax.reload();
+                            })
+                        }
+                        else {
+                            Swal.fire(
+                                'Failed!',
+                                'failed'
+                            ).then(() => {
+                                $('#table').DataTable().ajax.reload();
+                            })
+                        }
+                        $('#table').DataTable().ajax.reload();
+                    })
+                }
+            })
         }
 
         $('#Save').click(function () {
