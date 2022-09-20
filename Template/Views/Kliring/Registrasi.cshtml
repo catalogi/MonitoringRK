@@ -289,7 +289,7 @@
 		//Input number only with thousand separator
 
 		$('#Save').click(function () {
-			//debugger;
+			debugger;
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');
@@ -422,7 +422,7 @@
 				data.NomorTestKey = $("#NoTeskey").val();
 				data.NoReferensi = $("#NoReferensi").val();
 				data.CabangId = $("#Cabang").val();
-				data.NominalSeharusnya = $("#Nominal2").val();
+				data.NominalSeharusnya = minkoma ($("#Nominal2").val());
 				console.log(data);
 
 				$.ajax({

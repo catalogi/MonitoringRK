@@ -70,6 +70,7 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
+        
 
         public IActionResult DetailProgress(int Id)
         {
@@ -97,6 +98,27 @@ namespace Ririn.Controllers.Transaksi
                             //Testkeys = _context.Testkey.Where(x => x.Id == dat.Id).ToList()
                         }).FirstOrDefault();
             return View(data);
+        }
+
+        public IActionResult Done(int Id)
+        {
+            bool success = false;
+            var data = _context.T_Kliring.Where(x => x.Id == Id).Single();
+            if (data.Id != 0)
+            {
+                var doned = new T_Kliring
+                {
+                    AlasanId =data.AlasanId,
+                    KeteranganId = data.KeteranganId,
+                    StatusId = 2,
+                    TanggalDone = DateTime.Now
+                };
+                _context.Entry(doned).State = EntityState.Modified;
+                _context.SaveChanges();
+                success = true;
+            }
+            
+            return Ok(success);
         }
 
 
@@ -260,7 +282,7 @@ namespace Ririn.Controllers.Transaksi
                     result.AlasanId = data.AlasanId;
                 }
                 result.TypeId = data.TypeId;
-                result.Durasi = data.Durasi;
+                result.UpdateDate = DateTime.Now;
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
