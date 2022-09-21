@@ -230,17 +230,7 @@ namespace Ririn.Controllers.Transaksi
             #endregion
         }
 
-        public JsonResult Done(int id)
-        {
-            var success = false;
-            var data = _context.T_Kliring.Where(x=>x.Id == id).FirstOrDefault();
-            if(data != null)
-            {
-
-                _context.Entry(data).State = EntityState.Modified;
-            }
-            return Json(success);
-        }
+        
         
     }
 

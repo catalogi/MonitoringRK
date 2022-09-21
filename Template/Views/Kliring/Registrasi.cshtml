@@ -166,7 +166,7 @@
                     $("select[name=banktj]").empty();
                     $("select[name=banktj]").append('<option value="">--Pilih Bank--</option>')
                     $.each(data, function (i, value) {
-                        $("select[name=banktj]").append(`<option value="${value.Id}">${value.nama}</option>`)
+                        $("select[name=banktj]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
@@ -202,22 +202,7 @@
                 })
             })
         }
-        //function GetAlasan() {
-        //    $.ajax({
-        //        url: "@Url.Action("GetAlasan", "Master")",
-        //        type: "Get",
-        //        datatype: "json"
-        //    }).then(({ data }) => {
-        //        var alasan = $("#Alasan");
-        //        alasan.html('');
-        //        $("<option></option>").val('').text('---Pilih Alasan---').appendTo(alasan);
-        //        $("<option></option>").val('custom').text('Alasan Lain').appendTo(alasan);
-        //        $.each(data, function (i, value) {
-        //            $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
-        //        });
-        //    })
-        //}
-
+       
         function AddAlasan() {
             var Alasan = $("#Alasan").val();
             if (Alasan == 'custom') {
@@ -227,75 +212,6 @@
                 $("#Alasan-div").hide();
             }
         }
-
-		//function GetAlasan(){
-		//    $.ajax({
-		//        url: "@Url.Action("GetAlasan","Master")",
-		//        type: "Get",
-		//        dataType: "json",
-		//        success:function({data}){
-		//            console.log(data);
-		//            $("select[name=Alasan]").empty();
-		//            $("select[name=Alasan]").append('<option value="">--Pilih Alasan--</option>')
-		//            $.each(data, function(i,value){
-		//                $("select[name=Alasan]").append(`<option value="${value.Id}">${value.nama}</option>`)
-		//            })
-		//        }
-		//    })
-		//}
-
-
-
-		//function Save() {
-		//	debugger;
-		//	var data = new Object();
-		//	data.TypeId = $("#tipe").val();
-
-		//	data.TanggalTRX = $("#TanggalTRX").val();
-		//	data.NoReferensi = $("#NoReferensi").val();
-		//	data.CabangId = $("#Cabang").val();
-		//	data.TanggalSurat = $("#TanggalSurat").val();
-		//	data.TanggalTestKey = $("#TanggalTK").val();
-		//	data.NomorSurat = $("#NomorSurat").val();
-		//	data.NomorTestKey = $("#NoTeskey").val();
-		//	data.NamaPenerima = $("#Nama").val();
-		//	data.NomorRekening = $("#NomorRekening").val();
-		//	data.Nominal = $("#Nominal").val();
-		//	data.NominalSeharusnya = $("#Nominal2").val();
-		//	data.BankId = $("#BTujuan").val();
-		//	data.AlasanId = $("#Alasan").val();
-		//	data.AlasanId = $("#alasanLain").val();
-		//	$.ajax({
-		//		"url": "@Url.Action("Save","Kliring")",
-		//		"type": "POST",
-		//		"datatype": "json",
-		//		"data": data
-		//	}).then((result) => {
-		//		if (result != false) {
-		//			Swal.fire(
-		//				'Success!',
-		//				'Data Berhasil Diinput!.',
-		//				'success'
-		//			).then(() => {
-		//				//$("#myModal").modal('hide');
-		//				location.href = "@Url.Action("Proses","Kliring")";
-		//			})
-		//		}
-		//		else {
-		//			Swal.fire(
-		//				'Failed!',
-		//				'Data Tidak Berhasil Diinput!.',
-		//				'error'
-		//			).then(() => {
-		//				$("#myModal").modal('hide');
-		//				$('#table').DataTable().ajax.reload();
-		//			})
-		//		}
-		//	})
-		//}
-
-
-		//Input number only with thousand separator
 
 		$('#Save').click(function () {
 			//debugger;
@@ -431,7 +347,7 @@
 				data.NomorTestKey = $("#NoTeskey").val();
 				data.NoReferensi = $("#NoReferensi").val();
 				data.CabangId = $("#Cabang").val();
-				data.NominalSeharusnya = $("#Nominal2").val();
+				data.NominalSeharusnya = minkoma($("#Nominal2").val());
 				console.table(data);
 
 				$.ajax({
@@ -447,7 +363,7 @@
 							text: "Data Berhasil Di Tambah"
 						}).then(function(){
 							location.href = '@Url.Action("Proses","Kliring")';
-						});;
+						});
 						
 					}, error:(err)=>{
 						Swal.fire({
@@ -457,7 +373,7 @@
 						}).then(function(){
 							location.reload();
 						});
-						//location.href = "@Url.Action("Proses","Kliring")";
+						location.href = "@Url.Action("Registrasi","Kliring")";
 					}
 				});
 				//          if ($("#Alasan").val() == 'custom') {
