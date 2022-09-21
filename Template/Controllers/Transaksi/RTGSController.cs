@@ -62,6 +62,20 @@ namespace Ririn.Controllers.Transaksi
                 .ToList();
             return Json(new { data = result });
         }
+        
+        public JsonResult GetMonitoring()
+        {
+            var result = _context.T_RTGS
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Include(x=>x.Type)
+                .Include(x=>x.Status)
+                .Where(x=>x.IsDeleted == false && x.StatusId == 2 && x.Type.UnitId==2)
+
+                .ToList();
+            return Json(new { data = result });
+        }
         public JsonResult GetType()
         {
             var result = _context.TypeTrans
@@ -80,6 +94,24 @@ namespace Ririn.Controllers.Transaksi
         #endregion
 
         #region Save Post
+        [HttpPut]
+        public JsonResult DoneSaved(DoneRVM data)
+        {
+            bool success = false;
+            if(data.Id != null)
+            {
+                var dat = _context.T_RTGS.Where(x => x.Id == data.Id).FirstOrDefault();
+                dat.KeteranganId = data.KeteranganId;
+                dat.FollowUp = data.FollowUp;
+                dat.StatusId = 2;
+                dat.TanggalDone = DateTime.Now;
+                _context.Entry(dat).State = EntityState.Modified;
+                _context.SaveChanges();
+                success = true;
+            }
+
+            return Json(success);
+        }
         [HttpPost]
         public JsonResult Save(RtgsVM data)
         {

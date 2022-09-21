@@ -2,7 +2,7 @@
 	ViewBag.Title = "Proses";
 }
 <div class="modal fade" id="donedModal" tabindex="=-1" role="dialog" aria-labelledby="donedModalLabel" aria-hidden="true">
-	<div  class="modal-dialog ">
+	<div class="modal-dialog ">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="donedModalLabel">Done</h4>
@@ -18,7 +18,7 @@
 					<div class="col-md Keterangan">
 						<label class="control-label">Keterangan</label>
 						<br />
-						<select  id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%"></select>
+						<select Id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%"></select>
 						<div id="Keterangan-div">
 							<label class="control-label">Keterangan Lain</label>
 							<br />
@@ -29,7 +29,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Balik</button>
-				<button type="button" class="btn btn-primary" id="Donedd" onclick="Validation();">Geusan</button>
+				<button type="button" class="btn btn-primary" id="Donedd" onclick="vali();">Geusan</button>
 				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
 			</div>
 		</div>
@@ -141,7 +141,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Simpan</button>
+				<button type="button" class="btn btn-primary" id="Update" onclick="validation();">Simpan</button>
 				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
 			</div>
 		</div>
@@ -399,15 +399,15 @@
 			})
 		}
 
-		function Doned(Id){
+		function Doned(Id) {
 			$("#donedModal").modal('show');
 			$.ajax({
-				"url":"@Url.Action("GetById","Kliring")",
-				"type":"GET",
-				"datatype":"json",
-				"data":{Id:Id}
-			}).then((result)=> {
-				if(result != null){
+				"url": "@Url.Action("GetById","Kliring")",
+				"type": "GET",
+				"datatype": "json",
+				"data": { Id: Id }
+			}).then((result) => {
+				if (result != null) {
 					$("#donedId").val(result.data.id).change();
 					$("#Dosan").val(result.data.alasanId).change();
 					//$("#Keterangan").val(result.data.id).change();
@@ -445,6 +445,57 @@
 					$("#Save").hide();
 				}
 			})
+		}
+
+		function SaveDone() {
+			debugger;
+			var isAllValid = true;
+			var errorItemCount = 0;
+			//debugger;
+			if (errorItemCount > 0) {
+				$('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+				isAllValid = false;
+			}
+			if ($('#Dosan').val() == '') {
+				$('#Dosan').siblings('span.error').css('visibility', 'visible');
+				$('.Dosan').addClass('has-error');
+				isAllValid = false;
+			}
+			else {
+				$('#Dosan').siblings('span.error').css('visibility', 'hidden');
+			}
+			if (isAllValid) {
+				debugger;
+				var data = new Object();
+				data.Id = $("#donedId").val();
+				data.AlasanId = $("#Dosan").val();
+				data.KeteranganId = $("#keterangan").val();
+
+				$.ajax({
+					url: "@Url.Action("Done","Kliring")",
+					type: "POST",
+					dataType: "json",
+					data: data,
+					success: (response) => {
+						Swal.fire({
+							icon: 'success',
+							title: 'Doned',
+							text: 'Berhasil Diselesaikan!'
+						}).then(() => {
+							location.href = "@Url.Action("Monitoring","Kliring")";
+						});
+					},
+					error: (err) => {
+						Swal.fire({
+							icon: 'error',
+							title: 'Gagal',
+							text: 'Tidak Berhasil Diselesaikan!'
+						}).then(() => {
+							location.reload();
+						});
+					}
+				});
+			}
 		}
 
 		function Delete(Id) {
@@ -637,7 +688,7 @@
 							icon: "success",
 							title: "Berhasil",
 							text: "Data Berhasil Di Tambah"
-						}).then(function () {
+						}).then(function (response) {
 							location.href = '@Url.Action("Proses","Kliring")';
 						});
 
@@ -649,7 +700,7 @@
 						}).then(function () {
 							location.reload();
 						});
-						
+
 					}
 				});
 			}
@@ -681,14 +732,26 @@
 			return bil;
 		}
 
-		function Validation() {
+		function validation() {
 			debugger;
+			var cek = $("#donedId").val();
 			if ($("#TanggalTRX").val() == "" || $("#TanggalTRX").val() == "") {
 				Swal.fire('mohon apa hayooo ???');
-			}
+			} 
+			
 			else {
 				Edit($("#formId").val());
 
+			}
+		}
+
+		function vali(){
+			debugger;
+			if ($("#donedId").val() == "" || $("#donedId").val() == "") {
+				Swal.fire('mohon apa hayooo ???');
+			}
+			else{
+				SaveDone($("#donedId").val());
 			}
 		}
 	</script>

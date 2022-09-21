@@ -42,7 +42,7 @@
                 </div>
          </div>*@
        <br />
-            <table id="table" class="table ">
+                <table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
                     <thead style="background-color:#319DA0">
                     <tr>
                     <th>No.</th>
@@ -73,19 +73,25 @@
         function Read() {
             var t = $("#table").DataTable({
                 "ajax": {
-                    "url": "@Url.Action("GetList","Account")",
+                    "url": "@Url.Action("GetMonitoring","Kliring")",
                     "type": "GET",
                     "datatype": "json"
                 },
                 "columns": [
                     { "data": null },
-                    { "data": "Tanggal" },
-                    { "data": "Bank" },
-                    { "data": "Norek" },
-                    { "data": "Nasabah-Penerima" },
-                    { "data": "Alasan" },
-                    { "data": "SLA(HK)" },
-                    { "data": "Tipe-Transaksi" },
+                    {
+                        "render": function (data, type, row){
+                            //return row.tanggalTRX;
+                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
+                        }
+                            },
+                    { "data": "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "alasan.nama" },
+                    { "data": "alasan.nama" },
+                    //{ "data": "SLA(HK)" },
+                    { "data": "type.type" },
                     {
                         "render": function (data, type, row) {
                             return "<button class='btn btn-warning btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
@@ -101,16 +107,16 @@
                 });
             }).draw();
 
-            $, ajax({
-                url: "@Url.Action("GetAllKelompok","Master")",
-                type: "get",
-                dataType: "json",
-                success: function ({ data }) {
-                    $.Each(data, function (i, kel) {
-                        $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
-                    })
-                }
-            })
+            //$, ajax({
+            //    url: "@Url.Action("GetAllKelompok","Master")",
+            //    type: "get",
+            //    dataType: "json",
+            //    success: function ({ data }) {
+            //        $.Each(data, function (i, kel) {
+            //            $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
+            //        })
+            //    }
+            //})
         }
   </script>
                 }

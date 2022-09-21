@@ -65,6 +65,24 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
+        public JsonResult GetMonitoring()
+        {
+            var result = _context.T_Kliring
+                .Include(x => x.Keterangan)
+                .Include(x => x.Alasan)
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2).ToList();
+            return Json(new { data = result });
+        }
+
+        //public JsonResult Get()
+        //{
+        //    var result = _context.T_Kliring
+        //        .Include(x=> x.KeteranganId)
+        //        .Include()
+        //}
+
         public JsonResult GetType()
         {
             var result = _context.TypeTrans
@@ -79,7 +97,7 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
-        
+
 
         public IActionResult DetailProgress(int Id)
         {
@@ -110,20 +128,41 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        public IActionResult Done(int Id)
+       
+
+        public JsonResult Delete(int Id)
+        {
+            bool result = false;
+            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
+            if (kliring != null)
+            {
+                kliring.IsDeleted = true;
+                _context.Entry(kliring).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
+        }
+
+
+
+        #region Save Data
+
+        public IActionResult Done(DoneVM data)
         {
             bool success = false;
-            var data = _context.T_Kliring.Where(x => x.Id == Id).Single();
+
             if (data.Id != 0)
             {
-                var doned = new T_Kliring
-                {
-                    AlasanId = data.AlasanId,
-                    KeteranganId = data.KeteranganId,
-                    StatusId = 2,
-                    TanggalDone = DateTime.Now
-                };
-                _context.Entry(doned).State = EntityState.Modified;
+
+                var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
+
+                dat.AlasanId = data.AlasanId;
+                dat.KeteranganId = data.KeteranganId;
+                dat.StatusId = 2;
+                dat.TanggalDone = DateTime.Now;
+
+                _context.Entry(dat).State = EntityState.Modified;
                 _context.SaveChanges();
                 success = true;
             }
@@ -152,23 +191,6 @@ namespace Ririn.Controllers.Transaksi
             return Json(data);
         }
 
-        public JsonResult Delete(int Id)
-        {
-            bool result = false;
-            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
-            if (kliring != null)
-            {
-                kliring.IsDeleted = true;
-                _context.Entry(kliring).State = EntityState.Modified;
-                _context.SaveChanges();
-                result = true;
-            }
-            return Json(result);
-        }
-
-        #endregion
-
-        #region Save Data
         [HttpPost]
         public JsonResult Save(KliringVM data)
         {

@@ -457,58 +457,9 @@
 						}).then(function(){
 							location.reload();
 						});
-						//location.href = "@Url.Action("Proses","Kliring")";
 					}
 				});
-				//          if ($("#Alasan").val() == 'custom') {
-				//              var reason = $("#alasanLain").val()
-				//              $.ajax({
-				//                  "url": "@Url.Action("SaveReason","Kliring")",
-				//                  "type": 'post',
-				//                  "dataType": "json",
-				//                  "data": { reason: reason }
-				//              }).then((result) => {
-				//debugger;
-				//console.log(result);
-				//                  data.alasanId = result;
-				//                  $.ajax({
-				//                      url: '@Url.Action("Save","Kliring")',
-				//                      type: 'Post',
-				//                      dataType: "json",
-				//                      data: {data:data},
-				//                      success: function (data) {
-				//                          if (data == true) {
-				//                              swal.fire('Successfully saved');
-				//                              //here we will clear the form
-				//                              location.href = "@Url.Action("Proses","Kliring")";
-				//                          }
-				//                          else {
-				//                              alert('Error');
-				//                          }
-				//                      }
-				//                  });
-				//              })
-				//          }
-				//          else {
-				//                      $.ajax({
-				//                      url: '@Url.Action("Save","Kliring")',
-				//                      type: 'Post',
-				//                      dataType: "json",
-				//                      data: {data:data},
-
-				//                      success: function (data) {
-				//		console.log(data)
-				//                          if (data == true) {
-				//                              swal.fire('Successfully saved');
-				//                              //here we will clear the form
-				//                              location.href = "@Url.Action("Proses","Kliring")";
-				//                          }
-				//                          else {
-				//                              alert('Error');
-				//                          }
-				//                      }
-				//                  });
-				//          }
+			
 				      }
 
 				$(this).val('Please wait...');

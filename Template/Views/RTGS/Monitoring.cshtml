@@ -19,6 +19,8 @@
         }
 </style>
 
+<section class="content">
+    <div class="container">
 <div class="card">
     <div class="card-header card-header-info">
         <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring</h2>
@@ -41,21 +43,21 @@
             </div>
         </div>
         <br />
-        <table id="table" class="table-bordered table-responsive-md table-primary">
+        <table id="table" class="table table-bordered table-responsive display nowrap" style="widht:100%">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>Tipe Surat</th>
-                    <th>Tanggal</th>
-                    <th>Cabang</th>
-                    <th>Nomor Surat / Ni / Memo</th>
-                    <th>TRN</th>
-                    <th>REL TRN</th>
-                    <th>Bank Tujuan</th>
-                    <th>Nominal</th>
-                    <th>Keterangan</th>
-                    <th>Durasi(HK)</th>
-                    <th>Status</th>
+                    <th style="vertical-align:middle">No</th>
+                    <th style="vertical-align:middle">Tipe Surat</th>
+                    <th style="vertical-align:middle">Tanggal</th>
+                    <th style="vertical-align:middle">Cabang</th>
+                    <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
+                    <th style="vertical-align:middle">TRN</th>
+                    <th style="vertical-align:middle">REL TRN</th>
+                    <th style="vertical-align:middle">Bank Tujuan</th>
+                    <th style="vertical-align:middle">Nominal</th>
+                    <th style="vertical-align:middle">Keterangan</th>
+                    <th style="vertical-align:middle">Durasi(HK)</th>
+                    <th style="vertical-align:middle">Status</th>
                 </tr>
             </thead>
         </table>
@@ -63,4 +65,52 @@
     <div class="footer">
     </div>
 </div>
+    </div>
+</section>
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            Read();
+        });
+
+        function Read() {
+            var t = $('#table').DataTable({
+                "scrollX" : true,
+                "ajax" : {
+                "url" : "@Url.Action("GetMonitoring", "RTGS")",
+                "type" : "GET",
+                "datatype" : "json"
+                },
+
+                "columns" : [
+                    {
+                        "render": (data,type, row, meta) => meta.row + meta.settings._iDisplayStart +1
+                    },
+                    {"data" : "type.nama"},
+                    {
+                        "render" : function (data, type, row) {
+                            return moment(row.TanggalProses).format('DD MMMM YYYY');
+                        }
+                    },
+                    {"data" : "cabang.nama"},
+                    {"data" : "nomorSurat"},
+                    {"data" : "trn"},
+                    {"data" : "relTRN"},
+                    {"data" : "bank.nama"},
+                    {"data" : "nominal"},
+                    {"data" : "keterangan.nama"},
+                    {"data" : "durasi"},
+                    {
+                        "render": function (data, type, row) {
+                            if(row.statusId == 2){
+                                return "<span>done</span>"
+                            }
+                            //return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> "
+                        },
+                    },
+                ]
+            })
+        }
+    </script>
+}
