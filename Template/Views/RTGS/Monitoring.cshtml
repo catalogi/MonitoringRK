@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Monitoring";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .btn {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 10px 14px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+            background-color: RoyalBlue;
+        }
+</style>
+
+<div class="card">
+    <div class="card-header card-header-info">
+        <h2 class="card-title">Monitoring RTGS</h2>
+        <p class="card-category"> Transaksi RTGS</p>
+    </div>
+    <div class="card-body">
+        <div class="row" style="margin-left:20px">
+            <div class="col-md-3">
+                <label class="bmd-label-floating">Dari Tanggal</label>
+                <input id="startDate" type="date" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label class="bmd-label-floating">Sampai Tanggal</label>
+                <input id="endDate" type="date" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <br />
+                <button class="btn btn-primary" onclick="Monitoring();">Filter</button>
+                <button class="btn btn-outline-secondary" onclick="Read();" style="margin-left: 9px;"><i class="fa fa-close"></i></button>
+            </div>
+        </div>
+        <br />
+        <table id="table" class="table-bordered table-responsive-md table-primary">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Tipe Surat</th>
+                    <th>Tanggal</th>
+                    <th>Cabang</th>
+                    <th>Nomor Surat / Ni / Memo</th>
+                    <th>TRN</th>
+                    <th>REL TRN</th>
+                    <th>Bank Tujuan</th>
+                    <th>Nominal</th>
+                    <th>Keterangan</th>
+                    <th>Durasi(HK)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="footer">
+    </div>
+</div>
+

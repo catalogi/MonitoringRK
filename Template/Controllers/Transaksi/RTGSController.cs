@@ -2,19 +2,41 @@
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
+
 using Ririn.ViewModels;
+
+using Ririn.Models.Transaksi;
+
 
 namespace Ririn.Controllers.Transaksi
 {
     public class RTGSController : Controller
     {
         private readonly AppDbContext _context;
-        public RTGSController(AppDbContext context)
+        private readonly IWebHostEnvironment _host;
+        public RTGSController(AppDbContext context, IWebHostEnvironment host) 
         {
             _context = context;
+            _host = host;
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Register()
+        {
+            return View();
+        } 
+        public IActionResult Proses()
+        {
+            return View();
+        }
+        public IActionResult Monitoring()
+        {
+            return View();
+        }
+        public IActionResult Report()
         {
             return View();
         }
@@ -33,27 +55,27 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult GetType()
         {
             var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 4).ToList();
+                .Include(x => x.Unit).Where(x => x.UnitId == 2).ToList();
             return Json(new { data = result });
         }
+
         #endregion
 
-        public IActionResult Save(TranshVM data)
+        public IActionResult Save(KliringVM data)
         {
             var success = false;
             if (data == null)
             {
                 var testkey = new Testkey
                 {
-                    NomorTestkey = data.NomorTestKey,
-                    TanggalTestKey = data.TanggalTestkey,
-                    KeteranganId = data.KeteranganId,
-                    UnitId = data.UnitId,
+                    //NomorTestkey = data.NomorTestKey,
+                    //Tanggal = data.TanggalTestKey,
+                    //KeteranganId = data.KeteranganId,
+                    //UnitId = data.UnitId,
                 };
                 success = true;
             }
             return Ok(success);
         }
-
     }
 }

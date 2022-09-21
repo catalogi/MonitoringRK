@@ -1,21 +1,31 @@
-﻿using ASK_Core.Migrations;
+﻿
+
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
+//using Syncfusion.Pdf.Parsing;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Parsing;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Ririn.Controllers.Transaksi
 {
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+       private readonly IWebHostEnvironment _webHostEnvironment;
         public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            
         }
 
 
@@ -62,12 +72,12 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-       
+
 
         public JsonResult SaveReason(string reason)
         {
             int data = 0;
-            var exist = _context.Alasan.Where(x => x.Nama== reason).Count();
+            var exist = _context.Alasan.Where(x => x.Nama == reason).Count();
             if (exist == 0)
             {
                 Alasan reasons = new Alasan();
@@ -79,7 +89,7 @@ namespace Ririn.Controllers.Transaksi
             }
             else
             {
-                var id = _context.Alasan.Single(x => x.Nama== reason).Id;
+                var id = _context.Alasan.Single(x => x.Nama == reason).Id;
                 data = id;
             }
 
@@ -90,108 +100,188 @@ namespace Ririn.Controllers.Transaksi
 
         #region Save Data
         [HttpPost]
-        public IActionResult Save(TranshVM data)
+        public IActionResult Save(KliringVM data)
         {
             var success = false;
             //var user = GetCurrentUser();
-            #region upload File Lampiran
-            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            {
-                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            }
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "File/Lampiran/");
-            #endregion
+            //#region upload File Lampiran
+            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            //{
+            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            //}
+            //string webRootPath = _webHostEnvironment.WebRootPath;
+            //string path = Path.Combine(webRootPath, "File/Lampiran/");
+            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
+            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
+            //#endregion
             if (data.Id == null)
             {
-                var testkey = new Testkey
+                foreach (var item in data.Testkeys)
                 {
-                    NomorTestkey = data.NomorTestKey,
-                    TanggalTestKey = data.TanggalTestkey,
-                    KeteranganId = data.KeteranganId,
-                    UnitId = data.UnitId
-                };
-                _context.Testkey.Add(testkey);
-                _context.SaveChanges();
-                foreach (var item in data.klirings)
-                {
-
-                    string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
-                    Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
-                    Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-                    var kliring = new T_Kliring
+                    var teskey = new Testkey
                     {
-                        NomorSurat = item.NomorSurat,
-                        TanggalSurat = item.TanggalSurat,
-                        NoReferensi = item.NoReferensi,
-                        NamaPenerima = item.NamaPenerima,
-                        BankId = item.BankId,
-                        NomorRekening = item.NomorRekening,
-                        Nominal = item.Nominal,
-                        CabangId = item.CabangId,
-                        TanggalTRX = item.TanggalTRX,
-                        TestkeyId = testkey.Id,
-                        KeteranganId = item.KeteranganId,
-                        AlasanId = item.AlasanId,
-                        NominalSeharusnya = item.NominalSeharusnya,
-                        TypeId = item.TypeId,
-                        path = generateNamaFile,
-                        StatusId = 1,
-                        Durasi = 0,
-                        //CreaterId= User.Id
-
+                        NomorTestkey = item.NomorTestKey,
+                        Tanggal = item.TanggalTestKey
                     };
-                    _context.T_Kliring.Add(kliring);
+                    _context.Testkey.Add(teskey);
+                    _context.SaveChanges();
                 }
+                var kliring = new T_Kliring
+                {
+                    NomorSurat = data.NomorSurat,
+                    TanggalSurat = data.TanggalSurat,
+                    NoReferensi = data.NoReferensi,
+                    NamaPenerima = data.NamaPenerima,
+                    NomorRekening = data.NomorRekening,
+                    Nominal = data.Nominal,
+                    TanggalTRX = data.TanggalTRX,
+                    NominalSeharusnya = data.NominalSeharusnya,
+                    path = null,
+                    BankId = data.BankId,
+                    CabangId = data.CabangId,
+                    AlasanId = data.AlasanId,
+                    TypeId = data.TypeId,
+                    StatusId = 1,
+                    Durasi = 0
+
+                };
+                _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
-                success = true;
+                //var IdKliring = kliring.Id;
+
+                //var pathFile = "";
+                //var noRek = data.NomorRekening;
+                //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+                //{
+                //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                //}
+                //string wwwPath = this._webHostEnvironment.WebRootPath;
+                //string contentPath = this._webHostEnvironment.ContentRootPath;
+                //string path = Path.Combine(wwwPath, "File/Lampiran/");
+                //if (!Directory.Exists(path))
+                //{
+                //    Directory.CreateDirectory(path);
+                //}
+
+                //if (file.FileName.EndsWith("pdf") || file.FileName.EndsWith("PDF"))
+                //{
+                //    var ext = Path.GetExtension(file.FileName);
+                //    pathFile = noRek + ext;
+                //    var fileNames = Path.Combine(path, pathFile);
+                //    using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
+                //    {
+                //        file.CopyTo(stream);
+                //        stream.Close();
+                //    }
+                //    var result = _context.T_Kliring.Where(x => x.Id == IdKliring).SingleOrDefault();
+                //    result.path = fileNames;
+                //    _context.Entry(result).State = EntityState.Modified;
+                //    _context.SaveChanges();
+                //}
+
             }
             else
             {
-                var testkey = new Testkey
+                foreach (var item in data.Testkeys)
                 {
-                    NomorTestkey = data.NomorTestKey,
-                    TanggalTestKey = data.TanggalTestkey,
-                    KeteranganId = data.KeteranganId,
-                    UnitId = data.UnitId
-                };
-                _context.Entry(testkey).State = EntityState.Modified;
-                _context.SaveChanges();
-                foreach (var item in data.klirings)
-                {
-
-                    string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + item.Path.FileName;
-                    Byte[] bytes = Convert.FromBase64String(item.Path.Base64.Substring(item.Path.Base64.LastIndexOf(",") + 1));
-                    Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-                    var kliring = new T_Kliring
+                    var teskey = new Testkey
                     {
-                        NomorSurat = item.NomorSurat,
-                        TanggalSurat = item.TanggalSurat,
-                        NoReferensi = item.NoReferensi,
-                        NamaPenerima = item.NamaPenerima,
-                        BankId = item.BankId,
-                        NomorRekening = item.NomorRekening,
-                        Nominal = item.Nominal,
-                        CabangId = item.CabangId,
-                        TanggalTRX = item.TanggalTRX,
-                        TestkeyId = testkey.Id,
-                        KeteranganId = item.KeteranganId,
-                        AlasanId = item.AlasanId,
-                        NominalSeharusnya = item.NominalSeharusnya,
-                        TypeId = item.TypeId,
-                        path = generateNamaFile,
-
-
+                        NomorTestkey = item.NomorTestKey,
+                        Tanggal = item.TanggalTestKey,
                     };
-
-                    _context.Entry(kliring).State = EntityState.Modified;
+                    _context.Entry(teskey).State = EntityState.Modified;
                     _context.SaveChanges();
-                    success = true;
                 }
+                var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
+
+                result.NomorSurat = data.NomorSurat;
+                result.TanggalSurat = data.TanggalSurat;
+                result.NoReferensi = data.NoReferensi;
+                result.NamaPenerima = data.NamaPenerima;
+                result.NomorRekening = data.NomorRekening;
+                result.Nominal = data.Nominal;
+                result.TanggalTRX = data.TanggalTRX;
+                result.NominalSeharusnya = data.NominalSeharusnya;
+                //result.path = generateNamaFile;
+                result.BankId = data.BankId;
+                result.CabangId = data.CabangId;
+                result.AlasanId = data.AlasanId;
+                result.TypeId = data.TypeId;
+                result.Durasi = data.Durasi;
+
+                _context.Entry(result).State = EntityState.Modified;
+                _context.SaveChanges();
 
             }
             return Ok(success);
             #endregion
         }
+
+        //#region compres to upload pdf
+        //public IActionResult PdfCompress(IFormFile file, string noRek)
+        //{
+        //    try
+        //    {
+        //        var pathFile = "";
+        //        if (file != null)
+        //        {
+        //            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+        //            {
+        //                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+        //            }
+        //            string wwwPath = this._webHostEnvironment.WebRootPath;
+        //            //string wwwPath ="";
+        //            string contentPath = this._webHostEnvironment.ContentRootPath;
+        //            string path = Path.Combine(wwwPath, "File/Lampiran/");
+        //            if (!Directory.Exists(path))
+        //            {
+        //                Directory.CreateDirectory(path);
+        //            }
+
+        //            if (file.FileName.EndsWith("pdf") || file.FileName.EndsWith("PDF"))
+        //            {
+        //                var ext = Path.GetExtension(file.FileName);
+        //                pathFile = noRek + ext;
+        //                var fileNames = Path.Combine(path, pathFile);
+        //                using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
+        //                {
+        //                    file.CopyTo(stream);
+        //                }
+        //                FileStream inputDocument = new FileStream(fileNames, FileMode.Open, FileAccess.Read);
+        //                PdfLoadedDocument loadedDocument = new PdfLoadedDocument(inputDocument);
+        //                PdfCompressionOptions options = new PdfCompressionOptions();
+        //                options.CompressImages = true;
+        //                options.ImageQuality = 20;
+        //                loadedDocument.Compress(options);
+        //                //loadedDocument.FileStructure.IncrementalUpdate = false;
+        //                //loadedDocument.Compression = PdfCompressionLevel.Normal;
+        //                using (MemoryStream outputDocument = new MemoryStream())
+        //                {
+
+        //                    loadedDocument.Save(outputDocument);
+        //                    loadedDocument.Close(true);
+        //                    loadedDocument.Dispose();
+        //                    outputDocument.Position = 0;
+        //                    using (FileStream stream = new FileStream(fileNames, FileMode.Create, FileAccess.Write))
+        //                    {
+        //                        outputDocument.CopyTo(stream);
+        //                    }
+
+        //                }
+        //            }
+        //        }
+        //        return Ok(pathFile);
+        //    }catch(Exception e)
+        //    {
+        //        return BadRequest(e);
+        //    }
+        //}
+        //#endregion
     }
+
+
+
 }
+
+

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
+using Ririn.ViewModels;
 
 namespace Ririn.Controllers.Master
 {
@@ -57,6 +58,18 @@ namespace Ririn.Controllers.Master
 
             return Json(datatoken);
         }
+        //public JsonResult PerpanjangTanggal(int Id)
+        //{
+        //    try
+        //    {
+        //        var data = _context.DataToken.Single(x => x.Id == Id);
+        //        if(data)
+        //    }
+        //    catch(Exception ex)
+        //    {
+
+        //    }
+        //}
         public JsonResult Delete(int Id)
         {
             bool result = false;
@@ -64,11 +77,47 @@ namespace Ririn.Controllers.Master
             if (data != null)
             {
                 data.IsDeleted = true;
-                _context.DataToken.Remove(data);               
+                _context.DataToken.Remove(data);
                 _context.SaveChanges();
-                
+
             }
             return Json(result);
         }
+        public IActionResult Filter(DateTime Awal, DateTime Akhir)
+        {
+            var filter = _context.DataToken
+                .Include(x=>x.Kelompok)
+                .Include(x=>x.Modul)
+               
+                .Where(x => x.IsDeleted == false && (x.TokenExpired.Date >= Awal.Date
+                && x.TokenExpired.Date <= Akhir.Date))
+                .ToList();
+            return Ok(new { data = filter });
+        }
+        public IActionResult PerpanjangToken(DateTime date, int idToken)
+        {
+            var success = false;
+            if (date != null && idToken != null)
+            {
+                var expired = _context.DataToken.Where(x => x.Id == idToken).FirstOrDefault();
+                expired.TokenExpired = date;
+                _context.Entry(expired).State = EntityState.Modified;
+                success = true;
+            }
+            _context.SaveChanges();
+            return Ok(success);
+        }
+        //public IActionResult PerpanjangToken(TokenVM data)
+        //{
+        //    var success = false;
+        //    if (data.Id != null)
+        //    {
+        //        var expired = _context.DataToken.Where(x => x.Id == data.Id).FirstOrDefault();
+        //        expired.TokenExpired = data.TokenExpired;
+        //        _context.Entry(expired).State = EntityState.Modified;
+        //    }
+        //    _context.SaveChanges();
+        //    return Ok(data);
+        //}
     }
 }

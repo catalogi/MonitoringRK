@@ -453,27 +453,17 @@ namespace ASK_Core.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("KeteranganId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NomorTestkey")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TanggalTestKey")
+                    b.Property<DateTime>("Tanggal")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("UnitId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KeteranganId");
-
-                    b.HasIndex("UnitId");
 
                     b.ToTable("Testkey");
                 });
@@ -704,6 +694,9 @@ namespace ASK_Core.Migrations
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("path")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AcceptorId");
@@ -816,21 +809,6 @@ namespace ASK_Core.Migrations
                     b.Navigation("Kelompok");
 
                     b.Navigation("Modul");
-                });
-
-            modelBuilder.Entity("Ririn.Models.Master.Testkey", b =>
-                {
-                    b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
-                        .WithMany()
-                        .HasForeignKey("KeteranganId");
-
-                    b.HasOne("Ririn.Models.Master.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Keterangan");
-
-                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
