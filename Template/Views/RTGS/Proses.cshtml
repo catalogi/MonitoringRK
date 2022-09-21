@@ -5,26 +5,43 @@
 
 <section class="content">
     <div class="container">
-    <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="doneModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="doneModalLabel">Follow Up</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="recipient-name" class=" col-form-label">Follow Up</label>
+        <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="doneModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="doneModalLabel">Follow Up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <input id="doneId" type="hidden" />
+                                        <label for="recipient-name" class="col-form-label">Alasan</label>
+                                        <br/>
+                                        <select id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%">
+                                        </select>
+                                        <div id="Keterangan-div">
+                                            <label class="control-label">Tambah Keterangan</label>
+                                            <br />
+                                            <input id="KeteranganLain" class="form-control" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class=" col-form-label">Follow Up</label>
+                                        <textarea class="form-control" rows="1" id="folUp"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
+                                <button type="button" class="btn btn-primary" id="doned" onclick="Valid();">Ubah bro</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -37,6 +54,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <input type="hidden" id="formId" />
                                         <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
                                         <br />
                                         <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
@@ -110,7 +128,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">No TestKey</label>
-                                        <input id="Testkey" type="text" class="form-control number" />
+                                        <input id="Testkey" type="text" class="form-control " />
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +138,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                        <button type="button" class="btn btn-infi" id="" onclick="AddTestKey();">Ubah</button>
-                        <button type="button" class="btn btn-primary" id="update" onclick="Update();">Selesai</button>
+                        <button type="button" class="btn btn-primary" id="update" onclick="Validation();">Ubah</button>
                     </div>
                 </div>
             </div>
@@ -144,7 +161,7 @@
                 <table id="table" class=" table table-bordered table-info table-responsive display nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th >No.</th>
+                            <th>No.</th>
                             <th style="vertical-align:middle">Tipe Surat</th>
                             <th style="vertical-align:middle">Tanggal</th>
                             <th style="vertical-align:middle">Cabang</th>
@@ -172,6 +189,8 @@
             load();
             GetCabang();
             GetBank();
+            GetKet();
+            $("#Keterangan-div").hide();
             //GetById();
             $(".select2").select2({
                 "theme": "classic"
@@ -204,9 +223,9 @@
                     { "data": "durasi" },
                     {
                         "render": function (data, type, row) {
-                            return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> " +
-                                "<button class='btn btn-primary btn-sm text-white' onclick = Done('" + row.id + "');><i class='fas fa-check-square'></i></button>";
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "');><i class='fas fa-check-square'></i></button> " +
+                                "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
                         },
                     },
                 ]
@@ -228,7 +247,7 @@
                 if (result != null) {
                     debugger;
                     console.log(result);
-                    $("#MonitoringId").val(result.data.id);
+                    $("#formId").val(result.data.id);
                     $("#Jenisj").val(result.data.typeId).change();
                     $("#Cabang").val(result.data.cabangId).change();
                     $("#BankTujuan").val(result.data.bankId).change();
@@ -236,16 +255,53 @@
                     $("#RelTRN").val(result.data.relTRN);
                     $("#TRN").val(result.data.trn);
                     $("#TanggalProses").val(moment(result.data.tanggalProses).format("YYYY-MM-DD"));
-                    $("#Testkey").val(result.data.testkeyId);
-                    $("#Nominal").val(result.data.nominal);
+                    $("#Testkey").val(result.data.nomorTestkey).change();
+                    $("#Nominal").val(result.data.nominal).change();
                     $("#myModal").modal('show');
                     $("#Save").hide();
                 }
             })
         }
 
-        function Done(Id) {
-            $('#')
+        function GetKet() {
+
+            $.ajax({
+                url: "@Url.Action("GetKeterangan","Master")",
+                type: "GET",
+                dataType: "Json",
+
+            }).then(function ({ data }) {
+                $("select[id=keterangan]").append(`<option value="">-- Pilih Keterangan --</option>`)
+                $("select[id=keterangan]").append(`<option value="custom"><b>Tambah Keterangan*</b></option>`)
+                $.each(data, function (i, value) {
+                    $("select[id=keterangan]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            })
+
+        }
+        function AddKeterangan() {
+            var keterangan = $("#keterangan").val();
+            if (keterangan == 'custom') {
+                $("#Keterangan-div").show();
+            }
+            else {
+                $("#Keterangan-div").hide();
+            }
+        }
+        function Doned(Id) {
+            debugger;
+            console.log(Id);
+            $("#doneModal").modal('show');
+            $.ajax({
+                url:"@Url.Action("GetById","RTGS")",
+                type:"GET",
+                dataType:"Json",
+                data:{Id:Id}
+            }).then((result)=>{
+                if(result != null){
+                    $("#doneId").val(result.data.id);
+                }
+            })
         }
 
         function load() {
@@ -296,6 +352,7 @@
             return bil;
         }
 
+
         function Delete(Id) {
             Swal.fire({
                 title: 'Hapus Data?',
@@ -334,31 +391,31 @@
             })
         }
 
-        $('#Save').click(function () {
+        function Edit() {
             debugger;
             var isAllValid = true;
             $('#ItemError').text('');
-            var canvas = document.getElementById('Path');
-            var dataURL = canvas.toDataURL();
+            //var canvas = document.getElementById('Path');
+            //var dataURL = canvas.toDataURL();
             var errorItemCount = 0;
             if (errorItemCount > 0) {
                 $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
                 isAllValid = false;
             }
 
-            if ($('#Jenis').val() == '') {
-                $('#Jenis').addClass('is-invalid');
+            if ($('#Jenisj').val() == '') {
+                $('#Jenisj').addClass('is-invalid');
                 isAllValid = false;
             }
             else {
-                $('#Jenis').removeClass('is-invalid');
+                $('#Jenisj').removeClass('is-invalid');
             }
-            if ($('#Tanggal').val() == '') {
-                $('#Tanggal').addClass('is-invalid');
+            if ($('#TanggalProses').val() == '') {
+                $('#TanggalProses').addClass('is-invalid');
                 isAllValid = false;
             }
             else {
-                $('#Tanggal').removeClass('is-invalid');
+                $('#TanggalProses').removeClass('is-invalid');
             }
             if ($('#Cabang').val() == '') {
                 $('#Cabang').addClass('is-invalid');
@@ -395,46 +452,108 @@
             else {
                 $('#Nominal').removeClass('is-invalid');
             }
-            if ($('#Keterangan').val() == '') {
-                $('#Keterangan').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Keterangan').removeClass('is-invalid');
-            }
+
+
 
             if (isAllValid) {
+                debugger;
                 var data = new Object();
-                data.typeId = $('#Jenis').val();
-                data.tanggal = $("#Tanggal").val();
-                data.cabangId = $("#Cabang").val();
-                data.nomerSurat = $("#NomorSurat").val();
-                data.relTRN = $("#RelTRN").val();
-                data.bankTujuanId = $("#BankTujuan").val();
-                data.nominal = minkoma($("#Nominal").val());
-                data.keterangan = $("#Keterangan").val();
-                data.nomerTestkey = $("#TestKey").val();
-                data.path = dataURL;
-                data.tRN = $("#TRN").val();
+                data.Id = $('#formId').val();
+                data.TypeId = $("#Jenisj").val();
+                data.TanggalProses = $("#TanggalProses").val();
+                data.CabangId = $("#Cabang").val();
+                data.NomorSurat = $("#NomorSurat").val();
+                data.RelTRN = $("#RelTRN").val();
+                data.BankId = $("#BankTujuan").val();
+                data.Nominal = minkoma($("#Nominal").val());
+                data.NomorTestkey = $("#Testkey").val();
+                data.path = null;
+                data.TRN = $("#TRN").val();
 
                 $.ajax({
-                    url: '@Url.Action("Save","MonitoringRTGS")',
+                    url: '@Url.Action("Save","RTGS")',
                     type: 'Post',
                     dataType: "json",
                     data: data,
-                    success: function (data) {
-                        if (data == true) {
-                            swal.fire('Successfully saved');
-                            //here we will clear the form
-                            //location.href = "@Url.Action("Index","MemoITR")";
-                        }
-                        else {
-                            alert('Error');
-                        }
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data Berhasil Ditambah"
+                        }).then(function () {
+                            location.href = '@Url.Action("Proses","RTGS")';
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Data Gagal Ditambah"
+                        }).then(function () {
+                            location.reload();
+                        });
                     }
                 });
             }
-        })
+        }
+
+        function DoneSave(){
+             debugger;
+            var isAllValid = true;
+            $('#ItemError').text('');
+            //var canvas = document.getElementById('Path');
+            //var dataURL = canvas.toDataURL();
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+                isAllValid = false;
+            }
+
+            if ($('#keterangan').val() == '') {
+                $('#keterangan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#keterangan').removeClass('is-invalid');
+            }
+            
+
+
+
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.Id = $('#doneId').val();
+                data.Keterangan = $("#keterangan").val();
+                data.FollowUp = $("#folUp").val();
+
+                $.ajax({
+                    url: '@Url.Action("Doned","RTGS")',
+                    type: 'Post',
+                    dataType: "json",
+                    data: data,
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data Berhasil Ditambah"
+                        }).then(function () {
+                            location.href = '@Url.Action("Monitoring","RTGS")';
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Data Gagal Ditambah"
+                        }).then(function () {
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        }
+
         function retrieveImageFromClipboardAsBlob(pasteEvent, callback) {
 
             if (pasteEvent.clipboardData == false) {
@@ -506,6 +625,31 @@
                     ;
             });
         }));
+
+        function Validation() {
+            if ("#formId" == null) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Data Kosong',
+                    text: 'Data Tidak Ditemukan'
+                });
+            } else {
+                Edit($("#formId").val());
+            }
+        }
+
+        function Valid() {
+            debugger;
+            if("#doneId" == null){
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Data Kosong',
+                    text: 'Data Tidak Ditemukan'
+                });
+            }else{
+                DoneSave($("#doneId").val());
+            }
+        }
 
 
     </script>

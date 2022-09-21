@@ -79,9 +79,58 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
+        
 
+        public IActionResult DetailProgress(int Id)
+        {
+            var data = (from dat in _context.T_Kliring
+                        .Include(x => x.Type)
+                        .Include(x => x.Alasan)
+                        .Include(x => x.Bank)
+                        .Where(x => x.Id == Id)
+                        select new KliringVM
+                        {
+                            Id = dat.Id,
+                            TypeId = dat.Type.Id,
+                            Nominal = dat.Nominal,
+                            BankId = dat.Bank.Id,
+                            CabangId = dat.Cabang.Id,
+                            KeteranganId = dat.Keterangan.Id,
+                            NamaPenerima = dat.NamaPenerima,
+                            NomorRekening = dat.NomorRekening,
+                            NomorSurat = dat.NomorSurat,
+                            NoReferensi = dat.NoReferensi,
+                            //Path = dat.Path,
+                            AlasanId = dat.AlasanId,
+                            TanggalSurat = dat.TanggalSurat,
+                            TanggalTRX = dat.TanggalTRX,
+                            //Testkeys = _context.Testkey.Where(x => x.Id == dat.Id).ToList()
+                        }).FirstOrDefault();
+            return View(data);
+        }
+        #endregion
 
-        public JsonResult SaveAlasan(string alasan)
+        public IActionResult Done(int Id)
+        {
+            bool success = false;
+            var data = _context.T_Kliring.Where(x => x.Id == Id).Single();
+            if (data.Id != 0)
+            {
+                var doned = new T_Kliring
+                {
+                    AlasanId = data.AlasanId,
+                    KeteranganId = data.KeteranganId,
+                    StatusId = 2,
+                    TanggalDone = DateTime.Now
+                };
+                _context.Entry(doned).State = EntityState.Modified;
+                _context.SaveChanges();
+                success = true;
+            }
+
+            return Ok(success);
+        }
+        public JsonResult SaveReason(string alasan)
         {
             int data = 0;
             var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
@@ -219,7 +268,7 @@ namespace Ririn.Controllers.Transaksi
                 result.CabangId = data.CabangId;
                 result.AlasanId = data.AlasanId;
                 result.TypeId = data.TypeId;
-                result.Durasi = data.Durasi;
+                result.UpdateDate = DateTime.Now;
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
@@ -230,17 +279,7 @@ namespace Ririn.Controllers.Transaksi
             #endregion
         }
 
-        public JsonResult Done(int id)
-        {
-            var success = false;
-            var data = _context.T_Kliring.Where(x=>x.Id == id).FirstOrDefault();
-            if(data != null)
-            {
-
-                _context.Entry(data).State = EntityState.Modified;
-            }
-            return Json(success);
-        }
+        
         
     }
 

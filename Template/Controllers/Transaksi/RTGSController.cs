@@ -21,6 +21,7 @@ namespace Ririn.Controllers.Transaksi
             _webHostEnvironment = webHostEnvironment;
         }
 
+        #region View
         public IActionResult Index()
         {
             return View();
@@ -45,6 +46,7 @@ namespace Ririn.Controllers.Transaksi
         {
             return View();
         }
+        #endregion
 
         #region Get Data
         public JsonResult GetAll()
@@ -77,6 +79,7 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
+        #region Save Post
         [HttpPost]
         public JsonResult Save(RtgsVM data)
         {
@@ -112,7 +115,7 @@ namespace Ririn.Controllers.Transaksi
                 result.TypeId = data.TypeId;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
-                result.KeteranganId = data.KeteranganId;
+               
                 result.RelTRN = data.RelTRN;
                 result.TRN = data.TRN;
                 result.Nominal = data.Nominal;
@@ -125,7 +128,9 @@ namespace Ririn.Controllers.Transaksi
             }
             return Json(success);
         }
+        #endregion
 
+        #region Delete
         public JsonResult Delete(int Id)
         {
             bool status = false;
@@ -142,5 +147,6 @@ namespace Ririn.Controllers.Transaksi
             }
             return Json(status);
         }
+        #endregion
     }
 }
