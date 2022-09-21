@@ -84,39 +84,16 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult GetById(int Id)
         {
             var data = _context.T_Kliring
+                .Include(x => x.Cabang)
+                .Include(x => x.Bank)
+                .Include(x => x.Alasan)
                 .Include(x => x.Type)
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
 
 
-        public IActionResult DetailProgress(int Id)
-        {
-            var data = (from dat in _context.T_Kliring
-                        .Include(x => x.Type)
-                        .Include(x => x.Alasan)
-                        .Include(x => x.Bank)
-                        .Where(x => x.Id == Id)
-                        select new KliringVM
-                        {
-                            Id = dat.Id,
-                            TypeId = dat.Type.Id,
-                            Nominal = dat.Nominal,
-                            BankId = dat.Bank.Id,
-                            CabangId = dat.Cabang.Id,
-                            KeteranganId = dat.Keterangan.Id,
-                            NamaPenerima = dat.NamaPenerima,
-                            NomorRekening = dat.NomorRekening,
-                            NomorSurat = dat.NomorSurat,
-                            NoReferensi = dat.NoReferensi,
-                            //Path = dat.Path,
-                            AlasanId = dat.AlasanId,
-                            TanggalSurat = dat.TanggalSurat,
-                            TanggalTRX = dat.TanggalTRX,
-                            //Testkeys = _context.Testkey.Where(x => x.Id == dat.Id).ToList()
-                        }).FirstOrDefault();
-            return View(data);
-        }
+       
 
         public IActionResult Done(DoneVM data)
         {

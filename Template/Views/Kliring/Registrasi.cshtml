@@ -219,77 +219,10 @@
 			}
 		}
 
-		//function GetAlasan(){
-		//    $.ajax({
-		//        url: "@Url.Action("GetAlasan","Master")",
-		//        type: "Get",
-		//        dataType: "json",
-		//        success:function({data}){
-		//            console.log(data);
-		//            $("select[name=Alasan]").empty();
-		//            $("select[name=Alasan]").append('<option value="">--Pilih Alasan--</option>')
-		//            $.each(data, function(i,value){
-		//                $("select[name=Alasan]").append(`<option value="${value.Id}">${value.nama}</option>`)
-		//            })
-		//        }
-		//    })
-		//}
-
-
-
-		//function Save() {
-		//	debugger;
-		//	var data = new Object();
-		//	data.TypeId = $("#tipe").val();
-
-		//	data.TanggalTRX = $("#TanggalTRX").val();
-		//	data.NoReferensi = $("#NoReferensi").val();
-		//	data.CabangId = $("#Cabang").val();
-		//	data.TanggalSurat = $("#TanggalSurat").val();
-		//	data.TanggalTestKey = $("#TanggalTK").val();
-		//	data.NomorSurat = $("#NomorSurat").val();
-		//	data.NomorTestKey = $("#NoTeskey").val();
-		//	data.NamaPenerima = $("#Nama").val();
-		//	data.NomorRekening = $("#NomorRekening").val();
-		//	data.Nominal = $("#Nominal").val();
-		//	data.NominalSeharusnya = $("#Nominal2").val();
-		//	data.BankId = $("#BTujuan").val();
-		//	data.AlasanId = $("#Alasan").val();
-		//	data.AlasanId = $("#alasanLain").val();
-		//	$.ajax({
-		//		"url": "@Url.Action("Save","Kliring")",
-		//		"type": "POST",
-		//		"datatype": "json",
-		//		"data": data
-		//	}).then((result) => {
-		//		if (result != false) {
-		//			Swal.fire(
-		//				'Success!',
-		//				'Data Berhasil Diinput!.',
-		//				'success'
-		//			).then(() => {
-		//				//$("#myModal").modal('hide');
-		//				location.href = "@Url.Action("Proses","Kliring")";
-		//			})
-		//		}
-		//		else {
-		//			Swal.fire(
-		//				'Failed!',
-		//				'Data Tidak Berhasil Diinput!.',
-		//				'error'
-		//			).then(() => {
-		//				$("#myModal").modal('hide');
-		//				$('#table').DataTable().ajax.reload();
-		//			})
-		//		}
-		//	})
-		//}
-
-
 		//Input number only with thousand separator
 
 		$('#Save').click(function () {
-			debugger;
+			//debugger;
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');
