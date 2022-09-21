@@ -56,11 +56,20 @@
                     </a>
                 </li>
 
+                @* Menu Libur*@
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Libur" class="nav-link">
+                        <i class="fas fa-calendar-check text-bni-accent nav-icon"></i>
+                        <p class="text-bni-accent brand-text">
+                            Hari Libur
+                        </p>
+                    </a>
+                </li>
+
                 <!-- Menu Monitoring Kliring -->
                 <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
                     Monitoring Kliring
                 </li>
-
 
                 <li class="nav-item">
                     <a asp-action="Registrasi" asp-controller="Kliring" class="nav-link">
@@ -100,7 +109,6 @@
                     </a>
                 </li>
 
-
                 <!-- Menu Monitoring RTGS -->
                 <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
                     Monitoring RTGS
@@ -132,8 +140,8 @@
                             Monitoring
                         </p>
                     </a>
-                </li> 
-                
+                </li>
+
                 <li class="nav-item">
                     <a asp-action="Report" asp-controller="RTGS" class="nav-link">
                         <i class="fas fa-book text-bni-accent nav-icon"></i>

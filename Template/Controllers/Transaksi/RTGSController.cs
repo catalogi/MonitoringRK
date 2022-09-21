@@ -4,18 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
-using Ririn.Models.Transaksi;
+
 using Ririn.ViewModels;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+
+using Ririn.Models.Transaksi;
+
 
 namespace Ririn.Controllers.Transaksi
 {
     public class RTGSController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IHostingEnvironment _host;
-        public RTGSController(AppDbContext context, IHostingEnvironment host)
-
+        private readonly IWebHostEnvironment _host;
+        public RTGSController(AppDbContext context, IWebHostEnvironment host) 
         {
             _context = context;
             _host = host;
@@ -28,12 +30,8 @@ namespace Ririn.Controllers.Transaksi
         public IActionResult Register()
         {
             return View();
-        }
+        } 
         public IActionResult Proses()
-        {
-            return View();
-        }
-        public IActionResult editProses()
         {
             return View();
         }
@@ -63,16 +61,6 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-        public IActionResult Save(KliringVM data)
-        {
-            var success = false;
-            if (data == null)
-            {
-
-                success = true;
-            }
-            return Ok(success);
-        }
         #endregion
 
         public JsonResult Save(RtgsVM data)
