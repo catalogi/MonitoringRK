@@ -12,8 +12,8 @@ using Ririn.Data;
 namespace ASK_Core.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220919041509_InitialT")]
-    partial class InitialT
+    [Migration("20220919072230_InitialRR")]
+    partial class InitialRR
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -693,7 +693,7 @@ namespace ASK_Core.Migrations
                     b.Property<DateTime>("TanggalProses")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -910,9 +910,7 @@ namespace ASK_Core.Migrations
 
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Acceptor");
 

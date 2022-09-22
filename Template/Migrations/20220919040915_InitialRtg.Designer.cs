@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ririn.Data;
 
@@ -11,13 +12,14 @@ using Ririn.Data;
 namespace ASK_Core.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220919040915_InitialRtg")]
+    partial class InitialRtg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -410,6 +412,7 @@ namespace ASK_Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Hari")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Keterangan")
@@ -666,6 +669,7 @@ namespace ASK_Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomorTestkey")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Path")
@@ -682,16 +686,16 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Tanggal")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("TanggalDone")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("TanggalProses")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<DateTime>("TanggalTestkey")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -908,7 +912,9 @@ namespace ASK_Core.Migrations
 
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Acceptor");
 

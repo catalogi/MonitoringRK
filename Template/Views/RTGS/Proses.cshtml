@@ -1,183 +1,217 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Proses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <section class="content">
     <div class="container">
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Edit</h4>
-            </div>
-            <div class="modal-body">
-
+        <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="doneModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="doneModalLabel">Follow Up</h4>
+                    </div>
+                    <div class="modal-body">
                         <form>
                             <div class="row">
-                                <div class="col-md-6">
-                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
-                                        <br />
-                                        <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
-                                            <option value="">--pilih Tipe--</option>
-                                        </select>
-                        </div>
-                    </div>
-                                <div class="col-md-6">
-                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Bank Pengirim</label>
-                                        <br />
-                                        <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
-                                            <option value="">--Pilih Bank--</option>
-                                        </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                            <label class="control-label">Tgl TestKey</label>
-                            <input class="form-control" type="date" id="tgl" />
-                        </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-10">
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Cabang</label>
+                                        <input id="doneId" type="hidden" />
+                                        <label for="recipient-name" class="col-form-label">Alasan</label>
                                         <br />
-                                        <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%">
-                                            <option value="">--Pilih Cabang--</option>
+                                        <select id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%">
                                         </select>
-                        </div>
-                        <div class="col-sm-1">
-                            <a class="btn btn-success text-white btn-sm" id="add">< class="fa fa-plus"></i></a>
-                        </div>
-                                <div class="col-md-6">
+                                        <div id="Keterangan-div">
+                                            <label class="control-label">Tambah Keterangan</label>
+                                            <br />
+                                            <input id="KeteranganLain" class="form-control" type="text" />
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Nomor Surat / Ni / Memo</label>
-                                        <input id="NomorSurat" type="text" class="form-control" />
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                            <label class="control-label">Keterangan TestKey</label>
-                            <input class="form-control" id="TestkeyDesc"/>
-                        </div>
-                    </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">REL TRN</label>
-                                        <input id="RelTRN" type="text" class="form-control" />
+                                        <label for="recipient-name" class=" col-form-label">Follow Up</label>
+                                        <textarea class="form-control" rows="1" id="folUp"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
-                                        <input id="TRN" type="text" class="form-control number" />
+                                <div class="form-group row">
+                                    <div class="col-sm-5">
+                                        <label class="control-label">Tgl TestKey</label>
+                                        <input class="form-control" type="date" id="tgl" />
                                     </div>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
+                                        <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Ubah bro</button>
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label class="control-label">Keterangan TestKey</label>
+                        <input class="form-control" id="TestkeyDesc" />
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Edit</h4>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Nominal</label>
-                                        <input id="Nominal" type="text" class="form-control number" />
+                            <div class="modal-body">
+
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="hidden" id="formId" />
+                                                <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
+                                                <br />
+                                                <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
+                                                    <option value="">--pilih Tipe--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Bank Pengirim</label>
+                                                <br />
+                                                <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
+                                                    <option value="">--Pilih Bank--</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Tanggal Proses</label>
-                                        <input id="TanggalProses" type="date" class="form-control" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Cabang</label>
+                                                <br />
+                                                <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%">
+                                                    <option value="">--Pilih Cabang--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Nomor Surat / Ni / Memo</label>
+                                                <input id="NomorSurat" type="text" class="form-control" />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">REL TRN</label>
+                                                <input id="RelTRN" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
+                                                <input id="TRN" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Nominal</label>
+                                                <input id="Nominal" type="text" class="form-control number" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Tanggal Proses</label>
+                                                <input id="TanggalProses" type="date" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
+                                                <br />
+                                                <canvas style="border:1px solid grey;" id="Path"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">No TestKey</label>
+                                                <input id="Testkey" type="text" class="form-control " />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
-                                        <br />
-                                        <canvas style="border:1px solid grey;" id="Path"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">No TestKey</label>
-                                        <input id="Testkey" type="text" class="form-control number" />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                <button type="button" class="btn btn-primary" id="update" onclick="Validation();">Ubah</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                        </form>
-
+                <div class="card" style="background-color:white">
+                    <div class="card-header card-header-info">
+                        <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+                        <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <div class="row" style="margin-left:20px;margin-bottom:20px">
+                            <label class="bmd-label-floating">Tipe Surat</label>
+                            <div class="col-md-4">
+                                <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                                    <option value="">--pilih Tipe--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table id="table" class=" table table-bordered table-responsive-md display nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th style="vertical-align:middle">Tipe Surat</th>
+                                    <th style="vertical-align:middle">Tanggal</th>
+                                    <th style="vertical-align:middle">Cabang</th>
+                                    <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
+                                    <th style="vertical-align:middle">TRN</th>
+                                    <th style="vertical-align:middle">REL TRN</th>
+                                    <th style="vertical-align:middle">Bank Tujuan</th>
+                                    <th style="vertical-align:middle">Nominal</th>
+                                    <th style="vertical-align:middle">Nomor Testkey</th>
+                                    <th style="vertical-align:middle">Durasi</th>
+                                    <th style="vertical-align:middle">Aksi</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-            <button type="button" class="btn btn-infi" id="" onclick="AddTestKey();">Ubah</button>
-            <button type="button" class="btn btn-primary" id="update" onclick="Update();">Selesai</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="card" style="background-color:white">
-    <div class="card-header card-header-info">
-        <h2 class="card-title">Proses</h2>
-        <p class="card-category">Transaksi RTGS Belum Selesai</p>
-    </div>
-            <div class="card-body table-responsive">
-        <div class="row" style="margin-left:20px;margin-bottom:20px">
-            <label class="bmd-label-floating">Tipe Surat</label>
-            <div class="col-md-4">
-                        <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
-                            <option value="">--pilih Tipe--</option>
-                        </select>
-            </div>
-        </div>
-        <table id="table" class="table-bordered table-info">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Tipe Surat</th>
-                    <th>Tanggal</th>
-                    <th>Cabang</th>
-                    <th>Nomor Surat / Ni / Memo</th>
-                    <th>TRN</th>
-                    <th>REL TRN</th>
-                    <th>Bank Tujuan</th>
-                    <th>Nominal</th>
-                    <th>Durasi</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-        </div>
-
-</div>
 </section>
-
 @section scripts {
-<script>
-    
+    <script>
+
         $(document).ready(function () {
-        read();
+            read();
             load();
             GetCabang();
             GetBank();
+            GetKet();
+            $("#Keterangan-div").hide();
             //GetById();
             $(".select2").select2({
                 "theme": "classic"
-    })
+            })
         });
-    
-    function read() {
-        var t = $("#table").DataTable({
-            "ajax": {
+
+        function read() {
+            var t = $("#table").DataTable({
+                lengthChange: false,
+                autoWidth: false,
+                "ajax": {
                     "url": "@Url.Action("GetAll","RTGS")",
-                "type": "Get",
-                "datatype": "json"
-            },
-            "columns": [
-                { "data": null },
+                    "type": "Get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": null },
                     { "data": "type.nama" },
                     {
                         "render": function (data, type, row) {
@@ -190,21 +224,23 @@
                     { "data": "relTRN" },
                     { "data": "bank.nama" },
                     { "data": "nominal" },
+                    { "data": "nomorTestkey" },
                     { "data": "durasi" },
-                {
+                    {
                         "render": function (data, type, row) {
-                            return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
-                                        },
-                                        },
-                                        ]
-                                        })
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> " +
+                                "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
+                        },
+                    },
+                ]
+            })
             t.on('order.dt search.dt', function () {
                 t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
                     cell.innerHTML = i + 1;
-                                        });
-                                        }).draw();
-                                        }
+                });
+            }).draw();
+        }
 
         function GetById(Id) {
             $.ajax({
@@ -216,7 +252,7 @@
                 if (result != null) {
                     debugger;
                     console.log(result);
-                    $("#MonitoringId").val(result.data.id);
+                    $("#formId").val(result.data.id);
                     $("#Jenisj").val(result.data.typeId).change();
                     $("#Cabang").val(result.data.cabangId).change();
                     $("#BankTujuan").val(result.data.bankId).change();
@@ -224,10 +260,51 @@
                     $("#RelTRN").val(result.data.relTRN);
                     $("#TRN").val(result.data.trn);
                     $("#TanggalProses").val(moment(result.data.tanggalProses).format("YYYY-MM-DD"));
-                    $("#Testkey").val(result.data.testkeyId);
-                    $("#Nominal").val(result.data.nominal);
+                    $("#Testkey").val(result.data.nomorTestkey).change();
+                    $("#Nominal").val(result.data.nominal).change();
                     $("#myModal").modal('show');
                     $("#Save").hide();
+                }
+            })
+        }
+
+        function GetKet() {
+
+            $.ajax({
+                url: "@Url.Action("GetKeterangan","Master")",
+                type: "GET",
+                dataType: "Json",
+
+            }).then(function ({ data }) {
+                $("select[id=keterangan]").append(`<option value="">-- Pilih Keterangan --</option>`)
+                $("select[id=keterangan]").append(`<option value="custom"><b>Tambah Keterangan*</b></option>`)
+                $.each(data, function (i, value) {
+                    $("select[id=keterangan]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            })
+
+        }
+        function AddKeterangan() {
+            var keterangan = $("#keterangan").val();
+            if (keterangan == 'custom') {
+                $("#Keterangan-div").show();
+            }
+            else {
+                $("#Keterangan-div").hide();
+            }
+        }
+        function Submit(Id) {
+            debugger;
+            console.log(Id);
+            $("#doneModal").modal('show');
+            $.ajax({
+                url: "@Url.Action("GetById","RTGS")",
+                type: "GET",
+                dataType: "Json",
+                data: { Id: Id }
+            }).then((result) => {
+                if (result != null) {
+                    $("#doneId").val(result.data.id);
                 }
             })
         }
@@ -280,31 +357,70 @@
             return bil;
         }
 
-        $('#Save').click(function () {
-            debugger;
+
+        function Delete(Id) {
+            Swal.fire({
+                title: 'Hapus Data?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        "url": "@Url.Action("Delete", "RTGS")",
+                        "datatype": "json",
+                        "data": { Id: Id }
+                    }).then((result) => {
+                        if (result != false) {
+                            Swal.fire(
+                                'Success!',
+                                '',
+                                'success'
+                            ).then(() => {
+                                arguments('#table').DataTable().ajax.reload();
+                            })
+                        }
+                        else {
+                            Swal.fire(
+                                'Failed!',
+                                'failed'
+                            ).then(() => {
+                                $('#table').DataTable().ajax.reload();
+                            })
+                        }
+                        $('#table').DataTable().ajax.reload();
+                    })
+                }
+            })
+        }
+
+        function Edit() {
+            //debugger;
             var isAllValid = true;
             $('#ItemError').text('');
-            var canvas = document.getElementById('Path');
-            var dataURL = canvas.toDataURL();
+            //var canvas = document.getElementById('Path');
+            //var dataURL = canvas.toDataURL();
             var errorItemCount = 0;
             if (errorItemCount > 0) {
                 $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
                 isAllValid = false;
             }
 
-            if ($('#Jenis').val() == '') {
-                $('#Jenis').addClass('is-invalid');
+            if ($('#Jenisj').val() == '') {
+                $('#Jenisj').addClass('is-invalid');
                 isAllValid = false;
             }
             else {
-                $('#Jenis').removeClass('is-invalid');
+                $('#Jenisj').removeClass('is-invalid');
             }
-            if ($('#Tanggal').val() == '') {
-                $('#Tanggal').addClass('is-invalid');
+            if ($('#TanggalProses').val() == '') {
+                $('#TanggalProses').addClass('is-invalid');
                 isAllValid = false;
             }
             else {
-                $('#Tanggal').removeClass('is-invalid');
+                $('#TanggalProses').removeClass('is-invalid');
             }
             if ($('#Cabang').val() == '') {
                 $('#Cabang').addClass('is-invalid');
@@ -341,46 +457,108 @@
             else {
                 $('#Nominal').removeClass('is-invalid');
             }
-            if ($('#Keterangan').val() == '') {
-                $('#Keterangan').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Keterangan').removeClass('is-invalid');
-            }
+
+
 
             if (isAllValid) {
+                debugger;
                 var data = new Object();
-                data.typeId = $('#Jenis').val();
-                data.tanggal = $("#Tanggal").val();
-                data.cabangId = $("#Cabang").val();
-                data.nomerSurat = $("#NomorSurat").val();
-                data.relTRN = $("#RelTRN").val();
-                data.bankTujuanId = $("#BankTujuan").val();
-                data.nominal = minkoma($("#Nominal").val());
-                data.keterangan = $("#Keterangan").val();
-                data.nomerTestkey = $("#TestKey").val();
-                data.path = dataURL;
-                data.tRN = $("#TRN").val();
+                data.Id = $('#formId').val();
+                data.TypeId = $("#Jenisj").val();
+                data.TanggalProses = $("#TanggalProses").val();
+                data.CabangId = $("#Cabang").val();
+                data.NomorSurat = $("#NomorSurat").val();
+                data.RelTRN = $("#RelTRN").val();
+                data.BankId = $("#BankTujuan").val();
+                data.Nominal = minkoma($("#Nominal").val());
+                data.NomorTestkey = $("#Testkey").val();
+                data.path = null;
+                data.TRN = $("#TRN").val();
 
                 $.ajax({
-                    url: '@Url.Action("Save","MonitoringRTGS")',
+                    url: '@Url.Action("Save","RTGS")',
                     type: 'Post',
                     dataType: "json",
                     data: data,
-                    success: function (data) {
-                        if (data == true) {
-                            swal.fire('Successfully saved');
-                            //here we will clear the form
-                            //location.href = "@Url.Action("Index","MemoITR")";
-                        }
-                        else {
-                            alert('Error');
-                        }
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data Berhasil Ditambah"
+                        }).then(function () {
+                            location.href = '@Url.Action("Proses","RTGS")';
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Data Gagal Ditambah"
+                        }).then(function () {
+                            location.reload();
+                        });
                     }
                 });
             }
-        })
+        }
+
+        function DoneSave() {
+            debugger;
+            var isAllValid = true;
+            $('#ItemError').text('');
+            //var canvas = document.getElementById('Path');
+            //var dataURL = canvas.toDataURL();
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+                isAllValid = false;
+            }
+
+            if ($('#keterangan').val() == '') {
+                $('#keterangan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#keterangan').removeClass('is-invalid');
+            }
+
+
+
+
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.Id = $('#doneId').val();
+                data.KeteranganId = $("#keterangan").val();
+                data.FollowUp = $("#folUp").val();
+
+                $.ajax({
+                    url: '@Url.Action("DoneSaved","RTGS")',
+                    type: 'PUT',
+                    dataType: "json",
+                    data: data,
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data Berhasil Ditambah"
+                        }).then(function () {
+                            location.href = '@Url.Action("Monitoring","RTGS")';
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Data Gagal Ditambah"
+                        }).then(function () {
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        }
+
         function retrieveImageFromClipboardAsBlob(pasteEvent, callback) {
 
             if (pasteEvent.clipboardData == false) {
@@ -453,6 +631,31 @@
             });
         }));
 
+        function Validation() {
+            if ("#formId" == null) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Data Kosong',
+                    text: 'Data Tidak Ditemukan'
+                });
+            } else {
+                Edit($("#formId").val());
+            }
+        }
 
-</script>
+        function Validate() {
+            debugger;
+            if ("#doneId" == null) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Data Kosong',
+                    text: 'Data Tidak Ditemukan'
+                });
+            } else {
+                DoneSave($("#doneId").val());
+            }
+        }
+
+
+    </script>
 }
