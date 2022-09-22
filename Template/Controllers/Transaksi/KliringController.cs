@@ -1,22 +1,32 @@
-﻿using ASK_Core.Migrations;
-using DocumentFormat.OpenXml.Office.CustomUI;
+﻿
+
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
+//using Syncfusion.Pdf.Parsing;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Parsing;
+using Microsoft.AspNetCore.Http;
+using System.Net.Mime;
+
 
 namespace Ririn.Controllers.Transaksi
 {
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+       private readonly IWebHostEnvironment _webHostEnvironment;
         public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            
         }
 
 
@@ -81,6 +91,7 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
+
         public JsonResult GetById(int Id)
         {
             var data = _context.T_Kliring
@@ -92,8 +103,6 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = data });
         }
 
-
-       
 
         public IActionResult Done(DoneVM data)
         {
@@ -114,6 +123,17 @@ namespace Ririn.Controllers.Transaksi
             }
 
             return Ok(success);
+        }
+
+        public IActionResult Surat(int Id)
+        {
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Alasan)
+                .Include(x => x.Bank)
+                .Include(x => x.Keterangan)
+                .Where(x => x.Id == Id).FirstOrDefault();
+            return View();
         }
 
 
@@ -162,21 +182,9 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUser();
+
             #region upload File Lampiran
-            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            //{
-            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            //}
-            //string webRootPath = _webHostEnvironment.WebRootPath;
-            //string path = Path.Combine(webRootPath, "File/Lampiran");
 
-            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
-
-            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-            #endregion
-            //try
-            //{
             if (data.Id == null)
             {
                 //#region Tambah Data Testkey
@@ -193,6 +201,8 @@ namespace Ririn.Controllers.Transaksi
                 var alasanLain = 0;
 
                 if (data.AlasanId == null)
+
+           
                 {
                     if (data.AlasanLain != null)
                     {
@@ -236,6 +246,7 @@ namespace Ririn.Controllers.Transaksi
                 };
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
+
             }
             else
             {
@@ -291,7 +302,7 @@ namespace Ririn.Controllers.Transaksi
             //}
             #endregion
         }
+
     }
-
-
+    #endregion
 }

@@ -16,6 +16,8 @@ C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Humanizer.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\MessagePack.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\MessagePack.Annotations.dll
+C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
+C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
@@ -80,6 +82,10 @@ C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Syncfusion.Compression.Portable.dll
+C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Syncfusion.Licensing.dll
+C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Syncfusion.Pdf.Imaging.Portable.dll
+C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\Syncfusion.Pdf.Portable.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\System.CodeDom.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\System.Composition.AttributedModel.dll
 C:\Users\1405\source\repos\MonitoringRKNew\MonitoringRK\Template\bin\Debug\net6.0\System.Composition.Convention.dll

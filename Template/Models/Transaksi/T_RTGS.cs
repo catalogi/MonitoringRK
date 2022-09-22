@@ -16,6 +16,7 @@ namespace Ririn.Models.Transaksi
         public int? BankId { get; set; }
         public decimal Nominal { get; set; }
         public DateTime? TanggalDone { get; set; }
+
         public string? FollowUp { get; set; }
         //public Testkey Testkey { get; set; }
         //public int? TestkeyId { get; set; }
@@ -27,6 +28,7 @@ namespace Ririn.Models.Transaksi
         public int? KeteranganId { get; set; }
         public Status Status { get; set; }
         public int? StatusId { get; set; }
+
         public string? path { get; set; }
         public User Creater { get; set; }
         public string? CreatorId { get; set; }

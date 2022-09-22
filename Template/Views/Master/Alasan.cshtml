@@ -1,0 +1,85 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<section class="content">
+    <div class="container">
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Alasan</h3>
+                @*<a class="btn btn-sm btn-danger float-right ml-2" onclick="DeleteAll()">Hapus <i class="fas fa-trash"></i></a>
+                <a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
+            </div>
+            <div class="card-body ">
+                <table id="table" data-transid="1" class="table table-bordered">
+                    <thead style="background-color:#319DA0">
+                        <tr>
+                            <th><input type="checkbox" id="allcb" /></th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        read();
+        $("input#allcb").click(function () {
+            let all = this.cheked;
+            if (this.checked) {
+                $('.cb').each(function () {
+                    let item = this.checked;
+                    if (all !== item) {
+                        this.checked = true;
+                    }
+                });
+            } else {
+                $(".cb").each(function () {
+                    this.checked = false;
+                })
+            }
+        });
+    })
+    function read() {
+        var t = $("#table").DataTable({
+            "ajax": {
+                "url": "@Url.Action("GetAlasan","Master")",
+                "type": "GET",
+                "datatype": "json",
+            },
+            "columns": [
+                {
+                    render: (data, type, row) => `<input data-id="${row.id}" type="checkbox" class="cb" />`
+                },
+                {
+                    render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                },
+                { "data": "nama" },                
+                {
+                    "render": function (data, type, row) {
+                        return "<button class ='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fas fa-trash'></i></button>";
+                    },
+                },
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: "",
+                targets: 0
+
+            }],
+            'select': {
+                'style': 'multi'
+            },
+            order: [[1, 'asc']]
+        })
+    }
+</script>

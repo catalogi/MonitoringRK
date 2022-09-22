@@ -20,6 +20,10 @@ namespace Ririn.Controllers.Master
         {
             return View();
         }
+        public IActionResult Alasan()
+        {
+            return View();
+        }
 
         public JsonResult GetAllKelompok()
         {
