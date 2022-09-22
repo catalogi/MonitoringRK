@@ -24,6 +24,10 @@ namespace Ririn.Controllers.Master
         {
             return View();
         }
+        public IActionResult Keterangan()
+        {
+            return View();
+        }
 
         public JsonResult GetAllKelompok()
         {
@@ -73,7 +77,73 @@ namespace Ririn.Controllers.Master
             var result = _context.Bank.ToList();
             return Json(new { data = result });
         }
-       
+        public JsonResult GetKeterangan()
+        {
+            var result = _context.Keterangan.ToList();
+            return Json(new { data = result });
+        }
+        public JsonResult DeleteAlasan(int Id)
+        {
+            bool result = false;
+            var data = _context.Alasan.Single(x => x.Id == Id);
+            if (data != null)
+            {
+                //data.IsDelete = true;
+                _context.Alasan.Remove(data);
+                _context.SaveChanges();
+
+            }
+            return Json(result);
+        }
+        public JsonResult DeleteAllAlasan(List<int> Id)
+        {
+            bool result = false;
+            foreach (var item in Id)
+            {
+                Alasan alasan = _context.Alasan.Single(x => x.Id == item);
+                if (alasan != null)
+                {
+                    //keterangan.IsDeleted = true;
+                    _context.Alasan.Remove(alasan);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+
+
+            return Json(result);
+        }
+        public JsonResult DeleteKeterangan(int Id)
+        {
+            bool result = false;
+            var data = _context.Keterangan.Single(x => x.Id == Id);
+            if (data != null)
+            {
+                //data.IsDelete = true;
+                _context.Keterangan.Remove(data);
+                _context.SaveChanges();
+
+            }
+            return Json(result);
+        }
+        public JsonResult DeleteAllKeterangan(List<int> Id)
+        {
+            bool result = false;
+            foreach (var item in Id)
+            {
+                Keterangan keterangan = _context.Keterangan.Single(x => x.Id == item);
+                if (keterangan != null)
+                {
+                    //keterangan.IsDeleted = true;
+                    _context.Keterangan.Remove(keterangan);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+
+
+            return Json(result);
+        }
     }
 
 

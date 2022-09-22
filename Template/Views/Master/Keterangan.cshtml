@@ -8,7 +8,7 @@
     <div class="container">
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info">
-                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Alasan</h3>
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Keterangan</h3>
                 <a class="btn btn-sm btn-danger float-right ml-2" onclick="DeleteAll()">Hapus Semua <i class="fas fa-trash"></i></a>
                 @*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
             </div>
@@ -52,7 +52,7 @@
     function read() {
         var t = $("#table").DataTable({
             "ajax": {
-                "url": "@Url.Action("GetAlasan","Master")",
+                "url": "@Url.Action("GetKeterangan","Master")",
                 "type": "GET",
                 "datatype": "json",
             },
@@ -63,7 +63,7 @@
                 {
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
                 },
-                { "data": "nama" },                
+                { "data": "nama" },
                 {
                     "render": function (data, type, row) {
                         return "<button class ='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fas fa-trash'></i></button>";
@@ -94,7 +94,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    "url": "@Url.Action("DeleteAlasan","Master")",
+                    "url": "@Url.Action("DeleteKeterangan","Master")",
                     "datatype": "json",
                     "data": { Id: Id }
                 }).then((result) => {
@@ -146,7 +146,7 @@
         }).then(result => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "@Url.Action("DeleteAllAlasan","Master")",
+                    url: "@Url.Action("DeleteAllKeterangan","Master")",
                     type: "POST",
                     data: senddata,
                     dataType: "json",
@@ -180,3 +180,4 @@
 
     }
 </script>
+
