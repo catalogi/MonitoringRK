@@ -14,18 +14,19 @@ using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
+using System.Net;
 
 namespace Ririn.Controllers.Transaksi
 {
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-       private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
-            
+
         }
 
 
@@ -47,6 +48,10 @@ namespace Ririn.Controllers.Transaksi
             return View();
         }
         public IActionResult Reports()
+        {
+            return View();
+        }
+        public IActionResult Surat()
         {
             return View();
         }
@@ -103,20 +108,39 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-
+        #region Save Data
         public IActionResult Done(DoneVM data)
         {
             bool success = false;
 
-            if (data.Id != 0)
+            if (data.Id != null)
             {
-                var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
                 var ket = 0;
 
-                if(data.KeteranganId != 0)
+                if (data.KeteranganId == null)
+                {
+                    if(data.KeteranganLain != null)
+                    {
+                       var AddKet = new Keterangan
+                        {
+                            Nama = data.KeteranganLain,
+                        };
+                        _context.Keterangan.Add(AddKet);
+                        _context.SaveChanges();
+
+                        ket = AddKet.Id;
+
+                    }
+                    else
+                    {
+                        ket = data.KeteranganId ?? 0;
+                    }
+                }
+
+                var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 dat.AlasanId = data.AlasanId;
-                dat.KeteranganId = data.KeteranganId;
+                dat.KeteranganId = ket;
                 dat.StatusId = 2;
                 dat.TanggalDone = DateTime.Now;
 
@@ -141,7 +165,7 @@ namespace Ririn.Controllers.Transaksi
 
 
 
-        public JsonResult SaveReason(string reason)
+        public JsonResult SaveReason(string alasan)
         {
             int data = 0;
             var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
@@ -163,7 +187,7 @@ namespace Ririn.Controllers.Transaksi
             return Json(data);
         }
 
-                 
+
         [HttpPost]
         public JsonResult Save(KliringVM data)
         {
@@ -178,7 +202,7 @@ namespace Ririn.Controllers.Transaksi
 
                 if (data.AlasanId == null)
 
-           
+
                 {
                     if (data.AlasanLain != null)
                     {
@@ -232,20 +256,53 @@ namespace Ririn.Controllers.Transaksi
 
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
-        public JsonResult Delete(int Id)
-        {
-            bool result = false;
-            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
-            if (kliring != null)
-            {
-                kliring.IsDeleted = true;
-                _context.Entry(kliring).State = EntityState.Modified;
+                result.NomorSurat = data.NomorSurat;
+                result.TanggalSurat = data.TanggalSurat;
+                result.NoReferensi = data.NoReferensi;
+                result.NamaPenerima = data.NamaPenerima;
+                result.NomorRekening = data.NomorRekening;
+                result.Nominal = data.Nominal;
+                result.TanggalTRX = data.TanggalTRX;
+                result.TanggalTestkey = data.TanggalTestKey;
+                result.NomorTestkey = data.NomorTestKey;
+                result.NominalSeharusnya = data.NominalSeharusnya;
+                result.Path = null;
+                result.BankId = data.BankId;
+                result.CabangId = data.CabangId;
+                if (data.AlasanId == null)
+                {
+                    if (data.AlasanLain != null)
+                    {
+                        var newalasan = new Alasan
+                        {
+
+                            Nama = data.AlasanLain,
+                        };
+                        _context.Add(newalasan);
+                        _context.SaveChanges();
+                        result.AlasanId = newalasan.Id;
+                    };
+                }
+                else
+                {
+                    result.AlasanId = data.AlasanId;
+                }
+                result.TypeId = data.TypeId;
+                result.UpdateDate = DateTime.Now;
+
+                _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
-                result = true;
+                success = true;
             }
-            return Json(result);
+            return Json(success);
+            //}
+            //catch (NullReferenceException e)
+            //{
+            //   return BadRequest(e.Message);
+            //}
+            #endregion
         }
 
     }
-    #endregion
+#endregion
 }

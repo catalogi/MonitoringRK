@@ -195,9 +195,9 @@
 					{ "data": "nomorRekening" },
 					{ "data": "namaPenerima" },
 					{ "data": "alasan.nama" },
-					{ "data": "alasan.nama" },
+					{ "data": "durasi" },
 					//{ "data": "SLA(HK)" },
-					{ "data": "type.type" },
+					{ "data": "type.nama" },
 					{
 						"render": function (data, type, row) {
 							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> ";
@@ -222,7 +222,7 @@
 					//$("select[id=Tipe]").empty();
 					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
 					$.each(data, function (i, value) {
-						$("select[name=Tipe]").append(`<option value="${value.id}">${value.type}</option>`)
+						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
 					})
 				}
 			})
@@ -315,6 +315,7 @@
 					$("#Nominal2").val(result.data.nominalSeharusnya);
 					$("#BankId").val(result.data.bankId).change();
 					$("#Alasan").val(result.data.alasanId).change();
+					$("#Keterangan").val(result.data.keteranganId).change();
 					
 				}
 			})

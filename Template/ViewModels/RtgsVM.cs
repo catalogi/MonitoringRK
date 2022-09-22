@@ -16,6 +16,7 @@ namespace ASK_Core.ViewModels
         public string? FollowUp { get; set; }
         public int TypeId { get; set; }
         public int KeteranganId { get; set; }
+       
         public int StatusId { get; set; }
         public string NomorTestkey { get; set; }
         public Attachment Patch { get; set; }
