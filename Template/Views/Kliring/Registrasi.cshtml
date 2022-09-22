@@ -213,6 +213,8 @@
             }
         }
 
+		//Input number only with thousand separator
+
 		$('#Save').click(function () {
 			//debugger;
 			var isAllValid = true;
@@ -347,8 +349,8 @@
 				data.NomorTestKey = $("#NoTeskey").val();
 				data.NoReferensi = $("#NoReferensi").val();
 				data.CabangId = $("#Cabang").val();
-				data.NominalSeharusnya = minkoma($("#Nominal2").val());
-				console.table(data);
+				data.NominalSeharusnya = minkoma ($("#Nominal2").val());
+				console.log(data);
 
 				$.ajax({
 					url: '@Url.Action("Save","Kliring")',
@@ -373,58 +375,9 @@
 						}).then(function(){
 							location.reload();
 						});
-						location.href = "@Url.Action("Registrasi","Kliring")";
 					}
 				});
-				//          if ($("#Alasan").val() == 'custom') {
-				//              var reason = $("#alasanLain").val()
-				//              $.ajax({
-				//                  "url": "@Url.Action("SaveReason","Kliring")",
-				//                  "type": 'post',
-				//                  "dataType": "json",
-				//                  "data": { reason: reason }
-				//              }).then((result) => {
-				//debugger;
-				//console.log(result);
-				//                  data.alasanId = result;
-				//                  $.ajax({
-				//                      url: '@Url.Action("Save","Kliring")',
-				//                      type: 'Post',
-				//                      dataType: "json",
-				//                      data: {data:data},
-				//                      success: function (data) {
-				//                          if (data == true) {
-				//                              swal.fire('Successfully saved');
-				//                              //here we will clear the form
-				//                              location.href = "@Url.Action("Proses","Kliring")";
-				//                          }
-				//                          else {
-				//                              alert('Error');
-				//                          }
-				//                      }
-				//                  });
-				//              })
-				//          }
-				//          else {
-				//                      $.ajax({
-				//                      url: '@Url.Action("Save","Kliring")',
-				//                      type: 'Post',
-				//                      dataType: "json",
-				//                      data: {data:data},
-
-				//                      success: function (data) {
-				//		console.log(data)
-				//                          if (data == true) {
-				//                              swal.fire('Successfully saved');
-				//                              //here we will clear the form
-				//                              location.href = "@Url.Action("Proses","Kliring")";
-				//                          }
-				//                          else {
-				//                              alert('Error');
-				//                          }
-				//                      }
-				//                  });
-				//          }
+			
 				      }
 
 				$(this).val('Please wait...');
