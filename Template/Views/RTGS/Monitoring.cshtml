@@ -21,50 +21,147 @@
 
 <section class="content">
     <div class="container">
-<div class="card">
-    <div class="card-header card-header-info">
-        <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring</h2>
-        <p class="card-category"> Transaksi RTGS</p>
-    </div>
-    <div class="card-body">
-        <div class="row" style="margin-left:20px">
-            <div class="col-md-3">
-                <label class="bmd-label-floating">Dari Tanggal</label>
-                <input id="startDate" type="date" class="form-control" />
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring</h2>
+                <p class="card-text font-weight-bolder"> Transaksi RTGS</p>
             </div>
-            <div class="col-md-3">
-                <label class="bmd-label-floating">Sampai Tanggal</label>
-                <input id="endDate" type="date" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <br />
-                <button class="btn btn-primary" onclick="Monitoring();">Filter</button>
-                <button class="btn btn-outline-secondary" onclick="Read();" style="margin-left: 9px;"><i class="fa fa-close"></i></button>
+            <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Detail</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="hidden" id="formId" />
+                                        <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
+                                        <br />
+                                        <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%" disabled>
+                                            <option value="">--pilih Tipe--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Bank Pengirim</label>
+                                        <br />
+                                        <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose" disabled>
+                                            <option value="">--Pilih Bank--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Cabang</label>
+                                        <br />
+                                        <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%" disabled>
+                                            <option value="">--Pilih Cabang--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Nomor Surat / Ni / Memo</label>
+                                        <input id="NomorSurat" type="text" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">REL TRN</label>
+                                        <input id="RelTRN" type="text" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
+                                        <input id="TRN" type="text" class="form-control number" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Nominal</label>
+                                        <input id="Nominal" type="text" class="form-control number" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Tanggal Proses</label>
+                                        <input id="TanggalProses" type="date" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
+                                        <br />
+                                        <button type="button" class="btn btn-primary"><i class="fa fa-download aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">No TestKey</label>
+                                        <input id="Testkey" type="text" class="form-control " disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" id="update" onclick="Validation();">Ubah</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <br />
-        <table id="table" class="table table-bordered table-responsive display nowrap" style="widht:100%">
-            <thead>
-                <tr>
-                    <th style="vertical-align:middle">No</th>
-                    <th style="vertical-align:middle">Tipe Surat</th>
-                    <th style="vertical-align:middle">Tanggal</th>
-                    <th style="vertical-align:middle">Cabang</th>
-                    <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
-                    <th style="vertical-align:middle">TRN</th>
-                    <th style="vertical-align:middle">REL TRN</th>
-                    <th style="vertical-align:middle">Bank Tujuan</th>
-                    <th style="vertical-align:middle">Nominal</th>
-                    <th style="vertical-align:middle">Keterangan</th>
-                    <th style="vertical-align:middle">Durasi(HK)</th>
-                    <th style="vertical-align:middle">Status</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="footer">
-    </div>
-</div>
+            <div class="card-body">
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-3">
+                        <label class="bmd-label-floating">Dari Tanggal</label>
+                        <input id="startDate" type="date" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="bmd-label-floating">Sampai Tanggal</label>
+                        <input id="endDate" type="date" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <br />
+                        <button class="btn btn-primary" onclick="Filter();">Filter</button>
+                        <button class="btn btn-outline-secondary" onclick="Read();" style="margin-left: 9px;"><i class="fa fa-close"></i></button>
+                    </div>
+                </div>
+                <br />
+                <table id="table" class="table table-bordered table-responsive display nowrap" style="widht:100%">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align:middle">No</th>
+                            <th style="vertical-align:middle">Tipe Surat</th>
+                            <th style="vertical-align:middle">Tanggal</th>
+                            <th style="vertical-align:middle">Cabang</th>
+                            <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
+                            <th style="vertical-align:middle">Bank Tujuan</th>
+                            <th style="vertical-align:middle">Keterangan</th>
+                            <th style="vertical-align:middle">Durasi(HK)</th>
+                            <th style="vertical-align:middle">Status</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="footer">
+            </div>
+        </div>
     </div>
 </section>
 
@@ -72,45 +169,172 @@
     <script>
         $(document).ready(function () {
             Read();
+            GetBank();
+            GetCabang();
+            load();
         });
 
         function Read() {
             var t = $('#table').DataTable({
-                "scrollX" : true,
-                "ajax" : {
-                "url" : "@Url.Action("GetMonitoring", "RTGS")",
-                "type" : "GET",
-                "datatype" : "json"
+                "scrollX": true,
+                "ajax": {
+                    "url": "@Url.Action("GetMonitoring", "RTGS")",
+                    "type": "GET",
+                    "datatype": "json"
                 },
 
-                "columns" : [
+                "columns": [
                     {
-                        "render": (data,type, row, meta) => meta.row + meta.settings._iDisplayStart +1
+                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
                     },
-                    {"data" : "type.nama"},
-                    {
-                        "render" : function (data, type, row) {
-                            return moment(row.TanggalProses).format('DD MMMM YYYY');
-                        }
-                    },
-                    {"data" : "cabang.nama"},
-                    {"data" : "nomorSurat"},
-                    {"data" : "trn"},
-                    {"data" : "relTRN"},
-                    {"data" : "bank.nama"},
-                    {"data" : "nominal"},
-                    {"data" : "keterangan.nama"},
-                    {"data" : "durasi"},
+                    { "data": "type.nama" },
                     {
                         "render": function (data, type, row) {
-                            if(row.statusId == 2){
-                                return "<span>done</span>"
+                            return moment(row.tanggalProses).format('DD MMMM YYYY');
+                        }
+                    },
+                    { "data": "cabang.nama" },
+                    { "data": "nomorSurat" },
+                    { "data": "bank.nama" },
+                    { "data": "keterangan.nama" },
+                    { "data": "durasi" },
+                    {
+                        "render": function (data, type, row) {
+                                return "<button class='btn btn-info btn-sm text-white' onclick=Detail('" + row.id + "');> <i class='fas fa-eye' > </i></button>"
                             }
-                            //return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> "
-                        },
                     },
                 ]
             })
         }
+
+        function GetBank() {
+            $.ajax({
+                url: "@Url.Action("GetBank","Master")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=BankTujuan]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function GetCabang() {
+            $.ajax({
+                url: "@Url.Action("GetCabang","Master")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=Cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function load() {
+            $.ajax({
+                url: "@Url.Action("GetType","RTGS")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[id=Jenisj]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+
+        function GetKet() {
+
+            $.ajax({
+                url: "@Url.Action("GetKeterangan","Master")",
+                type: "GET",
+                dataType: "Json",
+
+            }).then(function ({ data }) {
+                $("select[id=keterangan]").append(`<option value="">-- Pilih Keterangan --</option>`)
+                $("select[id=keterangan]").append(`<option value="custom"><b>Tambah Keterangan*</b></option>`)
+                $.each(data, function (i, value) {
+                    $("select[id=keterangan]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            })
+
+        }
+        function AddKeterangan() {
+            var keterangan = $("#keterangan").val();
+            if (keterangan == 'custom') {
+                $("#Keterangan-div").show();
+            }
+            else {
+                $("#Keterangan-div").hide();
+            }
+        }
+
+        function Filter() {
+            
+            debugger;
+            var date = $('#startDate').val();
+            var date2 = $('#endDate').val();
+            var awal = date.substring();
+            var akhir = date2.substring();
+            $('#table').DataTable({
+                "scrollX": true,
+                ajax: {
+                    "url": "@Url.Action("Filter", "RTGS")",
+                    "type": "POST",
+                    "data": { Awal: awal, Akhir: akhir },
+                    "dataType": "json"
+
+                },
+                destroy: "true",
+                "columns": [
+                    {
+                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                    },
+                    { "data": "type.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return moment(row.TanggalProses).format('DD MMMM YYYY');
+                        }
+                    },
+                    { "data": "cabang.nama" },
+                    { "data": "nomorSurat" },
+                    { "data": "bank.nama" },
+                    { "data": "keterangan.nama" },
+                    { "data": "durasi" },
+                    {
+                        "render": function (data, type, row) {
+                            return "<a class='btn btn-info btn-sm text-white' onclick=Detail('" + row.id + "');> <i class='fas fa-eye'> </i></a >"
+                            }
+                        },
+                ]
+            })
+        }
+
+        function Detail(Id) {
+            $('#detailModal').modal('show');
+            $.ajax ({
+                "url" : "@Url.Action("GetById","RTGS")",
+                "type" : "GET",
+                "dataType" : "json",
+                "data" : {Id : Id }
+            }).then((result) => {
+                if (result != null) {
+                $("#Jenisj").val(result.data.typeId).change();
+                $("#Cabang").val(result.data.cabangId).change();
+                $("#BankTujuan").val(result.data.bankId).change();
+                $("#NomorSurat").val(result.data.nomorSurat);
+                $("#RelTRN").val(result.data.relTRN);
+                $("#TRN").val(result.data.trn);
+                $("#TanggalProses").val(moment(result.data.tanggalProses).format("YYYY-MM-DD"));
+                $("#Testkey").val(result.data.nomorTestkey);
+                $("#Nominal").val(result.data.nominal);
+                }
+            })
+            
+        }
+
     </script>
 }

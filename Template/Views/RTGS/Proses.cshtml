@@ -99,7 +99,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
-                                        <input id="TRN" type="text" class="form-control number" />
+                                        <input id="TRN" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info">
                 <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
-                <p class="card-category">Transaksi RTGS Belum Selesai</p>
+                <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
             </div>
             <div class="card-body table-responsive">
                 <div class="row" style="margin-left:20px;margin-bottom:20px">
@@ -170,6 +170,7 @@
                             <th style="vertical-align:middle">REL TRN</th>
                             <th style="vertical-align:middle">Bank Tujuan</th>
                             <th style="vertical-align:middle">Nominal</th>
+                            <th style="vertical-align:middle">Nomor Testkey</th>
                             <th style="vertical-align:middle">Durasi</th>
                             <th style="vertical-align:middle">Aksi</th>
                         </tr>
@@ -219,6 +220,7 @@
                     { "data": "relTRN" },
                     { "data": "bank.nama" },
                     { "data": "nominal" },
+                    { "data": "nomorTestkey" },
                     { "data": "durasi" },
                     {
                         "render": function (data, type, row) {
@@ -391,7 +393,7 @@
         }
 
         function Edit() {
-            debugger;
+            //debugger;
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');

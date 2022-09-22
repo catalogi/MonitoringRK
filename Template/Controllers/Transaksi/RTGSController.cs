@@ -180,5 +180,18 @@ namespace Ririn.Controllers.Transaksi
             return Json(status);
         }
         #endregion
+
+        public IActionResult Filter(DateTime Awal, DateTime Akhir)
+        {
+            var filter = _context.T_RTGS
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Include(x => x.Type)
+                .Include(x => x.Status)
+                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate >= Awal.Date.AddDays(-1)
+                && x.CreateDate < Akhir.Date)).ToList();
+            return Ok(new {data = filter}); 
+        }
     }
 }
