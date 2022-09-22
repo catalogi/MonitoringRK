@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
@@ -21,12 +19,12 @@ namespace Ririn.Controllers.Transaksi
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-       private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
-            
+
         }
 
 
@@ -101,6 +99,32 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Type)
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
+        }
+
+        public IActionResult Filter(DateTime Awal, DateTime Akhir)
+        {
+            var filter = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Alasan)
+                .Include(x => x.Keterangan)
+                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate > Awal.Date.AddDays(-1) && x.CreateDate < Akhir.Date))
+                .ToList();
+            return Ok(new { data = filter });
+        }
+
+        public IActionResult FilterType(int typeId)
+        {
+            var filter = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Alasan)
+                .Include(x => x.Keterangan)
+                .Where(x => x.IsDeleted == false && x.Type.Id == typeId)
+                .ToList();
+            return Ok(new { data = filter });
         }
 
 
@@ -202,7 +226,7 @@ namespace Ririn.Controllers.Transaksi
 
                 if (data.AlasanId == null)
 
-           
+
                 {
                     if (data.AlasanLain != null)
                     {

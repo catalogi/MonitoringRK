@@ -399,6 +399,50 @@
 			})
 		}
 
+		$("#Tipe").change(function () {
+			var Id = this.value;
+			Filter(Id);
+		})
+
+		function Filter(Id) {
+			var t = $("#table").DataTable({
+				"scrollx": true,
+				ajax: {
+					"url": "@Url.Action("FilterType","Kliring")",
+					"type": "GET",
+					"datatype": "json",
+					"data": { Id: Id }
+				},
+				"destroy": "true",
+				"columns": [
+					{
+						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+					},
+					{ "data": "type.type" },
+					{ "data": "noReferensi" },
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
+					{ "data": "namaPenerima" },
+					{ "data": "nominal" },
+					{ "data": "alasan.nama" },
+					{
+						"render": function (data, type, row) {
+							return row.durasi + " Hari";
+						}
+					},
+
+					{
+						"render": function (data, type, row) {
+							return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
+								"<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+								"<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
+						},
+
+					},
+				]
+			})
+		}
+
 		function Doned(Id) {
 			$("#donedModal").modal('show');
 			$.ajax({
@@ -446,6 +490,7 @@
 				}
 			})
 		}
+
 
 		function SaveDone() {
 			debugger;
@@ -737,20 +782,20 @@
 			var cek = $("#donedId").val();
 			if ($("#TanggalTRX").val() == "" || $("#TanggalTRX").val() == "") {
 				Swal.fire('Data Tidak Ditemukan !!!');
-			} 
-			
+			}
+
 			else {
 				Edit($("#formId").val());
 
 			}
 		}
 
-		function vali(){
+		function vali() {
 			debugger;
 			if ($("#donedId").val() == "" || $("#donedId").val() == "") {
 				Swal.fire('Data Tidak Ditemukan !!!');
 			}
-			else{
+			else {
 				SaveDone($("#donedId").val());
 			}
 		}
