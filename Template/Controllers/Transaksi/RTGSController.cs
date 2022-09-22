@@ -48,7 +48,6 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
-                .Include(x => x.Testkey)
                 .ToList();
             return Ok(new { data = result });
         }
@@ -66,13 +65,7 @@ namespace Ririn.Controllers.Transaksi
             var success = false;
             if (data == null)
             {
-                var testkey = new Testkey
-                {
-                    //NomorTestkey = data.NomorTestKey,
-                    //Tanggal = data.TanggalTestKey,
-                    //KeteranganId = data.KeteranganId,
-                    //UnitId = data.UnitId,
-                };
+                
                 success = true;
             }
             return Ok(success);

@@ -18,8 +18,10 @@ namespace Ririn.Models.Transaksi
         public DateTime? TanggalDone { get; set; }
 
         public string? FollowUp { get; set; }
-        public Testkey Testkey { get; set; }
-        public int? TestkeyId { get; set; }
+        //public Testkey Testkey { get; set; }
+        //public int? TestkeyId { get; set; }
+        public DateTime Tanggal { get; set; }
+        public string NomorTestkey { get; set; }
         public TypeTrans Type { get; set; }
         public int TypeId { get; set; }
         public Keterangan Keterangan { get; set; }
