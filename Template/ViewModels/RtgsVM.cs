@@ -21,7 +21,7 @@ namespace ASK_Core.ViewModels
 
         public string CreatorId { get; set; }
         public string AcceptorId { get; set; }
-        public List<TestKeyVM> testKeys { get; set; }
+        //public List<TestKeyVM> testKeys { get; set; }
 
     }
 }

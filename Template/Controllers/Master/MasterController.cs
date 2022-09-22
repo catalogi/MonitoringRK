@@ -62,14 +62,19 @@ namespace Ririn.Controllers.Master
             var result = _context.Cabang.ToList();
             return Json(new { data = result });
         }
-        public JsonResult GetBank()
-        {
-            var result = _context.Bank.ToList();
-            return Json(new { data = result });
-        }
         public JsonResult GetAlasan()
         {
             var result = _context.Alasan.ToList();
+            return Json(new { data = result });
+        }
+        public JsonResult GetKeterangan()
+        {
+            var result = _context.Keterangan.ToList();
+            return Json(new { data = result });
+        }
+        public JsonResult GetBank()
+        {
+            var result = _context.Bank.ToList();
             return Json(new { data = result });
         }
         public JsonResult GetKeterangan()

@@ -16,8 +16,10 @@ namespace Ririn.Models.Transaksi
         public Cabang Cabang { get; set; }
         public int? CabangId { get; set; }
         public DateTime TanggalTRX { get; set; }
-        public Testkey Testkey { get; set; }
-        public int? TestkeyId { get; set; }
+        //public Testkey Testkey { get; set; }
+        //public int? TestkeyId { get; set; }
+        public DateTime TanggalTestkey { get; set; }
+        public string NomorTestkey { get; set; }
         public Keterangan Keterangan { get; set; }
         public int? KeteranganId { get; set; }
         public Alasan Alasan { get; set; }
@@ -28,7 +30,7 @@ namespace Ririn.Models.Transaksi
         public Status Status { get; set; }
         public int? StatusId { get; set; }
         public int Durasi { get; set; }
-        public string path { get; set; }
+        public string? Path { get; set; }
         public DateTime? TanggalDone { get; set; }
         public User Creater { get; set; }
         public string? CreaterId { get; set; }
