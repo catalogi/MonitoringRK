@@ -202,16 +202,31 @@
                 })
             })
         }
-       
-        function AddAlasan() {
-            var Alasan = $("#Alasan").val();
-            if (Alasan == 'custom') {
-                $("#Alasan-div").show();
-            }
-            else {
-                $("#Alasan-div").hide();
-            }
-        }
+        //function GetAlasan() {
+        //    $.ajax({
+        //        url: "@Url.Action("GetAlasan", "Master")",
+        //        type: "Get",
+        //        datatype: "json"
+        //    }).then(({ data }) => {
+        //        var alasan = $("#Alasan");
+        //        alasan.html('');
+        //        $("<option></option>").val('').text('---Pilih Alasan---').appendTo(alasan);
+        //        $("<option></option>").val('custom').text('Alasan Lain').appendTo(alasan);
+        //        $.each(data, function (i, value) {
+        //            $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+        //        });
+        //    })
+        //}
+
+		function AddAlasan() {
+			var Alasan = $("#Alasan").val();
+			if (Alasan == 'custom') {
+				$("#Alasan-div").show();
+			}
+			else {
+				$("#Alasan-div").hide();
+			}
+		}
 
 		//Input number only with thousand separator
 

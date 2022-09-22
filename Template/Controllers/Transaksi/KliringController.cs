@@ -13,7 +13,7 @@ using Ririn.ViewModels;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json.Nodes;
+using System.Net.Mime;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -90,6 +90,7 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
+
         public JsonResult GetById(int Id)
         {
             var data = _context.T_Kliring
@@ -102,7 +103,7 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        #region Save Data
+
         public IActionResult Done(DoneVM data)
         {
             bool success = false;
@@ -127,7 +128,20 @@ namespace Ririn.Controllers.Transaksi
             return Ok(success);
         }
 
-        public JsonResult SaveAlasan(string alasan)
+        public IActionResult Surat(int Id)
+        {
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Alasan)
+                .Include(x => x.Bank)
+                .Include(x => x.Keterangan)
+                .Where(x => x.Id == Id).FirstOrDefault();
+            return View();
+        }
+
+
+
+        public JsonResult SaveReason(string reason)
         {
             int data = 0;
             var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
@@ -155,24 +169,16 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUser();
+
             #region upload File Lampiran
-            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            //{
-            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            //}
-            //string webRootPath = _webHostEnvironment.WebRootPath;
-            //string path = Path.Combine(webRootPath, "File/Lampiran");
 
-            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
-
-            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-            #endregion
             if (data.Id == null)
             {
                 var alasanLain = 0;
 
                 if (data.AlasanId == null)
+
+           
                 {
                     if (data.AlasanLain != null)
                     {
@@ -216,38 +222,15 @@ namespace Ririn.Controllers.Transaksi
                 };
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
-                success = true;
 
             }
             else
-            { 
+            {
+
+                //if (data.NomorTestKey != null && data.TanggalTestKey != null)
+                //{
+
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
-
-                result.NomorSurat = data.NomorSurat;
-                result.TanggalSurat = data.TanggalSurat;
-                result.NoReferensi = data.NoReferensi;
-                result.NamaPenerima = data.NamaPenerima;
-                result.NomorRekening = data.NomorRekening;
-                result.Nominal = data.Nominal;
-                result.TanggalTRX = data.TanggalTRX;
-                result.TanggalTestkey = data.TanggalTestKey;
-                result.NomorTestkey = data.NomorTestKey;
-                result.NominalSeharusnya = data.NominalSeharusnya;
-                //result.path = generateNamaFile;
-                result.BankId = data.BankId;
-                result.CabangId = data.CabangId;
-                result.AlasanId = data.AlasanId;
-                result.TypeId = data.TypeId;
-                result.UpdateDate = DateTime.Now;
-
-                _context.Entry(result).State = EntityState.Modified;
-                _context.SaveChanges();
-                success = true;
-
-            }
-            return Json(success);
-        }
-        #endregion
 
         public JsonResult Delete(int Id)
         {
@@ -264,6 +247,5 @@ namespace Ririn.Controllers.Transaksi
         }
 
     }
-
-
+    #endregion
 }
