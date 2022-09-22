@@ -51,6 +51,10 @@ namespace Ririn.Controllers.Transaksi
         {
             return View();
         }
+        public IActionResult Surat()
+        {
+            return View();
+        }
         #endregion
 
         #region GET Data
@@ -183,7 +187,7 @@ namespace Ririn.Controllers.Transaksi
             var success = false;
             //var user = GetCurrentUser();
 
-            #region upload File Lampiran
+            //#region upload File Lampiran
 
             if (data.Id == null)
             {
@@ -300,7 +304,7 @@ namespace Ririn.Controllers.Transaksi
             //{
             //   return BadRequest(e.Message);
             //}
-            #endregion
+            
         }
 
     }
