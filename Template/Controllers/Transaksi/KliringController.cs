@@ -13,7 +13,7 @@ using Ririn.ViewModels;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json.Nodes;
+using System.Net.Mime;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -47,6 +47,10 @@ namespace Ririn.Controllers.Transaksi
             return View();
         }
         public IActionResult Reports()
+        {
+            return View();
+        }
+        public IActionResult Surat()
         {
             return View();
         }
@@ -90,63 +94,18 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
+
         public JsonResult GetById(int Id)
         {
             var data = _context.T_Kliring
+                .Include(x => x.Cabang)
+                .Include(x => x.Bank)
+                .Include(x => x.Alasan)
                 .Include(x => x.Type)
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
 
-
-        public IActionResult DetailProgress(int Id)
-        {
-            var data = (from dat in _context.T_Kliring
-                        .Include(x => x.Type)
-                        .Include(x => x.Alasan)
-                        .Include(x => x.Bank)
-                        .Where(x => x.Id == Id)
-                        select new KliringVM
-                        {
-                            Id = dat.Id,
-                            TypeId = dat.Type.Id,
-                            Nominal = dat.Nominal,
-                            BankId = dat.Bank.Id,
-                            CabangId = dat.Cabang.Id,
-                            KeteranganId = dat.Keterangan.Id,
-                            NamaPenerima = dat.NamaPenerima,
-                            NomorRekening = dat.NomorRekening,
-                            NomorSurat = dat.NomorSurat,
-                            NoReferensi = dat.NoReferensi,
-                            //Path = dat.Path,
-                            AlasanId = dat.AlasanId,
-                            TanggalSurat = dat.TanggalSurat,
-                            TanggalTRX = dat.TanggalTRX,
-                            //Testkeys = _context.Testkey.Where(x => x.Id == dat.Id).ToList()
-                        }).FirstOrDefault();
-            return View(data);
-        }
-        #endregion
-
-       
-
-        public JsonResult Delete(int Id)
-        {
-            bool result = false;
-            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
-            if (kliring != null)
-            {
-                kliring.IsDeleted = true;
-                _context.Entry(kliring).State = EntityState.Modified;
-                _context.SaveChanges();
-                result = true;
-            }
-            return Json(result);
-        }
-
-
-
-        #region Save Data
 
         public IActionResult Done(DoneVM data)
         {
@@ -169,7 +128,21 @@ namespace Ririn.Controllers.Transaksi
 
             return Ok(success);
         }
-        public JsonResult SaveReason(string alasan)
+
+        public IActionResult Surat(int Id)
+        {
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Alasan)
+                .Include(x => x.Bank)
+                .Include(x => x.Keterangan)
+                .Where(x => x.Id == Id).FirstOrDefault();
+            return View();
+        }
+
+
+
+        public JsonResult SaveReason(string reason)
         {
             int data = 0;
             var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
@@ -196,19 +169,9 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUser();
-            #region upload File Lampiran
-            //if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
-            //{
-            //    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            //}
-            //string webRootPath = _webHostEnvironment.WebRootPath;
-            //string path = Path.Combine(webRootPath, "File/Lampiran");
 
-            //string generateNamaFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyy") + "_" + data.Path.FileName;
+            //#region upload File Lampiran
 
-            //Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            //Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNamaFile));
-            #endregion
             if (data.Id == null)
             {
                 //#region Tambah Data Testkey
@@ -225,6 +188,8 @@ namespace Ririn.Controllers.Transaksi
                 var alasanLain = 0;
 
                 if (data.AlasanId == null)
+
+           
                 {
                     if (data.AlasanLain != null)
                     {
@@ -268,11 +233,14 @@ namespace Ririn.Controllers.Transaksi
                 };
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
-                success = true;
 
             }
             else
-            { 
+            {
+
+                //if (data.NomorTestKey != null && data.TanggalTestKey != null)
+                //{
+
                 var result = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 result.NomorSurat = data.NomorSurat;
@@ -298,12 +266,14 @@ namespace Ririn.Controllers.Transaksi
 
             }
             return Json(success);
-            #endregion
+            //}
+            //catch (NullReferenceException e)
+            //{
+            //   return BadRequest(e.Message);
+            //}
+            
         }
 
-        
-        
     }
-
-
+    #endregion
 }

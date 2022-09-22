@@ -3,8 +3,9 @@
     public class Libur
     {
         public int Id { get; set; }
-        public string? Hari {get; set;} 
+        public string? Hari { get; set; }
         public DateTime TanggalLibur { get; set; }
         public string? Keterangan { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }
