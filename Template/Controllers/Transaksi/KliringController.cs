@@ -15,7 +15,6 @@ using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
 
-
 namespace Ririn.Controllers.Transaksi
 {
     public class KliringController : Controller
@@ -114,6 +113,7 @@ namespace Ririn.Controllers.Transaksi
 
             if (data.Id != 0)
             {
+
                 var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 dat.AlasanId = data.AlasanId;
@@ -145,42 +145,25 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult SaveReason(string reason)
         {
             int data = 0;
-            var exist = _context.Alasan.Where(x => x.Nama == reason).Count();
+            var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
             if (exist == 0)
             {
-                Alasan reasons = new Alasan();
-                reasons.Nama = reason;
+                Alasan alasans = new Alasan();
+                alasans.Nama = alasan;
                 //reasons.Createdate = DateTime.Now;
-                _context.Alasan.Add(reasons);
+                _context.Alasan.Add(alasans);
                 _context.SaveChanges();
-                data = reasons.Id;
+                data = alasans.Id;
             }
             else
             {
-                var id = _context.Alasan.Single(x => x.Nama == reason).Id;
+                var id = _context.Alasan.Single(x => x.Nama == alasan).Id;
                 data = id;
             }
 
             return Json(data);
         }
 
-        public JsonResult Delete(int Id)
-        {
-            bool result = false;
-            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
-            if (kliring != null)
-            {
-                kliring.IsDeleted = true;
-                _context.Entry(kliring).State = EntityState.Modified;
-                _context.SaveChanges();
-                result = true;
-            }
-            return Json(result);
-        }
-
-        #endregion
-
-        #region Save Data
         [HttpPost]
         public JsonResult Save(KliringVM data)
         {
@@ -270,33 +253,17 @@ namespace Ririn.Controllers.Transaksi
                 result.TanggalTestkey = data.TanggalTestKey;
                 result.NomorTestkey = data.NomorTestKey;
                 result.NominalSeharusnya = data.NominalSeharusnya;
-                result.Path = null;
+                //result.path = generateNamaFile;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
-                if (data.AlasanId == null)
-                {
-                    if (data.AlasanLain != null)
-                    {
-                        var newalasan = new Alasan
-                        {
-
-                            Nama = data.AlasanLain,
-                        };
-                        _context.Add(newalasan);
-                        _context.SaveChanges();
-                        result.AlasanId = newalasan.Id;
-                    };
-                }
-                else
-                {
-                    result.AlasanId = data.AlasanId;
-                }
+                result.AlasanId = data.AlasanId;
                 result.TypeId = data.TypeId;
                 result.UpdateDate = DateTime.Now;
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
                 success = true;
+
             }
             return Json(success);
             //}

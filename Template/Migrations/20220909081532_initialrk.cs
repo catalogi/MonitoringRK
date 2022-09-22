@@ -13,18 +13,12 @@ namespace ASK_Core.Migrations
                 table: "Testkey",
                 newName: "TanggalTestkey");
 
-            migrationBuilder.AddColumn<string>(
-                name: "path",
-                table: "T_RTGS",
-                type: "nvarchar(max)",
-                nullable: true);
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "path",
-                table: "T_RTGS");
+           
 
             migrationBuilder.RenameColumn(
                 name: "TanggalTestkey",

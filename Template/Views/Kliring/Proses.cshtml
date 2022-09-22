@@ -427,7 +427,7 @@
 					//console.log(result);
 					$("#formId").val(result.data.id).change;
 					$("#Tipe2").val(result.data.typeId).change();
-					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
+					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('0:yyyy-MM-dd')).change();
 					$("#NoReferensi").val(result.data.noReferensi);
 					$("#Cabang").val(result.data.cabangId).change();
 					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
@@ -690,7 +690,7 @@
 							text: "Data Berhasil Di Tambah"
 						}).then(function (response) {
 							location.href = '@Url.Action("Proses","Kliring")';
-						});;
+						});
 
 					}, error: (err) => {
 						Swal.fire({
