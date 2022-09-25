@@ -102,7 +102,7 @@
 						<label class="control-label">Lampiran Bukti</label>
 						<br />
 						<input type="hidden" id="Path" />
-						<input type="file" class="inputFileHidden" id="path" accept=".pdf" id="Upload" style="min-width:100%">
+						<input type="file" class="inputFileHidden" id="path" accept=".pdf"  style="min-width:100%">
 						@*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
 					</div>
 				</div>
@@ -129,8 +129,8 @@
                 "theme": "classic"
             });
 
-            $('input.inputFileHidden').on('change', function (e) {
-                const files = e.get(0).files;
+            $('#path').on('change', function (e) {
+                const files = e.target.files;
                 if (files.length > 0) {
                     const file = files[0];
                     $(this).next().text(file.name)
@@ -202,21 +202,7 @@
                 })
             })
         }
-        //function GetAlasan() {
-        //    $.ajax({
-        //        url: "@Url.Action("GetAlasan", "Master")",
-        //        type: "Get",
-        //        datatype: "json"
-        //    }).then(({ data }) => {
-        //        var alasan = $("#Alasan");
-        //        alasan.html('');
-        //        $("<option></option>").val('').text('---Pilih Alasan---').appendTo(alasan);
-        //        $("<option></option>").val('custom').text('Alasan Lain').appendTo(alasan);
-        //        $.each(data, function (i, value) {
-        //            $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
-        //        });
-        //    })
-        //}
+        
 
 		function AddAlasan() {
 			var Alasan = $("#Alasan").val();
@@ -228,10 +214,31 @@
 			}
 		}
 
+		function FileToBase(file){
+			return new Promise((resolve, reject)=>{
+				const fileReader = new FileReader();
+				fileReader.onloadend = function (result){
+					resolve(result.target.result);
+				}
+				fileReader.onerror = function(err){
+					reject(err)
+				}
+				fileReader.readAsDataURL(file)
+			});
+		}
+
 		//Input number only with thousand separator
 
-		$('#Save').click(function () {
+		$('#Save').click(async function () {
+
+			const files =$("#path").prop('files');
 			//debugger;
+			const b64 = await FileToBase(files[0]);
+			const path = {
+				base64 : b64,
+				fileName: files[0].name
+			}
+
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');
@@ -358,7 +365,7 @@
 				data.BankId = $("#BTujuan").val();
 				data.AlasanId = $("#Alasan").val();
 				data.AlasanLain = $("#alasanLain").val();
-				data.Path = null;
+				data.Path = path;
 				data.TanggalTRX = $("#TanggalTRX").val();
 				data.TanggalTestKey = $("#TanggalTK").val();
 				data.NomorTestKey = $("#NoTeskey").val();

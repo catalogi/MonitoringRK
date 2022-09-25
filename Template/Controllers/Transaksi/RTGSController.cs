@@ -1,4 +1,4 @@
-﻿using ASK_Core.ViewModels;
+﻿using Ririn.ViewModels;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -100,8 +100,29 @@ namespace Ririn.Controllers.Transaksi
             bool success = false;
             if (data.Id != null)
             {
+                var ket = 0;
+
+                if (data.KeteranganId == null)
+                {
+                    if (data.KeteranganLain != null)
+                    {
+                        var AddKet = new Keterangan
+                        {
+                            Nama = data.KeteranganLain,
+                        };
+                        _context.Keterangan.Add(AddKet);
+                        _context.SaveChanges();
+
+                        ket = AddKet.Id;
+
+                    }
+                    else
+                    {
+                        ket = data.KeteranganId ?? 0;
+                    }
+                }
                 var dat = _context.T_RTGS.Where(x => x.Id == data.Id).FirstOrDefault();
-                dat.KeteranganId = data.KeteranganId;
+                dat.KeteranganId = ket;
                 dat.FollowUp = data.FollowUp;
                 dat.StatusId = 2;
                 dat.TanggalDone = DateTime.Now;
@@ -117,7 +138,17 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             //var user = GetCurrentUSer();
-            #region Upload file
+            #region upload File Lampiran
+            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            {
+                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "File", "RTGS");
+            string generateNameFile = "RTGS" +"_"+ data.NomorTestkey + "_" + DateTime.Now.ToString("ddMMyyyy") + "_" + ".png";
+            Byte[] bytes = Convert.FromBase64String(data.Path.Replace("data:image/png;base64,", ""));
+            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNameFile));
+
             #endregion
             if (data.Id == null)
             {
@@ -133,7 +164,7 @@ namespace Ririn.Controllers.Transaksi
                     NomorSurat = data.NomorSurat,
                     NomorTestkey = data.NomorTestkey,
                     TanggalProses = data.TanggalProses,
-                    Path = null,
+                    Path = generateNameFile,
                     StatusId = 1,
                     Durasi = 0
                 };
@@ -147,7 +178,7 @@ namespace Ririn.Controllers.Transaksi
                 result.TypeId = data.TypeId;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
-
+                result.Path = generateNameFile;
                 result.RelTRN = data.RelTRN;
                 result.TRN = data.TRN;
                 result.Nominal = data.Nominal;

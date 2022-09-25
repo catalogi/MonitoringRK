@@ -540,8 +540,28 @@
 			})
 		}
 
-		function Edit() {
+		function FileToBase(file){
+			return new Promise((resolve, reject)=>{
+				const fileReader = new FileReader();
+				fileReader.onloadend = function (result){
+					resolve(result.target.result);
+				}
+				fileReader.onerror = function(err){
+					reject(err)
+				}
+				fileReader.readAsDataURL(file)
+			});
+		}
+
+		async function Edit() {
 			debugger;
+			const files =$("#path").prop('files');
+			//debugger;
+			const b64 = await FileToBase(files[0]);
+			const path = {
+				base64 : b64,
+				fileName: files[0].name
+			}
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');

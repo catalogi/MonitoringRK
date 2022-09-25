@@ -24,7 +24,7 @@
                                         <div id="Keterangan-div">
                                             <label class="control-label">Tambah Keterangan</label>
                                             <br />
-                                            <input id="KeteranganLain" class="form-control" type="text" />
+                                            <input id="keteranganLain" class="form-control" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -32,159 +32,155 @@
                                         <textarea class="form-control" rows="1" id="folUp"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-5">
-                                        <label class="control-label">Tgl TestKey</label>
-                                        <input class="form-control" type="date" id="tgl" />
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
-                                        <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Ubah bro</button>
-                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
+                                <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Ubah bro</button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-5">
-                        <label class="control-label">Keterangan TestKey</label>
-                        <input class="form-control" id="TestkeyDesc" />
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit</h4>
                     </div>
-                </div>
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">Edit</h4>
-                            </div>
-                            <div class="modal-body">
+                    <div class="modal-body">
 
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="hidden" id="formId" />
-                                                <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
-                                                <br />
-                                                <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
-                                                    <option value="">--pilih Tipe--</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Bank Pengirim</label>
-                                                <br />
-                                                <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
-                                                    <option value="">--Pilih Bank--</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="hidden" id="formId" />
+                                        <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
+                                        <br />
+                                        <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
+                                            <option value="">--pilih Tipe--</option>
+                                        </select>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label">Cabang</label>
-                                                <br />
-                                                <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%">
-                                                    <option value="">--Pilih Cabang--</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Nomor Surat / Ni / Memo</label>
-                                                <input id="NomorSurat" type="text" class="form-control" />
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Bank Pengirim</label>
+                                        <br />
+                                        <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
+                                            <option value="">--Pilih Bank--</option>
+                                        </select>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label">REL TRN</label>
-                                                <input id="RelTRN" type="text" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
-                                                <input id="TRN" type="text" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label">Nominal</label>
-                                                <input id="Nominal" type="text" class="form-control number" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Tanggal Proses</label>
-                                                <input id="TanggalProses" type="date" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
-                                                <br />
-                                                <canvas style="border:1px solid grey;" id="Path"></canvas>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">No TestKey</label>
-                                                <input id="Testkey" type="text" class="form-control " />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                                <button type="button" class="btn btn-primary" id="update" onclick="Validation();">Ubah</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Cabang</label>
+                                        <br />
+                                        <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%">
+                                            <option value="">--Pilih Cabang--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Nomor Surat / Ni / Memo</label>
+                                        <input id="NomorSurat" type="text" class="form-control" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">REL TRN</label>
+                                        <input id="RelTRN" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">TRN Pesan Admin</label>
+                                        <input id="TRN" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Nominal</label>
+                                        <input id="Nominal" type="text" class="form-control number" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Tanggal Proses</label>
+                                        <input id="TanggalProses" type="date" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
+                                        <br />
+                                        <canvas style="border:1px solid grey;" id="Path"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">No TestKey</label>
+                                        <input id="Testkey" type="text" class="form-control " />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
                     </div>
-                </div>
-                <div class="card" style="background-color:white">
-                    <div class="card-header card-header-info">
-                        <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
-                        <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <div class="row" style="margin-left:20px;margin-bottom:20px">
-                            <label class="bmd-label-floating">Tipe Surat</label>
-                            <div class="col-md-4">
-                                <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
-                                    <option value="">--pilih Tipe--</option>
-                                </select>
-                            </div>
-                        </div>
-                        <table id="table" class=" table table-bordered table-responsive-md display nowrap" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th style="vertical-align:middle">Tipe Surat</th>
-                                    <th style="vertical-align:middle">Tanggal</th>
-                                    <th style="vertical-align:middle">Cabang</th>
-                                    <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
-                                    <th style="vertical-align:middle">TRN</th>
-                                    <th style="vertical-align:middle">REL TRN</th>
-                                    <th style="vertical-align:middle">Bank Tujuan</th>
-                                    <th style="vertical-align:middle">Nominal</th>
-                                    <th style="vertical-align:middle">Nomor Testkey</th>
-                                    <th style="vertical-align:middle">Durasi</th>
-                                    <th style="vertical-align:middle">Aksi</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" id="update" onclick="Validation();">Ubah</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+                <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
+            </div>
+            <div class="card-body table-responsive">
+                <div class="row" style="margin-left:20px;margin-bottom:20px">
+                    <label class="bmd-label-floating">Tipe Surat</label>
+                    <div class="col-md-4">
+                        <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                            <option value="">--pilih Tipe--</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="table" class=" table table-bordered table-responsive-md display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th style="vertical-align:middle">Tipe Surat</th>
+                            <th style="vertical-align:middle">Tanggal</th>
+                            <th style="vertical-align:middle">Cabang</th>
+                            <th style="vertical-align:middle">Nomor Surat / Ni / Memo</th>
+                            <th style="vertical-align:middle">TRN</th>
+                            <th style="vertical-align:middle">REL TRN</th>
+                            <th style="vertical-align:middle">Bank Tujuan</th>
+                            <th style="vertical-align:middle">Nominal</th>
+                            <th style="vertical-align:middle">Nomor Testkey</th>
+                            <th style="vertical-align:middle">Durasi</th>
+                            <th style="vertical-align:middle">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
 </section>
+
 @section scripts {
     <script>
 
@@ -298,12 +294,12 @@
             console.log(Id);
             $("#doneModal").modal('show');
             $.ajax({
-                url: "@Url.Action("GetById","RTGS")",
-                type: "GET",
-                dataType: "Json",
-                data: { Id: Id }
-            }).then((result) => {
-                if (result != null) {
+                url:"@Url.Action("GetById","RTGS")",
+                type:"GET",
+                dataType:"Json",
+                data:{Id:Id}
+            }).then((result)=>{
+                if(result != null){
                     $("#doneId").val(result.data.id);
                 }
             })
@@ -396,8 +392,28 @@
             })
         }
 
-        function Edit() {
+        function FileToBase(file){
+			return new Promise((resolve, reject)=>{
+				const fileReader = new FileReader();
+				fileReader.onloadend = function (result){
+					resolve(result.target.result);
+				}
+				fileReader.onerror = function(err){
+					reject(err)
+				}
+				fileReader.readAsDataURL(file)
+			});
+		}
+
+        async function Edit() {
             //debugger;
+            const files = $("#path").prop('files');
+            //debugger;
+            const b64 = await FileToBase(files[0]);
+            const path = {
+                base64: b64,
+                fileName: files[0].name
+            }
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');
@@ -502,8 +518,8 @@
             }
         }
 
-        function DoneSave() {
-            debugger;
+        function DoneSave(){
+             debugger;
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');
@@ -530,6 +546,7 @@
                 var data = new Object();
                 data.Id = $('#doneId').val();
                 data.KeteranganId = $("#keterangan").val();
+                data.KeteranganLain = $("#keteranganLain").val();
                 data.FollowUp = $("#folUp").val();
 
                 $.ajax({
@@ -645,13 +662,13 @@
 
         function Validate() {
             debugger;
-            if ("#doneId" == null) {
+            if("#doneId" == null){
                 Swal.fire({
                     icon: 'info',
                     title: 'Data Kosong',
                     text: 'Data Tidak Ditemukan'
                 });
-            } else {
+            }else{
                 DoneSave($("#doneId").val());
             }
         }

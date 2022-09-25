@@ -119,9 +119,9 @@ namespace Ririn.Controllers.Transaksi
 
                 if (data.KeteranganId == null)
                 {
-                    if(data.KeteranganLain != null)
+                    if (data.KeteranganLain != null)
                     {
-                       var AddKet = new Keterangan
+                        var AddKet = new Keterangan
                         {
                             Nama = data.KeteranganLain,
                         };
@@ -195,6 +195,17 @@ namespace Ririn.Controllers.Transaksi
             //var user = GetCurrentUser();
 
             #region upload File Lampiran
+            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            {
+                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "File","Kliring");
+            string generateNameFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyyyy") + "_" + data.Path.FileName;
+            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNameFile));
+
+            #endregion
 
             if (data.Id == null)
             {
@@ -235,7 +246,7 @@ namespace Ririn.Controllers.Transaksi
                     TanggalTestkey = data.TanggalTestKey,
                     NomorTestkey = data.NomorTestKey,
                     NominalSeharusnya = data.NominalSeharusnya,
-                    Path = null,
+                    Path = generateNameFile,
                     BankId = data.BankId,
                     CabangId = data.CabangId,
                     AlasanId = alasanLain,
@@ -266,7 +277,7 @@ namespace Ririn.Controllers.Transaksi
                 result.TanggalTestkey = data.TanggalTestKey;
                 result.NomorTestkey = data.NomorTestKey;
                 result.NominalSeharusnya = data.NominalSeharusnya;
-                result.Path = null;
+                result.Path = generateNameFile;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
                 if (data.AlasanId == null)
@@ -300,9 +311,9 @@ namespace Ririn.Controllers.Transaksi
             //{
             //   return BadRequest(e.Message);
             //}
-            #endregion
         }
+            #endregion
 
     }
-#endregion
+    
 }
