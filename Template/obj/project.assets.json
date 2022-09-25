@@ -214,10 +214,10 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.9": {
+      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.9"
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll": {
@@ -4655,10 +4655,10 @@
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.9": {
-      "sha512": "QElYpR/FpwFnk5Q/AquaJGctMGcpWATS96oDz9ucofHwW67vqExvkqxpSRkWrvOwvNU8ZrXwo/QvextocUooAA==",
+    "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.8": {
+      "sha512": "uiwjIcA3EFQF20zLQCkI+sg6Na3b28QODr/aqILT5HnaqKYY/1NuxUKi24c3rIYbnok6iJzC7rs0Y9binZArww==",
       "type": "package",
-      "path": "microsoft.aspnetcore.diagnostics.entityframeworkcore/6.0.9",
+      "path": "microsoft.aspnetcore.diagnostics.entityframeworkcore/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4666,7 +4666,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net6.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll",
         "lib/net6.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.xml",
-        "microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.9.nupkg.sha512",
+        "microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.8.nupkg.sha512",
         "microsoft.aspnetcore.diagnostics.entityframeworkcore.nuspec"
       ]
     },
@@ -12266,7 +12266,7 @@
       "EPPlus >= 6.0.7",
       "EntityFramework >= 6.4.4",
       "Microsoft.AspNet.Identity.EntityFramework >= 2.2.3",
-      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.9",
+      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.8",
       "Microsoft.AspNetCore.Hosting >= 2.2.7",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.9",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.9",
@@ -12282,19 +12282,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\1394\\.nuget\\packages\\": {}
+    "C:\\Users\\majid\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\Template.csproj",
+      "projectUniqueName": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
       "projectName": "Template",
-      "projectPath": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\Template.csproj",
-      "packagesPath": "C:\\Users\\1394\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\obj\\",
+      "projectPath": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
+      "packagesPath": "C:\\Users\\majid\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\Project BNI\\Ririn\\Template\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\1394\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\majid\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12342,7 +12342,7 @@
           },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[6.0.9, )"
+            "version": "[6.0.8, )"
           },
           "Microsoft.AspNetCore.Hosting": {
             "target": "Package",
@@ -12414,7 +12414,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },

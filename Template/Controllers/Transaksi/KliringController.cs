@@ -14,18 +14,19 @@ using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
+using System.Net;
 
 namespace Ririn.Controllers.Transaksi
 {
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
-       private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public KliringController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
-            
+
         }
 
 
@@ -105,19 +106,41 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
+        #endregion
 
-
+        #region Save Data
         public IActionResult Done(DoneVM data)
         {
             bool success = false;
 
-            if (data.Id != 0)
+            if (data.Id != null)
             {
+                var ket = 0;
+
+                if (data.KeteranganId == null)
+                {
+                    if (data.KeteranganLain != null)
+                    {
+                        var AddKet = new Keterangan
+                        {
+                            Nama = data.KeteranganLain,
+                        };
+                        _context.Keterangan.Add(AddKet);
+                        _context.SaveChanges();
+
+                        ket = AddKet.Id;
+
+                    }
+                    else
+                    {
+                        ket = data.KeteranganId ?? 0;
+                    }
+                }
 
                 var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 dat.AlasanId = data.AlasanId;
-                dat.KeteranganId = data.KeteranganId;
+                dat.KeteranganId = ket;
                 dat.StatusId = 2;
                 dat.TanggalDone = DateTime.Now;
 
@@ -142,7 +165,7 @@ namespace Ririn.Controllers.Transaksi
 
 
 
-        public JsonResult SaveReason(string reason)
+        public JsonResult SaveReason(string alasan)
         {
             int data = 0;
             var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
@@ -164,32 +187,33 @@ namespace Ririn.Controllers.Transaksi
             return Json(data);
         }
 
+
         [HttpPost]
         public JsonResult Save(KliringVM data)
         {
             var success = false;
             //var user = GetCurrentUser();
 
-            //#region upload File Lampiran
+            #region upload File Lampiran
+            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            {
+                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "File","Kliring");
+            string generateNameFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyyyy") + "_" + data.Path.FileName;
+            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNameFile));
+
+            #endregion
 
             if (data.Id == null)
             {
-                //#region Tambah Data Testkey
-                //var teskey = new Testkey
-                //{
-                //    NomorTestkey = data.NomorTestKey,
-                //    Tanggal = data.TanggalTestKey
-                //};
-                //_context.Testkey.Add(teskey);
-                //_context.SaveChanges();
-                //#endregion
-
-
                 var alasanLain = 0;
 
                 if (data.AlasanId == null)
 
-           
+
                 {
                     if (data.AlasanLain != null)
                     {
@@ -222,7 +246,7 @@ namespace Ririn.Controllers.Transaksi
                     TanggalTestkey = data.TanggalTestKey,
                     NomorTestkey = data.NomorTestKey,
                     NominalSeharusnya = data.NominalSeharusnya,
-                    Path = null,
+                    Path = generateNameFile,
                     BankId = data.BankId,
                     CabangId = data.CabangId,
                     AlasanId = alasanLain,
@@ -253,17 +277,33 @@ namespace Ririn.Controllers.Transaksi
                 result.TanggalTestkey = data.TanggalTestKey;
                 result.NomorTestkey = data.NomorTestKey;
                 result.NominalSeharusnya = data.NominalSeharusnya;
-                //result.path = generateNamaFile;
+                result.Path = generateNameFile;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
-                result.AlasanId = data.AlasanId;
+                if (data.AlasanId == null)
+                {
+                    if (data.AlasanLain != null)
+                    {
+                        var newalasan = new Alasan
+                        {
+
+                            Nama = data.AlasanLain,
+                        };
+                        _context.Add(newalasan);
+                        _context.SaveChanges();
+                        result.AlasanId = newalasan.Id;
+                    };
+                }
+                else
+                {
+                    result.AlasanId = data.AlasanId;
+                }
                 result.TypeId = data.TypeId;
                 result.UpdateDate = DateTime.Now;
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
                 success = true;
-
             }
             return Json(success);
             //}
@@ -271,9 +311,9 @@ namespace Ririn.Controllers.Transaksi
             //{
             //   return BadRequest(e.Message);
             //}
-            
         }
+            #endregion
 
     }
-    #endregion
+    
 }

@@ -1,6 +1,6 @@
 ﻿using Ririn.ViewModels;
 
-namespace ASK_Core.ViewModels
+namespace Ririn.ViewModels
 {
     public class RtgsVM
     {
@@ -18,7 +18,7 @@ namespace ASK_Core.ViewModels
         public int? KeteranganId { get; set; }
         public int StatusId { get; set; }
         public string NomorTestkey { get; set; }
-        public Attachment Path { get; set; }
+        public string? Path { get; set; }
 
         public string CreatorId { get; set; }
         public string AcceptorId { get; set; }
