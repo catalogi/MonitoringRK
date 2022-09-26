@@ -3,7 +3,8 @@
     public class DoneRVM
     {
         public int? Id { get; set; }
-        public int KeteranganId { get; set; }
+        public int? KeteranganId { get; set; }
+        public string? KeteranganLain { get; set; }
         public string FollowUp { get; set; }
     }
 }

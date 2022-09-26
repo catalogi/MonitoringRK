@@ -64,7 +64,7 @@
             <div class="col-md-4 Lampiran">
                 <label class="control-label">Lampiran Bukti</label>
                 <br />
-                <canvas style="border:1px solid grey;" id="Path"></canvas>
+                <canvas style="border:1px solid grey;" id="path"></canvas>
             </div>
             <div class="col-md-4 offset-md-1">
                 <label class="control-label">No Test Key</label>
@@ -132,12 +132,34 @@
             })
         }
 
-        $('#Save').click(function () {
-            //debugger;
+        //function FileToBase(file) {
+        //    return new Promise((resolve, reject) => {
+        //        const fileReader = new Image();
+        //        fileReader.src = window.URL.createObjectURL(file);
+        //        fileReader.onloadend = function (result) {
+        //            $("canvas").drawImage({
+        //                source:fileReader,
+        //                x:50,y:50,
+        //                width:100,
+        //                fromCenter:false
+        //            })
+        //        }
+        //        fileReader.onerror = function (err) {
+        //            reject(err)
+        //        }
+        //        fileReader.readAsDataURL(file)
+        //    });
+        //}
+
+        $('#Save').click(async function () {
+            
+
+            debugger;
             var isAllValid = true;
             $('#ItemError').text('');
-            var canvas = document.getElementById('Path');
+            var canvas = document.getElementById('path');
             var dataURL = canvas.toDataURL();
+            console.log(dataURL);
             var errorItemCount = 0;
             if (errorItemCount > 0) {
                 $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
@@ -193,13 +215,7 @@
             else {
                 $('#Nominal').removeClass('is-invalid');
             }
-            if ($('#Keterangan').val() == '') {
-                $('#Keterangan').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Keterangan').removeClass('is-invalid');
-            }
+            
 
             if (isAllValid) {
                 debugger;
@@ -213,7 +229,7 @@
                 data.Nominal = minkoma($("#Nominal").val());
                 data.Keterangan = $("#Keterangan").val();
                 data.NomorTestkey = $("#TestKey").val();
-                data.path = null;
+                data.Path = dataURL;
                 data.tRN = $("#TRN").val();
 
                 $.ajax({
@@ -275,7 +291,7 @@
             retrieveImageFromClipboardAsBlob(e, function (imageBlob) {
                 // If there's an image, display it in the canvas
                 if (imageBlob) {
-                    var canvas = document.getElementById("Path");
+                    var canvas = document.getElementById("path");
                     var ctx = canvas.getContext('2d');
 
                     // Create an image to render the blob on the canvas
