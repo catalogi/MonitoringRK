@@ -133,7 +133,7 @@
 							<label class="control-label">Lampiran Bukti</label>
 							<br />
 							<input type="hidden" id="Path" />
-							<input type="file" class="inputFileHidden" id="path" accept=".pdf" id="Upload" style="min-width:100%">
+							<input type="file" class="inputFileHidden" id="path" accept=".pdf" style="min-width:100%">
 							@*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
 						</div>
 					</div>
@@ -181,7 +181,7 @@
 							<th>Nominal</th>
 							<th>Alasan</th>
 							<th>Durasi</th>
-							<th>Asik</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -210,6 +210,16 @@
 			$(".select2").select2({
 				"theme": "classic"
 			});
+
+			$('#path').on('change', function (e) {
+				const files = e.target.files;
+				if (files.length > 0) {
+					const file = files[0];
+					$(this).next().text(file.name)
+				} else {
+					$(this).next().text("Choose File")
+				}
+			})
 		});
 
 
@@ -223,7 +233,7 @@
 					//$("select[id=Tipe]").empty();
 					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
 					$.each(data, function (i, value) {
-						$("select[name=Tipe]").append(`<option value="${value.Id}">${value.nama}</option>`)
+						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
 					})
 				}
 			})
@@ -475,7 +485,7 @@
 				"data": { Id: Id }
 			}).then((result) => {
 				if (result != null) {
-					//console.log(result);
+					console.log(result);
 					$("#formId").val(result.data.id).change;
 					$("#Tipe2").val(result.data.typeId).change();
 					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
@@ -491,6 +501,7 @@
 					$("#Nominal2").val(result.data.nominalSeharusnya);
 					$("#BTujuan").val(result.data.bankId).change();
 					$("#Alasan").val(result.data.alasanId).change();
+					$("#path").val(result.data.path).change();
 					$("#myModal").modal('show');
 					$("#").show();
 					$("#Save").hide();
@@ -521,6 +532,7 @@
 				data.Id = $("#donedId").val();
 				data.AlasanId = $("#Dosan").val();
 				data.KeteranganId = $("#keterangan").val();
+				data.KeteranganLain = $("#KeteranganLain").val();
 
 				$.ajax({
 					url: "@Url.Action("Done","Kliring")",
@@ -590,8 +602,28 @@
 			})
 		}
 
-		function Edit() {
+		function FileToBase(file) {
+			return new Promise((resolve, reject) => {
+				const fileReader = new FileReader();
+				fileReader.onloadend = function (result) {
+					resolve(result.target.result);
+				}
+				fileReader.onerror = function (err) {
+					reject(err)
+				}
+				fileReader.readAsDataURL(file)
+			});
+		}
+
+		async function Edit() {
 			debugger;
+			const files = $("#path").prop('files');
+			//debugger;
+			const b64 = await FileToBase(files[0]);
+			const path = {
+				base64: b64,
+				fileName: files[0].name
+			}
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');
@@ -719,7 +751,7 @@
 				data.BankId = $("#BTujuan").val();
 				data.AlasanId = $("#Alasan").val();
 				data.AlasanLain = $("#alasanLain").val();
-				data.Path = null;
+				data.Path = path;
 				data.TanggalTRX = $("#TanggalTRX").val();
 				data.TanggalTestKey = $("#TanggalTK").val();
 				data.NomorTestKey = $("#NoTeskey").val();

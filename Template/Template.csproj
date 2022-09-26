@@ -42,7 +42,8 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\File\Lampiran\NewFolder\" />
+    <Folder Include="wwwroot\File\Kliring\" />
+    <Folder Include="wwwroot\File\RTGS\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
