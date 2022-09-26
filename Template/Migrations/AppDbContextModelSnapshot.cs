@@ -17,7 +17,7 @@ namespace ASK_Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -401,6 +401,28 @@ namespace ASK_Core.Migrations
                     b.ToTable("Keterangan");
                 });
 
+            modelBuilder.Entity("Ririn.Models.Master.Libur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Hari")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Keterangan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TanggalLibur")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Libur");
+                });
+
             modelBuilder.Entity("Ririn.Models.Master.Modul", b =>
                 {
                     b.Property<int>("Id")
@@ -447,8 +469,7 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
-                        .IsRequired()
+                    b.Property<string>("Nama")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UnitId")
@@ -624,6 +645,9 @@ namespace ASK_Core.Migrations
                     b.Property<string>("CreatorId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Durasi")
+                        .HasColumnType("int");
+
                     b.Property<string>("FollowUp")
                         .HasColumnType("nvarchar(max)");
 
@@ -641,7 +665,9 @@ namespace ASK_Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomorTestkey")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RelTRN")
@@ -664,14 +690,11 @@ namespace ASK_Core.Migrations
                     b.Property<DateTime>("TanggalProses")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("path")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -884,9 +907,7 @@ namespace ASK_Core.Migrations
 
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Acceptor");
 

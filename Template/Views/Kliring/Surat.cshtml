@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Kepada</label>
+                            <input type="text" class="form-control" name="kepada" id="kepada">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Dari</label>
+                            <input type="text" class="form-control" name="dari" id="dari">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Hal</label>
+                            <input type="text" class="form-control" name="hal" id="hal">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Lampiran</label>
+                            <input type="text" class="form-control" name="lampiran" id="lampiran">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Penanggungjawab</label>
+                            <input type="text" class="form-control" name="penanggungjawab" id="penanggungjawab">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Jabatan</label>
+                            <input type="text" class="form-control" name="jabatan" id="jabatan">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-print"></i> Cetak</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container">
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Surat</h3>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col">
+                        <label for="nomorRefrensi">Tipe</label>
+                        <select data-placement="choose" class="form-control select"></select>
+                    </div>
+                    <div class="col">
+                        <label for="nomorRefrensi">Jenis</label>
+                        <select data-placement="choose" class="form-control select"></select>
+                    </div>
+                </div>
+                <br />
+                <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal" data-dismiss="modal"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
+
+            </div>
+        </div>
+    </div>
+</section>

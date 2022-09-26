@@ -21,15 +21,15 @@ namespace Ririn.Models.Transaksi
         //public Testkey Testkey { get; set; }
         //public int? TestkeyId { get; set; }
         public DateTime Tanggal { get; set; }
-        public string NomorTestkey { get; set; }
+        public string? NomorTestkey { get; set; }
         public TypeTrans Type { get; set; }
-        public int TypeId { get; set; }
+        public int? TypeId { get; set; }
         public Keterangan Keterangan { get; set; }
         public int? KeteranganId { get; set; }
         public Status Status { get; set; }
         public int? StatusId { get; set; }
-
-        public string? path { get; set; }
+        public string? Path { get; set; }
+        public int? Durasi { get; set; }
         public User Creater { get; set; }
         public string? CreatorId { get; set; }
         [JsonIgnore]

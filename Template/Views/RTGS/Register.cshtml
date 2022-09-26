@@ -1,20 +1,22 @@
 ﻿@{
-    ViewBag.Title = "Monitoring";
+    ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<section class="content">
+    <div class="container">
 <div class="card">
     <div class="card-header card=header-info">
-        <h4 class="card-title">Register</h4>
-        <p class="card-category">Teskey Masuk / Keluar</p>
+        <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Registrasi</h2>
+                <p class="card-text font-weight-bolder">Teskey Masuk / Keluar</p>
     </div>
     <div class="card-body">
         <div class="row" style="margin-left:20px">
             <div class="col-md-4">
                 <label class="bmd-label-floating">Jenis RTGS</label>
                 <br />
-                <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
                     <option value="">--pilih Tipe--</option>
                 </select>
             </div>
@@ -41,7 +43,7 @@
         <div class="row" style="margin-left:20px">
             <div class="col-md-4 NoReferensi">
                 <label class="control-label">REL TRN</label>
-                <input id="RelTRN" type="text" class="form-control" />
+                <input id="RelTRN" type="text" class="form-control number" />
             </div>
             <div class="col-md-4 offset-md-1">
                 <label class="control-label">TRN Pesan Admin</label>
@@ -66,7 +68,7 @@
             </div>
             <div class="col-md-4 offset-md-1">
                 <label class="control-label">No Test Key</label>
-                <input id="TestKey" type="text" class="form-control" />
+                <input id="TestKey" type="text" class="form-control number" />
             </div>
         </div>
         <div class="offset-md-8">
@@ -75,6 +77,8 @@
         </div>
     </div>
 </div>
+</div>
+</section>
 
 
 @section scripts {
@@ -96,7 +100,7 @@
                 DataType: "json",
                 success: function ({ data }) {
                     $.each(data, function (i, value) {
-                        $("select[name=Jenis]").append(`<option value="${value.Id}">${value.type}</option>`)
+                        $("select[id=Jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
@@ -129,7 +133,7 @@
         }
 
         $('#Save').click(function () {
-            debugger;
+            //debugger;
             var isAllValid = true;
             $('#ItemError').text('');
             var canvas = document.getElementById('Path');
@@ -198,33 +202,42 @@
             }
 
             if (isAllValid) {
+                debugger;
                 var data = new Object();
-                data.typeId = $('#Jenis').val();
-                data.tanggal = $("#Tanggal").val();
-                data.cabangId = $("#Cabang").val();
-                data.nomerSurat = $("#NomorSurat").val();
-                data.relTRN = $("#RelTRN").val();
-                data.bankTujuanId = $("#BankTujuan").val();
-                data.nominal = minkoma($("#Nominal").val());
-                data.keterangan = $("#Keterangan").val();
-                data.nomerTestkey = $("#TestKey").val();
-                data.path = dataURL;
+                data.TypeId = $('#Jenis').val();
+                data.TanggalProses = $("#Tanggal").val();
+                data.CabangId = $("#Cabang").val();
+                data.NomorSurat = $("#NomorSurat").val();
+                data.RelTRN = $("#RelTRN").val();
+                data.BankId = $("#BankTujuan").val();
+                data.Nominal = minkoma($("#Nominal").val());
+                data.Keterangan = $("#Keterangan").val();
+                data.NomorTestkey = $("#TestKey").val();
+                data.path = null;
                 data.tRN = $("#TRN").val();
 
                 $.ajax({
-                    url: '@Url.Action("Save","MonitoringRTGS")',
-                    type: 'Post',
+                    url: "@Url.Action("Save","RTGS")",
+                    type: "POST",
                     dataType: "json",
                     data: data,
-                    success: function (data) {
-                        if (data == true) {
-                            swal.fire('Successfully saved');
-                            //here we will clear the form
-                            //location.href = "@Url.Action("Index","MemoITR")";
-                        }
-                        else {
-                            alert('Error');
-                        }
+                    success: function (response) {
+                       Swal.fire({
+                           icon:'success',
+                           title:'Berhasil',
+                           text:'Data Berhasil Disimpan!'
+                       }).then(function(response){
+                           location.href ="@Url.Action("Proses","RTGS")";
+                       });
+                    },
+                    error:function(err){
+                        Swal.fire({
+                            icon:'error',
+                            title:'Gagal',
+                            text:'Data Tidak Gagal Disimpan!'
+                        }).then(function(response){
+                            location.reload();
+                        });
                     }
                 });
             }

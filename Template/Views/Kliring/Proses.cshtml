@@ -28,8 +28,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Balik</button>
-				<button type="button" class="btn btn-primary" id="Donedd" onclick="vali();">Geusan</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+				<button type="button" class="btn btn-primary" id="Donedd" onclick="vali();">Selesai</button>
 				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
 			</div>
 		</div>
@@ -223,7 +223,7 @@
 					//$("select[id=Tipe]").empty();
 					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
 					$.each(data, function (i, value) {
-						$("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
+						$("select[name=Tipe]").append(`<option value="${value.Id}">${value.nama}</option>`)
 					})
 				}
 			})
@@ -240,7 +240,7 @@
 				type.html('');
 				$("<option></option>").val('').text('--- Pilih Tipe Surat ---').appendTo(type);
 				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.type).appendTo(type);
+					$("<option></option>").val(value.id).text(value.nama).appendTo(type);
 				});
 			});
 		}
@@ -358,7 +358,7 @@
 				},
 				"columns": [
 					{ "data": null },
-					{ "data": "type.type" },
+					{ "data": "type.nama" },
 					{ "data": "noReferensi" },
 					{ "data": "bank.nama" },
 					{ "data": "nomorRekening" },
@@ -399,26 +399,23 @@
 			})
 		}
 
-		$("#Tipe").change(function () {
-			var Id = this.value;
-			Filter(Id);
-		})
-
-		function Filter(Id) {
+		function Read2(Id) {
 			var t = $("#table").DataTable({
-				"scrollx": true,
-				ajax: {
+				//lengthChange: false,
+				//autoWidth: false,
+				"ajax": {
+
 					"url": "@Url.Action("FilterType","Kliring")",
 					"type": "GET",
 					"datatype": "json",
 					"data": { Id: Id }
 				},
-				"destroy": "true",
+				"destroy": true,
 				"columns": [
 					{
 						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
 					},
-					{ "data": "type.type" },
+					{ "data": "type.nama" },
 					{ "data": "noReferensi" },
 					{ "data": "bank.nama" },
 					{ "data": "nomorRekening" },
@@ -441,7 +438,17 @@
 					},
 				]
 			})
+			t.on('order.dt search.dt', function () {
+				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+					cell.innerHTML = i + 1;
+				});
+			}).draw();
 		}
+
+		$("#Tipe").change(function () {
+			var Id = this.value;
+			Read2(Id);
+		})
 
 		function Doned(Id) {
 			$("#donedModal").modal('show');
@@ -490,7 +497,6 @@
 				}
 			})
 		}
-
 
 		function SaveDone() {
 			debugger;

@@ -52,7 +52,7 @@
 				<div class="row" style="margin-left:20px">
 					<div class="col-md-4">
 						<label class="bmd-label-floating">Nomor Surat</label>
-						<input id="NomorSurat" type="text" class="form-control" />
+						<input id="NomorSurat" type="text" class="form-control miring" />
 					</div>
 					<div class="col-md-4 offset-md-1">
 						<label class="control-label">Nomor Teskey</label>
@@ -140,11 +140,6 @@
 			})
 		});
 
-		$("#tipe").change(function () {
-			var Id = this.value;
-			Read2(Id);
-		})
-
 		function GetType() {
 			$.ajax({
 				url: "@Url.Action("GetType","Kliring")",
@@ -155,7 +150,7 @@
 					$("select[name=tipe]").empty();
 					$("select[name=tipe]").append('<option value="">-- Pilih Tipe Surat --</option>')
 					$.each(data, function (i, value) {
-						$("select[name=tipe]").append(`<option value="${value.id}">${value.type}</option>`)
+						$("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
 					})
 				}
 			})
@@ -356,7 +351,7 @@
 			if (isAllValid) {
 				debugger;
 				var data = new Object();
-				data.NomorSurat = $("#NomorSurat").val();
+				data.NomorSurat = pembatas($("#NomorSurat").val());
 				data.TanggalSurat = $("#TanggalSurat").val();
 				data.TypeId = $("#tipe").val();
 				data.NamaPenerima = $("#Nama").val();
@@ -419,6 +414,20 @@
 					;
 			});
 		}));
+		
+		$(document).on("keyup", ".miring", (function (event) {
+
+			// skip for arrow keys
+			if (event.which >= 34 && event.which <= 40) return;
+
+			// format number
+			$(this).val(function (index, value) {
+				return value
+					.replace(/\D/g, "")
+					.replace(/\B(?=(\d{3})+(?!\d))/g, "/")
+					;
+			});
+		}));
 
 		function minkoma(angka) {
 			var bil = angka;
@@ -428,6 +437,15 @@
 			}
 			return bil;
 		}
+		
+		//function pembatas(miring) {
+		//	var bil = miring;
+		//	var loop = Math.floor(miring.length / 3);
+		//	for (var i = 0; i < loop; i++) {
+		//		bil = bil.replace('', '');
+		//	}
+		//	return bil;
+		//}
 
 		//datetime Picker
 		$(function () {

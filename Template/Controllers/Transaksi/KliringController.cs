@@ -12,7 +12,8 @@ using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
-
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Packaging;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -46,6 +47,10 @@ namespace Ririn.Controllers.Transaksi
             return View();
         }
         public IActionResult Reports()
+        {
+            return View();
+        }
+        public IActionResult Surat()
         {
             return View();
         }
@@ -84,8 +89,7 @@ namespace Ririn.Controllers.Transaksi
 
         public JsonResult GetType()
         {
-            var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
+            var result = _context.TypeTrans.Include(x=>x.Unit).Where(x=>x.UnitId == 1).ToList();
             return Json(new { data = result });
         }
 
@@ -101,6 +105,36 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = data });
         }
 
+        public IActionResult TemplateSurat(int Id)
+        {
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Bank)
+                .Include(x => x.Alasan)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Where(x => x.Id == Id).FirstOrDefault();
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "");
+            string filename = "";
+
+            FileStream fileStreamPath = new FileStream(Path.Combine(path,filename),FileMode.Open, FileAccess.Read , FileShare.ReadWrite);
+            //WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+            //DocIORenderer render = new DocIORenderer();
+            //PdfDocument pdfdoc = render.ConvertToPDF(docs);
+
+            MemoryStream stream = new MemoryStream();
+
+            //pdfDoc.Save(stream);
+            stream.Position = 0;
+            //pdfDoc.Close(true);
+            //docs.Close();
+            string contentType = "application/pdf";
+            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".pdf";
+            return File(stream, contentType, filenamed);
+        }
+
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
             var filter = _context.T_Kliring
@@ -114,17 +148,43 @@ namespace Ririn.Controllers.Transaksi
             return Ok(new { data = filter });
         }
 
-        public IActionResult FilterType(int typeId)
+
+        public IActionResult FilterType(int Id)
         {
-            var filter = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Bank)
-                .Include(x => x.Cabang)
-                .Include(x => x.Alasan)
-                .Include(x => x.Keterangan)
-                .Where(x => x.IsDeleted == false && x.Type.Id == typeId)
-                .ToList();
-            return Ok(new { data = filter });
+            var data = (from KliringVM in _context.T_Kliring
+                        .Include(x => x.Bank)
+                        .Include(x => x.Alasan)
+                        .Include(x => x.Type)
+                        .ToList()
+                        where KliringVM.TypeId == Id && KliringVM.IsDeleted == false
+                        select new
+                        {
+                            Id = KliringVM.Id,
+                            Nama = KliringVM.NamaPenerima,
+                            Nominal = KliringVM.Nominal,
+                            NomorRekening = KliringVM.NomorRekening,
+                            TanggalSurat = KliringVM.CreateDate,
+                            BankPengirim = KliringVM.Bank.Nama,
+                            CreateDate = DateTime.Now,
+                            Alasan = KliringVM.Alasan.Nama,
+                            Tipe = KliringVM.Type.Nama,
+                            //Durasi = get(MRK.Id)
+                        }).ToList();
+            return Json(new { data = data });
+        }
+
+        public JsonResult Delete(int Id)
+        {
+            bool result = false;
+            T_Kliring bank = _context.T_Kliring.Single(x => x.Id == Id);
+            if (bank != null)
+            {
+                bank.IsDeleted = true;
+                _context.Entry(bank).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
         }
 
 
@@ -134,6 +194,7 @@ namespace Ririn.Controllers.Transaksi
 
             if (data.Id != 0)
             {
+
                 var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
 
                 dat.AlasanId = data.AlasanId;
@@ -162,52 +223,35 @@ namespace Ririn.Controllers.Transaksi
 
 
 
-        public JsonResult SaveReason(string reason)
+        public JsonResult SaveReason(string alasan)
         {
             int data = 0;
-            var exist = _context.Alasan.Where(x => x.Nama == reason).Count();
+            var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();
             if (exist == 0)
             {
-                Alasan reasons = new Alasan();
-                reasons.Nama = reason;
+                Alasan alasans = new Alasan();
+                alasans.Nama = alasan;
                 //reasons.Createdate = DateTime.Now;
-                _context.Alasan.Add(reasons);
+                _context.Alasan.Add(alasans);
                 _context.SaveChanges();
-                data = reasons.Id;
+                data = alasans.Id;
             }
             else
             {
-                var id = _context.Alasan.Single(x => x.Nama == reason).Id;
+                var id = _context.Alasan.Single(x => x.Nama == alasan).Id;
                 data = id;
             }
 
             return Json(data);
         }
 
-        public JsonResult Delete(int Id)
-        {
-            bool result = false;
-            var kliring = _context.T_Kliring.Single(x => x.Id == Id);
-            if (kliring != null)
-            {
-                kliring.IsDeleted = true;
-                _context.Entry(kliring).State = EntityState.Modified;
-                _context.SaveChanges();
-                result = true;
-            }
-            return Json(result);
-        }
-
-        #endregion
-
-        #region Save Data
         [HttpPost]
         public JsonResult Save(KliringVM data)
         {
             var success = false;
             //var user = GetCurrentUser();
 
-            #region upload File Lampiran
+            //#region upload File Lampiran
 
             if (data.Id == null)
             {
@@ -290,33 +334,17 @@ namespace Ririn.Controllers.Transaksi
                 result.TanggalTestkey = data.TanggalTestKey;
                 result.NomorTestkey = data.NomorTestKey;
                 result.NominalSeharusnya = data.NominalSeharusnya;
-                result.Path = null;
+                //result.path = generateNamaFile;
                 result.BankId = data.BankId;
                 result.CabangId = data.CabangId;
-                if (data.AlasanId == null)
-                {
-                    if (data.AlasanLain != null)
-                    {
-                        var newalasan = new Alasan
-                        {
-
-                            Nama = data.AlasanLain,
-                        };
-                        _context.Add(newalasan);
-                        _context.SaveChanges();
-                        result.AlasanId = newalasan.Id;
-                    };
-                }
-                else
-                {
-                    result.AlasanId = data.AlasanId;
-                }
+                result.AlasanId = data.AlasanId;
                 result.TypeId = data.TypeId;
                 result.UpdateDate = DateTime.Now;
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
                 success = true;
+
             }
             return Json(success);
             //}
@@ -324,7 +352,7 @@ namespace Ririn.Controllers.Transaksi
             //{
             //   return BadRequest(e.Message);
             //}
-            #endregion
+            
         }
 
     }
