@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Proses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -7,50 +6,42 @@
 <section class="content">
     <div class="container">
         <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="doneModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
                         <h4 class="modal-title" id="doneModalLabel">Follow Up</h4>
-            </div>
-            <div class="modal-body">
+                    </div>
+                    <div class="modal-body">
                         <form>
                             <div class="row">
                                 <div class="col-md-10">
-                    <div class="form-group">
+                                    <div class="form-group">
                                         <input id="doneId" type="hidden" />
                                         <label for="recipient-name" class="col-form-label">Alasan</label>
-                                        <br/>
+                                        <br />
                                         <select id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%">
                                         </select>
                                         <div id="Keterangan-div">
                                             <label class="control-label">Tambah Keterangan</label>
                                             <br />
                                             <input id="KeteranganLain" class="form-control" type="text" />
-                        </div>
-                    </div>
-                    <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="recipient-name" class=" col-form-label">Follow Up</label>
                                         <textarea class="form-control" rows="1" id="folUp"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                            <label class="control-label">Tgl TestKey</label>
-                            <input class="form-control" type="date" id="tgl" />
-                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
                                 <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Ubah bro</button>
-                        </div>
+                            </div>
                         </form>
-                        </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                            <label class="control-label">Keterangan TestKey</label>
-                            <input class="form-control" id="TestkeyDesc"/>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -62,15 +53,15 @@
                         <form>
                             <div class="row">
                                 <div class="col-md-6">
-                    <div class="form-group">
+                                    <div class="form-group">
                                         <input type="hidden" id="formId" />
                                         <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
                                         <br />
                                         <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
                                             <option value="">--pilih Tipe--</option>
                                         </select>
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Bank Pengirim</label>
@@ -78,8 +69,8 @@
                                         <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
                                             <option value="">--Pilih Bank--</option>
                                         </select>
-                </div>
-            </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -145,32 +136,32 @@
                         </form>
 
                     </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-primary" id="update" onclick="Validation();">Ubah</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="card" style="background-color:white">
-    <div class="card-header card-header-info">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
-                <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
-    </div>
-            <div class="card-body table-responsive">
-        <div class="row" style="margin-left:20px;margin-bottom:20px">
-            <label class="bmd-label-floating">Tipe Surat</label>
-            <div class="col-md-4">
-                        <select required name="Jenis" data-placement="choose" class="form-control select2 Tipe">
-                            <option value="">--pilih Tipe--</option>
-                        </select>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+                <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
+            </div>
+            <div class="card-body table-responsive">
+                <div class="row" style="margin-left:20px;margin-bottom:20px">
+                    <label class="bmd-label-floating">Tipe Surat</label>
+                    <div class="col-md-4">
+                        <select required name="Jenis" data-placement="choose" onchange="onChangeFilter();" class="form-control select2 Tipe">
+                            <option value="">--pilih Tipe--</option>
+                        </select>
+                    </div>
+                </div>
                 <table id="table" class=" table table-bordered table-responsive-md display nowrap" style="width:100%">
-            <thead>
-                <tr>
-                    <th>No.</th>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
                             <th style="vertical-align:middle">Tipe Surat</th>
                             <th style="vertical-align:middle">Tanggal</th>
                             <th style="vertical-align:middle">Cabang</th>
@@ -182,41 +173,42 @@
                             <th style="vertical-align:middle">Nomor Testkey</th>
                             <th style="vertical-align:middle">Durasi</th>
                             <th style="vertical-align:middle">Aksi</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </section>
 
 @section scripts {
-<script>
-    
+    <script>
+
         $(document).ready(function () {
-        read();
+            read();
             load();
             GetCabang();
             GetBank();
             GetKet();
+            GetType();
             $("#Keterangan-div").hide();
             //GetById();
             $(".select2").select2({
                 "theme": "classic"
-    })
+            })
         });
-    
-    function read() {
-        var t = $("#table").DataTable({
+
+        function read() {
+            var t = $("#table").DataTable({
                 lengthChange: false,
                 autoWidth: false,
-            "ajax": {
+                "ajax": {
                     "url": "@Url.Action("GetAll","RTGS")",
-                "type": "Get",
-                "datatype": "json"
-            },
-            "columns": [
-                { "data": null },
+                    "type": "Get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": null },
                     { "data": "type.nama" },
                     {
                         "render": function (data, type, row) {
@@ -231,21 +223,21 @@
                     { "data": "nominal" },
                     { "data": "nomorTestkey" },
                     { "data": "durasi" },
-                {
+                    {
                         "render": function (data, type, row) {
                             return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> " +
                                 "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
                                 "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
-                                        },
-                                        },
-                                        ]
-                                        })
+                        },
+                    },
+                ]
+            })
             t.on('order.dt search.dt', function () {
                 t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
                     cell.innerHTML = i + 1;
-                                        });
-                                        }).draw();
-                                        }
+                });
+            }).draw();
+        }
 
         function GetById(Id) {
             $.ajax({
@@ -271,6 +263,19 @@
                     $("#Save").hide();
                 }
             })
+        }
+
+       
+        function onChangeFilter() {
+            var x = $("#Jenis").val(result.data.typeId).change();
+            $('.content').each(function() {
+                if($(this).attr('id') == x) {
+                    $(this).show()
+                } else {
+                    $(this).hide()
+                }
+            })
+                x;
         }
 
         function GetKet() {
@@ -303,13 +308,26 @@
             console.log(Id);
             $("#doneModal").modal('show');
             $.ajax({
-                url:"@Url.Action("GetById","RTGS")",
-                type:"GET",
-                dataType:"Json",
-                data:{Id:Id}
-            }).then((result)=>{
-                if(result != null){
+                url: "@Url.Action("GetById","RTGS")",
+                type: "GET",
+                dataType: "Json",
+                data: { Id: Id }
+            }).then((result) => {
+                if (result != null) {
                     $("#doneId").val(result.data.id);
+                }
+            })
+        }
+
+        function GetType(){
+            $.ajax({
+                url: "@Url.Action("GetType","RTGS")",
+                type: "GET",
+                DataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, value) {
+                        $("select[name=Jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
                 }
             })
         }
@@ -507,8 +525,8 @@
             }
         }
 
-        function DoneSave(){
-             debugger;
+        function DoneSave() {
+            debugger;
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');
@@ -526,7 +544,7 @@
             else {
                 $('#keterangan').removeClass('is-invalid');
             }
-            
+
 
 
 
@@ -650,17 +668,17 @@
 
         function Validate() {
             debugger;
-            if("#doneId" == null){
+            if ("#doneId" == null) {
                 Swal.fire({
                     icon: 'info',
                     title: 'Data Kosong',
                     text: 'Data Tidak Ditemukan'
                 });
-            }else{
+            } else {
                 DoneSave($("#doneId").val());
             }
         }
 
 
-</script>
+    </script>
 }

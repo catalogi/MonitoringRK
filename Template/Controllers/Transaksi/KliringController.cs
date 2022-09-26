@@ -142,7 +142,7 @@ namespace Ririn.Controllers.Transaksi
 
 
 
-        public JsonResult SaveReason(string reason)
+        public JsonResult SaveReason(string alasan)
         {
             int data = 0;
             var exist = _context.Alasan.Where(x => x.Nama == alasan).Count();

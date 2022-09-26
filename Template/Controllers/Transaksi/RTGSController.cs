@@ -189,8 +189,8 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Keterangan)
                 .Include(x => x.Type)
                 .Include(x => x.Status)
-                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate >= Awal.Date.AddDays(-1)
-                && x.CreateDate < Akhir.Date)).ToList();
+                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.TanggalProses.Date >= Awal.Date.AddDays(-1)
+                && x.TanggalProses.Date < Akhir.Date)).ToList();
             return Ok(new {data = filter}); 
         }
     }
