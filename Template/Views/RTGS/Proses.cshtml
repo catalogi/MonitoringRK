@@ -24,7 +24,7 @@
                                         <div id="Keterangan-div">
                                             <label class="control-label">Tambah Keterangan</label>
                                             <br />
-                                            <input id="KeteranganLain" class="form-control" type="text" />
+                                            <input id="keteranganLain" class="form-control" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -153,7 +153,7 @@
                 <div class="row" style="margin-left:20px;margin-bottom:20px">
                     <label class="bmd-label-floating">Tipe Surat</label>
                     <div class="col-md-4">
-                        <select required name="Jenis" data-placement="choose" onchange="onChangeFilter();" class="form-control select2 Tipe">
+                        <select required id ="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
                             <option value="">--pilih Tipe--</option>
                         </select>
                     </div>
@@ -186,6 +186,7 @@
 
         $(document).ready(function () {
             read();
+            //readFilter();
             load();
             GetCabang();
             GetBank();
@@ -265,18 +266,54 @@
             })
         }
 
+        $("#Jenis").change(function () {
+            debugger;
+            var Id = this.value;
+            readFilter(Id);
+        })
        
-        function onChangeFilter() {
-            var x = $("#Jenis").val(result.data.typeId).change();
-            $('.content').each(function() {
-                if($(this).attr('id') == x) {
-                    $(this).show()
-                } else {
-                    $(this).hide()
-                }
+        function readFilter(Id) {
+            var t = $("#table").DataTable({
+                lengthChange: false,
+                autoWidth: false,
+                "ajax": {
+                    "url": "@Url.Action("GetTypeFilter","RTGS")",
+                    "type": "GET",
+                    "dataType": "json",
+                    "data":{Id:Id}
+                },
+                "destroy":"true",
+                "columns": [
+                    { "data": null },
+                    { "data": "type.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return moment(row.tanggalProses).format('DD MMMM YYYY');
+                        }
+                    },
+                    { "data": "cabang.nama" },
+                    { "data": "nomorSurat" },
+                    { "data": "trn" },
+                    { "data": "relTRN" },
+                    { "data": "bank.nama" },
+                    { "data": "nominal" },
+                    { "data": "nomorTestkey" },
+                    { "data": "durasi" },
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> " +
+                                "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
+                        },
+                    },
+                ]
             })
-                x;
-        }
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        } 
 
         function GetKet() {
 
@@ -419,8 +456,28 @@
             })
         }
 
-        function Edit() {
+        function FileToBase(file){
+			return new Promise((resolve, reject)=>{
+				const fileReader = new FileReader();
+				fileReader.onloadend = function (result){
+					resolve(result.target.result);
+				}
+				fileReader.onerror = function(err){
+					reject(err)
+				}
+				fileReader.readAsDataURL(file)
+			});
+		}
+
+        async function Edit() {
             //debugger;
+            const files = $("#path").prop('files');
+            //debugger;
+            const b64 = await FileToBase(files[0]);
+            const path = {
+                base64: b64,
+                fileName: files[0].name
+            }
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');
@@ -553,6 +610,7 @@
                 var data = new Object();
                 data.Id = $('#doneId').val();
                 data.KeteranganId = $("#keterangan").val();
+                data.KeteranganLain = $("#keteranganLain").val();
                 data.FollowUp = $("#folUp").val();
 
                 $.ajax({

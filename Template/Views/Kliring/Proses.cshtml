@@ -223,7 +223,7 @@
 					//$("select[id=Tipe]").empty();
 					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
 					$.each(data, function (i, value) {
-						$("select[name=Tipe]").append(`<option value="${value.Id}">${value.type}</option>`)
+						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
 					})
 				}
 			})
@@ -240,7 +240,7 @@
 				type.html('');
 				$("<option></option>").val('').text('--- Pilih Tipe Surat ---').appendTo(type);
 				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.type).appendTo(type);
+					$("<option></option>").val(value.id).text(value.nama).appendTo(type);
 				});
 			});
 		}
@@ -358,7 +358,7 @@
 				},
 				"columns": [
 					{ "data": null },
-					{ "data": "type.type" },
+					{ "data": "type.nama" },
 					{ "data": "noReferensi" },
 					{ "data": "bank.nama" },
 					{ "data": "nomorRekening" },
@@ -470,6 +470,7 @@
 				data.Id = $("#donedId").val();
 				data.AlasanId = $("#Dosan").val();
 				data.KeteranganId = $("#keterangan").val();
+				data.KeteranganLain = $("#KeteranganLain").val();
 
 				$.ajax({
 					url: "@Url.Action("Done","Kliring")",
@@ -539,8 +540,28 @@
 			})
 		}
 
-		function Edit() {
+		function FileToBase(file){
+			return new Promise((resolve, reject)=>{
+				const fileReader = new FileReader();
+				fileReader.onloadend = function (result){
+					resolve(result.target.result);
+				}
+				fileReader.onerror = function(err){
+					reject(err)
+				}
+				fileReader.readAsDataURL(file)
+			});
+		}
+
+		async function Edit() {
 			debugger;
+			const files =$("#path").prop('files');
+			//debugger;
+			const b64 = await FileToBase(files[0]);
+			const path = {
+				base64 : b64,
+				fileName: files[0].name
+			}
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');

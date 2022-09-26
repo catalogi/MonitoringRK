@@ -22,7 +22,7 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EPPlus" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
@@ -42,7 +42,7 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\File\Lampiran\NewFolder\" />
+    <Folder Include="wwwroot\File\RTGS\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />

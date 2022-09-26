@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "r/AbJBrQIsOCz5gjiUicr4l/IdWgKr/CeSdP3uBIzrvlXOdVnepABWARRPfT42Xfk6XJrZl6Z9B/2z7n6rxoGA==",
+  "dgSpecHash": "LChB6axb2Rt3mq+Pi+PQJOQozl4OeVFBbrEpKjZT8j2b9uwrf606zSHkh4DKKFFjoas0+QLYB4xiBySfyv0HAg==",
   "success": true,
   "projectFilePath": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\Template.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,7 @@
     "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.3\\microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512",
     "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.9\\microsoft.aspnetcore.cryptography.internal.6.0.9.nupkg.sha512",
     "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.9\\microsoft.aspnetcore.cryptography.keyderivation.6.0.9.nupkg.sha512",
-    "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\6.0.9\\microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.9.nupkg.sha512",
+    "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\6.0.8\\microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.8.nupkg.sha512",
     "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.hosting\\2.2.7\\microsoft.aspnetcore.hosting.2.2.7.nupkg.sha512",
     "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\1394\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",

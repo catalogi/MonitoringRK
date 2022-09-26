@@ -32,7 +32,7 @@ namespace Ririn.Controllers.Master
         public JsonResult GetAllKelompok()
         {
             var result = _context.Kelompok.ToList();
-            return Json(new { data = result});
+            return Json(new { data = result });
         }
         public JsonResult GetModul()
         {
@@ -67,13 +67,10 @@ namespace Ririn.Controllers.Master
             var result = _context.Alasan.ToList();
             return Json(new { data = result });
         }
-        public JsonResult Keterangan1
+        public JsonResult GetKeterangan()
         {
-            get
-            {
-                var result = _context.Keterangan.ToList();
-                return Json(new { data = result });
-            }
+            var result = _context.Keterangan.ToList();
+            return Json(new { data = result });
         }
 
         public JsonResult GetBank()
@@ -81,11 +78,7 @@ namespace Ririn.Controllers.Master
             var result = _context.Bank.ToList();
             return Json(new { data = result });
         }
-        public JsonResult GetKeterangan()
-        {
-            var result = _context.Keterangan.ToList();
-            return Json(new { data = result });
-        }
+
         public JsonResult DeleteAlasan(int Id)
         {
             bool result = false;
