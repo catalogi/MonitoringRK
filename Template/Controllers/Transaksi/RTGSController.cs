@@ -235,5 +235,20 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.IsDeleted == false && x.StatusId == 1 && x.TypeId == Id).ToList();
             return Ok(new { data = filter });
         }
+
+        public JsonResult GetBankId(int tId)
+        {
+            var tName = _context.TypeTrans.Single(x => x.Id == tId).Nama;
+            int bankId = 0;
+            if (tName == "RTGS Keluar")
+            {
+                bankId = _context.Bank.Single(x => x.KodeBIC == "BNINIDJA").Id;
+            }
+            else
+            {
+                bankId = 0;
+            }
+            return Json(bankId);
+        }
     }
 }
