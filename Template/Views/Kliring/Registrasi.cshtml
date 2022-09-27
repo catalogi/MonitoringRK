@@ -52,7 +52,7 @@
 				<div class="row" style="margin-left:20px">
 					<div class="col-md-4">
 						<label class="bmd-label-floating">Nomor Surat</label>
-						<input id="NomorSurat" type="text" class="form-control miring" />
+						<input id="NomorSurat" type="text" class="form-control " />
 					</div>
 					<div class="col-md-4 offset-md-1">
 						<label class="control-label">Nomor Teskey</label>
@@ -188,20 +188,37 @@
 			})
 		}
 
-        function GetAlasan() {
-            $.ajax({
-                url: "@Url.Action("GetAlasan", "Master")",
-                type: "Get",
-                datatype: "json"
-            }).then(({ data }) => {
-                $("select[name= Alasan]").empty();
-                $("select[name=Alasan]").append('<option value="">--Pilih Alasan--</option>');
-                $("select[name=Alasan]").append('<option value="">--Alasan Lain').val('custom');
-                $.each(data, function (i, value) {
-                    $("select[name=Alasan]").append(`<option value="${value.id}">${value.nama}</option>`)
-                })
-            })
-        }
+        //function GetAlasan() {
+        //    $.ajax({
+        //        url: "@Url.Action("GetAlasan", "Master")",
+        //        type: "Get",
+        //        datatype: "json"
+        //    }).then(({ data }) => {
+        //        $("select[name= Alasan]").empty();
+        //        $("select[name=Alasan]").append('<option value="">--Pilih Alasan--</option>');
+        //        $("select[name=Alasan]").append('<option value="">--Alasan Lain').val('custom');
+        //        $.each(data, function (i, value) {
+        //            $("select[name=Alasan]").append(`<option value="${value.id}">${value.nama}</option>`)
+        //        })
+        //    })
+        //}
+
+		function GetAlasan() {
+			$.ajax({
+				"url": "@Url.Action("GetAlasan","Master")",
+				"type": "Get",
+				"datatype": "json"
+			}).then(({ data }) => {
+				//console.log(data)
+				var alasan = $("#Alasan");
+				alasan.html('');
+				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
+				$("<option></option>").val('custom').text(' *Alasan Lain* ').appendTo(alasan);
+				$.each(data, function (i, value) {
+					$("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+				});
+			});
+		}
         
 
 		function AddAlasan() {

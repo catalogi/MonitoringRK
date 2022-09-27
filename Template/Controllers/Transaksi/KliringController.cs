@@ -7,9 +7,13 @@ using Ririn.Data;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
-//using Syncfusion.Pdf.Parsing;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
+using Syncfusion.DocIO;
+using Syncfusion.DocIO.DLS;
+using Syncfusion.DocIORenderer;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
 using DocumentFormat.OpenXml.Office2010.Excel;
@@ -114,26 +118,70 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
-                .Where(x => x.Id == Id).FirstOrDefault();
+                .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var TANGGALSEKARANG = DateTime.Now;
+            var NOSURAT = data.NomorSurat;
+            var KETERANGAN="";
+            if (data.KeteranganId == null)
+            {
+                 KETERANGAN = "-";
+            }
+            else
+            {
+                 KETERANGAN = data.Keterangan.Nama;
+            }
+            var TANGGALTRX = data.TanggalTRX;
+            var NOMOREFERENSI = data.NoReferensi;
+            var NOMINAL = Convert.ToInt64(data.Nominal);
+            var NOREK = data.NomorRekening;
+            var PENGIRIM = data.Bank.Nama;
+            var PENERIMA = data.NamaPenerima;
+            var ALASAN = data.Alasan.Nama;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "");
-            string filename = "";
+            string path = Path.Combine(webRootPath, "Template");
+            string filename = "SURAT_RETUR_Keluar";
+            if (data == null)
+            {
 
-            FileStream fileStreamPath = new FileStream(Path.Combine(path, filename), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            }
+
+            //FileStream fileStreamPath = new FileStream(Path.Combine(path, filename), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             //WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
-            //DocIORenderer render = new DocIORenderer();
+            FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+            docs.Replace("%TANGGALSEKARANG%", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            //if (data.KeteranganId == null)
+            //{
+            //    docs.Replace("-", KETERANGAN.ToString(), false, true);
+            //}
+            //else
+            //{
+                docs.Replace("%KETERANGAN%", KETERANGAN.ToString(), false, true);
+            //}
+            docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOMOREFERENSI%", NOMOREFERENSI.ToString(), false, true);
+            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
+            docs.Replace("%NOREK%", NOREK.ToString(), false, true);
+            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
+            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
+            docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+
+            DocIORenderer render = new DocIORenderer();
             //PdfDocument pdfdoc = render.ConvertToPDF(docs);
 
             MemoryStream stream = new MemoryStream();
 
-            //pdfDoc.Save(stream);
+            docs.Save(stream, FormatType.Docx);
             stream.Position = 0;
-            //pdfDoc.Close(true);
-            //docs.Close();
-            string contentType = "application/pdf";
-            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".pdf";
+
+
+            string contentType = "application/docx";
+            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
             return File(stream, contentType, filenamed);
+            docs.Dispose();
+            docs.Close();
         }
 
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
@@ -199,10 +247,11 @@ namespace Ririn.Controllers.Transaksi
                         ket = AddKet.Id;
 
                     }
-                    else
-                    {
-                        ket = data.KeteranganId ?? 0;
-                    }
+
+                }
+                else
+                {
+                    ket = data.KeteranganId ?? 0;
                 }
 
                 var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
