@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Proses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -32,6 +33,10 @@
                                         <textarea class="form-control" rows="1" id="folUp"></textarea>
                                     </div>
                                 </div>
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label class="control-label">Tgl TestKey</label>
+                            <input class="form-control" type="date" id="tgl" />
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
@@ -40,6 +45,10 @@
                         </form>
                     </div>
                 </div>
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label class="control-label">Keterangan TestKey</label>
+                            <input class="form-control" id="TestkeyDesc"/>
             </div>
         </div>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
