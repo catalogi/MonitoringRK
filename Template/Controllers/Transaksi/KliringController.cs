@@ -51,10 +51,10 @@ namespace Ririn.Controllers.Transaksi
         {
             return View();
         }
-        public IActionResult Surat()
-        {
-            return View();
-        }
+        //public IActionResult Surat()
+        //{
+        //    return View();
+        //}
         #endregion
 
         #region GET Data
