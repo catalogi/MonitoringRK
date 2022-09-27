@@ -1,7 +1,8 @@
 body {
     position: relative;
-    background: rgb(0, 93, 105);
-    background: url("/img/bg.jpg");
+    /*background: ;*/
+    /*background: url("~/img/rinjani.jpg");*/
+    background: url("../img/rinjani.jpg");
     /*background: url("~/img/bg.jpg");*/
     background-position: center;
     background-size: cover;
@@ -26,7 +27,7 @@ body {
     rgba(236, 141, 26, 0.8) 73%
   );
 } */
-body::before {
+/*body::before {
   content: "";
   transition: all 500ms ease-in-out;
   position: absolute;
@@ -40,4 +41,4 @@ body::before {
     rgba(44, 161, 175, 0.3) 55%,
     rgba(0, 93, 105, 0.35) 70%
   );
-}
+}*/

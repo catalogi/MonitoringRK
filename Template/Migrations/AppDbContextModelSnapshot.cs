@@ -17,7 +17,7 @@ namespace ASK_Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -401,6 +401,28 @@ namespace ASK_Core.Migrations
                     b.ToTable("Keterangan");
                 });
 
+            modelBuilder.Entity("Ririn.Models.Master.Libur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Hari")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Keterangan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TanggalLibur")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Libur");
+                });
+
             modelBuilder.Entity("Ririn.Models.Master.Modul", b =>
                 {
                     b.Property<int>("Id")
@@ -439,45 +461,6 @@ namespace ASK_Core.Migrations
                     b.ToTable("Status");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Master.Testkey", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("KeteranganId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NomorTestkey")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TanggalTestKey")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("UnitId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("KeteranganId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("Testkey");
-                });
-
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
                 {
                     b.Property<int>("Id")
@@ -486,7 +469,7 @@ namespace ASK_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Nama")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -588,6 +571,13 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NomorTestkey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
@@ -600,18 +590,14 @@ namespace ASK_Core.Migrations
                     b.Property<DateTime>("TanggalTRX")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TestkeyId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("TanggalTestkey")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -628,8 +614,6 @@ namespace ASK_Core.Migrations
                     b.HasIndex("KeteranganId");
 
                     b.HasIndex("StatusId");
-
-                    b.HasIndex("TestkeyId");
 
                     b.HasIndex("TypeId");
 
@@ -662,6 +646,9 @@ namespace ASK_Core.Migrations
                     b.Property<string>("CreatorId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Durasi")
+                        .HasColumnType("int");
+
                     b.Property<string>("FollowUp")
                         .HasColumnType("nvarchar(max)");
 
@@ -678,6 +665,12 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NomorTestkey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RelTRN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -689,16 +682,16 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Tanggal")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("TanggalDone")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("TanggalProses")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TestkeyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -717,8 +710,6 @@ namespace ASK_Core.Migrations
                     b.HasIndex("KeteranganId");
 
                     b.HasIndex("StatusId");
-
-                    b.HasIndex("TestkeyId");
 
                     b.HasIndex("TypeId");
 
@@ -818,21 +809,6 @@ namespace ASK_Core.Migrations
                     b.Navigation("Modul");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Master.Testkey", b =>
-                {
-                    b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
-                        .WithMany()
-                        .HasForeignKey("KeteranganId");
-
-                    b.HasOne("Ririn.Models.Master.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Keterangan");
-
-                    b.Navigation("Unit");
-                });
-
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
                 {
                     b.HasOne("Ririn.Models.Master.Unit", "Unit")
@@ -883,10 +859,6 @@ namespace ASK_Core.Migrations
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Ririn.Models.Master.Testkey", "Testkey")
-                        .WithMany()
-                        .HasForeignKey("TestkeyId");
-
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
@@ -904,8 +876,6 @@ namespace ASK_Core.Migrations
                     b.Navigation("Keterangan");
 
                     b.Navigation("Status");
-
-                    b.Navigation("Testkey");
 
                     b.Navigation("Type");
                 });
@@ -936,15 +906,9 @@ namespace ASK_Core.Migrations
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Ririn.Models.Master.Testkey", "Testkey")
-                        .WithMany()
-                        .HasForeignKey("TestkeyId");
-
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Acceptor");
 
@@ -957,8 +921,6 @@ namespace ASK_Core.Migrations
                     b.Navigation("Keterangan");
 
                     b.Navigation("Status");
-
-                    b.Navigation("Testkey");
 
                     b.Navigation("Type");
                 });

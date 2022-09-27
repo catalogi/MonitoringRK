@@ -20,13 +20,14 @@ namespace Ririn.Data
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Keterangan> Keterangan { get; set; }
         public DbSet<Alasan> Alasan { get; set; }
-        public DbSet<Testkey> Testkey { get; set; }
+        //public DbSet<Testkey> Testkey { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<TypeTrans> TypeTrans { get; set; }
         public DbSet<Modul> Modul { get; set; }
         public DbSet<Libur> Libur { get; set; }
         public DbSet<DataToken> DataToken { get; set; }
+     
         #endregion
 
         #region Transaksi
