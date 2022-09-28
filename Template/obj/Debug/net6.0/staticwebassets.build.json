@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ln6jIqeowEsZ6LQ+9irZhbeTL9mU1RGeHVgXCvxt7pU=",
+  "Hash": "Uw3X/pZqvU2qyfPZXBDUu9S9Z2ugiaoS4mEAofKPzTc=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2312,6 +2312,23 @@
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf"
     },
     {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_12313213_27092022_level 2.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_12313213_27092022_level 2.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_12313213_27092022_level 2.pdf"
+    },
+    {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_414141_26092022_level 2.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
@@ -2344,6 +2361,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_54113131_27092022_Surat Retur25 Agustus 2022 (2).pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_88008800_27092022_juli.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_88008800_27092022_juli.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_88008800_27092022_juli.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_88008800_28092022_juli.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_88008800_28092022_juli.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_88008800_28092022_juli.pdf"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_9898776_26092022_juli.pdf",
@@ -37228,6 +37279,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\plugins\\uplot\\uPlot.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\Memo_Keluar.docx",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "Template/Memo_Keluar.docx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Template\\Memo_Keluar.docx"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\SURAT_RETUR_Keluar.doc",

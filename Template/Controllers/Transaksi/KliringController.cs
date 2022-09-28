@@ -84,12 +84,6 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-        //public JsonResult Get()
-        //{
-        //    var result = _context.T_Kliring
-        //        .Include(x=> x.KeteranganId)
-        //        .Include()
-        //}
 
         public JsonResult GetType()
         {
@@ -110,7 +104,7 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        public IActionResult TemplateSurat(int Id)
+        public IActionResult TemplateSuratKeluar(int Id)
         {
             var data = _context.T_Kliring
                 .Include(x => x.Type)
@@ -141,10 +135,6 @@ namespace Ririn.Controllers.Transaksi
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
             string filename = "SURAT_RETUR_Keluar";
-            if (data == null)
-            {
-
-            }
 
             //FileStream fileStreamPath = new FileStream(Path.Combine(path, filename), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             //WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
@@ -178,10 +168,69 @@ namespace Ririn.Controllers.Transaksi
 
 
             string contentType = "application/docx";
-            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            string filenamed = "Surat Retur " + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
             return File(stream, contentType, filenamed);
             docs.Dispose();
             docs.Close();
+        }
+
+        public IActionResult MemoKeluar(int Id)
+        {
+            var data = _context.T_Kliring
+                        .Include(x => x.Bank)
+                        .Include(x => x.Cabang)
+                        .Include(x => x.Type)
+                        .Include(x => x.Keterangan)
+                        .Include(x => x.Type)
+                        .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var TanggalSEKARANG = DateTime.Now;
+            var NOSURAT = data.NomorSurat;
+            var TANGGALTRX = data.TanggalTRX;
+            var NOMORREFERENSI = data.NoReferensi;
+            var PENERIMA = data.NamaPenerima;
+            var PENGIRIM = data.Bank.Nama;
+            var NOREK = data.NomorRekening;
+            var NOMINAL = data.Nominal;
+            var ALASAN = data.Alasan.Id;
+            //if (data.AlasanId != null)
+            //{
+            //    ALASAN = "-";
+            //}
+            //else
+            //{
+            //    ALASAN = data.Alasan.Nama;
+            //}
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "Template");
+            string filename = "Memo_Keluar";
+
+            FileStream fileStreamPath = new FileStream(Path.Combine(path,filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+
+            docs.Replace("%TanggalSEKARANG%", TanggalSEKARANG.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true );
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true );
+            docs.Replace("%TANGGALTRX%", TanggalSEKARANG.ToString("dd MM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true );
+            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true );
+            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true );
+            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true );
+            docs.Replace("%NOREK%", NOREK.ToString(), false, true );
+            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true );
+            docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+
+            DocIORenderer render = new DocIORenderer();
+            //PdfDocument pdfDoc = render.ConvertToPDF(docs);
+
+            MemoryStream stream = new MemoryStream();
+
+            //pdfDoc.Save(stream);
+            docs.Save(stream, FormatType.Docx);
+            stream.Position = 0;
+            //pdfDoc.Close();
+            docs.Close();
+            string contentType = "application/docx";
+            string filenamed = "Memo Keluar " + DateTime.Now.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            return File(stream, contentType, filenamed);
         }
 
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
@@ -269,16 +318,16 @@ namespace Ririn.Controllers.Transaksi
             return Ok(success);
         }
 
-        public IActionResult Surat(int Id)
-        {
-            var data = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Alasan)
-                .Include(x => x.Bank)
-                .Include(x => x.Keterangan)
-                .Where(x => x.Id == Id).FirstOrDefault();
-            return View();
-        }
+        //public IActionResult Surat(int Id)
+        //{
+        //    var data = _context.T_Kliring
+        //        .Include(x => x.Type)
+        //        .Include(x => x.Alasan)
+        //        .Include(x => x.Bank)
+        //        .Include(x => x.Keterangan)
+        //        .Where(x => x.Id == Id).FirstOrDefault();
+        //    return View();
+        //}
 
 
 
