@@ -182,6 +182,7 @@ namespace Ririn.Controllers.Transaksi
                         .Include(x => x.Type)
                         .Include(x => x.Keterangan)
                         .Include(x => x.Type)
+                        .Include(x => x.Alasan)
                         .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TanggalSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
@@ -191,15 +192,7 @@ namespace Ririn.Controllers.Transaksi
             var PENGIRIM = data.Bank.Nama;
             var NOREK = data.NomorRekening;
             var NOMINAL = data.Nominal;
-            var ALASAN = data.Alasan.Id;
-            //if (data.AlasanId != null)
-            //{
-            //    ALASAN = "-";
-            //}
-            //else
-            //{
-            //    ALASAN = data.Alasan.Nama;
-            //}
+            var ALASAN = data.Alasan.Nama;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
