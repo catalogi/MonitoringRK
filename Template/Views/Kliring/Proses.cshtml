@@ -347,7 +347,7 @@
 		}
 
 		function Read() {
-			var t = $("#table").DataTable({   
+			var t = $("#table").DataTable({
 				//lengthChange: false,
 				//autoWidth: false,
 				"ajax": {
@@ -358,13 +358,13 @@
 				},
 				"columns": [
 					{ "data": null },
-					{ "data": "type" },
-					{ "data": "noref" },
-					{ "data": "bank" },
-					{ "data": "norek" },
+					{ "data": "type.nama" },
+					{ "data": "noReferensi" },
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
 					{ "data": "namaPenerima" },
 					{ "data": "nominal" },
-					{ "data": "alasan" },
+					{ "data": "alasan.nama" },
 					{
 						"render": function (data, type, row) {
 							return row.durasi + " Hari";
@@ -427,7 +427,7 @@
 					//console.log(result);
 					$("#formId").val(result.data.id).change;
 					$("#Tipe2").val(result.data.typeId).change();
-					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
+					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('0:yyyy-MM-dd')).change();
 					$("#NoReferensi").val(result.data.noReferensi);
 					$("#Cabang").val(result.data.cabangId).change();
 					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));

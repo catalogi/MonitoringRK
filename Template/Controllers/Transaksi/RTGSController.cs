@@ -49,31 +49,15 @@ namespace Ririn.Controllers.Transaksi
         #endregion
 
         #region Get Data
-        [HttpGet]
         public JsonResult GetAll()
         {
             var result = _context.T_RTGS
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
-                
-                .Include(x => x.Type)
-                .Where(x => x.IsDeleted == false && x.StatusId == 1)
-                .Select(x=> new
-                {
-                   Id= x.Id,
-                   bank= x.Bank.Nama,
-                   cabang= x.Cabang.Nama,
-                   keterangan= x.Keterangan.Nama,
-                   Type= x.Type.Nama,
-                   tanggalProses=x.TanggalProses,
-                   nomorsurat =x.NomorSurat,
-                   tRN=x.TRN,
-                   relTRN =x.RelTRN,
-                   nominal =x.Nominal,
-                   nomorTestKey = x.NomorTestkey,
-                   durasi = x.Durasi
+                .Include(x => x.Keterangan)
 
-                })
+                .Include(x => x.Type)
+                .Where(x => x.IsDeleted == false && x.StatusId == 1 && x.Type.UnitId == 2)
 
                 .ToList();
             return Json(new { data = result });
@@ -98,7 +82,6 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Unit).Where(x => x.UnitId == 2).ToList();
             return Json(new { data = result });
         }
-
 
         public JsonResult GetById(int Id)
         {
@@ -209,80 +192,6 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        #region Get Libur
-        public int GetLibur(int Id)
-        {
-            var count = 0;
-            var data = _context.T_RTGS.Single(x => x.Id == Id);
-            if (data.StatusId == 1)
-            {
-                count = DateCount(data.CreateDate, DateTime.Now);
-                data.Durasi = count;
-                _context.Entry(data).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            else
-            {
-                count = DateCount(data.CreateDate, data.TanggalDone);
-                data.Durasi = count;
-                _context.Entry(data).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-
-            return count;
-        }
-        public int DateCount(DateTime start, DateTime? end)
-        {
-            DateTime startDate = start;
-            DateTime endDate = (DateTime)end;
-
-            TimeSpan span = endDate - startDate;
-            int countDuration = span.Days + 1;
-            int fullWeekCount = countDuration / 7;
-
-            if (countDuration > fullWeekCount)
-            {
-                int firstDayOfWeek = (int)startDate.DayOfWeek;
-                int lastDayOfWeek = (int)endDate.DayOfWeek;
-
-                if (lastDayOfWeek < firstDayOfWeek)
-                {
-                    lastDayOfWeek += 2;
-                }
-                if (firstDayOfWeek <= 6)
-                {
-                    if (lastDayOfWeek >= 7)
-                    {
-                        countDuration -= 2;
-                    }
-                    else if (lastDayOfWeek <= 6)
-                    {
-                        countDuration -= 1;
-                    }
-                }
-                else if (lastDayOfWeek <= 7 && lastDayOfWeek <= 7)
-                {
-                    countDuration -= 1;
-                }
-            }
-            countDuration -= fullWeekCount + fullWeekCount;
-
-            DateTime[] liburs = _context.Libur.Select(x => x.TanggalLibur).ToArray();
-
-            foreach (DateTime libur in liburs)
-            {
-                DateTime lb = libur.Date;
-                if (startDate <= lb && lb <= endDate)
-                {
-                    --countDuration;
-                }
-            }
-            countDuration = countDuration;
-
-            return countDuration;
-        }
-        #endregion
-
         #region Delete
         public JsonResult Delete(int Id)
         {
@@ -313,6 +222,33 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate >= Awal.Date.AddDays(-1)
                 && x.CreateDate < Akhir.Date)).ToList();
             return Ok(new { data = filter });
+        }
+        
+        public IActionResult GetTypeFilter(int Id)
+        {
+            var filter = _context.T_RTGS
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Include(x => x.Type)
+                .Include(x => x.Status)
+                .Where(x => x.IsDeleted == false && x.StatusId == 1 && x.TypeId == Id).ToList();
+            return Ok(new { data = filter });
+        }
+
+        public JsonResult GetBankId(int tId)
+        {
+            var tName = _context.TypeTrans.Single(x => x.Id == tId).Nama;
+            int bankId = 0;
+            if (tName == "RTGS Keluar")
+            {
+                bankId = _context.Bank.Single(x => x.KodeBIC == "BNINIDJA").Id;
+            }
+            else
+            {
+                bankId = 0;
+            }
+            return Json(bankId);
         }
     }
 }

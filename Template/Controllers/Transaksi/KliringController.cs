@@ -17,7 +17,8 @@ using System.Net.Mime;
 using System.Net;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.DocIO;
-
+using Syncfusion.DocIORenderer;
+using SkiaSharp;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -114,7 +115,7 @@ namespace Ririn.Controllers.Transaksi
 
             return count;
         }
-        public int DateCount(DateTime? start, DateTime? end, params DateTime[] holidays)
+        public int DateCount( DateTime? start, DateTime? end, params DateTime[] holidays)
         {
             DateTime startDate = start ?? DateTime.Now;
             DateTime endDate = (DateTime)end;
@@ -457,7 +458,7 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
 
-            //Syncfusion.DocIO render = new DocIORenderer();
+            DocIORenderer render = new DocIORenderer();
             MemoryStream stream = new MemoryStream();
 
 
