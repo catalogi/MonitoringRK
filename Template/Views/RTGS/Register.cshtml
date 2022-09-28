@@ -8,7 +8,7 @@
     <div class="container">
 <div class="card">
     <div class="card-header card=header-info">
-        <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Registrasi</h2>
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#FF7518">Registrasi</h2>
                 <p class="card-text font-weight-bolder">Teskey Masuk / Keluar</p>
     </div>
     <div class="card-body">
@@ -131,25 +131,6 @@
                 }
             })
         }
-
-        //function FileToBase(file) {
-        //    return new Promise((resolve, reject) => {
-        //        const fileReader = new Image();
-        //        fileReader.src = window.URL.createObjectURL(file);
-        //        fileReader.onloadend = function (result) {
-        //            $("canvas").drawImage({
-        //                source:fileReader,
-        //                x:50,y:50,
-        //                width:100,
-        //                fromCenter:false
-        //            })
-        //        }
-        //        fileReader.onerror = function (err) {
-        //            reject(err)
-        //        }
-        //        fileReader.readAsDataURL(file)
-        //    });
-        //}
 
         $('#Save').click(async function () {
             
@@ -341,6 +322,25 @@
             }
             return bil;
         }
+
+        $('#Jenis').change( function () {
+            var tId = ($('#Jenis').val());
+            $.ajax({
+                "url" : "@Url.Action("GetBankId","RTGS")",
+                "type" : "GET",
+                "dataType" : "JSON",
+                "data" : {tId : tId}
+            }).then((result) => {
+                if (result != 0) {
+                    $('#BankTujuan').val(result).change();
+                    document.getElementById('lbank').innerHTML = 'Bank Tujuan';
+                }
+                else {
+                    document.getElementById('lbank').innerHTML = 'Bank Pengirim';
+                    $('#BankTujuan').val('').change();
+                }
+            })
+        })
 
     </script>
 }
