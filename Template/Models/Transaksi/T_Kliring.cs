@@ -10,7 +10,7 @@ namespace Ririn.Models.Transaksi
         public string NoReferensi { get; set; }
         public string NamaPenerima { get; set; }
         public Bank Bank { get; set; }
-        public int BankId { get; set; }
+        public int? BankId { get; set; }
         public string NomorRekening { get; set; }
         public decimal Nominal { get; set; }
         public Cabang Cabang { get; set; }

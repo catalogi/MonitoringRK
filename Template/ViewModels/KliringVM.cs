@@ -16,6 +16,11 @@ namespace Ririn.ViewModels
         public string NomorRekening { get; set; }
         public decimal Nominal { get; set; }
         public int CabangId { get; set; }
+        public string? NamaCabang { get; set; }
+        public string? NamaBank { get; set; }
+        public string? NamaType { get; set; }
+        public  string? NamaAlasan { get; set; }
+        public string? NamaKeterangan { get; set; }
         public DateTime TanggalTRX { get; set; }
         public int? KeteranganId { get; set; }
         public int? AlasanId { get; set; }

@@ -208,20 +208,24 @@
                 },
                 "columns": [
                     { "data": null },
-                    { "data": "type.nama" },
+                    { "data": "type" },
                     {
                         "render": function (data, type, row) {
                             return moment(row.tanggalProses).format('DD MMMM YYYY');
                         }
                     },
-                    { "data": "cabang.nama" },
-                    { "data": "nomorSurat" },
-                    { "data": "trn" },
+                    { "data": "cabang" },
+                    { "data": "nomorsurat" },
+                    { "data": "tRN" },
                     { "data": "relTRN" },
-                    { "data": "bank.nama" },
+                    { "data": "bank" },
                     { "data": "nominal" },
-                    { "data": "nomorTestkey" },
-                    { "data": "durasi" },
+                    { "data": "nomorTestKey" },
+                    {
+                        "render": function (data, type, row) {
+                            return row.durasi + " Hari";
+                        }
+                    },
                     {
                         "render": function (data, type, row) {
                             return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> " +
