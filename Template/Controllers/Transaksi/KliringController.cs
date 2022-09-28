@@ -248,18 +248,16 @@ namespace Ririn.Controllers.Transaksi
             return Ok(success);
         }
 
-        public IActionResult Surat(int Id)
-        {
-            var data = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Alasan)
-                .Include(x => x.Bank)
-                .Include(x => x.Keterangan)
-                .Where(x => x.Id == Id).FirstOrDefault();
-            return View();
-        }
-
-
+        //public IActionResult Surat(int Id)
+        //{
+        //    var data = _context.T_Kliring
+        //        .Include(x => x.Type)
+        //        .Include(x => x.Alasan)
+        //        .Include(x => x.Bank)
+        //        .Include(x => x.Keterangan)
+        //        .Where(x => x.Id == Id).FirstOrDefault();
+        //    return View();
+        //}
 
         public JsonResult SaveReason(string alasan)
         {
@@ -323,11 +321,9 @@ namespace Ririn.Controllers.Transaksi
 
                         alasanLain = newalasan.Id;
                     }
-
                 }
                 else
                 {
-
                     alasanLain = data.AlasanId ?? 0;
                 }
                 var kliring = new T_Kliring
@@ -410,7 +406,7 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        public IActionResult TemplateSurat(int Id)
+        public IActionResult TemplateSuratKeluar(int Id)
         {
             var data = _context.T_Kliring
                 .Include(x => x.Type)
@@ -441,9 +437,6 @@ namespace Ririn.Controllers.Transaksi
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
             string filename = "SURAT_RETUR_KELUAR";
-            if (data == null)
-            {
-            }
 
             FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
@@ -457,6 +450,69 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+
+            DocIORenderer render = new DocIORenderer();
+            MemoryStream stream = new MemoryStream();
+
+
+            docs.Save(stream, FormatType.Docx);
+            stream.Position = 0;
+
+            string contentType = "application/docx";
+            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            return File(stream, contentType, filenamed);
+            docs.Dispose();
+            docs.Close();
+
+        }
+        public IActionResult TemplateSuratMasuk(int Id)
+        {
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Bank)
+                .Include(x => x.Alasan)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var TANGGALSEKARANG = DateTime.Now;
+            var NOSURAT = data.NomorSurat;
+            var KETERANGAN = "";
+            if (data.KeteranganId == null)
+            {
+                KETERANGAN = "-";
+            }
+            else
+            {
+                KETERANGAN = data.Keterangan.Nama;
+            }
+            var TESTKEY = data.NomorTestkey;
+            var TANGGALTRX = data.TanggalTRX;
+            var NOMORREFERENSI = data.NoReferensi;
+            var NOMINAL = Convert.ToInt64(data.Nominal);
+            var NOREK = data.NomorRekening;
+            var PENGIRIM = data.Bank.Nama;
+            var PENERIMA = data.NamaPenerima;
+            var ALASAN = data.Alasan.Nama;
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "TemplateMasuk");
+            string filename = "template_surat_masuk";
+
+            FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+            docs.Replace("%TANGGALSEKARANG%", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            docs.Replace("%KETERANGAN%", KETERANGAN.ToString(), false, true);
+            docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%HARI%", TANGGALTRX.ToString("ddd", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true);
+            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
+            docs.Replace("%NOREK%", NOREK.ToString(), false, true);
+            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
+            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
+            docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+            docs.Replace("%TESTKEY%", TESTKEY.ToString(), false, true);
+
 
             DocIORenderer render = new DocIORenderer();
             MemoryStream stream = new MemoryStream();

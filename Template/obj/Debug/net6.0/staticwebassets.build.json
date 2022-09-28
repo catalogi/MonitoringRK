@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DiazFwRdWoPNHLeesxYmVQ4KpSZc0vs4buqf3BVQF6Y=",
+  "Hash": "CEUR57oudQJO+9zOpORGSh63jxRP9jb9Q7ETMfNEa+g=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -37145,12 +37145,12 @@
       "OriginalItemSpec": "wwwroot\\plugins\\uplot\\uPlot.min.css"
     },
     {
-      "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\TemplateMasuk\\SRT RTR MSK.docx",
+      "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\TemplateMasuk\\template_surat_masuk.docx",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "TemplateMasuk/SRT RTR MSK.docx",
+      "RelativePath": "TemplateMasuk/template_surat_masuk.docx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -37159,7 +37159,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\TemplateMasuk\\SRT RTR MSK.docx"
+      "OriginalItemSpec": "wwwroot\\TemplateMasuk\\template_surat_masuk.docx"
     }
   ]
 }
