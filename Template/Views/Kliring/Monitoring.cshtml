@@ -113,32 +113,18 @@
 
 					<div class="col-sm-4">
 						<label class="bmd-label-floating">Tanggal Mulai Register</label>
-						<input id="Startreport" type="date" class="form-control" />
+						<input id="startDate" type="date" class="form-control" />
 					</div>
 					<div class="col-sm-4">
 						<label class="bmd-label-floating">Tanggal Selesai Register</label>
-						<input id="Endreport" type="date" class="form-control" />
+						<input id="endDate" type="date" class="form-control" />
 					</div>
 					<div class="col-md-3">
 						<br />
-						<button class="btn btn-primary " onclick="">Filter</button>
+						<button class="btn btn-primary " onclick="Filter();">Filter</button>
+						<button class="btn btn-primary " onclick="clearFilter();">Surya</button>
 					</div>
 				</div>
-
-				@*            <div class="form-group row" >
-				<div class="col-md-2">
-				<label class="bmd-label-floating"> Tanggal Start</label>
-				<input id="Register" type="date" class="form-control-date" >
-				</div>
-				<div class="col-md-2">
-				<label class="bmd-label-floating"> Tanggal End</label>
-				<input id="Register" type="date" class="form-control-date">
-				</div>
-				<div class="col-md-1">
-				<br />
-				<button class="btn btn-primary" onclick="">Filter</button>
-				</div>
-				</div>*@
 				<br />
 				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
 					<thead style="background-color:#319DA0">
@@ -170,6 +156,7 @@
 			GetCabang();
 			GetAlasan();
 			GetKet();
+			//Filter();
 			Read();
 			$(".select2").select2({
 				"theme": "classic"
@@ -200,7 +187,10 @@
 					{ "data": "type.nama" },
 					{
 						"render": function (data, type, row) {
-							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> ";
+							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> " +
+								"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> "
+								;
 						},
 
 					},
@@ -212,6 +202,19 @@
 				});
 			}).draw();
 		}
+
+		function GetSurtId(Id){
+			$.ajax({
+				url:"@Url.Action("TemplateSurat","Kliring")/"+Id,
+				type:"GET",
+				//data:{Id:Id},
+				dataType:"json",
+				success: function(response){
+					location.reload();
+				}
+			})
+		}
+
 		function GetType() {
 			$.ajax({
 				url: "@Url.Action("GetType","Kliring")",
@@ -319,6 +322,95 @@
 					
 				}
 			})
+		}
+
+		function Filter(){
+			debugger;
+			var date =$('#startDate').val();
+			var date2 =$('#endDate').val();
+			var awal = date.substring(0,10);
+			var akhir = date2.substring(0,10);
+			$("#table").DataTable({
+				"scrollx":true,
+				ajax:{
+					"url":"@Url.Action("Filter","Kliring")",
+					"type":"POST",
+					"data": {Awal: awal, Akhir:akhir},
+					"dataType": "Json"
+				},
+				destroy:"true",
+				"columns":[
+					{
+
+						"render":(data, type, row, meta)=> meta.row + meta.settings._iDisplayStart + 1
+					},
+					{
+						"render": function (data, type, row) {
+							//return row.tanggalTRX;
+							return moment(row.tanggalTRX).format('DD MMMM YYYY');
+						}
+					},
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
+					{ "data": "namaPenerima" },
+					{ "data": "alasan.nama" },
+					{ "data": "alasan.nama" },
+					//{ "data": "SLA(HK)" },
+					{ "data": "type.nama" },
+					{
+						"render": function (data, type, row) {
+							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
+
+						},
+
+					},
+				]
+			});
+		}
+
+		function clearFilter() {
+			var t = $('#table').DataTable({
+				//"scrollX": true,
+				"destroy": true,
+				"ajax": {
+					"url": "@Url.Action("GetMonitoring", "Kliring")",
+					"type": "GET",
+					"datatype": "json"
+				},
+				"columns": [
+					{
+
+						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+					},
+					{
+						"render": function (data, type, row) {
+							//return row.tanggalTRX;
+							return moment(row.tanggalTRX).format('DD MMMM YYYY');
+						}
+					},
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
+					{ "data": "namaPenerima" },
+					{ "data": "alasan.nama" },
+					{ "data": "alasan.nama" },
+					//{ "data": "SLA(HK)" },
+					{ "data": "type.nama" },
+					{
+						"render": function (data, type, row) {
+							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
+
+						},
+
+					},
+				]
+			})
+			t.on('order.dt search.dt', function () {
+				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+					cell.innerHTML = i + 1;
+				});
+			}).draw();
 		}
 	</script>
 	}
