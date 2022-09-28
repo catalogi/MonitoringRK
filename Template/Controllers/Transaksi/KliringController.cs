@@ -152,16 +152,16 @@ namespace Ririn.Controllers.Transaksi
             return Ok(success);
         }
 
-        public IActionResult Surat(int Id)
-        {
-            var data = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Alasan)
-                .Include(x => x.Bank)
-                .Include(x => x.Keterangan)
-                .Where(x => x.Id == Id).FirstOrDefault();
-            return View();
-        }
+        //public IActionResult Surat(int Id)
+        //{
+        //    var data = _context.T_Kliring
+        //        .Include(x => x.Type)
+        //        .Include(x => x.Alasan)
+        //        .Include(x => x.Bank)
+        //        .Include(x => x.Keterangan)
+        //        .Where(x => x.Id == Id).FirstOrDefault();
+        //    return View();
+        //}
 
 
 
@@ -200,7 +200,7 @@ namespace Ririn.Controllers.Transaksi
                 _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             }
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "File","Kliring");
+            string path = Path.Combine(webRootPath, "File", "Kliring");
             string generateNameFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyyyy") + "_" + data.Path.FileName;
             Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
             Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNameFile));
@@ -312,8 +312,8 @@ namespace Ririn.Controllers.Transaksi
             //   return BadRequest(e.Message);
             //}
         }
-            #endregion
+        #endregion
 
     }
-    
+
 }
