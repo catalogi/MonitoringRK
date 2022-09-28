@@ -83,7 +83,6 @@ namespace Ririn.Controllers.Transaksi
             return Json(new { data = result });
         }
 
-
         public JsonResult GetById(int Id)
         {
             var data = _context.T_RTGS
@@ -223,6 +222,33 @@ namespace Ririn.Controllers.Transaksi
                 .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate >= Awal.Date.AddDays(-1)
                 && x.CreateDate < Akhir.Date)).ToList();
             return Ok(new { data = filter });
+        }
+        
+        public IActionResult GetTypeFilter(int Id)
+        {
+            var filter = _context.T_RTGS
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Include(x => x.Type)
+                .Include(x => x.Status)
+                .Where(x => x.IsDeleted == false && x.StatusId == 1 && x.TypeId == Id).ToList();
+            return Ok(new { data = filter });
+        }
+
+        public JsonResult GetBankId(int tId)
+        {
+            var tName = _context.TypeTrans.Single(x => x.Id == tId).Nama;
+            int bankId = 0;
+            if (tName == "RTGS Keluar")
+            {
+                bankId = _context.Bank.Single(x => x.KodeBIC == "BNINIDJA").Id;
+            }
+            else
+            {
+                bankId = 0;
+            }
+            return Json(bankId);
         }
     }
 }

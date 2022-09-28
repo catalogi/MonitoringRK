@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {}
+    "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj": {
+    "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
+        "projectUniqueName": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
         "projectName": "Template",
-        "projectPath": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\Template.csproj",
-        "packagesPath": "C:\\Users\\1397\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\obj\\",
+        "projectPath": "D:\\Project\\Project BNI\\Ririn\\Template\\Template.csproj",
+        "packagesPath": "C:\\Users\\majid\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\Project BNI\\Ririn\\Template\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\1397\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\majid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -98,6 +98,14 @@
               "target": "Package",
               "version": "[6.4.0, )"
             },
+            "Syncfusion.DocIO.Net.Core": {
+              "target": "Package",
+              "version": "[20.2.0.49, )"
+            },
+            "Syncfusion.DocIORenderer.Net.Core": {
+              "target": "Package",
+              "version": "[20.2.0.49, )"
+            },
             "Syncfusion.Pdf.Imaging.Net.Core": {
               "target": "Package",
               "version": "[20.2.0.49, )"
@@ -109,6 +117,10 @@
             "Syncfusion.Xamarin.Compression": {
               "target": "Package",
               "version": "[20.2.0.49, )"
+            },
+            "Syncfusion.Xamarin.SfListView": {
+              "target": "Package",
+              "version": "[20.2.0.50, )"
             },
             "System.IO": {
               "target": "Package",
