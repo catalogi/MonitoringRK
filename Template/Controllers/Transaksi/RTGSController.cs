@@ -49,6 +49,7 @@ namespace Ririn.Controllers.Transaksi
         #endregion
 
         #region Get Data
+        [HttpGet]
         public JsonResult GetAll()
         {
             var result = _context.T_RTGS

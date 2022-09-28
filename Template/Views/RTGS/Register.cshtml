@@ -215,6 +215,13 @@
             else {
                 $('#Nominal').removeClass('is-invalid');
             }
+            if ($('#Keterangan').val() == '') {
+                $('#Keterangan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Keterangan').removeClass('is-invalid');
+            }
             
 
             if (isAllValid) {

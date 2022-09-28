@@ -15,6 +15,9 @@ using Syncfusion.Pdf.Parsing;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
 using System.Net;
+using Syncfusion.DocIO.DLS;
+using Syncfusion.DocIO;
+
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -28,8 +31,6 @@ namespace Ririn.Controllers.Transaksi
             _webHostEnvironment = webHostEnvironment;
 
         }
-
-        
 
 
         #region View
@@ -60,6 +61,17 @@ namespace Ririn.Controllers.Transaksi
         #endregion
 
         #region GET Data
+        //[HttpGet]
+        //public JsonResult GetAll()
+        //{
+        //    var result = _context.T_Kliring
+        //        .Include(x => x.Keterangan)
+        //        .Include(x => x.Alasan)
+        //        .Include(x => x.Bank)
+        //        .Include(x => x.Cabang)
+        //        .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 1).ToList();
+        //    return Json(new { data = result });
+        //}
 
         [HttpGet]
         public JsonResult GetAll()
@@ -81,6 +93,84 @@ namespace Ririn.Controllers.Transaksi
             }
             return Json(new { data = result });
         }
+        public int GetLibur(int Id)
+        {
+            var count = 0;
+            var data = _context.T_Kliring.Where(x => x.Id == Id).FirstOrDefault();
+            if (data.StatusId == 1)
+            {
+                count = DateCount(data.CreateDate, DateTime.Now);
+                data.Durasi = count;
+                _context.Entry(data).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            if (data.StatusId == 2)
+            {
+                count = DateCount(data.CreateDate, data.TanggalDone);
+                data.Durasi = count;
+                _context.Entry(data).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+
+            return count;
+        }
+        public int DateCount(DateTime? start, DateTime? end, params DateTime[] holidays)
+        {
+            DateTime startDate = start ?? DateTime.Now;
+            DateTime endDate = (DateTime)end;
+
+            if (startDate > endDate)
+                throw new ArgumentException("Incorrect last day " + endDate);
+
+            TimeSpan span = endDate - startDate;
+            int countDuration = span.Days + 1;
+            int fullWeekCount = countDuration / 7;
+
+            if (countDuration > fullWeekCount * 7)
+            {
+                //int firstDayOfWeek = (int)startDate.DayOfWeek;
+                //int lastDayOfWeek = (int)endDate.DayOfWeek;
+                int firstDayOfWeek = startDate.DayOfWeek == DayOfWeek.Sunday
+                    ? 7 : (int)startDate.DayOfWeek;
+                int lastDayOfWeek = endDate.DayOfWeek == DayOfWeek.Sunday
+                    ? 7 : (int)endDate.DayOfWeek;
+
+                if (lastDayOfWeek < firstDayOfWeek)
+                {
+                    lastDayOfWeek += 7;
+                }
+                if (firstDayOfWeek <= 6)
+                {
+                    if (lastDayOfWeek >= 7)
+                    {
+                        countDuration -= 2;
+                    }
+                    else if (lastDayOfWeek >= 6)
+                    {
+                        countDuration -= 1;
+                    }
+                }
+                else if (lastDayOfWeek <= 7 && lastDayOfWeek >= 7)
+                {
+                    countDuration -= 1;
+                }
+            }
+            countDuration -= fullWeekCount + fullWeekCount;
+
+            //DateTime[] liburs = _context.Libur.Select(x => x.TanggalLibur).ToArray();
+
+            foreach (DateTime libur in holidays)
+            {
+                DateTime lb = libur.Date;
+                if (startDate <= lb && lb <= endDate)
+                {
+                    --countDuration;
+                }
+            }
+
+
+            return countDuration;
+        }
         public JsonResult GetMonitoring()
         {
             var result = _context.T_Kliring
@@ -88,33 +178,10 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
-                .Include(x => x.Type)
-                .Where(x => x.IsDeleted == false && x.StatusId == 2)
-                .Select(x => new
-                {
-                    Id = x.Id,
-                    Bank = x.Bank.Nama,
-                    cabang = x.Cabang.Nama,
-                    type = x.Type.Nama,
-                    alasan = x.Alasan.Nama,
-                    Keterangan = x.Keterangan.Nama,
-                    nosurat = x.NomorSurat,
-                    tanggalTRX = x.TanggalTRX,
-                    norek = x.NomorRekening,
-                    namaPenerima = x.NamaPenerima,
-                    durasi = GetLibur(x.Id)
-
-                })
-                .ToList();
+                .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2).ToList();
             return Json(new { data = result });
         }
 
-        //public JsonResult Get()
-        //{
-        //    var result = _context.T_Kliring
-        //        .Include(x=> x.KeteranganId)
-        //        .Include()
-        //}
 
         public JsonResult GetType()
         {
@@ -131,25 +198,7 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Bank)
                 .Include(x => x.Alasan)
                 .Include(x => x.Type)
-                .Where(x => x.Type.UnitId == 1)
-                .Select(x => new
-                {
-                    Id = x.Id,
-                    BankId = x.Bank.Id,
-                    cabangId = x.Cabang.Id,
-                    typeId = x.Type.Id,
-                    alasanId = x.Alasan.Id,
-                    nomorSurat = x.NomorSurat,
-                    tanggalTRX = x.TanggalTRX,
-                    tanggalSurat = x.TanggalSurat,
-                    tanggaltestkey = x.TanggalTestkey,
-                    nomorTestkey = x.NomorTestkey,
-                    nominalSeharusnya = x.NominalSeharusnya,
-                    nomorRekening = x.NomorRekening,
-                    namaPenerima = x.NamaPenerima,
-                    nominal = x.Nominal,
-                    noReferensi = x.NoReferensi,
-                }).Single(x => x.Id == Id);
+                .Where(x => x.Type.UnitId == 1).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
         #endregion
@@ -304,11 +353,6 @@ namespace Ririn.Controllers.Transaksi
                 _context.T_Kliring.Add(kliring);
                 _context.SaveChanges();
 
-                var hk = GetLibur(kliring.Id);
-                kliring.Durasi = hk;
-                _context.Entry(kliring).State = EntityState.Modified;
-                _context.SaveChanges();
-
             }
             else
             {
@@ -357,88 +401,75 @@ namespace Ririn.Controllers.Transaksi
                 success = true;
             }
             return Json(success);
-
+            //}
+            //catch (NullReferenceException e)
+            //{
+            //   return BadRequest(e.Message);
+            //}
         }
         #endregion
 
-        public int GetLibur(int Id)
+        public IActionResult TemplateSurat(int Id)
         {
-            var count = 0;
-            var data = _context.T_Kliring.Where(x =>x.Id == Id).FirstOrDefault();
-            if (data.StatusId == 1)
+            var data = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Bank)
+                .Include(x => x.Alasan)
+                .Include(x => x.Cabang)
+                .Include(x => x.Keterangan)
+                .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var TANGGALSEKARANG = DateTime.Now;
+            var NOSURAT = data.NomorSurat;
+            var KETERANGAN = "";
+            if (data.KeteranganId == null)
             {
-                count = DateCount(data.CreateDate, DateTime.Now);
-                data.Durasi = count;
-                _context.Entry(data).State = EntityState.Modified;
-                _context.SaveChanges();
+                KETERANGAN = "-";
             }
-            if (data.StatusId == 2)
+            else
             {
-                count = DateCount(data.CreateDate, data.TanggalDone);
-                data.Durasi = count;
-                _context.Entry(data).State = EntityState.Modified;
-                _context.SaveChanges();
+                KETERANGAN = data.Keterangan.Nama;
             }
+            var TANGGALTRX = data.TanggalTRX;
+            var NOMORREFERENSI = data.NoReferensi;
+            var NOMINAL = Convert.ToInt64(data.Nominal);
+            var NOREK = data.NomorRekening;
+            var PENGIRIM = data.Bank.Nama;
+            var PENERIMA = data.NamaPenerima;
+            var ALASAN = data.Alasan.Nama;
 
-            return count;
-        }
-        public  int DateCount(this DateTime start, DateTime? end, params DateTime[] holidays)
-        {
-            DateTime startDate = start;
-            DateTime endDate = (DateTime)end;
-
-            if (startDate > endDate)
-                throw new ArgumentException("Incorrect last day " + endDate);
-
-            TimeSpan span = endDate - startDate;
-            int countDuration = span.Days + 1;
-            int fullWeekCount = countDuration / 7;
-
-            if (countDuration > fullWeekCount * 7)
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "Template");
+            string filename = "SURAT_RETUR_KELUAR";
+            if (data == null)
             {
-                //int firstDayOfWeek = (int)startDate.DayOfWeek;
-                //int lastDayOfWeek = (int)endDate.DayOfWeek;
-                int firstDayOfWeek = startDate.DayOfWeek == DayOfWeek.Sunday
-                    ? 7 : (int)startDate.DayOfWeek;
-                int lastDayOfWeek = endDate.DayOfWeek == DayOfWeek.Sunday
-                    ? 7 : (int)endDate.DayOfWeek;
-
-                if (lastDayOfWeek < firstDayOfWeek)
-                {
-                    lastDayOfWeek += 7;
-                }
-                if (firstDayOfWeek <= 6)
-                {
-                    if (lastDayOfWeek >= 7)
-                    {
-                        countDuration -= 2;
-                    }
-                    else if (lastDayOfWeek >= 6)
-                    {
-                        countDuration -= 1;
-                    }
-                }
-                else if (lastDayOfWeek <= 7 && lastDayOfWeek >= 7)
-                {
-                    countDuration -= 1;
-                }
-            }
-            countDuration -= fullWeekCount + fullWeekCount;
-
-            //DateTime[] liburs = _context.Libur.Select(x => x.TanggalLibur).ToArray();
-
-            foreach (DateTime libur in holidays)
-            {
-                DateTime lb = libur.Date;
-                if (startDate <= lb && lb <= endDate)
-                {
-                    --countDuration;
-                }
             }
 
+            FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+            docs.Replace("%TANGGALSEKARANG", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOSURAT", NOSURAT.ToString(), false, true);
+            docs.Replace("%KETERANGAN", KETERANGAN.ToString(), false, true);
+            docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true);
+            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
+            docs.Replace("%NOREK%", NOREK.ToString(), false, true);
+            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
+            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
+            docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
 
-            return countDuration;
+            //Syncfusion.DocIO render = new DocIORenderer();
+            MemoryStream stream = new MemoryStream();
+
+
+            docs.Save(stream, FormatType.Docx);
+            stream.Position = 0;
+
+            string contentType = "application/docx";
+            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            return File(stream, contentType, filenamed);
+            docs.Dispose();
+            docs.Close();
+
         }
     }
-
 }
