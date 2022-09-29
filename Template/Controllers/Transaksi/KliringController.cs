@@ -17,9 +17,7 @@ using Syncfusion.DocIORenderer;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
 using System.Net;
-using Syncfusion.DocIO.DLS;
-using Syncfusion.DocIO;
-using Syncfusion.DocIORenderer;
+
 using SkiaSharp;
 using Microsoft.AspNetCore.Authorization;
 
@@ -77,7 +75,7 @@ namespace Ririn.Controllers.Transaksi
         //        .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 1).ToList();
         //    return Json(new { data = result });
         //}
-
+        
         [HttpGet]
         public JsonResult GetAll()
         {
@@ -262,15 +260,9 @@ namespace Ririn.Controllers.Transaksi
 
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
-            var filter = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Bank)
-                .Include(x => x.Cabang)
-                .Include(x => x.Alasan)
-                .Include(x => x.Keterangan)
-                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate > Awal.Date.AddDays(-1) && x.CreateDate < Akhir.Date))
-                .ToList();
-            return Ok(new { data = filter });
+            var result = _context.TypeTrans
+                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
+            return Json(new { data = result });
         }
 
 

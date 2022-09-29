@@ -24,8 +24,9 @@ namespace Ririn.Controllers
             _webHostEnvironment = webHostEnvironment;
             _signInManager = signInManager;
             _userManager = userManager;
-            //_roleManager = _roleManager;
+            
             _context = context;
+            
         }
 
         public IActionResult Index()
@@ -63,10 +64,10 @@ namespace Ririn.Controllers
                     var createdUser = await _userManager.FindByNameAsync(data.NPP);
 
                     success = true;
-                    //foreach (var item in data.Roles)
-                    //{
-                    //    var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
-                    //}
+                    foreach (var item in data.Roles)
+                    {
+                        var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
+                    }
                     return Json(success);
                 }
             }
@@ -83,18 +84,18 @@ namespace Ririn.Controllers
                 {
                     var role = _userManager.GetRolesAsync(UserDb);
 
-                    //Remove Role From USer
+                    //Remove Role From User
                     foreach (var item in role.Result)
                     {
                         await _userManager.RemoveFromRoleAsync(UserDb, item);
                     }
 
                     //Add Role to User
-                    //foreach (var item in data.Roles)
-                    //{
-                    //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
-                    //}
-                    
+                    foreach (var item in data.Roles)
+                    {
+                        var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
+                    }
+
                 }
                 success = true;
             }
@@ -153,7 +154,7 @@ namespace Ririn.Controllers
         }
 
         #endregion
-
+        [Authorize(Roles = "Admin")]
         public void addNewRole()
         {
             List<string> roleName = new List<string>() {
@@ -169,6 +170,7 @@ namespace Ririn.Controllers
             }
         }
 
+        
 
         [HttpGet]
         [AllowAnonymous]
@@ -192,7 +194,7 @@ namespace Ririn.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
-            return View(user);
+            return View("Login", user);
         }
 
         public async Task<IActionResult> Logout()
