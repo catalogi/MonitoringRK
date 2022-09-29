@@ -3,35 +3,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="content">
-    <div class="container">
-<div class="card">
-    <div class="card-header card-header-info">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Report</h2>
-        <p class="card-category">RTGS</p>
-    </div>
-    <div class="card-body">
-        <div class="form-group row">
-            <div class="col-md-3">
-                <label class="bmd-label-floating">Dari Tanggal</label>
-                <input id="startDate" type="date" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label class="bmd-label-floating">Sampai Tanggal</label>
-                <input id="endDate" type="date" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-1">Tipe</label>
-            <div class="col-md-3">
-                <select required id="tipe" data-placement="choose" class="form-control select2 tipe"></select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-5 offset-md-3">
-                <a id="print" class="btn btn-outline-primary">Unduh Laporan</a>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#e0a017">
+					Report
+				</h2>
+				<p class="card-text font-weight-bolder">RTGS</p>
+			</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="bmd-label-floating col-md-2">Tanggal Mulai</label>
+					<div class="col-md-3">
+						<input id="Startreport" type="date" class="form-control" />
+					</div>
+					<div class="col-md-3">
+						<input id="Endreport" type="date" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-md-2">Tipe</label>
+					<div class="col-md-3">
+						<select required id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe"></select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-5 offset-md-3">
+						<a id="Print" class="btn btn-outline-primary">Unduh Laporan</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vxvqVZhfYoKdxLH2OeVGhuj5jPsirMhEKfSxSC3b+EU=",
+  "Hash": "j0dILGfL0qppCmUKhSq2KT/tXluFJ4E1Y2eP9oGOar4=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2361,6 +2361,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_27092022_Rekapitulasi Transaksi Harian (1).pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_Brochure Payroll_compressed.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_29092022_Brochure Payroll_compressed.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Brochure Payroll_compressed.pdf"
     },
     {
       "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_414141_26092022_level 2.pdf",
