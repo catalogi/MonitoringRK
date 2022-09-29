@@ -60,6 +60,63 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Kepada</label>
+                            <input type="text" class="form-control" name="kepada" id="kepada">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Dari</label>
+                            <input type="text" class="form-control" name="dari" id="dari">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Hal</label>
+                            <input type="text" class="form-control" name="hal" id="hal">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Lampiran</label>
+                            <input type="text" class="form-control" name="lampiran" id="lampiran">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Penanggungjawab</label>
+                            <input type="text" class="form-control" name="penanggungjawab" id="penanggungjawab">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Jabatan</label>
+                            <input type="text" class="form-control" name="jabatan" id="jabatan">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-print"></i> Cetak</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
@@ -70,7 +127,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="nomorRefrensi">Tipe</label>
-                        <select data-placement="choose" class="form-control select"></select>
+                        <select name="Tipe" data-placement="choose" class="form-control select"></select>
                     </div>
                     <div class="col">
                         <label for="nomorRefrensi">Jenis</label>
@@ -79,8 +136,31 @@
                 </div>
                 <br />
                 <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal" data-dismiss="modal"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
+                <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>
 
             </div>
         </div>
     </div>
 </section>
+
+@section scripts{
+    <script>
+        $(document).ready(function(){
+            GetType();
+        });
+
+        function GetType(){
+            $.ajax({
+                url: "@Url.Action("GetType","Kliring")",
+                type:"Get",
+                dataType: "json",
+                success:function({data}){
+                    $("select[name=Tipe]").append('<option value="">Pilih Tipe Surat</option>')
+                    $.each(data, function(i,value){
+                        $("select[name=Tipe]").append(`<option value="${value.Id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
+    </script>
+}

@@ -170,7 +170,7 @@
 						</select>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-warning" style="color:#319DA0" onclick="clearFilter();">Refresh</button>
+						<button type="button" class="btn btn-warning" style="color:#319DA0" onclick="clearFilter();"><i class='fa fa-shower'></i></button>
 					</div>
 				</div>
 				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
@@ -212,9 +212,9 @@
 			Read();
 			$("#Alasan-div").hide();
 			$("#Keterangan-div").hide();
-			$(".select2").select2({
-				"theme": "classic"
-			});
+			//$(".select2").select2({
+			//	"theme": "classic"
+			//});
 
 			$('#path').on('change', function (e) {
 				const files = e.target.files;
@@ -236,7 +236,7 @@
 				success: function ({ data }) {
 					//console.log(data);
 					//$("select[id=Tipe]").empty();
-					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
+					$("select[name=Tipe]").append('<option value="">---  Pilih Tipe Surat ---</option>')
 					$.each(data, function (i, value) {
 						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
 					})
