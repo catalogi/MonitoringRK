@@ -188,9 +188,8 @@
 					{
 						"render": function (data, type, row) {
 							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> " +
-								"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> "
-								;
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:1px'><i class='fab fa-mailchimp'></i></a> ";
+								//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
 						},
 
 					},
