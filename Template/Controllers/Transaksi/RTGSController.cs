@@ -6,10 +6,11 @@ using Ririn.Data;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ririn.Controllers.Transaksi
 {
+    [Authorize]
     public class RTGSController : Controller
     {
         private readonly AppDbContext _context;

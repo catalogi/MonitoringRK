@@ -31,10 +31,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    //options.ExpireTimeSpan = TimeSpan.FromHours(2);
-    //options.LoginPath = "/Account/Login";
-    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-    //options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromHours(2);
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
 });
 
 var app = builder.Build();

@@ -61,7 +61,7 @@
           "buildTransitive/netcoreapp3.0/EntityFramework.targets": {}
         }
       },
-      "EPPlus/6.0.7": {
+      "EPPlus/6.0.8": {
         "type": "package",
         "dependencies": {
           "EPPlus.Interfaces": "6.0.0",
@@ -270,10 +270,10 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.8": {
+      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.9": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.8"
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.9"
         },
         "compile": {
           "lib/net6.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll": {
@@ -527,7 +527,7 @@
           }
         },
         "runtime": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/Microsoft.Build.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -543,21 +543,9 @@
           }
         },
         "runtime": {
-          "lib/netstandard2.0/_._": {
+          "lib/netstandard2.0/Microsoft.Build.Framework.dll": {
             "related": ".pdb;.xml"
           }
-        }
-      },
-      "Microsoft.Build.Locator/1.4.1": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp2.0/Microsoft.Build.Locator.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/Microsoft.Build.Locator.dll": {}
-        },
-        "build": {
-          "build/_._": {}
         }
       },
       "Microsoft.CodeAnalysis.Analyzers/3.3.2": {
@@ -1394,7 +1382,7 @@
           }
         }
       },
-      "Microsoft.DotNet.Scaffolding.Shared/6.0.8": {
+      "Microsoft.DotNet.Scaffolding.Shared/6.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.CodeAnalysis.CSharp.Features": "4.0.0",
@@ -2055,7 +2043,7 @@
           }
         },
         "runtime": {
-          "lib/netstandard2.0/_._": {
+          "lib/netstandard2.0/Microsoft.NET.StringTools.dll": {
             "related": ".pdb"
           }
         }
@@ -2110,11 +2098,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGeneration/6.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "6.0.8",
+          "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "6.0.10",
           "NuGet.Packaging": "6.2.1",
           "System.Collections.Immutable": "6.0.0",
           "System.Configuration.ConfigurationManager": "6.0.0",
@@ -2132,11 +2120,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Core/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Core/6.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "6.0.8",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "6.0.10",
           "Newtonsoft.Json": "13.0.1",
           "NuGet.Packaging": "6.2.1",
           "System.Configuration.ConfigurationManager": "6.0.0",
@@ -2154,12 +2142,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design/6.0.10": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Build.Locator": "1.4.1",
-          "Microsoft.DotNet.Scaffolding.Shared": "6.0.8",
-          "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "6.0.8",
+          "Microsoft.DotNet.Scaffolding.Shared": "6.0.10",
+          "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "6.0.10",
           "NuGet.Packaging": "6.2.1",
           "System.Configuration.ConfigurationManager": "6.0.0",
           "System.Private.Uri": "4.3.2",
@@ -2176,11 +2163,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/6.0.10": {
         "type": "package",
         "dependencies": {
-          "Microsoft.DotNet.Scaffolding.Shared": "6.0.8",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Core": "6.0.8",
+          "Microsoft.DotNet.Scaffolding.Shared": "6.0.10",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Core": "6.0.10",
           "NuGet.Packaging": "6.2.1",
           "System.Configuration.ConfigurationManager": "6.0.0",
           "System.Private.Uri": "4.3.2",
@@ -2197,13 +2184,13 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Templating/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Templating/6.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Razor.Language": "6.0.0",
           "Microsoft.CodeAnalysis.CSharp": "4.0.0",
           "Microsoft.CodeAnalysis.Razor": "6.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "6.0.8",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "6.0.10",
           "NuGet.Packaging": "6.2.1",
           "System.Configuration.ConfigurationManager": "6.0.0",
           "System.Private.Uri": "4.3.2",
@@ -2220,13 +2207,12 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Utils/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Utils/6.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.Build": "17.0.0",
-          "Microsoft.Build.Locator": "1.4.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.0.0",
-          "Microsoft.DotNet.Scaffolding.Shared": "6.0.8",
+          "Microsoft.DotNet.Scaffolding.Shared": "6.0.10",
           "Newtonsoft.Json": "13.0.1",
           "NuGet.Packaging": "6.2.1",
           "System.Configuration.ConfigurationManager": "6.0.0",
@@ -2244,11 +2230,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/6.0.8": {
+      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/6.0.10": {
         "type": "package",
         "dependencies": {
-          "Microsoft.DotNet.Scaffolding.Shared": "6.0.8",
-          "Microsoft.VisualStudio.Web.CodeGeneration": "6.0.8",
+          "Microsoft.DotNet.Scaffolding.Shared": "6.0.10",
+          "Microsoft.VisualStudio.Web.CodeGeneration": "6.0.10",
           "NuGet.Packaging": "6.2.1",
           "System.Configuration.ConfigurationManager": "6.0.0",
           "System.Private.Uri": "4.3.2",
@@ -2876,7 +2862,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Syncfusion.Compression.Net.Core/20.2.0.49": {
+      "Syncfusion.Compression.Net.Core/20.2.0.50": {
         "type": "package",
         "compile": {
           "lib/net6.0/Syncfusion.Compression.Portable.dll": {
@@ -2889,12 +2875,12 @@
           }
         }
       },
-      "Syncfusion.DocIO.Net.Core/20.2.0.49": {
+      "Syncfusion.DocIO.Net.Core/20.2.0.50": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Compression.Net.Core": "20.2.0.49",
-          "Syncfusion.Licensing": "20.2.0.49",
-          "Syncfusion.OfficeChart.Net.Core": "20.2.0.49",
+          "Syncfusion.Compression.Net.Core": "20.2.0.50",
+          "Syncfusion.Licensing": "20.2.0.50",
+          "Syncfusion.OfficeChart.Net.Core": "20.2.0.50",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
@@ -2908,15 +2894,15 @@
           }
         }
       },
-      "Syncfusion.DocIORenderer.Net.Core/20.2.0.49": {
+      "Syncfusion.DocIORenderer.Net.Core/20.2.0.50": {
         "type": "package",
         "dependencies": {
           "SkiaSharp.HarfBuzz": "2.88.0-preview.209",
-          "Syncfusion.Compression.Net.Core": "20.2.0.49",
-          "Syncfusion.DocIO.Net.Core": "20.2.0.49",
-          "Syncfusion.OfficeChart.Net.Core": "20.2.0.49",
-          "Syncfusion.Pdf.Net.Core": "20.2.0.49",
-          "Syncfusion.SkiaSharpHelper.Net.Core": "20.2.0.49"
+          "Syncfusion.Compression.Net.Core": "20.2.0.50",
+          "Syncfusion.DocIO.Net.Core": "20.2.0.50",
+          "Syncfusion.OfficeChart.Net.Core": "20.2.0.50",
+          "Syncfusion.Pdf.Net.Core": "20.2.0.50",
+          "Syncfusion.SkiaSharpHelper.Net.Core": "20.2.0.50"
         },
         "compile": {
           "lib/net6.0/Syncfusion.DocIORenderer.Portable.dll": {
@@ -2938,10 +2924,10 @@
           "lib/net6.0/Syncfusion.Licensing.dll": {}
         }
       },
-      "Syncfusion.OfficeChart.Net.Core/20.2.0.49": {
+      "Syncfusion.OfficeChart.Net.Core/20.2.0.50": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Compression.Net.Core": "20.2.0.49"
+          "Syncfusion.Compression.Net.Core": "20.2.0.50"
         },
         "compile": {
           "lib/net6.0/Syncfusion.OfficeChart.Portable.dll": {
@@ -2954,11 +2940,11 @@
           }
         }
       },
-      "Syncfusion.Pdf.Imaging.Net.Core/20.2.0.49": {
+      "Syncfusion.Pdf.Imaging.Net.Core/20.2.0.50": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Compression.Net.Core": "20.2.0.49",
-          "Syncfusion.Pdf.Net.Core": "20.2.0.49",
+          "Syncfusion.Compression.Net.Core": "20.2.0.50",
+          "Syncfusion.Pdf.Net.Core": "20.2.0.50",
           "System.Drawing.Common": "4.5.0"
         },
         "compile": {
@@ -2972,11 +2958,11 @@
           }
         }
       },
-      "Syncfusion.Pdf.Net.Core/20.2.0.49": {
+      "Syncfusion.Pdf.Net.Core/20.2.0.50": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Compression.Net.Core": "20.2.0.49",
-          "Syncfusion.Licensing": "20.2.0.49",
+          "Syncfusion.Compression.Net.Core": "20.2.0.50",
+          "Syncfusion.Licensing": "20.2.0.50",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
@@ -2990,11 +2976,11 @@
           }
         }
       },
-      "Syncfusion.SkiaSharpHelper.Net.Core/20.2.0.49": {
+      "Syncfusion.SkiaSharpHelper.Net.Core/20.2.0.50": {
         "type": "package",
         "dependencies": {
           "SkiaSharp.HarfBuzz": "2.88.0-preview.209",
-          "Syncfusion.Compression.Net.Core": "20.2.0.49"
+          "Syncfusion.Compression.Net.Core": "20.2.0.50"
         },
         "compile": {
           "lib/net6.0/Syncfusion.SkiaSharpHelper.Portable.dll": {
@@ -3007,7 +2993,7 @@
           }
         }
       },
-      "Syncfusion.Xamarin.Compression/20.2.0.49": {
+      "Syncfusion.Xamarin.Compression/20.2.0.50": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {
@@ -4525,7 +4511,7 @@
           }
         },
         "runtime": {
-          "lib/netstandard2.0/_._": {
+          "lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll": {
             "related": ".xml"
           }
         }
@@ -4752,15 +4738,15 @@
         "tools/netcoreapp3.0/any/ef6.runtimeconfig.json"
       ]
     },
-    "EPPlus/6.0.7": {
-      "sha512": "o2cIiB0zDEuTuvhOnVWi6uR5/TvbsHT6EVGS3+IFWlTrytbf5ISSGjHhEuJ4g/eCGp83frzpdypd5mqF0MtIvw==",
+    "EPPlus/6.0.8": {
+      "sha512": "AmeE6La29lh3Jw/8LqLfNmtp3a/xtsK0uUZg8LWPtetN2m8xWEPAbMq5C91homwsYofiE48FiuCgDf6NliGNGg==",
       "type": "package",
-      "path": "epplus/6.0.7",
+      "path": "epplus/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "EPPlusLogo.png",
-        "epplus.6.0.7.nupkg.sha512",
+        "epplus.6.0.8.nupkg.sha512",
         "epplus.nuspec",
         "lib/net35/EPPlus.dll",
         "lib/net35/EPPlus.xml",
@@ -5049,10 +5035,10 @@
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.8": {
-      "sha512": "uiwjIcA3EFQF20zLQCkI+sg6Na3b28QODr/aqILT5HnaqKYY/1NuxUKi24c3rIYbnok6iJzC7rs0Y9binZArww==",
+    "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/6.0.9": {
+      "sha512": "QElYpR/FpwFnk5Q/AquaJGctMGcpWATS96oDz9ucofHwW67vqExvkqxpSRkWrvOwvNU8ZrXwo/QvextocUooAA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.diagnostics.entityframeworkcore/6.0.8",
+      "path": "microsoft.aspnetcore.diagnostics.entityframeworkcore/6.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5060,7 +5046,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net6.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll",
         "lib/net6.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.xml",
-        "microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.8.nupkg.sha512",
+        "microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.9.nupkg.sha512",
         "microsoft.aspnetcore.diagnostics.entityframeworkcore.nuspec"
       ]
     },
@@ -5373,22 +5359,6 @@
         "microsoft.build.framework.17.0.0.nupkg.sha512",
         "microsoft.build.framework.nuspec",
         "notices/THIRDPARTYNOTICES.txt"
-      ]
-    },
-    "Microsoft.Build.Locator/1.4.1": {
-      "sha512": "UfyGaxNTjw/r3uWMX/Cv1CPKELo7TCrR5VIahaSKL0WyqmbDT6og9pyjwuhyyUkxC9gk2ElB7oOEySL1OzTZ1g==",
-      "type": "package",
-      "path": "microsoft.build.locator/1.4.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "MSBuild-NuGet-Icon.png",
-        "build/Microsoft.Build.Locator.props",
-        "build/Microsoft.Build.Locator.targets",
-        "lib/net46/Microsoft.Build.Locator.dll",
-        "lib/netcoreapp2.0/Microsoft.Build.Locator.dll",
-        "microsoft.build.locator.1.4.1.nupkg.sha512",
-        "microsoft.build.locator.nuspec"
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/3.3.2": {
@@ -6246,17 +6216,17 @@
         "microsoft.diasymreader.nuspec"
       ]
     },
-    "Microsoft.DotNet.Scaffolding.Shared/6.0.8": {
-      "sha512": "ncyTj7bpZ+nk/+76n6KkgRBWD/QM8ur6knXjHQtEJ8K+gF0nspMizAdfYcPckWgNiZc3cp9bwjCMe8IPU51Ymw==",
+    "Microsoft.DotNet.Scaffolding.Shared/6.0.10": {
+      "sha512": "PZm9NdakQy5rtkkEWK+tJNYDD9KODH726a5wbb5k6fpKEk6zd7vCsUo/OaBrTE+zagNGDTii9TeAz7GvDV0bUg==",
       "type": "package",
-      "path": "microsoft.dotnet.scaffolding.shared/6.0.8",
+      "path": "microsoft.dotnet.scaffolding.shared/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.DotNet.Scaffolding.Shared.dll",
         "lib/net6.0/Microsoft.DotNet.Scaffolding.Shared.xml",
-        "microsoft.dotnet.scaffolding.shared.6.0.8.nupkg.sha512",
+        "microsoft.dotnet.scaffolding.shared.6.0.10.nupkg.sha512",
         "microsoft.dotnet.scaffolding.shared.nuspec"
       ]
     },
@@ -7304,52 +7274,52 @@
         "microsoft.visualstudio.debugger.contracts.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration/6.0.8": {
-      "sha512": "fGdLwOhuUj1nKuQZ3/HdVam+Hgtj7s57BMZlYtzwCC67/hhrnkFMJl03gz2EqSm1DsGPTc40qOXviSCQ6xni1A==",
+    "Microsoft.VisualStudio.Web.CodeGeneration/6.0.10": {
+      "sha512": "jcwfm5lcnE1gZdYK3ciu8bpMerIvc/xOz+swLJPXv3VR34vBm4V/OPhwqOFLV0Hxsdwja4DNZOVZdFGBw7sX8w==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration/6.0.8",
+      "path": "microsoft.visualstudio.web.codegeneration/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.dll",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.xml",
-        "microsoft.visualstudio.web.codegeneration.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Core/6.0.8": {
-      "sha512": "nzDTCaQJtVL2Nyew1N+c7l6sKpiMcYQE3QGOCpYNQPbcIh8OyXcC+fRBkekYHpl2GyUKWracSV669WN5TsBH5g==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Core/6.0.10": {
+      "sha512": "0iYBGyUXe+4eH9rb2yvrhKH8VuLz5otW8cpEZ4OZR+/TdlPxQ+3Ndb/Qg2MvI5WZmcmTnEoJzXd5tfpi+g8AMQ==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.core/6.0.8",
+      "path": "microsoft.visualstudio.web.codegeneration.core/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.xml",
-        "microsoft.visualstudio.web.codegeneration.core.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.core.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.core.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Design/6.0.8": {
-      "sha512": "3QTDWsFBd0wcvSHQSHxmH5uSPCGyErxObbvoqbFNppCm2qVxdttz/eHZDX/tHq0kH5b0Zzpw5AP6pUOUElBJHQ==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Design/6.0.10": {
+      "sha512": "4X4woAKNixsFWJH7tBWpj7gsM9QlvAIpOSwP5QEOOnjYDrNphNkqk8NnEkMhPIAVLpv+S7j5ZkTSYUvB92FC6A==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.design/6.0.8",
+      "path": "microsoft.visualstudio.web.codegeneration.design/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/dotnet-aspnet-codegenerator-design.dll",
         "lib/net6.0/dotnet-aspnet-codegenerator-design.xml",
-        "microsoft.visualstudio.web.codegeneration.design.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.design.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.design.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/6.0.8": {
-      "sha512": "WDJ204+yO6Klu9ylO2JXPdKNlj+fo0I9Az6zG8nrkFRiVJEvOoPtJGNxIk0Xsdx7BGLpgoAwHYVuFBrPk6PzfA==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/6.0.10": {
+      "sha512": "tHwtinZ+Zgbk8V7DopG/eerNm9WYrjuPBg7QnwDERbWcU5NSbvbQb6BIxwdPRlQZwSKRpWHBMMDh4fs8I72vbA==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.entityframeworkcore/6.0.8",
+      "path": "microsoft.visualstudio.web.codegeneration.entityframeworkcore/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7358,42 +7328,42 @@
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.runtimeconfig.json",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.xml",
-        "microsoft.visualstudio.web.codegeneration.entityframeworkcore.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.entityframeworkcore.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Templating/6.0.8": {
-      "sha512": "CueP85nuMWVUvXYy15ffh5nn/+NkuYNOWtycPpCDSr2iWRGgbgPC/zBLoWI0USfBCHX4TwW5gwdHj7kl6LwVBw==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Templating/6.0.10": {
+      "sha512": "lvqognkL8eolgfTCNYFmUKYbPT/WhY9GaTz3m0MzX4cOd1qgQqPuUsIp6YdjI11eWgb9AaCJcGEI6YweRIRK9g==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.templating/6.0.8",
+      "path": "microsoft.visualstudio.web.codegeneration.templating/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.xml",
-        "microsoft.visualstudio.web.codegeneration.templating.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.templating.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.templating.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Utils/6.0.8": {
-      "sha512": "DJV6c/GS9Y/G4SQL0dapYCD1R/ESRK2CfIQL+kBPQ9jIluoD0QA0y+VQ4kB1Q8pQV587fIXwjzKGcfBQ3GbD8g==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Utils/6.0.10": {
+      "sha512": "DHxXuZOhUg2TDWZQeC/JYqPsgpLdjgpQF+VEaFPIzFNBwv8y2/DWIakPitfjMtmRH4M0n4tfVidxjbzSmb7vbg==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.utils/6.0.8",
+      "path": "microsoft.visualstudio.web.codegeneration.utils/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll",
         "lib/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.xml",
-        "microsoft.visualstudio.web.codegeneration.utils.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.utils.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.utils.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/6.0.8": {
-      "sha512": "v8+nUnIlq+z3sGTq0mhYxIeBjI/44QSZayJDTkd+v1ClZ5SL6p2PW35GVbHn6lHZE1LropBDE5x06/iFvKLzlg==",
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/6.0.10": {
+      "sha512": "7QdD1LXFftoQPuk77Isp/8BQR4PYebPaRle38NbUYjJlK9sHPoORiOID2WOPeqLC8EP5SabwN2XS468GuOPG7w==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegenerators.mvc/6.0.8",
+      "path": "microsoft.visualstudio.web.codegenerators.mvc/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7860,7 +7830,7 @@
         "lib/net6.0/bootstrap5_identitygeneratorfilesconfig.json",
         "lib/net6.0/identityMinimalHostingChanges.json",
         "lib/net6.0/minimalApiChanges.json",
-        "microsoft.visualstudio.web.codegenerators.mvc.6.0.8.nupkg.sha512",
+        "microsoft.visualstudio.web.codegenerators.mvc.6.0.10.nupkg.sha512",
         "microsoft.visualstudio.web.codegenerators.mvc.nuspec"
       ]
     },
@@ -8678,10 +8648,10 @@
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
-    "Syncfusion.Compression.Net.Core/20.2.0.49": {
-      "sha512": "UZk9JQIkqkJzesMIZ6+fEQKbXpF8wgtDjdMTn3m0yx8pAYMERs/DTJyxerEpaUypJ7YISV1Qz/HvDY6S/XGpWQ==",
+    "Syncfusion.Compression.Net.Core/20.2.0.50": {
+      "sha512": "TgCWKcZtKZGQwDILipJCNzT9e4LPiSNRKeF7LiYs98ypAU8NLDQRokOdMhJ6M+E+InZyV2eFu3fFlsI6uCj8jA==",
       "type": "package",
-      "path": "syncfusion.compression.net.core/20.2.0.49",
+      "path": "syncfusion.compression.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8694,15 +8664,15 @@
         "lib/netstandard1.4/Syncfusion.Compression.Portable.xml",
         "lib/netstandard2.0/Syncfusion.Compression.Portable.dll",
         "lib/netstandard2.0/Syncfusion.Compression.Portable.xml",
-        "syncfusion.compression.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.compression.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.compression.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.DocIO.Net.Core/20.2.0.49": {
-      "sha512": "CKnEGQ0Rkz/D520mgJisHu3IUcRCKtZJAmeLEcko0jp32H2xvxivaJUPgNA/nLRoAF0dwSJKRiGkJGbOjn1xFw==",
+    "Syncfusion.DocIO.Net.Core/20.2.0.50": {
+      "sha512": "IgweijC24tm0tZoFYdNXgjw9/o43PebNVNLx9bhd49JEYFOSnM6EZIjGHe1e1lFpSvu2kvmR/FByAL2/+5V5SA==",
       "type": "package",
-      "path": "syncfusion.docio.net.core/20.2.0.49",
+      "path": "syncfusion.docio.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8716,15 +8686,15 @@
         "lib/netstandard1.4/Syncfusion.DocIO.Portable.xml",
         "lib/netstandard2.0/Syncfusion.DocIO.Portable.dll",
         "lib/netstandard2.0/Syncfusion.DocIO.Portable.xml",
-        "syncfusion.docio.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.docio.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.docio.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.DocIORenderer.Net.Core/20.2.0.49": {
-      "sha512": "BG4wxqKfH6HZJx15kiDogY4aROZX0ZbBj9/gPTJep1mOhqU3tOX+2p4Xcb9vhMSuP3E1jvagTSMIh9FgGreXHw==",
+    "Syncfusion.DocIORenderer.Net.Core/20.2.0.50": {
+      "sha512": "euCieLwBYAE/FwEJaYISMkEKq+GFyLWVrRIFTh+txxTv3FPXmyf4temPoavKmgGA4xZi+xLtHzhzlSk05S4/6A==",
       "type": "package",
-      "path": "syncfusion.dociorenderer.net.core/20.2.0.49",
+      "path": "syncfusion.dociorenderer.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8736,7 +8706,7 @@
         "lib/netstandard1.4/Syncfusion.DocIORenderer.Portable.xml",
         "lib/netstandard2.0/Syncfusion.DocIORenderer.Portable.dll",
         "lib/netstandard2.0/Syncfusion.DocIORenderer.Portable.xml",
-        "syncfusion.dociorenderer.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.dociorenderer.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.dociorenderer.net.core.nuspec",
         "syncfusion_logo.png"
       ]
@@ -8773,10 +8743,10 @@
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.OfficeChart.Net.Core/20.2.0.49": {
-      "sha512": "lTjENsdyUxbfT4K59u4NVdcAEtXJSC4goGvFE3YT3zvAoqsYn2d9+nK3rscPtx90S3wyWIvnoWnTCtvkC5HJRw==",
+    "Syncfusion.OfficeChart.Net.Core/20.2.0.50": {
+      "sha512": "IK2Oo+OjWDxkDP23oY5yrC5qeQXjBp7tnmB2B8SLiLlEAklvlw+XPGigFUUZUZGYtukphFy9Dh8xpUQ4KR3kkQ==",
       "type": "package",
-      "path": "syncfusion.officechart.net.core/20.2.0.49",
+      "path": "syncfusion.officechart.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8789,15 +8759,15 @@
         "lib/netstandard1.4/Syncfusion.OfficeChart.Portable.xml",
         "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.dll",
         "lib/netstandard2.0/Syncfusion.OfficeChart.Portable.xml",
-        "syncfusion.officechart.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.officechart.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.officechart.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Pdf.Imaging.Net.Core/20.2.0.49": {
-      "sha512": "D/j8k5no8k4Z1m8J76M3vfxMbTD2Ni2vMppkK2l0bBuMM7Qrl2iIzY/tAXNO76VtbrTuQgvjWTUNFy+6WF8Jyw==",
+    "Syncfusion.Pdf.Imaging.Net.Core/20.2.0.50": {
+      "sha512": "T4ObAYDyMKh91rvymfG1KfaPa8VDIuJ/e2YwMqBVEA2UcRsDN1BOWEZrTWVqKWfNc+V82Ix1GEv5FH3YdTZ/Ew==",
       "type": "package",
-      "path": "syncfusion.pdf.imaging.net.core/20.2.0.49",
+      "path": "syncfusion.pdf.imaging.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8807,15 +8777,15 @@
         "lib/net6.0/Syncfusion.Pdf.Imaging.Portable.xml",
         "lib/netstandard2.0/Syncfusion.Pdf.Imaging.Portable.dll",
         "lib/netstandard2.0/Syncfusion.Pdf.Imaging.Portable.xml",
-        "syncfusion.pdf.imaging.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.pdf.imaging.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.pdf.imaging.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Pdf.Net.Core/20.2.0.49": {
-      "sha512": "bLO7cUcXs76VUfbLHUdOHd2fLuhYEL+Hh8JD01y1ez6Hjr7SHDEjewcMGH0Zmkd7HXD8LB7E+YCe9UlBb1XkwQ==",
+    "Syncfusion.Pdf.Net.Core/20.2.0.50": {
+      "sha512": "buDMWQt1KBV61wnMenaBkqp/SK1pY03FLp87yOYSLRMQcPqCSxKesgPqTKE8ItwXFRI0ZAyyRwtaoRYj7zDufg==",
       "type": "package",
-      "path": "syncfusion.pdf.net.core/20.2.0.49",
+      "path": "syncfusion.pdf.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8829,15 +8799,15 @@
         "lib/netstandard1.4/Syncfusion.Pdf.Portable.xml",
         "lib/netstandard2.0/Syncfusion.Pdf.Portable.dll",
         "lib/netstandard2.0/Syncfusion.Pdf.Portable.xml",
-        "syncfusion.pdf.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.pdf.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.pdf.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.SkiaSharpHelper.Net.Core/20.2.0.49": {
-      "sha512": "CdOy5Vw8IAX0eZjwhPUnKYBU6671NmfaTBMW/OrpeW/oBXBZJNlobID4v2IHOLvGs0aKSsbIuAHnqJCDBBf6Wg==",
+    "Syncfusion.SkiaSharpHelper.Net.Core/20.2.0.50": {
+      "sha512": "eIWM8F8FE6cCcAqcTKbHsEuyfLLUSdzKsaRylcUtRCfup06E2nVU8PAzCkziK29jPlnC6+f9dK53duffqiwKIA==",
       "type": "package",
-      "path": "syncfusion.skiasharphelper.net.core/20.2.0.49",
+      "path": "syncfusion.skiasharphelper.net.core/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8848,15 +8818,15 @@
         "lib/netstandard1.4/Syncfusion.SkiaSharpHelper.Portable.dll",
         "lib/netstandard2.0/Syncfusion.SkiaSharpHelper.Portable.dll",
         "lib/netstandard2.0/Syncfusion.SkiaSharpHelper.Portable.xml",
-        "syncfusion.skiasharphelper.net.core.20.2.0.49.nupkg.sha512",
+        "syncfusion.skiasharphelper.net.core.20.2.0.50.nupkg.sha512",
         "syncfusion.skiasharphelper.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Xamarin.Compression/20.2.0.49": {
-      "sha512": "U07YmTIW+MYmDGoR8RoKK/Whe1lrg79k3mvaf/VuLze4vn7ivdfbOaZPy0r9k9R8IYAQNwB2jT90aqyLml6Ilg==",
+    "Syncfusion.Xamarin.Compression/20.2.0.50": {
+      "sha512": "3sXAtTjOFN3CtxSlfpsHKZ5XWLG4/zupL6rCtnU1k5ytFQzLOM4QwNfrGVFByCE/oiWcTD53TqEnh8knH2a+Xg==",
       "type": "package",
-      "path": "syncfusion.xamarin.compression/20.2.0.49",
+      "path": "syncfusion.xamarin.compression/20.2.0.50",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8868,7 +8838,7 @@
         "lib/netstandard2.0/Syncfusion.Compression.Portable.xml",
         "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Compression.Portable.dll",
         "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Compression.Portable.xml",
-        "syncfusion.xamarin.compression.20.2.0.49.nupkg.sha512",
+        "syncfusion.xamarin.compression.20.2.0.50.nupkg.sha512",
         "syncfusion.xamarin.compression.nuspec",
         "syncfusion_logo.png"
       ]
@@ -13197,23 +13167,24 @@
     "net6.0": [
       "Dapper >= 2.0.123",
       "DocumentFormat.OpenXml >= 2.18.0",
-      "EPPlus >= 6.0.7",
+      "EPPlus >= 6.0.8",
       "EntityFramework >= 6.4.4",
       "Microsoft.AspNet.Identity.EntityFramework >= 2.2.3",
-      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.8",
+      "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.9",
       "Microsoft.AspNetCore.Hosting >= 2.2.7",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.9",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.9",
       "Microsoft.EntityFrameworkCore >= 6.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.9",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.8",
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.10",
       "Swashbuckle.AspNetCore >= 6.4.0",
-      "Syncfusion.DocIO.Net.Core >= 20.2.0.49",
-      "Syncfusion.DocIORenderer.Net.Core >= 20.2.0.49",
-      "Syncfusion.Pdf.Imaging.Net.Core >= 20.2.0.49",
-      "Syncfusion.Pdf.Net.Core >= 20.2.0.49",
-      "Syncfusion.Xamarin.Compression >= 20.2.0.49",
+      "Syncfusion.DocIO.Net.Core >= 20.2.0.50",
+      "Syncfusion.DocIORenderer.Net.Core >= 20.2.0.50",
+      "Syncfusion.Licensing >= 20.2.0.50",
+      "Syncfusion.Pdf.Imaging.Net.Core >= 20.2.0.50",
+      "Syncfusion.Pdf.Net.Core >= 20.2.0.50",
+      "Syncfusion.Xamarin.Compression >= 20.2.0.50",
       "Syncfusion.Xamarin.SfListView >= 20.2.0.50",
       "System.IO >= 4.3.0"
     ]
@@ -13267,7 +13238,7 @@
           },
           "EPPlus": {
             "target": "Package",
-            "version": "[6.0.7, )"
+            "version": "[6.0.8, )"
           },
           "EntityFramework": {
             "target": "Package",
@@ -13279,7 +13250,7 @@
           },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[6.0.8, )"
+            "version": "[6.0.9, )"
           },
           "Microsoft.AspNetCore.Hosting": {
             "target": "Package",
@@ -13309,7 +13280,7 @@
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
-            "version": "[6.0.8, )"
+            "version": "[6.0.10, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -13317,23 +13288,27 @@
           },
           "Syncfusion.DocIO.Net.Core": {
             "target": "Package",
-            "version": "[20.2.0.49, )"
+            "version": "[20.2.0.50, )"
           },
           "Syncfusion.DocIORenderer.Net.Core": {
             "target": "Package",
-            "version": "[20.2.0.49, )"
+            "version": "[20.2.0.50, )"
+          },
+          "Syncfusion.Licensing": {
+            "target": "Package",
+            "version": "[20.2.0.50, )"
           },
           "Syncfusion.Pdf.Imaging.Net.Core": {
             "target": "Package",
-            "version": "[20.2.0.49, )"
+            "version": "[20.2.0.50, )"
           },
           "Syncfusion.Pdf.Net.Core": {
             "target": "Package",
-            "version": "[20.2.0.49, )"
+            "version": "[20.2.0.50, )"
           },
           "Syncfusion.Xamarin.Compression": {
             "target": "Package",
-            "version": "[20.2.0.49, )"
+            "version": "[20.2.0.50, )"
           },
           "Syncfusion.Xamarin.SfListView": {
             "target": "Package",
