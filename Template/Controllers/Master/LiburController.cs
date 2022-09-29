@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
 
 namespace Ririn.Controllers.Master
 {
+    [Authorize]
     public class LiburController : Controller
     {
 
@@ -31,7 +33,7 @@ namespace Ririn.Controllers.Master
         {
             if (libur.Id == 0)
             {
-                libur.IsDeleted = false;
+              
                 _context.Libur.Add(libur);
             }
             else
@@ -40,7 +42,7 @@ namespace Ririn.Controllers.Master
                 data.Hari = libur.Hari;
                 data.TanggalLibur = libur.TanggalLibur;
                 data.Keterangan = libur.Keterangan;
-                data.IsDeleted = false;
+                
                 _context.Entry(data).State = EntityState.Modified;
 
 
@@ -55,7 +57,7 @@ namespace Ririn.Controllers.Master
             Libur libur = _context.Libur.Single(x => x.Id == Id);
             if (libur != null)
             {
-                libur.IsDeleted = true;
+                
                 _context.Libur.Remove(libur);
                 _context.SaveChanges();
                 result = true;
@@ -70,7 +72,7 @@ namespace Ririn.Controllers.Master
                 Libur libur = _context.Libur.Single(x => x.Id == item);
                 if (libur != null)
                 {
-                    libur.IsDeleted = true;
+                   
                     _context.Libur.Remove(libur);
                     _context.SaveChanges();
                     result = true;

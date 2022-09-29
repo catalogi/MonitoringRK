@@ -14,18 +14,19 @@ namespace Ririn.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        //private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(SignInManager<User> signInManager,
-            UserManager<User> userManager, AppDbContext context,
-            RoleManager<IdentityRole> roleManager
+            UserManager<User> userManager, AppDbContext context, IWebHostEnvironment webHostEnvironment
             /*RoleManager<IdentityRole> roleManager*/)
         {
+            _webHostEnvironment = webHostEnvironment;
             _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = _roleManager;
+            
             _context = context;
-            _roleManager = roleManager;
+            
         }
 
         public IActionResult Index()
@@ -90,10 +91,10 @@ namespace Ririn.Controllers
                     }
 
                     //Add Role to User
-                    //foreach (var item in data.Roles)
-                    //{
-                    //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
-                    //}
+                    foreach (var item in data.Roles)
+                    {
+                        var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
+                    }
 
                 }
                 success = true;
@@ -153,7 +154,7 @@ namespace Ririn.Controllers
         }
 
         #endregion
-
+        [Authorize(Roles = "Admin")]
         public void addNewRole()
         {
             List<string> roleName = new List<string>() {
@@ -169,6 +170,7 @@ namespace Ririn.Controllers
             }
         }
 
+        
 
         [HttpGet]
         [AllowAnonymous]

@@ -56,8 +56,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control"
-                        placeholder="Password">
+                        
                         <input asp-for="Password" class="form-control"
                                placeholder="password" />
                         <div class="input-group-append">
@@ -116,6 +115,19 @@
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
     <script>
+        let showPassword = false;
+        $('#btn-show-password').click(function () {
+            if (showPassword) {
+                $('#btn-show-password').html('<div class="input-group-text"><span class="fas fa-eye"></span></div>');
+                $('#Password').attr('type', 'password');
+                showPassword = false;
+            } else {
+                $('#btn-show-password').html('<div class="input-group-text"><span class="fas fa-eye-slash"></span></div>');
+                $('#Password').attr('type', 'text');
+                showPassword = true;
+            }
+        });
+
         document.body.addEventListener("click", function () {
             document.body.classList.toggle("color")
         })
