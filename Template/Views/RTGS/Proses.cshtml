@@ -146,7 +146,7 @@
 
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#FF7518">Proses</h2>
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#e0a017">Proses</h2>
                 <p class="card-text font-weight-bolder"><b>Transaksi RTGS Belum Selesai</b></p>
             </div>
             <div class="card-body table-responsive">
@@ -154,12 +154,15 @@
                     <label class="bmd-label-floating">Tipe Surat</label>
                     <div class="col-md-4">
                         <select required id ="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
-                            <option value="">--pilih Tipe--</option>
+                            <option value="">--Pilih Tipe--</option>
                         </select>
                     </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary" onclick="read();">x</a>
+                    </div>
                 </div>
-                <table id="table" class=" table table-bordered table-responsive-md display nowrap" style="width:100%">
-                    <thead>
+                <table id="table" class="table table-bordered table-responsive-md display nowrap" style="width:100%">
+                    <thead style="background-color:#e0a017">
                         <tr>
                             <th>No.</th>
                             <th style="vertical-align:middle">Tipe Surat</th>
@@ -203,6 +206,7 @@
             var t = $("#table").DataTable({
                 lengthChange: false,
                 autoWidth: false,
+                destroy : true,
                 "ajax": {
                     "url": "@Url.Action("GetAll","RTGS")",
                     "type": "Get",
@@ -248,7 +252,6 @@
                 "data": { Id: Id }
             }).then((result) => {
                 if (result != null) {
-                    debugger;
                     console.log(result);
                     $("#formId").val(result.data.id);
                     $("#Jenisj").val(result.data.typeId).change();
@@ -269,7 +272,11 @@
         $("#Jenis").change(function () {
             debugger;
             var Id = this.value;
+            if (Id == "") {
+                read();
+            }else{
             readFilter(Id);
+            }
         })
        
         function readFilter(Id) {
