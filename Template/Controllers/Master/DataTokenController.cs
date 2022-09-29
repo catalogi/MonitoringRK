@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
@@ -6,6 +7,7 @@ using Ririn.ViewModels;
 
 namespace Ririn.Controllers.Master
 {
+    [Authorize]
     public class DataTokenController : Controller
     {
         private readonly AppDbContext _context;
