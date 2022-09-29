@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
@@ -9,9 +7,13 @@ using Ririn.Data;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 using Ririn.ViewModels;
-//using Syncfusion.Pdf.Parsing;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
+using Syncfusion.DocIO;
+using Syncfusion.DocIO.DLS;
+using Syncfusion.DocIORenderer;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
 using System.Net;
@@ -186,8 +188,7 @@ namespace Ririn.Controllers.Transaksi
 
         public JsonResult GetType()
         {
-            var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
+            var result = _context.TypeTrans.Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
             return Json(new { data = result });
         }
 
@@ -204,7 +205,169 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
-        #region Save Data
+        //public IActionResult TemplateSuratKeluar(int Id)
+        //{
+        //    var data = _context.T_Kliring
+        //        .Include(x => x.Type)
+        //        .Include(x => x.Bank)
+        //        .Include(x => x.Alasan)
+        //        .Include(x => x.Cabang)
+        //        .Include(x => x.Keterangan)
+        //        .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+        //    var TANGGALSEKARANG = DateTime.Now;
+        //    var NOSURAT = data.NomorSurat;
+        //    var KETERANGAN="";
+        //    if (data.KeteranganId == null)
+        //    {
+        //         KETERANGAN = "-";
+        //    }
+        //    else
+        //    {
+        //         KETERANGAN = data.Keterangan.Nama;
+        //    }
+        //    var TANGGALTRX = data.TanggalTRX;
+        //    var NOMOREFERENSI = data.NoReferensi;
+        //    var NOMINAL = Convert.ToInt64(data.Nominal);
+        //    var NOREK = data.NomorRekening;
+        //    var PENGIRIM = data.Bank.Nama;
+        //    var PENERIMA = data.NamaPenerima;
+        //    var ALASAN = data.Alasan.Nama;
+
+        //    string webRootPath = _webHostEnvironment.WebRootPath;
+        //    string path = Path.Combine(webRootPath, "Template");
+        //    string filename = "SURAT_RETUR_Keluar";
+
+        //    //FileStream fileStreamPath = new FileStream(Path.Combine(path, filename), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        //    //WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+        //    FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        //    WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+        //    docs.Replace("%TANGGALSEKARANG%", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+        //    docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+        //    //if (data.KeteranganId == null)
+        //    //{
+        //    //    docs.Replace("-", KETERANGAN.ToString(), false, true);
+        //    //}
+        //    //else
+        //    //{
+        //        docs.Replace("%KETERANGAN%", KETERANGAN.ToString(), false, true);
+        //    //}
+        //    docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+        //    docs.Replace("%NOMOREFERENSI%", NOMOREFERENSI.ToString(), false, true);
+        //    docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
+        //    docs.Replace("%NOREK%", NOREK.ToString(), false, true);
+        //    docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
+        //    docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
+        //    docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+
+        //    DocIORenderer render = new DocIORenderer();
+        //    //PdfDocument pdfdoc = render.ConvertToPDF(docs);
+
+        //    MemoryStream stream = new MemoryStream();
+
+        //    docs.Save(stream, FormatType.Docx);
+        //    stream.Position = 0;
+
+
+        //    string contentType = "application/docx";
+        //    string filenamed = "Surat Retur " + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+        //    return File(stream, contentType, filenamed);
+        //    docs.Dispose();
+        //    docs.Close();
+        //}
+
+        public IActionResult MemoKeluar(int Id)
+        {
+            var data = _context.T_Kliring
+                        .Include(x => x.Bank)
+                        .Include(x => x.Cabang)
+                        .Include(x => x.Type)
+                        .Include(x => x.Keterangan)
+                        .Include(x => x.Type)
+                        .Include(x => x.Alasan)
+                        .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var TanggalSEKARANG = DateTime.Now;
+            var NOSURAT = data.NomorSurat;
+            var TANGGALTRX = data.TanggalTRX;
+            var NOMORREFERENSI = data.NoReferensi;
+            var PENERIMA = data.NamaPenerima;
+            var PENGIRIM = data.Bank.Nama;
+            var NOREK = data.NomorRekening;
+            var NOMINAL = data.Nominal;
+            var ALASAN = data.Alasan.Nama;
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string path = Path.Combine(webRootPath, "Template");
+            string filename = "Memo_Keluar";
+
+            FileStream fileStreamPath = new FileStream(Path.Combine(path,filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
+
+            docs.Replace("%TanggalSEKARANG%", TanggalSEKARANG.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true );
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true );
+            docs.Replace("%TANGGALTRX%", TanggalSEKARANG.ToString("dd MM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true );
+            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true );
+            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true );
+            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true );
+            docs.Replace("%NOREK%", NOREK.ToString(), false, true );
+            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true );
+            docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+
+            DocIORenderer render = new DocIORenderer();
+            //PdfDocument pdfDoc = render.ConvertToPDF(docs);
+
+            MemoryStream stream = new MemoryStream();
+
+            //pdfDoc.Save(stream);
+            docs.Save(stream, FormatType.Docx);
+            stream.Position = 0;
+            //pdfDoc.Close();
+            docs.Close();
+            string contentType = "application/docx";
+            string filenamed = "Memo Keluar " + DateTime.Now.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            return File(stream, contentType, filenamed);
+        }
+
+        public IActionResult Filter(DateTime Awal, DateTime Akhir)
+        {
+            var filter = _context.T_Kliring
+                .Include(x => x.Type)
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Alasan)
+                .Include(x => x.Keterangan)
+                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.CreateDate > Awal.Date.AddDays(-1) && x.CreateDate < Akhir.Date))
+                .ToList();
+            return Ok(new { data = filter });
+        }
+
+
+        public IActionResult FilterType(int Id)
+        {
+            var data = _context.T_Kliring
+                        .Include(x => x.Bank)
+                        .Include(x => x.Alasan)
+                        .Include(x => x.Type)
+                        .Include(x => x.Cabang)
+                        .Where(x => x.IsDeleted == false && x.StatusId == 1 && x.TypeId == Id)
+                        .ToList();
+            return Ok(new { data = data });
+        }
+
+        public JsonResult Delete(int Id)
+        {
+            bool result = false;
+            T_Kliring bank = _context.T_Kliring.Single(x => x.Id == Id);
+            if (bank != null)
+            {
+                bank.IsDeleted = true;
+                _context.Entry(bank).State = EntityState.Modified;
+                _context.SaveChanges();
+                result = true;
+            }
+            return Json(result);
+        }
+
+        #region
         public IActionResult Done(DoneVM data)
         {
             bool success = false;
@@ -227,10 +390,11 @@ namespace Ririn.Controllers.Transaksi
                         ket = AddKet.Id;
 
                     }
-                    else
-                    {
-                        ket = data.KeteranganId ?? 0;
-                    }
+
+                }
+                else
+                {
+                    ket = data.KeteranganId ?? 0;
                 }
 
                 var dat = _context.T_Kliring.Where(x => x.Id == data.Id).FirstOrDefault();
