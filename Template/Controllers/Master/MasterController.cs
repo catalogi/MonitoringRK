@@ -7,6 +7,7 @@ using Ririn.Models.Master;
 
 namespace Ririn.Controllers.Master
 {
+    [Authorize]
     public class MasterController : Controller
     {
         private readonly AppDbContext _context;

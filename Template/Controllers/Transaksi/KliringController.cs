@@ -21,9 +21,11 @@ using Syncfusion.DocIO.DLS;
 using Syncfusion.DocIO;
 using Syncfusion.DocIORenderer;
 using SkiaSharp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ririn.Controllers.Transaksi
 {
+    [Authorize]
     public class KliringController : Controller
     {
         private readonly AppDbContext _context;
@@ -96,84 +98,7 @@ namespace Ririn.Controllers.Transaksi
             }
             return Json(new { data = result });
         }
-        public int GetLibur(int Id)
-        {
-            var count = 0;
-            var data = _context.T_Kliring.Where(x => x.Id == Id).FirstOrDefault();
-            if (data.StatusId == 1)
-            {
-                count = DateCount(data.CreateDate, DateTime.Now);
-                data.Durasi = count;
-                _context.Entry(data).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            if (data.StatusId == 2)
-            {
-                count = DateCount(data.CreateDate, data.TanggalDone);
-                data.Durasi = count;
-                _context.Entry(data).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
 
-            return count;
-        }
-        public int DateCount( DateTime? start, DateTime? end, params DateTime[] holidays)
-        {
-            DateTime startDate = start ?? DateTime.Now;
-            DateTime endDate = (DateTime)end;
-
-            if (startDate > endDate)
-                throw new ArgumentException("Incorrect last day " + endDate);
-
-            TimeSpan span = endDate - startDate;
-            int countDuration = span.Days + 1;
-            int fullWeekCount = countDuration / 7;
-
-            if (countDuration > fullWeekCount * 7)
-            {
-                //int firstDayOfWeek = (int)startDate.DayOfWeek;
-                //int lastDayOfWeek = (int)endDate.DayOfWeek;
-                int firstDayOfWeek = startDate.DayOfWeek == DayOfWeek.Sunday
-                    ? 7 : (int)startDate.DayOfWeek;
-                int lastDayOfWeek = endDate.DayOfWeek == DayOfWeek.Sunday
-                    ? 7 : (int)endDate.DayOfWeek;
-
-                if (lastDayOfWeek < firstDayOfWeek)
-                {
-                    lastDayOfWeek += 7;
-                }
-                if (firstDayOfWeek <= 6)
-                {
-                    if (lastDayOfWeek >= 7)
-                    {
-                        countDuration -= 2;
-                    }
-                    else if (lastDayOfWeek >= 6)
-                    {
-                        countDuration -= 1;
-                    }
-                }
-                else if (lastDayOfWeek <= 7 && lastDayOfWeek >= 7)
-                {
-                    countDuration -= 1;
-                }
-            }
-            countDuration -= fullWeekCount + fullWeekCount;
-
-            //DateTime[] liburs = _context.Libur.Select(x => x.TanggalLibur).ToArray();
-
-            foreach (DateTime libur in holidays)
-            {
-                DateTime lb = libur.Date;
-                if (startDate <= lb && lb <= endDate)
-                {
-                    --countDuration;
-                }
-            }
-
-
-            return countDuration;
-        }
         public JsonResult GetMonitoring()
         {
             var result = _context.T_Kliring
@@ -181,7 +106,15 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
-                .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2).ToList();
+                .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2);
+            var data = result.Select(x => x.Id).ToList();
+
+
+            foreach (var item in data)
+            {
+                GetLibur(item);
+
+            }
             return Json(new { data = result });
         }
 
@@ -570,6 +503,87 @@ namespace Ririn.Controllers.Transaksi
         }
         #endregion
 
+        #region Hitung Durasi
+        public int GetLibur(int Id)
+        {
+            var count = 0;
+            var data = _context.T_Kliring.Where(x => x.Id == Id).FirstOrDefault();
+            if (data.StatusId == 1)
+            {
+                count = DateCount(data.CreateDate, DateTime.Now);
+                data.Durasi = count;
+                _context.Entry(data).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            if (data.StatusId == 2)
+            {
+                count = DateCount(data.CreateDate, data.TanggalDone);
+                data.Durasi = count;
+                _context.Entry(data).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+
+            return count;
+        }
+        public int DateCount(DateTime? start, DateTime? end, params DateTime[] holidays)
+        {
+            DateTime startDate = start ?? DateTime.Now;
+            DateTime endDate = (DateTime)end;
+
+            if (startDate > endDate)
+                throw new ArgumentException("Incorrect last day " + endDate);
+
+            TimeSpan span = endDate - startDate;
+            int countDuration = span.Days + 1;
+            int fullWeekCount = countDuration / 7;
+
+            if (countDuration > fullWeekCount * 7)
+            {
+                //int firstDayOfWeek = (int)startDate.DayOfWeek;
+                //int lastDayOfWeek = (int)endDate.DayOfWeek;
+                int firstDayOfWeek = startDate.DayOfWeek == DayOfWeek.Sunday
+                    ? 7 : (int)startDate.DayOfWeek;
+                int lastDayOfWeek = endDate.DayOfWeek == DayOfWeek.Sunday
+                    ? 7 : (int)endDate.DayOfWeek;
+
+                if (lastDayOfWeek < firstDayOfWeek)
+                {
+                    lastDayOfWeek += 7;
+                }
+                if (firstDayOfWeek <= 6)
+                {
+                    if (lastDayOfWeek >= 7)
+                    {
+                        countDuration -= 2;
+                    }
+                    else if (lastDayOfWeek >= 6)
+                    {
+                        countDuration -= 1;
+                    }
+                }
+                else if (lastDayOfWeek <= 7 && lastDayOfWeek >= 7)
+                {
+                    countDuration -= 1;
+                }
+            }
+            countDuration -= fullWeekCount + fullWeekCount;
+
+            //DateTime[] liburs = _context.Libur.Select(x => x.TanggalLibur).ToArray();
+
+            foreach (DateTime libur in holidays)
+            {
+                DateTime lb = libur.Date;
+                if (startDate <= lb && lb <= endDate)
+                {
+                    --countDuration;
+                }
+            }
+
+
+            return countDuration;
+        }
+        #endregion
+
         public IActionResult TemplateSuratKeluar(int Id)
         {
             var data = _context.T_Kliring
@@ -692,5 +706,6 @@ namespace Ririn.Controllers.Transaksi
             docs.Close();
 
         }
+        
     }
 }

@@ -14,12 +14,14 @@ namespace Ririn.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         //private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(SignInManager<User> signInManager,
-            UserManager<User> userManager, AppDbContext context
+            UserManager<User> userManager, AppDbContext context, IWebHostEnvironment webHostEnvironment
             /*RoleManager<IdentityRole> roleManager*/)
         {
+            _webHostEnvironment = webHostEnvironment;
             _signInManager = signInManager;
             _userManager = userManager;
             //_roleManager = _roleManager;
