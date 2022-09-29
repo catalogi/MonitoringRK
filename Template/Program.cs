@@ -2,6 +2,7 @@ using Ririn.Data;
 using Ririn.Models.Master;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -31,10 +33,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    //options.ExpireTimeSpan = TimeSpan.FromHours(2);
-    //options.LoginPath = "/Account/Login";
-    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-    //options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromHours(2);
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
 });
 
 var app = builder.Build();

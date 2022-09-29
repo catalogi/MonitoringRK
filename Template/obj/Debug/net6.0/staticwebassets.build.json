@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rODSe09vaqBLoZtnvIYMX4gK4bHQ6nGePQef9PkxETA=",
+  "Hash": "EjSuSHMNWoFEjYBJRORmhltKS8WJGvim6RxYJyd9vG0=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2361,6 +2361,57 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_27092022_Rekapitulasi Transaksi Harian (1).pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_28092022_Nur Ali Majid-TS- Agustus.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_28092022_Nur Ali Majid-TS- Agustus.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_28092022_Nur Ali Majid-TS- Agustus.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_Brochure Payroll_compressed.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_29092022_Brochure Payroll_compressed.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Brochure Payroll_compressed.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_Indocyber Timesheet - Marion Nata Lukas Gunawan - Agustus.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_29092022_Indocyber Timesheet - Marion Nata Lukas Gunawan - Agustus.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Indocyber Timesheet - Marion Nata Lukas Gunawan - Agustus.pdf"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_level 2.pdf",
@@ -37434,12 +37485,12 @@
       "OriginalItemSpec": "wwwroot\\Template\\SURAT_RETUR_Keluar.docx"
     },
     {
-      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\TemplateMasuk\\SRT RTR MSK.docx",
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\TemplateMasuk\\template_surat_masuk.docx",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "TemplateMasuk/SRT RTR MSK.docx",
+      "RelativePath": "TemplateMasuk/template_surat_masuk.docx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -37448,7 +37499,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\TemplateMasuk\\SRT RTR MSK.docx"
+      "OriginalItemSpec": "wwwroot\\TemplateMasuk\\template_surat_masuk.docx"
     }
   ]
 }
