@@ -14,16 +14,18 @@ namespace Ririn.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
-        //private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(SignInManager<User> signInManager,
-            UserManager<User> userManager, AppDbContext context
+            UserManager<User> userManager, AppDbContext context,
+            RoleManager<IdentityRole> roleManager
             /*RoleManager<IdentityRole> roleManager*/)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            //_roleManager = _roleManager;
+            _roleManager = _roleManager;
             _context = context;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -61,10 +63,10 @@ namespace Ririn.Controllers
                     var createdUser = await _userManager.FindByNameAsync(data.NPP);
 
                     success = true;
-                    //foreach (var item in data.Roles)
-                    //{
-                    //    var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
-                    //}
+                    foreach (var item in data.Roles)
+                    {
+                        var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
+                    }
                     return Json(success);
                 }
             }
@@ -81,7 +83,7 @@ namespace Ririn.Controllers
                 {
                     var role = _userManager.GetRolesAsync(UserDb);
 
-                    //Remove Role From USer
+                    //Remove Role From User
                     foreach (var item in role.Result)
                     {
                         await _userManager.RemoveFromRoleAsync(UserDb, item);
@@ -92,7 +94,7 @@ namespace Ririn.Controllers
                     //{
                     //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
                     //}
-                    
+
                 }
                 success = true;
             }
@@ -190,7 +192,7 @@ namespace Ririn.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
-            return View(user);
+            return View("Login", user);
         }
 
         public async Task<IActionResult> Logout()
