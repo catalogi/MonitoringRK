@@ -5,11 +5,11 @@
 @inject UserManager<User> UserManager
 @inject AppDbContext context
 
-@*@{
+@{
     var user = context.User.Where(x => x.UserName ==
             User.Identity.Name).FirstOrDefault();
     var nama = user.Nama + " (" + user.NPP + ")";
-}*@
+}
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
@@ -18,36 +18,36 @@
                 <i class="fas fa-bars"></i>
             </a>
         </li>
-    </ul>
-    <ul class="navbar-nav  ml-auto">
-
+    </ul>    
+    <ul class="navbar-nav pl-4  ml-auto">
+        <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link">
+                <i class="far fa-bell"></i>
+                <span data-id="notification-count" class="badge badge-warning navbar-badge"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" data-id="notification-list-container">
+                <p class="dropdown-item dropdown-header"><span style="font-weight:bold;" data-id="notification-count-header"></span> Notification</p>
+                <div class="dropdown-divivder"></div>
+            </div>
+        </li>
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
-
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                <i class="fas fa-user-injured"></i>
+                <span>@user.Nama</span>
 
-        @*@if (SignInManager.IsSignedIn(User))
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Identity"
-                asp-page="/Account/Manage/Index" title="Manage">@nama</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark"
-                href="@Url.Action("LogOut","Account")">
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                <a asp-action="Logout" asp-controller="Account" class="nav-link dropdown-item">
                     <i class="fas fa-sign-out-alt"></i>
+                    Logout
                 </a>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="@Url.Action("Login","Account")">
-                    <i class="fas fa-sign-in-alt"></i>
-                </a>
-            </li>
-        }*@
+
+            </div>
+        </li>
     </ul>
 </nav>
