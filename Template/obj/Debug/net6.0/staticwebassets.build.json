@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GxTWnYVw7t6y8J0LkBJJpLPLG/2nBoWb4c/dYtvPjuM=",
+  "Hash": "J3aZZiq5TeFDuPNn9YZ597xK3kj4+l1rmbctJ3RqVDo=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2446,6 +2446,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Mekanisme Tunjangan Kesehatan internal.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_30092022_Kotlin.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_30092022_Kotlin.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_30092022_Kotlin.pdf"
     },
     {
       "Identity": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_414141_26092022_level 2.pdf",

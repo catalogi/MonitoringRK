@@ -8,23 +8,9 @@
             <div class="col-md-4 offset-md-1">
                 <!-- DONUT CHART -->
                 <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Durasi(HK) Retur Kliring</h3>
-                        <p class="card-text">Surat Masuk</p>                       
-                    </div>
-                    <div class="card-body">
-                        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <!-- DONUT CHART -->
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Durasi(HK) Retur Kliring</h3>
-                        <p class="card-text">Surat Keluar</p>                        
+                    <div class="card-header" style="background-color:white">
+                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                        <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
                     </div>
                     <div class="card-body">
                         <canvas id="donutChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -36,12 +22,12 @@
             <div class="col-md-4 offset-md-1">
                 <!-- DONUT CHART -->
                 <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Durasi(HK) RTGS</h3>
-                        <p class="card-text">Surat Masuk</p>
+                    <div class="card-header" style="background-color:white">
+                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                        <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
                     </div>
                     <div class="card-body">
-                        <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -50,12 +36,26 @@
             <div class="col-md-4 offset-md-1">
                 <!-- DONUT CHART -->
                 <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Durasi(HK) RTGS</h3>
-                        <p class="card-text">Surat Keluar</p>
+                    <div class="card-header" style="background-color:white">
+                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                        <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
                     </div>
                     <div class="card-body">
                         <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <!-- DONUT CHART -->
+                <div class="card card-danger">
+                    <div class="card-header" style="background-color:white">
+                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                        <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -66,70 +66,41 @@
 </section>
 
 <script>
-    $(function () {
-        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-        var donutData = {
-            labels: [
-                'Jumlah Data',
-                'Durasi Tercepat',
-                'Durasi Terlama',                
-            ],
-            datasets: [
-                {
-                    data: [700, 500, 400],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
-                }
-            ]
-        }
-        var donutOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData,
-            options: donutOptions
-        })
+    $(document).ready(function(){
+        getDataChart();
+    })
+    function getDataChart() {
+        $.ajax({
+            url: "@Url.Action("Donat","Home")",
+            type: "get",
+            dataType: "json",
+            success: (result) => {
+                console.log(result);
+                var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
+                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];
+                var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
+                var km = [result.kliringMasukCepat, result.kliringMasukLambat];
 
-        var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d')
-        var donutData1 = {
-            labels: [
-                'Jumlah Data',
-                'Durasi Tercepat',
-                'Durasi Terlama',
-            ],
-            datasets: [
-                {
-                    data: [700, 500, 400],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
-                }
-            ]
-        }
-        var donutOptions1 = {
-            maintainAspectRatio: false,
-            responsive: true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(donutChartCanvas1, {
-            type: 'doughnut',
-            data: donutData1,
-            options: donutOptions1
-        })
+                getChartrk(rk);
+                getChartrm(rm);
+                getChartkk(kk);
+                getChartkm(km);
 
+            }
+        });
+    }
+
+    function getChartrk(rk) {
         var donutChartCanvas2 = $('#donutChart2').get(0).getContext('2d')
         var donutData2 = {
-            labels: [
-                'Jumlah Data',
+            labels: [                
                 'Durasi Tercepat',
                 'Durasi Terlama',
             ],
             datasets: [
                 {
-                    data: [700, 500, 400],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
+                    data: rk,
+                    backgroundColor: ['#f56954', '#00a65a'],
                 }
             ]
         }
@@ -144,18 +115,19 @@
             data: donutData2,
             options: donutOptions2
         })
+    }
 
+    function getChartrm(rm) {
         var donutChartCanvas3 = $('#donutChart3').get(0).getContext('2d')
         var donutData3 = {
-            labels: [
-                'Jumlah Data',
+            labels: [                
                 'Durasi Tercepat',
                 'Durasi Terlama',
             ],
             datasets: [
                 {
-                    data: [700, 500, 400],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
+                    data: rm,
+                    backgroundColor: ['#f56954', '#00a65a'],
                 }
             ]
         }
@@ -170,5 +142,72 @@
             data: donutData3,
             options: donutOptions3
         })
-    })
+    }
+
+    function getChartkk(kk) {
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData = {
+            labels: [
+                'Durasi Tercepat',
+                'Durasi Terlama',
+            ],
+            datasets: [
+                {
+                    data: kk,
+                    backgroundColor: ['#f56954', '#00a65a'],
+                }
+            ]
+        }
+        var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+        })
+    }
+
+    function getChartkm(km) {
+        console.log(km);
+        var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d')
+        var donutData1 = {
+            labels: [                
+                'Durasi Tercepat',
+                'Durasi Terlama',
+            ],
+            datasets: [
+                {
+                    data: km,
+                    backgroundColor: ['#f56954', '#00a65a'],
+                }
+            ]
+        }
+        var donutOptions1 = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    formatter: (value, context) => {
+                        let datasets = context.chart.data.datasets;
+                        return value > 0 ? value : null;
+                    },
+                    color: '#fff',
+                    font: {
+                        size: 20
+                    }
+                }
+        }
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas1, {
+            type: 'doughnut',
+            data: donutData1,
+            options: donutOptions1
+        })         
+    }
 </script>
