@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "J3aZZiq5TeFDuPNn9YZ597xK3kj4+l1rmbctJ3RqVDo=",
+  "Hash": "k/5ZSKdhYvMvB9XuIy44DtXDj/FG+P/vm5gMHU5ABDM=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2446,6 +2446,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Mekanisme Tunjangan Kesehatan internal.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_Surat Retur25 Agustus 2022 (2).pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_29092022_Surat Retur25 Agustus 2022 (2).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Surat Retur25 Agustus 2022 (2).pdf"
     },
     {
       "Identity": "C:\\Users\\1397\\source\\repos\\MonitoringRK\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_30092022_Kotlin.pdf",
