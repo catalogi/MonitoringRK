@@ -260,8 +260,13 @@ namespace Ririn.Controllers.Transaksi
 
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
-            var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
+            var result = _context.T_Kliring
+                .Include(x => x.Bank)
+                .Include(x => x.Cabang)
+                .Include(x => x.Alasan)
+                .Include(x => x.Type)
+                .Include(x => x.Keterangan)
+                .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.TanggalTRX > Awal.Date.AddDays(-1) && x.TanggalTRX <Akhir.Date)).ToList();
             return Json(new { data = result });
         }
 
@@ -610,11 +615,11 @@ namespace Ririn.Controllers.Transaksi
 
             FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
-            docs.Replace("%TANGGALSEKARANG", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
-            docs.Replace("%NOSURAT", NOSURAT.ToString(), false, true);
-            docs.Replace("%KETERANGAN", KETERANGAN.ToString(), false, true);
+            docs.Replace("%TANGGALSEKARANG%", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            docs.Replace("%KETERANGAN%", KETERANGAN.ToString(), false, true);
             docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
-            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true);
+            docs.Replace("%NOMOREFERENSI%", NOMORREFERENSI.ToString(), false, true);
             docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%NOREK%", NOREK.ToString(), false, true);
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);

@@ -5,7 +5,6 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject AppDbContext context
-
 @*@{
     var user = context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault();
 }*@
@@ -24,7 +23,7 @@
 }
 <aside class="main-sidebar bg-bni-primary elevation-4 w-full">
 
-    @if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "Kliring" || user.Unit.Nama == "RTGS")
+    @*@if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "Kliring" || user.Unit.Nama == "RTGS")*@
     {
         <!-- Brand Logo -->
         <a asp-action="Index" asp-controller="Home" class="brand-link">
@@ -303,7 +302,7 @@
                         </a>
                     </li>
                 }
-                else if(user.Unit.Nama == "RTGS")
+                else if(user.Unit.Nama == "rtgs")
                 {
                     <!-- Menu Monitoring RTGS -->
                     <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
@@ -347,11 +346,7 @@
                         </a>
                     </li>
                 }
-
-
-
-
-               
+  
 
             </ul>
         </nav>
