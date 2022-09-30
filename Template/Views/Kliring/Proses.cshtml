@@ -154,7 +154,7 @@
 	<div class="container">
 		<div class="card" style="background-color:white">
 			<div class="card-header card-header-info">
-				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
+				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#e0a017">Proses</h2>
 				<p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
 				@*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
 
@@ -170,12 +170,12 @@
 						</select>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-warning" style="color:#319DA0" onclick="clearFilter();">Refresh</button>
+						<button type="button" class="btn btn-primary" onclick="clearFilter();">Refresh</button>
 					</div>
 				</div>
 				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
 					@*display nowrap*@
-					<thead style="background-color:#319DA0">
+					<thead style="background-color:#e0a017">
 						<tr>
 							<th>No.</th>
 							<th>Tipe Transaksi</th>
@@ -363,6 +363,7 @@
 
 		function Read() {
 			var t = $("#table").DataTable({
+				destroy : true,
 				//lengthChange: false,
 				//autoWidth: false,
 				"ajax": {
@@ -461,8 +462,14 @@
 		}
 
 		$("#Tipe").change(function () {
+			debugger;
 			var Id = this.value;
+			if (Id == "") {
+				Read();
+			}
+			else{
 			Read2(Id);
+			}
 		})
 
 		function clearFilter() {
