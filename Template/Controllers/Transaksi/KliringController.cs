@@ -653,5 +653,14 @@ namespace Ririn.Controllers.Transaksi
 
         }
         #endregion
+        #region Report
+        //public IActionResult Report(DateTime start, DateTime end, int TypeId)
+        //{
+        //    DateTime startDate = start.AddHours(-12).AddMinutes(1);
+        //}
+
+        #endregion
     }
+
+
 }

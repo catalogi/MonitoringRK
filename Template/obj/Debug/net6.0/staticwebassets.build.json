@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "laad4/8Jdmxjo28PCBk22o6FkIOMCCF9ospVBH4vVyE=",
+  "Hash": "CbBypmEUzfLS+Bs6YRb8328lJxrjyzafsHp0Up2EyeU=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2378,6 +2378,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_28092022_Nur Ali Majid-TS- Agustus.pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_Indocyber Timesheet - Marion Nata Lukas Gunawan - Agustus.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_29092022_Indocyber Timesheet - Marion Nata Lukas Gunawan - Agustus.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Indocyber Timesheet - Marion Nata Lukas Gunawan - Agustus.pdf"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_29092022_level 2.pdf",
