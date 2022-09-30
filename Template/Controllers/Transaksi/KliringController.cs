@@ -615,11 +615,11 @@ namespace Ririn.Controllers.Transaksi
 
             FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
-            docs.Replace("%TANGGALSEKARANG", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
-            docs.Replace("%NOSURAT", NOSURAT.ToString(), false, true);
-            docs.Replace("%KETERANGAN", KETERANGAN.ToString(), false, true);
+            docs.Replace("%TANGGALSEKARANG%", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            docs.Replace("%KETERANGAN%", KETERANGAN.ToString(), false, true);
             docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
-            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true);
+            docs.Replace("%NOMOREFERENSI%", NOMORREFERENSI.ToString(), false, true);
             docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%NOREK%", NOREK.ToString(), false, true);
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);

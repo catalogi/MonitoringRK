@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EjSuSHMNWoFEjYBJRORmhltKS8WJGvim6RxYJyd9vG0=",
+  "Hash": "0uCL6KRBbZsCWiqI/ayJDhiuO50FnLZNB/tcltYXmAE=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -37432,6 +37432,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\plugins\\uplot\\uPlot.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\~$RAT_RETUR_Keluar.docx",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "Template/~$RAT_RETUR_Keluar.docx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Template\\~$RAT_RETUR_Keluar.docx"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\Memo_Keluar.docx",
