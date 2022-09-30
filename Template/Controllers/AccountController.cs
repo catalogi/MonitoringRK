@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ririn.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;

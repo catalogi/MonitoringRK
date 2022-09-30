@@ -105,7 +105,7 @@
 	<div class="container">
 		<div class="card" style="background-color:white">
 			<div class="card-header ">
-				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#e0a017">Monitoring Kliring</h2>
+				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring Kliring</h2>
 				<p class="card-text font-weight-bolder">Transaksi Kliring</p>
 			</div>
 			<div class="card-body">
@@ -124,12 +124,12 @@
 						<br>
 						<label class="bmd-label-floating"></label>
 						<button class="btn btn-primary " onclick="Filter();">Filter</button>
-						<button class="btn btn-primary " onclick="clearFilter();">X</button>
+						<button class="btn btn-primary " onclick="clearFilter();">Kretek</button>
 					</div>
 				</div>
 				<br />
 				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
-					<thead style="background-color:#e0a017">
+					<thead style="background-color:#319DA0">
 						<tr>
 							<th>No.</th>
 							<th>Tanggal Register</th>
@@ -342,7 +342,6 @@
 				destroy: "true",
 				"columns": [
 					{
-
 						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
 					},
 					{
@@ -355,14 +354,14 @@
 					{ "data": "nomorRekening" },
 					{ "data": "namaPenerima" },
 					{ "data": "alasan.nama" },
-					{ "data": "alasan.nama" },
+					{ "data": "durasi" },
 					//{ "data": "SLA(HK)" },
 					{ "data": "type.nama" },
 					{
 						"render": function (data, type, row) {
 							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
-
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
+							//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
 						},
 
 					},
