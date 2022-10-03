@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0uCL6KRBbZsCWiqI/ayJDhiuO50FnLZNB/tcltYXmAE=",
+  "Hash": "uXPr9xWp5JcYCCVYae9hHoKE2K+sFcldZVebvDBCXGE=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2259,6 +2259,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_03102022_OT_Rudi (1).pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_03102022_OT_Rudi (1).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_03102022_OT_Rudi (1).pdf"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf",
@@ -37432,23 +37449,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\plugins\\uplot\\uPlot.min.css"
-    },
-    {
-      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\~$RAT_RETUR_Keluar.docx",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "Template/~$RAT_RETUR_Keluar.docx",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Template\\~$RAT_RETUR_Keluar.docx"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\Memo_Keluar.docx",

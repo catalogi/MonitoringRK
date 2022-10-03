@@ -540,6 +540,7 @@
 				"datatype": "json",
 				"data": { Id: Id }
 			}).then((result) => {
+				debugger;
 				if (result != null) {
 					console.log(result);
 					$("#formId").val(result.data.id).change;
@@ -548,7 +549,7 @@
 					$("#NoReferensi").val(result.data.noReferensi);
 					$("#Cabang").val(result.data.cabangId).change();
 					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
-					$("#TanggalTK").val(moment(result.data.tanggaltestkey).format('YYYY-MM-DD')).change();
+					$("#TanggalTK").val(moment(result.data.tanggalTestkey).format('YYYY-MM-DD'));
 					$("#NomorSurat").val(result.data.nomorSurat);
 					$("#NoTeskey").val(result.data.nomorTestkey).change();
 					$("#Nama").val(result.data.namaPenerima);
