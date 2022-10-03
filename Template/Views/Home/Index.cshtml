@@ -1,66 +1,92 @@
-﻿@{
+﻿@using Microsoft.EntityFrameworkCore
+@using Ririn.Models.Master
+@using Ririn.Data
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject AppDbContext context
+@{
     ViewData["Title"] = "Home Page";
+}
+@inject UserManager<User> UserManager
+@inject AppDbContext _context
+@inject RoleManager<IdentityRole> _RoleManager
+
+@{
+    var user = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.UserName == User.Identity!.Name).FirstOrDefault();
+    var roles = UserManager.GetRolesAsync(user).Result;
+    var isAdmin = User.IsInRole("Admin");
+    var allRoles = _context.User.Select(x => x.Nama).ToList();
+    //var isApprover = roles.Contains();
+
 }
 
 <section class="content">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 offset-md-1">
-                <!-- DONUT CHART -->
-                <div class="card card-danger">
-                    <div class="card-header" style="background-color:white">
-                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
-                        <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+            @if (user.Unit.Nama == "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin")
+            {
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <canvas id="donutChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <!-- DONUT CHART -->
-                <div class="card card-danger">
-                    <div class="card-header" style="background-color:white">
-                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
-                        <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <!-- DONUT CHART -->
-                <div class="card card-danger">
-                    <div class="card-header" style="background-color:white">
-                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
-                        <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+            }
+            else if (user.Unit.Nama == "RTGS" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin")
+            {
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <!-- DONUT CHART -->
-                <div class="card card-danger">
-                    <div class="card-header" style="background-color:white">
-                        <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
-                        <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
-            </div>
+            }           
+            
         </div>
     </div>
 </section>
@@ -81,16 +107,16 @@
                 var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
                 var km = [result.kliringMasukCepat, result.kliringMasukLambat];
 
-                getChartrk(rk);
-                getChartrm(rm);
                 getChartkk(kk);
                 getChartkm(km);
+                @*getChartrk(rk);*@
+                getChartrm(rm);
 
             }
         });
     }
 
-    function getChartrk(rk) {
+    @*function getChartrk(rk) {
         var donutChartCanvas2 = $('#donutChart2').get(0).getContext('2d')
         var donutData2 = {
             labels: [                
@@ -115,7 +141,7 @@
             data: donutData2,
             options: donutOptions2
         })
-    }
+    }*@
 
     function getChartrm(rm) {
         var donutChartCanvas3 = $('#donutChart3').get(0).getContext('2d')
