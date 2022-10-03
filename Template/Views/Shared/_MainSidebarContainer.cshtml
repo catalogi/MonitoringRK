@@ -24,18 +24,18 @@
 <aside class="main-sidebar bg-bni-primary elevation-4 w-full">
 
     @*@if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "Kliring" || user.Unit.Nama == "RTGS")*@
-    {
+    @*{*@
         <!-- Brand Logo -->
-        <a asp-action="Index" asp-controller="Home" class="brand-link">
-            <img src="~/dist/img/AdminLTELogo.png" alt="MonitoringRK"
-             class="brand-image img-circle elevation-3" style="opacity: .8">
+        <a asp-action="Index" asp-controller="Home" class="brand-link" >
+            <img src="~/img/oprlogo.png" alt="MonitoringRK"
+             class="brand-image img-circle elevation-6" style="opacity: .9">
             <span class="brand-text font-weight-bold text-bni-origin">
                 Ririn
                 <span class="text-bni-accent">PROJECT</span>
             </span>
         </a>
         <!-- /.sidebar -->
-    }
+    @*}*@
     <!-- Main Sidebar Container -->
     <!-- Brand Logo -->
     <div class="sidebar" style="overflow:hidden;">

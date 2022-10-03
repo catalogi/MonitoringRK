@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ej684pq5/ts70y2pkuIDnMFb9jR0CU+IJK7MQB0VVuo=",
+  "Hash": "CiG+z2JUm1AeoEp1I722MEws8Je0M2M6VsN/+iiUZu4=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2261,6 +2261,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_03102022_Form rekap Lembur_Nur Ali Majid.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_03102022_Form rekap Lembur_Nur Ali Majid.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_03102022_Form rekap Lembur_Nur Ali Majid.pdf"
+    },
+    {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
@@ -2463,6 +2480,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_29092022_Surat Retur25 Agustus 2022 (2).pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_30092022_Kotlin.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_30092022_Kotlin.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_30092022_Kotlin.pdf"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_414141_26092022_level 2.pdf",

@@ -127,11 +127,11 @@
                 <div class="row">
                     <div class="col">
                         <label for="nomorRefrensi">Tipe</label>
-                        <select name="Tipe" data-placement="choose" class="form-control select"></select>
+                        <select name="tipe" data-placement="choose" class="form-control select"></select>
                     </div>
                     <div class="col">
                         <label for="nomorRefrensi">Jenis</label>
-                        <select data-placement="choose" class="form-control select"></select>
+                        <select data-placement="choose" name="jenis" class="form-control select"></select>
                     </div>
                 </div>
                 <br />
@@ -155,12 +155,28 @@
                 type:"Get",
                 dataType: "json",
                 success:function({data}){
-                    $("select[name=Tipe]").append('<option value="">Pilih Tipe Surat</option>')
+                    $("select[name=tipe]").append('<option value="">Pilih Tipe Surat</option>')
                     $.each(data, function(i,value){
-                        $("select[name=Tipe]").append(`<option value="${value.Id}">${value.nama}</option>`)
+                        $("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
         }
+
+        $("select[name=tipe]").on("change", function(){
+            $.ajax({
+                url: "@Url.Action("GetJenisSurat","Master")/" + $(this).val(),
+                type:"get",
+                dataType:"Json",
+                success: function({data}){
+                    $("select[name=jenis]").empty();
+                    $("select[name=jenis]").append(`<option value="">--Jenis Surat--</option>`);
+                    $.each(data, function(i, value){
+                        $("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+
+                }
+            });
+        })
     </script>
 }
