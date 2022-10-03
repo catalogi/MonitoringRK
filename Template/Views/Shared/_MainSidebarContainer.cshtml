@@ -1,176 +1,352 @@
+@using Microsoft.EntityFrameworkCore
 @using Ririn.Models.Master
 @using Ririn.Data
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject AppDbContext context
-
 @*@{
     var user = context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault();
 }*@
 
-<!-- Main Sidebar Container -->
+@inject UserManager<User> UserManager
+@inject AppDbContext _context
+@inject RoleManager<IdentityRole> _RoleManager
+
+@{
+    var user = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.UserName == User.Identity!.Name).FirstOrDefault();
+    var roles = UserManager.GetRolesAsync(user).Result;
+    var isAdmin = User.IsInRole("Admin");
+    var allRoles = _context.User.Select(x => x.Nama).ToList();
+    //var isApprover = roles.Contains();
+
+}
 <aside class="main-sidebar bg-bni-primary elevation-4 w-full">
-    <!-- Brand Logo -->
-    <a asp-action="Index" asp-controller="Home" class="brand-link">
-        <img src="~/dist/img/AdminLTELogo.png" alt="MonitoringRK"
+
+    @*@if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "Kliring" || user.Unit.Nama == "RTGS")*@
+    {
+        <!-- Brand Logo -->
+        <a asp-action="Index" asp-controller="Home" class="brand-link">
+            <img src="~/dist/img/AdminLTELogo.png" alt="MonitoringRK"
              class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-bold text-bni-origin">
-            Ririn
-            <span class="text-bni-accent">PROJECT</span>
-        </span>
-    </a>
+            <span class="brand-text font-weight-bold text-bni-origin">
+                Ririn
+                <span class="text-bni-accent">PROJECT</span>
+            </span>
+        </a>
+        <!-- /.sidebar -->
+    }
+    <!-- Main Sidebar Container -->
+    <!-- Brand Logo -->
     <div class="sidebar" style="overflow:hidden;">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-header bg-bni-accent font-bold mx-2 rounded-sm mb-2">
-                    Master
-                </li>
-                <li class="nav-item">
-                    @*User Management*@
-                    <a asp-action="Index" asp-controller="Account" class="nav-link">
-                        <i class="fas fa-users text-bni-accent nav-icon" aria-hidden="true"></i>
-                        <p class="text-bni-accent brand-text">
-                            Users
-                        </p>
-                    </a>
-                </li>
+                @if (user.Unit.Nama == "Super Admin")
+                {
+                    <li class="nav-header bg-bni-accent font-bold mx-2 rounded-sm mb-2">
+                        Master
+                    </li>
+                    <li class="nav-item">
+                        @*User Management*@
+                        <a asp-action="Index" asp-controller="Account" class="nav-link">
+                            <i class="fas fa-users text-bni-accent nav-icon" aria-hidden="true"></i>
+                            <p class="text-bni-accent brand-text">
+                                Users
+                            </p>
+                        </a>
+                    </li>
 
-                @*Menu Bank*@
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="Bank" class="nav-link">
-                        <i class="fas fa-university text-bni-accent nav-icon" aria-hidden="true"></i>
-                        <p class="text-bni-accent brand-text">
-                            Bank
-                        </p>
-                    </a>
-                </li>
+                    @*Menu Bank*@
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Bank" class="nav-link">
+                            <i class="fas fa-university text-bni-accent nav-icon" aria-hidden="true"></i>
+                            <p class="text-bni-accent brand-text">
+                                Bank
+                            </p>
+                        </a>
+                    </li>
 
-                @* Menu Cabang*@
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="Cabang" class="nav-link">
-                        <i class="fas fa-code-branch text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Cabang
-                        </p>
-                    </a>
-                </li>
+                    @* Menu Cabang*@
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Cabang" class="nav-link">
+                            <i class="fas fa-code-branch text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Cabang
+                            </p>
+                        </a>
+                    </li>
 
-                @* Menu Libur*@
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="Libur" class="nav-link">
-                        <i class="fas fa-calendar-check text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Hari Libur
-                        </p>
-                    </a>
-                </li>
+                    @* Menu Libur*@
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Libur" class="nav-link">
+                            <i class="fas fa-calendar-check text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Hari Libur
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Monitoring Kliring
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
 
-                <!-- Menu Monitoring Kliring -->
-                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                    Monitoring Kliring
-                </li>
+                    <li class="nav-item">
+                        <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Reports
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a asp-action="Registrasi" asp-controller="Kliring" class="nav-link">
-                        <i class="fas fa-file-import text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Registrasi
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Monitoring RTGS
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Report" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Report
+                            </p>
+                        </a>
+                    </li>
+                }
+                else if (user.Unit.Nama == "Admin")
+                {
+                    <li class="nav-header bg-bni-accent font-bold mx-2 rounded-sm mb-2">
+                        Master
+                    </li>
+                    <li class="nav-item">
+                        @*User Management*@
+                        <a asp-action="Index" asp-controller="Account" class="nav-link">
+                            <i class="fas fa-users text-bni-accent nav-icon" aria-hidden="true"></i>
+                            <p class="text-bni-accent brand-text">
+                                Users
+                            </p>
+                        </a>
+                    </li>
+                    <!-- Menu Monitoring Kliring -->
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Monitoring Kliring
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Registrasi" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Registrasi
+                            </p>
+                        </a>
+                    </li>
 
 
-                <li class="nav-item">
-                    <a asp-action="Proses" asp-controller="Kliring" class="nav-link">
+                    <li class="nav-item">
+                        <a asp-action="Proses" asp-controller="Kliring" class="nav-link">
 
-                        <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Proses
-                        </p>
-                    </a>
-                </li>
+                            <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Proses
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
-                        <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Monitoring
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
-                        <i class="fas fa-book text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Reports
-                        </p>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a asp-action="Surat" asp-controller="Kliring" class="nav-link">
-                        <i class="fas fa-book text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Surat
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Reports
+                            </p>
+                        </a>
+                    </li>
 
-                <!-- Menu Monitoring RTGS -->
-                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                    Monitoring RTGS
-                </li>
+                    <li class="nav-item">
+                        <a asp-action="Surat" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Surat
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a asp-action="Register" asp-controller="RTGS" class="nav-link">
-                        <i class="fas fa-file-import text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Registrasi
-                        </p>
-                    </a>
-                </li><li class="nav-item">
-                    <a asp-action="Proses" asp-controller="RTGS" class="nav-link">
-                        <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Proses
-                        </p>
-                    </a>
-                </li>
+                    <!-- Menu Monitoring RTGS -->
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Monitoring RTGS
+                    </li>
 
-                
+                    <li class="nav-item">
+                        <a asp-action="Register" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Registrasi
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Proses" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Proses
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
-                        <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Monitoring
-                        </p>
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a asp-action="Report" asp-controller="RTGS" class="nav-link">
-                        <i class="fas fa-book text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Report
-                        </p>
-                    </a>
-                </li>
 
-                <!-- Helpdesk -->
-                <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
-                    Helpdesk
-                </li>
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="DataToken" class="nav-link">
-                        <i class="fas fa-database text-bni-accent nav-icon"></i>
-                        <p class="text-bni-accent brand-text">
-                            Data Token
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Report" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Report
+                            </p>
+                        </a>
+                    </li>
+
+                    <!-- Helpdesk -->
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Helpdesk
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="DataToken" class="nav-link">
+                            <i class="fas fa-database text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Data Token
+                            </p>
+                        </a>
+                    </li>
+                }
+                else if(user.Unit.Nama == "Kliring")
+                {
+                    <!-- Menu Monitoring Kliring -->
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Monitoring Kliring
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Registrasi" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Registrasi
+                            </p>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a asp-action="Proses" asp-controller="Kliring" class="nav-link">
+
+                            <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Proses
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Reports
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Surat" asp-controller="Kliring" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Surat
+                            </p>
+                        </a>
+                    </li>
+                }
+                else if(user.Unit.Nama == "rtgs")
+                {
+                    <!-- Menu Monitoring RTGS -->
+                    <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
+                        Monitoring RTGS
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Register" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-file-import text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Registrasi
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Proses" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Proses
+                            </p>
+                        </a>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Monitoring
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Report" asp-controller="RTGS" class="nav-link">
+                            <i class="fas fa-book text-bni-accent nav-icon"></i>
+                            <p class="text-bni-accent brand-text">
+                                Report
+                            </p>
+                        </a>
+                    </li>
+                }
+  
 
             </ul>
         </nav>

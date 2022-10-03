@@ -10,14 +10,14 @@ namespace Ririn.ViewModels
         public string? NPP { get; set; }
         public int KelompokId { get; set; }
         public int UnitId { get; set; }
-        //public ICollection<RoleVM> Roles { get; set; }
+        public ICollection<RoleVM> Roles { get; set; }
 
     }
 
-    //public class RoleVM
-    //{
-    //    public string RoleName { get; set; }
-    //}
+    public class RoleVM
+    {
+        public string RoleName { get; set; }
+    }
     public class LoginVM
     {
         [Required]

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ririn.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -24,8 +25,9 @@ namespace Ririn.Controllers
             _webHostEnvironment = webHostEnvironment;
             _signInManager = signInManager;
             _userManager = userManager;
-            //_roleManager = _roleManager;
+            
             _context = context;
+            
         }
 
         public IActionResult Index()
@@ -83,7 +85,7 @@ namespace Ririn.Controllers
                 {
                     var role = _userManager.GetRolesAsync(UserDb);
 
-                    //Remove Role From USer
+                    //Remove Role From User
                     foreach (var item in role.Result)
                     {
                         await _userManager.RemoveFromRoleAsync(UserDb, item);
@@ -94,7 +96,7 @@ namespace Ririn.Controllers
                     //{
                     //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
                     //}
-                    
+
                 }
                 success = true;
             }
@@ -153,7 +155,7 @@ namespace Ririn.Controllers
         }
 
         #endregion
-
+        [Authorize(Roles = "Admin")]
         public void addNewRole()
         {
             List<string> roleName = new List<string>() {
@@ -169,6 +171,7 @@ namespace Ririn.Controllers
             }
         }
 
+        
 
         [HttpGet]
         [AllowAnonymous]
@@ -192,7 +195,7 @@ namespace Ririn.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
-            return View(user);
+            return View("Login", user);
         }
 
         public async Task<IActionResult> Logout()
