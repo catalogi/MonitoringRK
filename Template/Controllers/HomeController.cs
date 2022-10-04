@@ -86,5 +86,40 @@ namespace Ririn.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult Donat()
+        {
+            int kliringMasukCepat = 0;
+            int kliringMasukLambat = 0;
+            int kliringKeluarCepat = 0;
+            int kliringKeluarLambat = 0;
+            int rtgsMasukCepat = 0;
+            int rtgsMasukLambat = 0;
+            int rtgsKeluarCepat = 0;
+            int rtgsKeluarLambat = 0;
+
+            var data = _context.T_Kliring.ToList();
+            kliringMasukCepat = data.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 1).Count();
+            kliringMasukLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 1).Count();
+            kliringKeluarCepat = data.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 2).Count();
+            kliringKeluarLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 2).Count();
+            var data1 = _context.T_RTGS.ToList();
+            rtgsMasukCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2).Count();
+            rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2).Count();
+
+            dynamic result = new
+            {
+                KliringMasukCepat = kliringMasukCepat,
+                KliringMasukLambat = kliringMasukLambat,
+                KliringKeluarCepat = kliringKeluarCepat,
+                KliringKeluarLambat = kliringKeluarLambat,
+                RtgsMasukCepat = rtgsMasukCepat,
+                RtgsMasukLambat = rtgsMasukLambat,
+                RtgsKeluarCepat = rtgsKeluarCepat,
+                RtgsKeluarLambat = rtgsKeluarLambat
+
+            };
+
+            return Ok(result);
+        }
     }
 }
