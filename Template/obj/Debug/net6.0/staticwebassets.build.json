@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CiG+z2JUm1AeoEp1I722MEws8Je0M2M6VsN/+iiUZu4=",
+  "Hash": "eKe+A3ISdHdsrfd7eOkL3+2FMx3bhwiDs3i5Qrt2Dj0=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2582,6 +2582,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_9898776_26092022_juli.pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\RTGS\\RTGS_11111_03102022_.png",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/RTGS/RTGS_11111_03102022_.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\RTGS\\RTGS_11111_03102022_.png"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\RTGS\\RTGS_12331_03102022_.png",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/RTGS/RTGS_12331_03102022_.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\RTGS\\RTGS_12331_03102022_.png"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\RTGS\\RTGS_50_26092022_.png",

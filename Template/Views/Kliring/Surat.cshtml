@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-print"></i> Cetak</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
             </div>
         </div>
     </div>
@@ -131,12 +131,14 @@
                     </div>
                     <div class="col">
                         <label for="nomorRefrensi">Jenis</label>
-                        <select data-placement="choose" name="jenis" class="form-control select"></select>
+                        <select data-placement="choose" name="jenis" id="jenis" class="form-control select">
+                            <option value="">--Pilih Jenis Surat--</option>
+                        </select>
                     </div>
                 </div>
                 <br />
-                <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal" data-dismiss="modal"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
-                <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>
+                <button type="button" class="btn btn-warning float-right" onclick="getModal();"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
+                @*<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>*@
 
             </div>
         </div>
@@ -170,7 +172,7 @@
                 dataType:"Json",
                 success: function({data}){
                     $("select[name=jenis]").empty();
-                    $("select[name=jenis]").append(`<option value="">--Jenis Surat--</option>`);
+                    $("select[name=jenis]").append('<option value="">--Pilih Jenis Surat--</option>');
                     $.each(data, function(i, value){
                         $("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
@@ -178,5 +180,19 @@
                 }
             });
         })
+        
+        
+        function getModal(){
+            debugger;
+            var jenisId = $("#jenis").val();
+            if(jenisId == ''){
+                alert('Anda Belum memilih Jenis Surat');
+            }
+            else if(jenisId == 2 || jenisId == 3){
+                $("#myModal").modal('show');
+            }else{
+                $("#myModal2").modal('show');
+            }
+        }
     </script>
 }
