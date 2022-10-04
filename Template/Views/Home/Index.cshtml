@@ -24,7 +24,66 @@
 <section class="content">
     <div class="container">
         <div class="row">
-            @if (user.Unit.Nama == "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin")
+            @if (user.Unit.Nama != "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama != "RTGS")
+            {
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            }
+            else if(user.Unit.Nama == "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin"||user.Unit.Nama != "RTGS")
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
@@ -55,7 +114,7 @@
                     <!-- /.card -->
                 </div>
             }
-            else if (user.Unit.Nama == "RTGS" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin")
+            else if (user.Unit.Nama != "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "RTGS")
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
@@ -94,6 +153,7 @@
 <script>
     $(document).ready(function(){
         getDataChart();
+        getDataChartRTGS();
     })
     function getDataChart() {
         $.ajax({
@@ -102,21 +162,42 @@
             dataType: "json",
             success: (result) => {
                 console.log(result);
-                var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
-                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];
+                @*var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
+                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];*@
                 var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
                 var km = [result.kliringMasukCepat, result.kliringMasukLambat];
 
+                
                 getChartkk(kk);
                 getChartkm(km);
-                @*getChartrk(rk);*@
+               @* getChartrk(rk);
+                getChartrm(rm);
+*@
+            }
+        });
+    }function getDataChartRTGS() {
+        $.ajax({
+            url: "@Url.Action("Donat","Home")",
+            type: "get",
+            dataType: "json",
+            success: (result) => {
+                console.log(result);
+                var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
+                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];
+                @*var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
+                var km = [result.kliringMasukCepat, result.kliringMasukLambat];
+*@
+                
+               @* getChartkk(kk);
+                getChartkm(km);*@
+                getChartrk(rk);
                 getChartrm(rm);
 
             }
         });
     }
 
-    @*function getChartrk(rk) {
+    function getChartrk(rk) {
         var donutChartCanvas2 = $('#donutChart2').get(0).getContext('2d')
         var donutData2 = {
             labels: [                
@@ -126,7 +207,7 @@
             datasets: [
                 {
                     data: rk,
-                    backgroundColor: ['#f56954', '#00a65a'],
+                    backgroundColor: ['#4cc93e', '#d60202'],
                 }
             ]
         }
@@ -141,7 +222,7 @@
             data: donutData2,
             options: donutOptions2
         })
-    }*@
+    }
 
     function getChartrm(rm) {
         var donutChartCanvas3 = $('#donutChart3').get(0).getContext('2d')
@@ -153,7 +234,7 @@
             datasets: [
                 {
                     data: rm,
-                    backgroundColor: ['#f56954', '#00a65a'],
+                    backgroundColor: ['#4cc93e', '#d60202'],
                 }
             ]
         }
@@ -180,7 +261,7 @@
             datasets: [
                 {
                     data: kk,
-                    backgroundColor: ['#f56954', '#00a65a'],
+                    backgroundColor: ['#4cc93e', '#d60202'],
                 }
             ]
         }
@@ -208,7 +289,7 @@
             datasets: [
                 {
                     data: km,
-                    backgroundColor: ['#f56954', '#00a65a'],
+                    backgroundColor: ['#4cc93e', '#d60202'],
                 }
             ]
         }

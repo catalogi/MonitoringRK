@@ -128,10 +128,11 @@ namespace Ririn.Controllers.Transaksi
                         ket = AddKet.Id;
 
                     }
-                    else
-                    {
-                        ket = data.KeteranganId ?? 0;
-                    }
+
+                }
+                else
+                {
+                    ket = data.KeteranganId ?? 0;
                 }
                 var dat = _context.T_RTGS.Where(x => x.Id == data.Id).FirstOrDefault();
                 dat.KeteranganId = ket;
