@@ -42,4 +42,21 @@
     function downloadReport(){
 
     }
+
+    function GetType() {
+        $.ajax({
+            url: "@Url.Action("GetType","RTGS")",
+            type: "GET",
+            DataType: "json",
+            success: function ({ data }) {
+                $.each(data, function (i, value) {
+                    $("select[id=Jenisj]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            }
+        })
+    }
+
+
+
+
 </script>

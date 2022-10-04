@@ -20,6 +20,7 @@ using System.Net;
 
 using SkiaSharp;
 using Microsoft.AspNetCore.Authorization;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -75,7 +76,7 @@ namespace Ririn.Controllers.Transaksi
         //        .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 1).ToList();
         //    return Json(new { data = result });
         //}
-        
+
         [HttpGet]
         public JsonResult GetAll()
         {
@@ -230,17 +231,17 @@ namespace Ririn.Controllers.Transaksi
             string path = Path.Combine(webRootPath, "Template");
             string filename = "Memo_Keluar";
 
-            FileStream fileStreamPath = new FileStream(Path.Combine(path,filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
 
-            docs.Replace("%TanggalSEKARANG%", TanggalSEKARANG.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true );
-            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true );
-            docs.Replace("%TANGGALTRX%", TanggalSEKARANG.ToString("dd MM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true );
-            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true );
-            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true );
-            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true );
-            docs.Replace("%NOREK%", NOREK.ToString(), false, true );
-            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true );
+            docs.Replace("%TanggalSEKARANG%", TanggalSEKARANG.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            docs.Replace("%TANGGALTRX%", TanggalSEKARANG.ToString("dd MM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
+            docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true);
+            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
+            docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
+            docs.Replace("%NOREK%", NOREK.ToString(), false, true);
+            docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
@@ -260,9 +261,14 @@ namespace Ririn.Controllers.Transaksi
 
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
-            var result = _context.TypeTrans
-                .Include(x => x.Unit).Where(x => x.UnitId == 1).ToList();
-            return Json(new { data = result });
+            var result = _context.T_Kliring
+                .Include(x => x.Bank)
+                        .Include(x => x.Alasan)
+                        .Include(x => x.Type)
+                        .Include(x => x.Cabang)
+                        .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.TanggalTRX >= Awal.Date.AddDays(-1)&& x.TanggalTRX < Akhir.Date))
+                        .ToList();
+            return Ok(new { data = result });
         }
 
 
@@ -698,6 +704,6 @@ namespace Ririn.Controllers.Transaksi
             docs.Close();
 
         }
-        
+
     }
 }
