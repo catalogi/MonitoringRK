@@ -123,12 +123,12 @@
 					<div class="col-md-3">
 						<br>
 						<label class="bmd-label-floating"></label>
-						<button class="btn btn-primary " onclick="Filter();">Filter</button>
-						<button class="btn btn-primary " onclick="clearFilter();">Kretek</button>
+						<button class="btn btn-info " onclick="Filter();"><i></i>Filter</button>
+						<button class="btn btn-info " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
 					</div>
 				</div>
 				<br />
-				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
+				<table id="table" class="table table-hover nowrap display table-striped table-bordered" style="width:100%">
 					<thead style="background-color:#319DA0">
 						<tr>
 							<th>No.</th>
@@ -167,6 +167,9 @@
 
 		function Read() {
 			var t = $("#table").DataTable({
+				lengthChange: false,
+				autoWidth: false,
+				"scrollX":true,
 				"ajax": {
 					"url": "@Url.Action("GetMonitoring","Kliring")",
 					"type": "GET",
@@ -189,9 +192,26 @@
 					{ "data": "type.nama" },
 					{
 						"render": function (data, type, row) {
-							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
-							//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
+							if (row.suratId == null) {
+								return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+									"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
+								//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
+
+							} else {
+								if (row.surat.jenisSuratId == 1) {
+									return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+										"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> "+
+									"<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i class='fa fa-car'></i></a> ";
+								}else if(row.surat.jenisSuratId == 2){
+									return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+										"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> " +
+										"<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='width:8px ><i class='fas fa-download'></i></a> ";
+								}else if(row.surat.jenisSuratId == 3){
+									return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+										"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> " +
+										"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i class='fa fa-car'></i></a> ";
+								}
+							}
 						},
 
 					},

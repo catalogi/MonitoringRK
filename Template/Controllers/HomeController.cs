@@ -69,9 +69,9 @@ namespace Ririn.Controllers
 
             var data = _context.T_Kliring.ToList();
             kliringMasukCepat = data.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 1).Count();
+            kliringMasukLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 1).Count();
             kliringKeluarCepat = data.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 2).Count();
-            kliringMasukLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId ==1).Count();
-            kliringKeluarLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 2 ).Count();
+            kliringKeluarLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 2).Count();
             var data1 = _context.T_RTGS.ToList();
             rtgsMasukCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2).Count();
             rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2).Count();

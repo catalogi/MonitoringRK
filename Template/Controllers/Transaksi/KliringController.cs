@@ -93,6 +93,7 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
+                .Include(x=>x.Surat)
                 .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2);
             var data = result.Select(x => x.Id).ToList();
 
@@ -199,6 +200,8 @@ namespace Ririn.Controllers.Transaksi
 
         public IActionResult SaveSurat(SuratVM data)
         {
+            var noReg = _context.T_Kliring.Where(x => x.Id == data.sId).FirstOrDefault();
+
             var success = false;
             if (data.Id == null)
             {
@@ -216,6 +219,10 @@ namespace Ririn.Controllers.Transaksi
                     };
                     _context.Surat.Add(surat);
                     _context.SaveChanges();
+
+                    noReg.SuratId = surat.Id;
+                    _context.Entry(noReg).State = EntityState.Modified;
+                    _context.SaveChanges();
                 }
                 else
                 {
@@ -231,17 +238,17 @@ namespace Ririn.Controllers.Transaksi
                     _context.Surat.Add(surat);
                     _context.SaveChanges();
                 }
-                var id = data.sId;
-                if(data.JenisId == 1)
-                {
-                    TemplateSuratMasuk(id);
-                } else if(data.JenisId == 2)
-                {
-                    MemoMasuk(id);
-                }else if(data.JenisId == 3)
-                {
-                    TemplateSuratKeluar(id);
-                }
+                //var id = data.sId;
+                //if(data.JenisId == 1)
+                //{
+                //    TemplateSuratMasuk(id);
+                //} else if(data.JenisId == 2)
+                //{
+                //    MemoMasuk(id);
+                //}else if(data.JenisId == 3)
+                //{
+                //    TemplateSuratKeluar(id);
+                //}
                 success = true;
             }
             return Json(success);
@@ -485,6 +492,7 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
+                .Include(x=>x.Surat)
                 .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
