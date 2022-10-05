@@ -94,7 +94,11 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .Include(x => x.Surat)
+=======
+                .Include(x=>x.Surat)
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 =======
                 .Include(x=>x.Surat)
 >>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
@@ -247,7 +251,10 @@ namespace Ririn.Controllers.Transaksi
                     _context.SaveChanges();
                 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 =======
 >>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
                 //var id = data.sId;
@@ -505,7 +512,11 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .Include(x => x.Surat)
+=======
+                .Include(x=>x.Surat)
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 =======
                 .Include(x=>x.Surat)
 >>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b

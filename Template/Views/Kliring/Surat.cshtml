@@ -63,6 +63,7 @@
 </div>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -120,6 +121,8 @@
         </div>
     </div>
 =======
+=======
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -175,11 +178,15 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
+=======
 >>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 </div>
 
 
 <section class="content">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <div class="container">
         <div class="card" style="background-color:white">
@@ -203,6 +210,8 @@
                 <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-dismiss="modal" onclick="getModal();"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
                 @*<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>*@
 =======
+=======
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 	<div class="container">
 		<div class="card" style="background-color:white">
 			<div class="card-header card-header-info">
@@ -224,6 +233,9 @@
 				<br />
 				<button type="button" class="btn btn-warning float-right" onclick="getModal();"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
 				@*<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>*@
+<<<<<<< HEAD
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
+=======
 >>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 
 			</div>
@@ -231,6 +243,7 @@
 	</div>
 </section>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <script>
     var paths = location.pathname.split("/")
@@ -441,6 +454,70 @@
 		})
 
 
+=======
+@section scripts{
+	<script>
+		var paths = location.pathname.split("/")
+		var getid = paths[paths.length - 1]
+		var sId = getid
+		$(document).ready(function () {
+			GetTypes();
+			GetType();
+
+		});
+
+		function GetType() {
+			$.ajax({
+				url: "@Url.Action("GetType","Kliring")",
+				type: "Get",
+				dataType: "json",
+				success: function ({ data }) {
+					$("select[name=tipe]").append('<option value="">Pilih Tipe Surat</option>')
+					$.each(data, function (i, value) {
+						$("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
+					})
+				}
+			})
+		}
+
+		function GetTypes() {
+			debugger;
+			var Id = sId;
+
+			$.ajax({
+				"url": "@Url.Action("GetById","Kliring")",
+				"type": "GET",
+				"datatype": "json",
+				"data": { Id: Id }
+			}).then((result) => {
+				if (result != null) {
+					console.table(result);
+					//$("#suratId").val(result.data.id).change();
+					$("#tipe").val(result.data.typeId).change();
+
+
+				}
+			})
+		}
+
+		$("select[name=tipe]").on("change", function () {
+			$.ajax({
+				url: "@Url.Action("GetJenisSurat","Master")/" + $(this).val(),
+				type: "get",
+				dataType: "Json",
+				success: function ({ data }) {
+					$("select[name=jenis]").empty();
+					$("select[name=jenis]").append('<option value="">--Pilih Jenis Surat--</option>');
+					$.each(data, function (i, value) {
+						$("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
+					})
+
+				}
+			});
+		})
+
+
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 		function getModal() {
 			debugger;
 			var jenisId = $("#jenis").val();
@@ -539,5 +616,9 @@
 
 		}
 	</script>
+<<<<<<< HEAD
+}
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
+=======
 }
 >>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
