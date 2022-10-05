@@ -93,7 +93,11 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
+<<<<<<< HEAD
                 .Include(x => x.Surat)
+=======
+                .Include(x=>x.Surat)
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
                 .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2);
             var data = result.Select(x => x.Id).ToList();
 
@@ -242,7 +246,10 @@ namespace Ririn.Controllers.Transaksi
                     _context.Entry(noReg).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
                 //var id = data.sId;
                 //if(data.JenisId == 1)
                 //{
@@ -497,7 +504,11 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
+<<<<<<< HEAD
                 .Include(x => x.Surat)
+=======
+                .Include(x=>x.Surat)
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
                 .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;

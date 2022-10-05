@@ -1,67 +1,68 @@
 ﻿@{
-    ViewBag.Title = "Surat";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Surat";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <input id="suratId" type="hidden" />
-                        <div class="form-group">
-                            <label for="rekeningDebet">Kepada</label>
-                            <input type="text" class="form-control" name="kepada" id="kepada">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Dari</label>
-                            <input type="text" class="form-control" name="dari" id="dari">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Hal</label>
-                            <input type="text" class="form-control" name="hal" id="hal">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Lampiran</label>
-                            <input type="text" class="form-control" name="lampiran" id="lampiran">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="nomorRefrensi">Nomor Surat</label>
-                            <input type="text" class="form-control" name="nosurat" id="nosurat">
-                        </div>
-                    </div>
-                    @*                    <div class="col-sm-6">
-                    <div class="form-group">
-                    <label for="rekeningDebet">Jabatan</label>
-                    <input type="text" class="form-control" name="jabatan" id="jabatan">
-                    </div>
-                    </div>*@
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Input Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<input id="suratId" type="hidden" />
+						<div class="form-group">
+							<label for="rekeningDebet">Kepada</label>
+							<input type="text" class="form-control" name="kepada" id="kepada">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="rekeningDebet">Dari</label>
+							<input type="text" class="form-control" name="dari" id="dari">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="rekeningDebet">Hal</label>
+							<input type="text" class="form-control" name="hal" id="hal">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="rekeningDebet">Lampiran</label>
+							<input type="text" class="form-control" name="lampiran" id="lampiran">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="nomorRefrensi">Nomor Surat</label>
+							<input type="text" class="form-control" name="nosurat" id="nosurat">
+						</div>
+					</div>
+					@*                    <div class="col-sm-6">
+					<div class="form-group">
+					<label for="rekeningDebet">Jabatan</label>
+					<input type="text" class="form-control" name="jabatan" id="jabatan">
+					</div>
+					</div>*@
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<<<<<<< HEAD
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -118,10 +119,68 @@
             </div>
         </div>
     </div>
+=======
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Input Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<input id="suratId" type="hidden" />
+						<div class="form-group">
+							<label for="rekeningDebet">Kepada</label>
+							<input type="text" class="form-control" name="kepada" id="kepada">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="rekeningDebet">Dari</label>
+							<input type="text" class="form-control" name="dari" id="daris">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="rekeningDebet">Hal</label>
+							<input type="text" class="form-control" name="hal" id="hal">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="rekeningDebet">Lampiran</label>
+							<input type="text" class="form-control" name="lampiran" id="lampiran">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="nomorRefrensi">Nomor Surat</label>
+							<input type="text" class="form-control" name="nosurat" id="nosurat">
+						</div>
+					</div>
+					@*                    <div class="col-sm-6">
+					<div class="form-group">
+					<label for="rekeningDebet">Jabatan</label>
+					<input type="text" class="form-control" name="jabatan" id="jabatan">
+					</div>
+					</div>*@
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
+			</div>
+		</div>
+	</div>
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 </div>
 
 
 <section class="content">
+<<<<<<< HEAD
     <div class="container">
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info">
@@ -143,12 +202,36 @@
                 <br />
                 <button type="button" class="btn btn-warning float-right" data-toggle="modal" data-dismiss="modal" onclick="getModal();"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
                 @*<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>*@
+=======
+	<div class="container">
+		<div class="card" style="background-color:white">
+			<div class="card-header card-header-info">
+				<h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Surat</h3>
+			</div>
+			<div class="card-body ">
+				<div class="row">
+					<div class="col">
+						<label for="nomorRefrensi">Tipe</label>
+						<select name="tipe" id="tipe" data-placement="choose" class="form-control select"></select>
+					</div>
+					<div class="col">
+						<label for="nomorRefrensi">Jenis</label>
+						<select data-placement="choose" name="jenis" id="jenis" class="form-control select">
+							<option value="">--Pilih Jenis Surat--</option>
+						</select>
+					</div>
+				</div>
+				<br />
+				<button type="button" class="btn btn-warning float-right" onclick="getModal();"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
+				@*<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>*@
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>
 
+<<<<<<< HEAD
 <script>
     var paths = location.pathname.split("/")
     var getid = paths[paths.length - 1]
@@ -295,3 +378,166 @@
 
     }
 </script>
+=======
+@section scripts{
+	<script>
+		var paths = location.pathname.split("/")
+		var getid = paths[paths.length - 1]
+		var sId = getid
+		$(document).ready(function () {
+			GetTypes();
+			GetType();
+
+		});
+
+		function GetType() {
+			$.ajax({
+				url: "@Url.Action("GetType","Kliring")",
+				type: "Get",
+				dataType: "json",
+				success: function ({ data }) {
+					$("select[name=tipe]").append('<option value="">Pilih Tipe Surat</option>')
+					$.each(data, function (i, value) {
+						$("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
+					})
+				}
+			})
+		}
+
+		function GetTypes() {
+			debugger;
+			var Id = sId;
+
+			$.ajax({
+				"url": "@Url.Action("GetById","Kliring")",
+				"type": "GET",
+				"datatype": "json",
+				"data": { Id: Id }
+			}).then((result) => {
+				if (result != null) {
+					console.table(result);
+					//$("#suratId").val(result.data.id).change();
+					$("#tipe").val(result.data.typeId).change();
+
+
+				}
+			})
+		}
+
+		$("select[name=tipe]").on("change", function () {
+			$.ajax({
+				url: "@Url.Action("GetJenisSurat","Master")/" + $(this).val(),
+				type: "get",
+				dataType: "Json",
+				success: function ({ data }) {
+					$("select[name=jenis]").empty();
+					$("select[name=jenis]").append('<option value="">--Pilih Jenis Surat--</option>');
+					$.each(data, function (i, value) {
+						$("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
+					})
+
+				}
+			});
+		})
+
+
+		function getModal() {
+			debugger;
+			var jenisId = $("#jenis").val();
+
+			if (jenisId == 1) {
+				$("#myModal2").modal('show');
+			}
+			else if (jenisId == 2 || jenisId == 3) {
+				$("#myModal").modal('show');
+			} else {
+				alert('Anda Belum memilih Jenis Surat');
+			}
+		}
+
+		function save() {
+			debugger;
+			var isAllValid = true;
+			var kepada = $("#kepadar").val();
+			var dari = $("#daris").val();
+			$("#ItemError").text('');
+			var errorItemCount = 0;
+			if (errorItemCount > 0) {
+				$('#ItemError').text(errorItemCount + " Data Tidak Boleh Kosong!");
+				isAllValid = false;
+			}
+			if ($('#kepada').val() == '') {
+				$('#kepada').addClass('is-invalid');
+				isAllValid = false;
+			} else {
+				$('#kepada').removeClass('is-invalid');
+			} if ($('#dari').val() == '') {
+				$('#dari').addClass('is-invalid');
+				isAllValid = false;
+			} else {
+				$('#dari').removeClass('is-invalid');
+			} if ($('#hal').val() == '') {
+				$('#hal').addClass('is-invalid');
+				isAllValid = false;
+			} else {
+				$('#hal').removeClass('is-invalid');
+			} if ($('#lampiran').val() == '') {
+				$('#lampiran').addClass('is-invalid');
+				isAllValid = false;
+			} else {
+				$('#lampiran').removeClass('is-invalid');
+			}
+			if (isAllValid) {
+				debugger;
+				var data = new Object();
+				data.sId = getid;
+				data.JenisId = $("#jenis").val();
+				data.TujuanSurat = $("#kepada").val();
+				data.AsalSurat = $("#dari").val();
+				data.Perihal = $("#hal").val();
+				data.Lampiran = $("#lampiran").val();
+				data.NomorSurat = $("#nosurat").val();
+
+
+				$.ajax({
+					url: "@Url.Action("SaveSurat","Kliring")",
+					type: "POST",
+					dataType: "json",
+					data: data,
+					success: (response) => {
+						
+						Swal.fire({
+							icon: 'success',
+							title: 'Doned',
+							text: 'Berhasil Diselesaikan!'
+						}).then(() => {
+							//if ($("#jenis").val() == 1) {
+							//	window.location = "@Url.Action("TemplateSuratMasuk","Kliring")/" + getid;
+							//} else if ($("#jenis").val() == 2) {
+							//	window.location = "@Url.Action("MemoMasuk","Kliring")/" + getid;
+							//} else if ($("#jenis").val() == 3) {
+							//	window.location = "@Url.Action("TemplateSuratKeluar","Kliring")/" + getid;
+							//}
+							location.href = "@Url.Action("Monitoring","Kliring")";
+						});
+					},
+					error: (err) => {
+						Swal.fire({
+							icon: 'error',
+							title: 'Gagal',
+							text: 'Tidak Berhasil Diselesaikan!'
+						}).then(() => {
+							location.reload();
+						});
+					}
+				})
+
+			}
+			function GenerateSurat (){
+
+			}
+
+		}
+	</script>
+}
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b

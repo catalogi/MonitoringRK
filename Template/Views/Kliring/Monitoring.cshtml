@@ -112,6 +112,7 @@
             <div class="card-body">
                 <div class="row" style="margin-left:20px">
 
+<<<<<<< HEAD
                     <div class="col-sm-4">
                         <label class="bmd-label-floating">Tanggal Mulai Register</label>
                         <input id="startDate" type="date" class="form-control" />
@@ -148,6 +149,34 @@
             </div>
         </div>
     </div>
+=======
+					<div class="col-md-3">
+						<br>
+						<label class="bmd-label-floating"></label>
+						<button class="btn btn-info " onclick="Filter();"><i></i>Filter</button>
+						<button class="btn btn-info " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
+					</div>
+				</div>
+				<br />
+				<table id="table" class="table table-hover nowrap display table-striped table-bordered" style="width:100%">
+					<thead style="background-color:#319DA0">
+						<tr>
+							<th>No.</th>
+							<th>Tanggal Register</th>
+							<th>Bank</th>
+							<th>No.Rek</th>
+							<th>Nasabah Penerima.</th>
+							<th>Alasan</th>
+							<th>Durasi(HK)</th>
+							<th>Tipe Transaksi</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 </section>
 
 @section scripts{
@@ -168,6 +197,7 @@
             console.log(document.querySelector('table'))
         });
 
+<<<<<<< HEAD
         function Read() {
             var table = $("table").DataTable({
                 scrollX: true,
@@ -199,6 +229,56 @@
                     { "data": "alasan.nama" },
                     { "data": "durasi" },
                     { "data": "type.nama" },
+=======
+		function Read() {
+			var t = $("#table").DataTable({
+				lengthChange: false,
+				autoWidth: false,
+				"scrollX":true,
+				"ajax": {
+					"url": "@Url.Action("GetMonitoring","Kliring")",
+					"type": "GET",
+					"datatype": "json"
+				},
+				"columns": [
+					{ "data": null },
+					{
+						"render": function (data, type, row) {
+							//return row.tanggalTRX;
+							return moment(row.tanggalTRX).format('DD MMMM YYYY');
+						}
+					},
+					{ "data": "bank.nama" },
+					{ "data": "nomorRekening" },
+					{ "data": "namaPenerima" },
+					{ "data": "alasan.nama" },
+					{ "data": "durasi" },
+					//{ "data": "SLA(HK)" },
+					{ "data": "type.nama" },
+					{
+						"render": function (data, type, row) {
+							if (row.suratId == null) {
+								return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+									"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
+								//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
+
+							} else {
+								if (row.surat.jenisSuratId == 1) {
+									return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+										"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> "+
+									"<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i class='fa fa-car'></i></a> ";
+								}else if(row.surat.jenisSuratId == 2){
+									return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+										"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> " +
+										"<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='width:8px ><i class='fas fa-download'></i></a> ";
+								}else if(row.surat.jenisSuratId == 3){
+									return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+										"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> " +
+										"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i class='fa fa-car'></i></a> ";
+								}
+							}
+						},
+>>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
 
                     {
                         render: function (data, type, row) {
