@@ -73,13 +73,13 @@
                         <input id="suratId" type="hidden" />
                         <div class="form-group">
                             <label for="rekeningDebet">Kepada</label>
-                            <input type="text" class="form-control" name="kepada" id="kepada">
+                            <input type="text" class="form-control" name="kepadas" id="kepada">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">Dari</label>
-                            <input type="text" class="form-control" name="dari" id="daris">
+                            <input type="text" class="form-control" name="daris" id="daris">
                         </div>
                     </div>
                 </div>
@@ -87,17 +87,17 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">Hal</label>
-                            <input type="text" class="form-control" name="hal" id="hal">
+                            <input type="text" class="form-control" name="hals" id="hal">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">Lampiran</label>
-                            <input type="text" class="form-control" name="lampiran" id="lampiran">
+                            <input type="text" class="form-control" name="lampirans" id="lampiran">
                         </div>
                     </div>
                 </div>
-                <div class="row">
+               @* <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nomorRefrensi">Nomor Surat</label>
@@ -109,11 +109,11 @@
                     <label for="rekeningDebet">Jabatan</label>
                     <input type="text" class="form-control" name="jabatan" id="jabatan">
                     </div>
-                    </div>*@
-                </div>
+                    </div
+                </div>*@
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saves();"><i class="fas fa-print"></i> Cetak</button>
             </div>
         </div>
     </div>
@@ -266,6 +266,78 @@
                 data.Perihal = $("#hal").val();
                 data.Lampiran = $("#lampiran").val();
                 data.NomorSurat = $("#nosurat").val();
+                
+
+                $.ajax({
+                    url:"@Url.Action("SaveSurat","Kliring")",
+                    type:"POST",
+                    dataType: "json",
+                    data:data,
+                    success:(response)=>{
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Doned',
+                            text: 'Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.href = "@Url.Action("Monitoring","Kliring")";
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Tidak Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                })
+
+            }
+
+        }
+        function saves() {
+            debugger;
+            var isAllValid = true;
+            var kepada = $("#kepadas").val();
+            var dari = $("#daris").val();
+            $("#ItemError").text('');
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " Data Tidak Boleh Kosong!");
+                isAllValid = false;
+            }
+            if ($('#kepadas').val() == '') {
+                $('#kepadas').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#kepadas').removeClass('is-invalid');
+            } if ($('#daris').val() == '') {
+                $('#daris').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#daris').removeClass('is-invalid');
+            } if ($('#hals').val() == '') {
+                $('#hals').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#hals').removeClass('is-invalid');
+            } if ($('#lampirans').val() == '') {
+                $('#lampirans').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#lampirans').removeClass('is-invalid');
+            }
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.sId = getid;
+                data.JenisId = $("#jenis").val();
+                data.TujuanSurat = $("#kepadas").val();
+                data.AsalSurat = $("#daris").val();
+                data.Perihal = $("#hals").val();
+                data.Lampiran = $("#lampirans").val();
+                data.NomorSurat = $("#nosurats").val();
                 
 
                 $.ajax({
