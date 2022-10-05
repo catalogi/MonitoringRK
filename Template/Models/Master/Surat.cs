@@ -9,10 +9,10 @@ namespace Ririn.Models.Master
         public string? TujuanSurat { get; set; }
         public string? AsalSurat { get; set; }
 
-        public string? perihal { get; set; }
+        public string? Perihal { get; set; }
 
-        public int? lampiran { get; set; }
-        public string? nomorSurat { get; set; }
+        public string? Lampiran { get; set; }
+        public string? NomorSurat { get; set; }
         public JenisSurat JenisSurat { get; set; }
         public int? JenisSuratId { get; set; }
     }
