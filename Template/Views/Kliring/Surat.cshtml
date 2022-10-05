@@ -168,8 +168,8 @@
         $("select[name=tipe]").on("change", function(){
             $.ajax({
                 url: "@Url.Action("GetJenisSurat","Master")/" + $(this).val(),
-                type:"Get",
-                dataType:"json",
+                type:"get",
+                dataType:"Json",
                 success: function({data}){
                     $("select[name=jenis]").empty();
                     $("select[name=jenis]").append('<option value="">--Pilih Jenis Surat--</option>');
