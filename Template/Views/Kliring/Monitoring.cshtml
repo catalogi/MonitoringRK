@@ -1,416 +1,502 @@
 ﻿@{
-	ViewBag.Title = "Monitoring";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Monitoring";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Detail Monitoring</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Tipe Surat</label>
-							<br />
-							<input type="hidden" id="formId" value="Id" />
-							<select id="Tipe" name="Tipe" disabled data-placement="choose" class="form-control select2 Tipe" style="width:100%"></select>
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating"> Tanggal Transaksi</label>
-							<input id="TanggalTRX" type="date" class="form-control" disabled />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Nomor Referensi</label>
-							<input id="NoReferensi" type="text" class="form-control" disabled />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Cabang</label>
-							<br />
-							<select id="Cabang" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Tanggal Surat</label>
-							<input id="TanggalSurat" type="date" class="form-control" disabled />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Tanggal TestKey</label>
-							<input id="TanggalTK" type="date" class="form-control" disabled />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Nomor Surat</label>
-							<input id="NomorSurat" type="text" class="form-control" disabled />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Nomor TestKey</label>
-							<input id="NoTeskey" type="text" class="form-control" disabled />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Nama</label>
-							<input id="Nama" type="text" class="form-control" disabled />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Nomor Rekening</label>
-							<input id="NomorRekening" type="text" class="form-control" disabled />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="control-label ">Nominal</label>
-							<input id="Nominal" type="text" class="form-control number" disabled />
-						</div>
-						<div class="col-md-4 offset-md-1 ">
-							<label class="control-label ">Nominal Seharusnya</label>
-							<input Id="Nominal2" type="text" class="form-control number" disabled />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 ">
-							<label class="control-label">Bank</label>
-							<select required Id="BankId" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="control-label">Keterangan</label>
-							<select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 ">
-							<label class="control-label">Alasan</label>
-							<select required Id="Alasan" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				@*<button type="button" class="btn btn-primary" id="Update" onclick="validation();">Simpan</button>*@
-				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Detail Monitoring</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Tipe Surat</label>
+                            <br />
+                            <input type="hidden" id="formId" value="Id" />
+                            <select id="Tipe" name="Tipe" disabled data-placement="choose" class="form-control select2 Tipe" style="width:100%"></select>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating"> Tanggal Transaksi</label>
+                            <input id="TanggalTRX" type="date" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Nomor Referensi</label>
+                            <input id="NoReferensi" type="text" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Cabang</label>
+                            <br />
+                            <select id="Cabang" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Tanggal Surat</label>
+                            <input id="TanggalSurat" type="date" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Tanggal TestKey</label>
+                            <input id="TanggalTK" type="date" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Nomor Surat</label>
+                            <input id="NomorSurat" type="text" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Nomor TestKey</label>
+                            <input id="NoTeskey" type="text" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Nama</label>
+                            <input id="Nama" type="text" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Nomor Rekening</label>
+                            <input id="NomorRekening" type="text" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="control-label ">Nominal</label>
+                            <input id="Nominal" type="text" class="form-control number" disabled />
+                        </div>
+                        <div class="col-md-4 offset-md-1 ">
+                            <label class="control-label ">Nominal Seharusnya</label>
+                            <input Id="Nominal2" type="text" class="form-control number" disabled />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4 ">
+                            <label class="control-label">Bank</label>
+                            <select required Id="BankId" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="control-label">Keterangan</label>
+                            <select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4 ">
+                            <label class="control-label">Alasan</label>
+                            <select required Id="Alasan" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary" id="Update" onclick="validation();">Simpan</button>*@
+                @*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
+            </div>
+        </div>
+    </div>
 </div>
 
 <section class="content">
-	<div class="container">
-		<div class="card" style="background-color:white">
-			<div class="card-header ">
-				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring Kliring</h2>
-				<p class="card-text font-weight-bolder">Transaksi Kliring</p>
-			</div>
-			<div class="card-body">
-				<div class="row" style="margin-left:20px">
+    <div class="container">
+        <div class="card">
+            <div class="card-header ">
 
-					<div class="col-sm-4">
-						<label class="bmd-label-floating">Tanggal Mulai Register</label>
-						<input id="startDate" type="date" class="form-control" />
-					</div>
-					<div class="col-sm-4">
-						<label class="bmd-label-floating">Tanggal Selesai Register</label>
-						<input id="endDate" type="date" class="form-control" />
-					</div>
+                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring Kliring</h2>
+                <p class="card-text font-weight-bolder">Transaksi Kliring</p>
+            </div>
+            <div class="card-body">
+                <div class="row" style="margin-left:20px">
 
-					<div class="col-md-3">
-						<br>
-						<label class="bmd-label-floating"></label>
-						<button class="btn btn-primary " onclick="Filter();">Filter</button>
-						<button class="btn btn-primary " onclick="clearFilter();">Kretek</button>
-					</div>
-				</div>
-				<br />
-				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
-					<thead style="background-color:#319DA0">
-						<tr>
-							<th>No.</th>
-							<th>Tanggal Register</th>
-							<th>Bank</th>
-							<th>No.Rek</th>
-							<th>Nasabah Penerima.</th>
-							<th>Alasan</th>
-							<th>Durasi(HK)</th>
-							<th>Tipe Transaksi</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
-		</div>
-	</div>
+                    <div class="col-sm-4">
+                        <label class="bmd-label-floating">Tanggal Mulai Register</label>
+                        <input id="startDate" type="date" class="form-control" />
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="bmd-label-floating">Tanggal Selesai Register</label>
+                        <input id="endDate" type="date" class="form-control" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <br>
+                        <label class="bmd-label-floating"></label>
+                        <button class="btn btn-info " onclick="Filter();"><i></i>Filter</button>
+                        <button class="btn btn-info " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
+                    </div>
+                </div>
+                <br />
+                <table id="table" class="table display nowrap table-hover table-striped table-bordered">
+                    <thead style="background-color:#319DA0">
+                        <tr>
+                            <th>No.</th>
+                            <th>Tanggal Register</th>
+                            <th>Bank</th>
+                            <th>No.Rek</th>
+                            <th>Nasabah Penerima.</th>
+                            <th>Alasan</th>
+                            <th>Durasi(HK)</th>
+                            <th>Tipe Transaksi</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </section>
 
 @section scripts{
 
-	<script>
+    <script>
 
-		$(document).ready(function () {
-			GetType();
-			GetBank();
-			GetCabang();
-			GetAlasan();
-			GetKet();
-			//Filter();
-			Read();
-			$(".select2").select2({
-				"theme": "classic"
-			});
-		});
+        $(document).ready(function () {
+            GetType();
+            GetBank();
+            GetCabang();
+            GetAlasan();
+            GetKet();
+            //Filter();
+            Read();
+            $(".select2").select2({
+                "theme": "classic"
+            });
+            console.log(document.querySelector('table'))
+        });
 
-		function Read() {
-			var t = $("#table").DataTable({
-				"ajax": {
-					"url": "@Url.Action("GetMonitoring","Kliring")",
-					"type": "GET",
-					"datatype": "json"
-				},
-				"columns": [
-					{ "data": null },
-					{
-						"render": function (data, type, row) {
-							//return row.tanggalTRX;
-							return moment(row.tanggalTRX).format('DD MMMM YYYY');
-						}
-					},
-					{ "data": "bank.nama" },
-					{ "data": "nomorRekening" },
-					{ "data": "namaPenerima" },
-					{ "data": "alasan.nama" },
-					{ "data": "durasi" },
-					//{ "data": "SLA(HK)" },
-					{ "data": "type.nama" },
-					{
-						"render": function (data, type, row) {
-							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
-							//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
-						},
+        function Read() {
+            var table = $("table").DataTable({
+                scrollX: true,
+                "lengthChange": false,
+                "autoWidth": false,
+                ajax: {
+                    url: "@Url.Action("GetMonitoring","Kliring")",
+                    type: "GET",
+                    dataType: "json",
+                },
+                columnDefs: [
+                    { "width": "30px", "targets": 0 }
+                ],
+                columns: [
+                    {
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                    },
+                    {
+                        render: function (data, type, row) {
+                            //return row.tanggalTRX;
+                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
+                        }
+                    },
+                    { data: "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "alasan.nama" },
+                    { "data": "durasi" },
+                    { "data": "type.nama" },
 
-					},
-				]
-			})
-			t.on('order.dt search.dt', function () {
-				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-					cell.innerHTML = i + 1;
-				});
-			}).draw();
-		}
+                    {
+                        render: function (data, type, row) {
+                            if (row.suratId == null) {
+                                return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                                    "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> ";
+                            } else {
+                                if (row.surat.jenisSuratId == 1) {
+                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                                        "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                                } else if (row.surat.jenisSuratId == 2) {
+                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                                        "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                                } else if (row.surat.jenisSuratId == 3) {
+                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                                        "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                                }
+                            }
+                        },
 
-		function GetSurtId(Id) {
-			$.ajax({
-				url: "@Url.Action("TemplateSurat","Kliring")/" + Id,
-				type: "GET",
-				//data:{Id:Id},
-				dataType: "json",
-				success: function (response) {
-					location.reload();
-				}
-			})
-		}
+                    },
+                ]
+            });
+        }
 
-		function GetType() {
-			$.ajax({
-				url: "@Url.Action("GetType","Kliring")",
-				type: "Get",
-				dataType: "json",
-				success: function ({ data }) {
-					//console.log(data);
-					//$("select[id=Tipe]").empty();
-					$("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
-					$.each(data, function (i, value) {
-						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
-					})
-				}
-			})
-		}
+        //function Read() {
+        //	var t = $("#table").DataTable({
+        //		"lengthChange": false,
+        //		"autoWidth": false,
+        //		"scrollX":true,
+        //		"ajax": {
+        //			"url": "@Url.Action("GetMonitoring","Kliring")",
+        //			"type": "GET",
+        //			"datatype": "json"
+        //		},
+        //		"columns": [
+        //			{ "data": null },
+        //			{
+        //				"render": function (data, type, row) {
+        //					//return row.tanggalTRX;
+        //					return moment(row.tanggalTRX).format('DD MMMM YYYY');
+        //				}
+        //			},
+        //			{ "data": "bank.nama" },
+        //			{ "data": "nomorRekening" },
+        //			{ "data": "namaPenerima" },
+        //			{ "data": "alasan.nama" },
+        //			{ "data": "durasi" },
+        //			//{ "data": "SLA(HK)" },
+        //			{ "data": "type.nama" },
+        //			{
+        //				"render": function (data, type, row) {
+        //					if (row.suratId == null) {
+        //						return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+        //							"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
+        //						//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
 
-		function GetKet() {
-			$.ajax({
-				url: "@Url.Action("GetKeterangan","Master")",
-				type: "Get",
-				dataType: "json",
-			}).then(({ data }) => {
-				var ket = $("#Keterangan");
-				ket.html('');
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(ket);
-				});
-			});
-		}
+        //					} else {
+        //						if (row.surat.jenisSuratId == 1) {
+        //							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+        //								"<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-danger btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> " +
+        //							"<button onclick='download("+row.id+");' class='btn btn-info btn-sm text-white' ><i class='fa fa-car'></i></button> ";
+        //						}else if(row.surat.jenisSuratId == 2){
+        //							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+        //								"<button href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></button> " +
+        //								"<button href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' ><i class='fas fa-download'></i></button> ";
+        //						}else if(row.surat.jenisSuratId == 3){
+        //							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+        //								"<button href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></button> " +
+        //								"<button href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white'  ><i class='fa fa-car'></i></button> ";
+        //						}
+        //					}
+        //				},
 
-		function GetAlasan() {
-			$.ajax({
-				"url": "@Url.Action("GetAlasan","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var alasan = $("#Alasan");
-				alasan.html('');
-				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
-				$("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
-				});
-			});
-		}
-		function GetCabang() {
-			$.ajax({
-				"url": "@Url.Action("GetCabang","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var cabang = $("#Cabang");
-				cabang.html('');
-				$("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(cabang);
-				});
-			});
-		}
-		function GetBank() {
-			$.ajax({
-				"url": "@Url.Action("GetBank","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var bank = $("#BankId");
-				bank.html('');
-				$("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(bank);
-				});
-			});
-		}
+        //			},
+        //		]
+        //	})
+        //	t.on('order.dt search.dt', function () {
+        //		t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+        //			cell.innerHTML = i + 1;
+        //		});
+        //	}).draw();
+        //}
 
-		function GetById(Id) {
-			debugger;
-			$("#myModal").modal('show');
-			$.ajax({
-				"url": "@Url.Action("GetById","Kliring")",
-				"type": "GET",
-				"datatype": "json",
-				"data": { Id: Id }
-			}).then((result) => {
-				if (result != null) {
-					console.table(result);
-					$("#formId").val(result.data.id).change();
-					$("#Tipe").val(result.data.typeId).change();
-					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD'));
-					$("#NoReferensi").val(result.data.noReferensi);
-					$("#Cabang").val(result.data.cabangId).change();
-					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
-					$("#TanggalTK").val(moment(result.data.tanggaltestkey).format('YYYY-MM-DD'));
-					$("#NomorSurat").val(result.data.nomorSurat);
-					$("#NoTeskey").val(result.data.nomorTestkey).change();
-					$("#Nama").val(result.data.namaPenerima);
-					$("#NomorRekening").val(result.data.nomorRekening);
-					$("#Nominal").val(result.data.nominal);
-					$("#Nominal2").val(result.data.nominalSeharusnya);
-					$("#BankId").val(result.data.bankId).change();
-					$("#Alasan").val(result.data.alasanId).change();
-					$("#Keterangan").val(result.data.keteranganId).change();
+        function download(id) {
+            location.href = '@Url.Action("TemplateSuratMasuk", "Kliring")/' + id;
+        }
 
-				}
-			})
-		}
+        function GetSurtId(Id) {
+            $.ajax({
+                url: "@Url.Action("TemplateSurat","Kliring")/" + Id,
+                type: "GET",
+                //data:{Id:Id},
+                dataType: "json",
+                success: function (response) {
+                    location.reload();
+                }
+            })
+        }
 
-		function Filter() {
-			debugger;
-			var date = $('#startDate').val();
-			var date2 = $('#endDate').val();
-			var awal = date.substring(0, 10);
-			var akhir = date2.substring(0, 10);
-			$("#table").DataTable({
-				"scrollx": true,
-				ajax: {
-					"url": "@Url.Action("Filter","Kliring")",
-					"type": "POST",
-					"data": { Awal: awal, Akhir: akhir },
-					"dataType": "Json"
-				},
-				destroy: "true",
-				"columns": [
-					{
-						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
-					},
-					{
-						"render": function (data, type, row) {
-							//return row.tanggalTRX;
-							return moment(row.tanggalTRX).format('DD MMMM YYYY');
-						}
-					},
-					{ "data": "bank.nama" },
-					{ "data": "nomorRekening" },
-					{ "data": "namaPenerima" },
-					{ "data": "alasan.nama" },
-					{ "data": "durasi" },
-					//{ "data": "SLA(HK)" },
-					{ "data": "type.nama" },
-					{
-						"render": function (data, type, row) {
-							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
-							//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
-						},
+        function GetType() {
+            $.ajax({
+                url: "@Url.Action("GetType","Kliring")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    //console.log(data);
+                    //$("select[id=Tipe]").empty();
+                    $("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
 
-					},
-				]
-			});
-		}
+        function GetKet() {
+            $.ajax({
+                url: "@Url.Action("GetKeterangan","Master")",
+                type: "Get",
+                dataType: "json",
+            }).then(({ data }) => {
+                var ket = $("#Keterangan");
+                ket.html('');
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(ket);
+                });
+            });
+        }
 
-		function clearFilter() {
-			var t = $('#table').DataTable({
-				//"scrollX": true,
-				"destroy": true,
-				"ajax": {
-					"url": "@Url.Action("GetMonitoring", "Kliring")",
-					"type": "GET",
-					"datatype": "json"
-				},
-				"columns": [
-					{
+        function GetAlasan() {
+            $.ajax({
+                "url": "@Url.Action("GetAlasan","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var alasan = $("#Alasan");
+                alasan.html('');
+                $("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
+                $("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+                });
+            });
+        }
+        function GetCabang() {
+            $.ajax({
+                "url": "@Url.Action("GetCabang","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var cabang = $("#Cabang");
+                cabang.html('');
+                $("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(cabang);
+                });
+            });
+        }
+        function GetBank() {
+            $.ajax({
+                "url": "@Url.Action("GetBank","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var bank = $("#BankId");
+                bank.html('');
+                $("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(bank);
+                });
+            });
+        }
 
-						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
-					},
-					{
-						"render": function (data, type, row) {
-							//return row.tanggalTRX;
-							return moment(row.tanggalTRX).format('DD MMMM YYYY');
-						}
-					},
-					{ "data": "bank.nama" },
-					{ "data": "nomorRekening" },
-					{ "data": "namaPenerima" },
-					{ "data": "alasan.nama" },
-					{ "data": "alasan.nama" },
-					//{ "data": "SLA(HK)" },
-					{ "data": "type.nama" },
-					{
-						"render": function (data, type, row) {
-							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
+        function GetById(Id) {
+            debugger;
+            $("#myModal").modal('show');
+            $.ajax({
+                "url": "@Url.Action("GetById","Kliring")",
+                "type": "GET",
+                "datatype": "json",
+                "data": { Id: Id }
+            }).then((result) => {
+                if (result != null) {
+                    console.table(result);
+                    $("#formId").val(result.data.id).change();
+                    $("#Tipe").val(result.data.typeId).change();
+                    $("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD'));
+                    $("#NoReferensi").val(result.data.noReferensi);
+                    $("#Cabang").val(result.data.cabangId).change();
+                    $("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
+                    $("#TanggalTK").val(moment(result.data.tanggaltestkey).format('YYYY-MM-DD'));
+                    $("#NomorSurat").val(result.data.nomorSurat);
+                    $("#NoTeskey").val(result.data.nomorTestkey).change();
+                    $("#Nama").val(result.data.namaPenerima);
+                    $("#NomorRekening").val(result.data.nomorRekening);
+                    $("#Nominal").val(result.data.nominal);
+                    $("#Nominal2").val(result.data.nominalSeharusnya);
+                    $("#BankId").val(result.data.bankId).change();
+                    $("#Alasan").val(result.data.alasanId).change();
+                    $("#Keterangan").val(result.data.keteranganId).change();
 
-						},
+                }
+            })
+        }
 
-					},
-				]
-			})
-			t.on('order.dt search.dt', function () {
-				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-					cell.innerHTML = i + 1;
-				});
-			}).draw();
-		}
-	</script>
+        function Filter() {
+            debugger;
+            var date = $('#startDate').val();
+            var date2 = $('#endDate').val();
+            var awal = date.substring(0, 10);
+            var akhir = date2.substring(0, 10);
+            $("#table").DataTable({
+                "scrollx": true,
+                ajax: {
+                    "url": "@Url.Action("Filter","Kliring")",
+                    "type": "POST",
+                    "data": { Awal: awal, Akhir: akhir },
+                    "dataType": "Json"
+                },
+                destroy: "true",
+                "columns": [
+                    {
+                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            //return row.tanggalTRX;
+                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
+                        }
+                    },
+                    { "data": "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "alasan.nama" },
+                    { "data": "durasi" },
+                    //{ "data": "SLA(HK)" },
+                    { "data": "type.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                                "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
+                            //"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
+                        },
+
+                    },
+                ]
+            });
+        }
+
+        function clearFilter() {
+            var t = $('#table').DataTable({
+                //"scrollX": true,
+                "destroy": true,
+                "ajax": {
+                    "url": "@Url.Action("GetMonitoring", "Kliring")",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {
+
+                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            //return row.tanggalTRX;
+                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
+                        }
+                    },
+                    { "data": "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "alasan.nama" },
+                    { "data": "alasan.nama" },
+                    //{ "data": "SLA(HK)" },
+                    { "data": "type.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                                "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
+
+                        },
+
+                    },
+                ]
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        }
+    </script>
 	}
