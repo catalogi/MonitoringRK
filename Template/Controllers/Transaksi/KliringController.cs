@@ -93,15 +93,7 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
-<<<<<<< HEAD
-<<<<<<< HEAD
                 .Include(x => x.Surat)
-=======
-                .Include(x=>x.Surat)
->>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
-=======
-                .Include(x=>x.Surat)
->>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
                 .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2);
             var data = result.Select(x => x.Id).ToList();
 
@@ -143,6 +135,7 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Type)
                 .Include(x => x.Keterangan)
+                .Include(x=>x.Surat)
                 .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.TanggalTRX > Awal.Date.AddDays(-1) && x.TanggalTRX < Akhir.Date)).ToList();
             return Json(new { data = result });
         }
@@ -250,24 +243,7 @@ namespace Ririn.Controllers.Transaksi
                     _context.Entry(noReg).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
-=======
->>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
-                //var id = data.sId;
-                //if(data.JenisId == 1)
-                //{
-                //    TemplateSuratMasuk(id);
-                //} else if(data.JenisId == 2)
-                //{
-                //    MemoMasuk(id);
-                //}else if(data.JenisId == 3)
-                //{
-                //    TemplateSuratKeluar(id);
-                //}
                 success = true;
             }
             return Json(success);
@@ -511,15 +487,8 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
-<<<<<<< HEAD
-<<<<<<< HEAD
                 .Include(x => x.Surat)
-=======
-                .Include(x=>x.Surat)
->>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
-=======
-                .Include(x=>x.Surat)
->>>>>>> c0dbb78d89f5eafe6ea3327b5c1c2d8116eecd5b
+
                 .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
