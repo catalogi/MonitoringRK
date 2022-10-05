@@ -45,9 +45,6 @@ namespace ASK_Core.Migrations
                     Nama = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KodeBIC = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KodeKliring = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
@@ -62,12 +59,9 @@ namespace ASK_Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nama = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KodeCabang = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sandi = table.Column<int>(type: "int", nullable: false),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                    KodeCabang = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sandi = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,9 +76,8 @@ namespace ASK_Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nama = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Singkatan = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
@@ -103,6 +96,34 @@ namespace ASK_Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Keterangan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Libur",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Hari = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TanggalLibur = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Libur", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Modul",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nama = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Modul", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,9 +169,8 @@ namespace ASK_Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nama = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KelompokId = table.Column<int>(type: "int", nullable: true),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
@@ -161,6 +181,43 @@ namespace ASK_Core.Migrations
                         column: x => x.KelompokId,
                         principalTable: "Kelompok",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DataToken",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    KelompokId = table.Column<int>(type: "int", nullable: false),
+                    ModulId = table.Column<int>(type: "int", nullable: false),
+                    NPP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nama = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Group = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApprovalLimit = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UserIdToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TokenExpired = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DataToken", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DataToken_Kelompok_KelompokId",
+                        column: x => x.KelompokId,
+                        principalTable: "Kelompok",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DataToken_Modul_ModulId",
+                        column: x => x.ModulId,
+                        principalTable: "Modul",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,39 +252,30 @@ namespace ASK_Core.Migrations
                         name: "FK_AspNetUsers_Kelompok_KelompokId",
                         column: x => x.KelompokId,
                         principalTable: "Kelompok",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Unit_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Unit",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Testkey",
+                name: "JenisSurat",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Tanggal = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NomorTestkey = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KeteranganId = table.Column<int>(type: "int", nullable: true),
-                    UnitId = table.Column<int>(type: "int", nullable: true),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                    Nama = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UnitId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Testkey", x => x.Id);
+                    table.PrimaryKey("PK_JenisSurat", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Testkey_Keterangan_KeteranganId",
-                        column: x => x.KeteranganId,
-                        principalTable: "Keterangan",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Testkey_Unit_UnitId",
+                        name: "FK_JenisSurat_Unit_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Unit",
                         principalColumn: "Id");
@@ -239,7 +287,7 @@ namespace ASK_Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nama = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UnitId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -338,7 +386,30 @@ namespace ASK_Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonitoringRK",
+                name: "Surat",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TujuanSurat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AsalSurat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    perihal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lampiran = table.Column<int>(type: "int", nullable: true),
+                    nomorSurat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JenisSuratId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Surat", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Surat_JenisSurat_JenisSuratId",
+                        column: x => x.JenisSuratId,
+                        principalTable: "JenisSurat",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "T_Kliring",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -347,81 +418,75 @@ namespace ASK_Core.Migrations
                     TanggalSurat = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NoReferensi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NamaPenerima = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BankId = table.Column<int>(type: "int", nullable: true),
+                    BankId = table.Column<int>(type: "int", nullable: false),
                     NomorRekening = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nominal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CabangId = table.Column<int>(type: "int", nullable: true),
                     TanggalTRX = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TestkeyId = table.Column<int>(type: "int", nullable: true),
+                    TanggalTestkey = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NomorTestkey = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KeteranganId = table.Column<int>(type: "int", nullable: true),
                     AlasanId = table.Column<int>(type: "int", nullable: true),
                     NominalSeharusnya = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     TypeId = table.Column<int>(type: "int", nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: true),
                     Durasi = table.Column<int>(type: "int", nullable: false),
-                    path = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TanggalDone = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreaterId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateId = table.Column<int>(type: "int", nullable: true),
-                    AcceptedId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AcceptedId = table.Column<int>(type: "int", nullable: true),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AcceptorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MonitoringRK", x => x.Id);
+                    table.PrimaryKey("PK_T_Kliring", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_Alasan_AlasanId",
+                        name: "FK_T_Kliring_Alasan_AlasanId",
                         column: x => x.AlasanId,
                         principalTable: "Alasan",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_AspNetUsers_AcceptedId1",
-                        column: x => x.AcceptedId1,
+                        name: "FK_T_Kliring_AspNetUsers_AcceptorId",
+                        column: x => x.AcceptorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_AspNetUsers_CreaterId",
+                        name: "FK_T_Kliring_AspNetUsers_CreaterId",
                         column: x => x.CreaterId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_Bank_BankId",
+                        name: "FK_T_Kliring_Bank_BankId",
                         column: x => x.BankId,
                         principalTable: "Bank",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_Cabang_CabangId",
+                        name: "FK_T_Kliring_Cabang_CabangId",
                         column: x => x.CabangId,
                         principalTable: "Cabang",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_Keterangan_KeteranganId",
+                        name: "FK_T_Kliring_Keterangan_KeteranganId",
                         column: x => x.KeteranganId,
                         principalTable: "Keterangan",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_Status_StatusId",
+                        name: "FK_T_Kliring_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRK_Testkey_TestkeyId",
-                        column: x => x.TestkeyId,
-                        principalTable: "Testkey",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_MonitoringRK_TypeTrans_TypeId",
+                        name: "FK_T_Kliring_TypeTrans_TypeId",
                         column: x => x.TypeId,
                         principalTable: "TypeTrans",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonitoringRTGS",
+                name: "T_RTGS",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -434,46 +499,56 @@ namespace ASK_Core.Migrations
                     BankId = table.Column<int>(type: "int", nullable: true),
                     Nominal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TanggalDone = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Followup = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TestkeyId = table.Column<int>(type: "int", nullable: true),
+                    FollowUp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tanggal = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NomorTestkey = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeId = table.Column<int>(type: "int", nullable: true),
                     KeteranganId = table.Column<int>(type: "int", nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: true),
-                    Createdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updatedate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deletedate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Durasi = table.Column<int>(type: "int", nullable: true),
+                    CreaterId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatorId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AcceptorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MonitoringRTGS", x => x.Id);
+                    table.PrimaryKey("PK_T_RTGS", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MonitoringRTGS_Bank_BankId",
+                        name: "FK_T_RTGS_AspNetUsers_AcceptorId",
+                        column: x => x.AcceptorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_T_RTGS_AspNetUsers_CreaterId",
+                        column: x => x.CreaterId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_T_RTGS_Bank_BankId",
                         column: x => x.BankId,
                         principalTable: "Bank",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRTGS_Cabang_CabangId",
+                        name: "FK_T_RTGS_Cabang_CabangId",
                         column: x => x.CabangId,
                         principalTable: "Cabang",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRTGS_Keterangan_KeteranganId",
+                        name: "FK_T_RTGS_Keterangan_KeteranganId",
                         column: x => x.KeteranganId,
                         principalTable: "Keterangan",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRTGS_Status_StatusId",
+                        name: "FK_T_RTGS_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MonitoringRTGS_Testkey_TestkeyId",
-                        column: x => x.TestkeyId,
-                        principalTable: "Testkey",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_MonitoringRTGS_TypeTrans_TypeId",
+                        name: "FK_T_RTGS_TypeTrans_TypeId",
                         column: x => x.TypeId,
                         principalTable: "TypeTrans",
                         principalColumn: "Id");
@@ -529,89 +604,99 @@ namespace ASK_Core.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_AcceptedId1",
-                table: "MonitoringRK",
-                column: "AcceptedId1");
+                name: "IX_DataToken_KelompokId",
+                table: "DataToken",
+                column: "KelompokId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_AlasanId",
-                table: "MonitoringRK",
+                name: "IX_DataToken_ModulId",
+                table: "DataToken",
+                column: "ModulId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JenisSurat_UnitId",
+                table: "JenisSurat",
+                column: "UnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Surat_JenisSuratId",
+                table: "Surat",
+                column: "JenisSuratId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_T_Kliring_AcceptorId",
+                table: "T_Kliring",
+                column: "AcceptorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_T_Kliring_AlasanId",
+                table: "T_Kliring",
                 column: "AlasanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_BankId",
-                table: "MonitoringRK",
+                name: "IX_T_Kliring_BankId",
+                table: "T_Kliring",
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_CabangId",
-                table: "MonitoringRK",
+                name: "IX_T_Kliring_CabangId",
+                table: "T_Kliring",
                 column: "CabangId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_CreaterId",
-                table: "MonitoringRK",
+                name: "IX_T_Kliring_CreaterId",
+                table: "T_Kliring",
                 column: "CreaterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_KeteranganId",
-                table: "MonitoringRK",
+                name: "IX_T_Kliring_KeteranganId",
+                table: "T_Kliring",
                 column: "KeteranganId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_StatusId",
-                table: "MonitoringRK",
+                name: "IX_T_Kliring_StatusId",
+                table: "T_Kliring",
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_TestkeyId",
-                table: "MonitoringRK",
-                column: "TestkeyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRK_TypeId",
-                table: "MonitoringRK",
+                name: "IX_T_Kliring_TypeId",
+                table: "T_Kliring",
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRTGS_BankId",
-                table: "MonitoringRTGS",
+                name: "IX_T_RTGS_AcceptorId",
+                table: "T_RTGS",
+                column: "AcceptorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_T_RTGS_BankId",
+                table: "T_RTGS",
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRTGS_CabangId",
-                table: "MonitoringRTGS",
+                name: "IX_T_RTGS_CabangId",
+                table: "T_RTGS",
                 column: "CabangId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRTGS_KeteranganId",
-                table: "MonitoringRTGS",
+                name: "IX_T_RTGS_CreaterId",
+                table: "T_RTGS",
+                column: "CreaterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_T_RTGS_KeteranganId",
+                table: "T_RTGS",
                 column: "KeteranganId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRTGS_StatusId",
-                table: "MonitoringRTGS",
+                name: "IX_T_RTGS_StatusId",
+                table: "T_RTGS",
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRTGS_TestkeyId",
-                table: "MonitoringRTGS",
-                column: "TestkeyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MonitoringRTGS_TypeId",
-                table: "MonitoringRTGS",
+                name: "IX_T_RTGS_TypeId",
+                table: "T_RTGS",
                 column: "TypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Testkey_KeteranganId",
-                table: "Testkey",
-                column: "KeteranganId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Testkey_UnitId",
-                table: "Testkey",
-                column: "UnitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TypeTrans_UnitId",
@@ -642,13 +727,28 @@ namespace ASK_Core.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "MonitoringRK");
+                name: "DataToken");
 
             migrationBuilder.DropTable(
-                name: "MonitoringRTGS");
+                name: "Libur");
+
+            migrationBuilder.DropTable(
+                name: "Surat");
+
+            migrationBuilder.DropTable(
+                name: "T_Kliring");
+
+            migrationBuilder.DropTable(
+                name: "T_RTGS");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Modul");
+
+            migrationBuilder.DropTable(
+                name: "JenisSurat");
 
             migrationBuilder.DropTable(
                 name: "Alasan");
@@ -663,16 +763,13 @@ namespace ASK_Core.Migrations
                 name: "Cabang");
 
             migrationBuilder.DropTable(
+                name: "Keterangan");
+
+            migrationBuilder.DropTable(
                 name: "Status");
 
             migrationBuilder.DropTable(
-                name: "Testkey");
-
-            migrationBuilder.DropTable(
                 name: "TypeTrans");
-
-            migrationBuilder.DropTable(
-                name: "Keterangan");
 
             migrationBuilder.DropTable(
                 name: "Unit");

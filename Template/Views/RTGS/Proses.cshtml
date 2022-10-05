@@ -34,8 +34,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger disabled" data-dismiss="modal">anjay</button>
-                                <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Ubah bro</button>
+                                <button type="button" class="btn btn-danger disabled" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Done</button>
                             </div>
                         </form>
                     </div>
@@ -153,7 +153,7 @@
                 <div class="row" style="margin-left:20px;margin-bottom:20px">
                     <label class="bmd-label-floating">Tipe Surat</label>
                     <div class="col-md-4">
-                        <select required id ="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                        <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
                             <option value="">--Pilih Tipe--</option>
                         </select>
                     </div>
@@ -206,7 +206,7 @@
             var t = $("#table").DataTable({
                 lengthChange: false,
                 autoWidth: false,
-                destroy : true,
+                destroy: true,
                 "ajax": {
                     "url": "@Url.Action("GetAll","RTGS")",
                     "type": "Get",
@@ -227,7 +227,11 @@
                     { "data": "bank.nama" },
                     { "data": "nominal" },
                     { "data": "nomorTestkey" },
-                    { "data": "durasi" },
+                    {
+                        "render": (data, type, row) => {
+                            return row.durasi + " Hari";
+                        }
+                    },
                     {
                         "render": function (data, type, row) {
                             return "<button class='btn btn-primary btn-sm text-white' onclick = Submit('" + row.id + "');><i class='fas fa-check-square'></i></button> " +
@@ -274,11 +278,11 @@
             var Id = this.value;
             if (Id == "") {
                 read();
-            }else{
-            readFilter(Id);
+            } else {
+                readFilter(Id);
             }
         })
-       
+
         function readFilter(Id) {
             var t = $("#table").DataTable({
                 lengthChange: false,
@@ -287,9 +291,9 @@
                     "url": "@Url.Action("GetTypeFilter","RTGS")",
                     "type": "GET",
                     "dataType": "json",
-                    "data":{Id:Id}
+                    "data": { Id: Id }
                 },
-                "destroy":"true",
+                "destroy": "true",
                 "columns": [
                     { "data": null },
                     { "data": "type.nama" },
@@ -320,7 +324,7 @@
                     cell.innerHTML = i + 1;
                 });
             }).draw();
-        } 
+        }
 
         function GetKet() {
 
@@ -363,7 +367,7 @@
             })
         }
 
-        function GetType(){
+        function GetType() {
             $.ajax({
                 url: "@Url.Action("GetType","RTGS")",
                 type: "GET",
@@ -463,18 +467,18 @@
             })
         }
 
-        function FileToBase(file){
-			return new Promise((resolve, reject)=>{
-				const fileReader = new FileReader();
-				fileReader.onloadend = function (result){
-					resolve(result.target.result);
-				}
-				fileReader.onerror = function(err){
-					reject(err)
-				}
-				fileReader.readAsDataURL(file)
-			});
-		}
+        function FileToBase(file) {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                fileReader.onloadend = function (result) {
+                    resolve(result.target.result);
+                }
+                fileReader.onerror = function (err) {
+                    reject(err)
+                }
+                fileReader.readAsDataURL(file)
+            });
+        }
 
         async function Edit() {
             //debugger;

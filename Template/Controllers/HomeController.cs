@@ -39,42 +39,11 @@ namespace Ririn.Controllers
 
         }
         #endregion
-        //private User GetCurrentUser()
-        //{
-        //    return _context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault()!;
-        //}
+        private User GetCurrentUser()
+        {
+            return _context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault()!;
+        }
 
-
-        //    public IActionResult DashKcu(int? Id)
-        //{
-        //    var cuser = GetCurrentUser();
-        //    if(Id != null){
-        //        return View(Id);
-        //    }
-        //    else{
-        //        return View(cuser.LayananId);
-        //    }
-
-        //}
-        //public IActionResult Reports()
-        //{
-        //    return View();
-        //}
-
-        //public IActionResult DashWilayah(int? Id)
-        //{
-        //    var cuser = GetCurrentUser();
-        //    if(Id != null){
-        //        return View(Id);
-        //    }
-        //    else{
-        //        return View(cuser.KelompokId);
-        //    }
-        //}
-        //public IActionResult DashKcp()
-        //{
-        //    return View();
-        //}
 
         public IActionResult Privacy()
         {
@@ -88,6 +57,7 @@ namespace Ririn.Controllers
         }
         public IActionResult Donat()
         {
+            var user = GetCurrentUser();
             int kliringMasukCepat = 0;
             int kliringMasukLambat = 0;
             int kliringKeluarCepat = 0;
@@ -105,6 +75,7 @@ namespace Ririn.Controllers
             var data1 = _context.T_RTGS.ToList();
             rtgsMasukCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2).Count();
             rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2).Count();
+            //var type = _context.
 
             dynamic result = new
             {

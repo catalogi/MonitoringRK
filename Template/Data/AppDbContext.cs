@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
@@ -27,6 +28,8 @@ namespace Ririn.Data
         public DbSet<Modul> Modul { get; set; }
         public DbSet<Libur> Libur { get; set; }
         public DbSet<DataToken> DataToken { get; set; }
+        public DbSet<Surat> Surat { get; set; }
+        public DbSet<JenisSurat> JenisSurat { get; set; }
      
         #endregion
 
