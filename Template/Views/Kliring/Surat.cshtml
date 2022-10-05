@@ -1,8 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewBag.Title = "Surat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -12,6 +13,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-6">
+                        <input id="suratId" type="hidden" />
                         <div class="form-group">
                             <label for="rekeningDebet">Kepada</label>
                             <input type="text" class="form-control" name="kepada" id="kepada">
@@ -42,24 +44,23 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nomorRefrensi">Nomor Surat</label>
-                            <input type="text" class="form-control" name="penanggungjawab" id="penanggungjawab">
+                            <input type="text" class="form-control" name="nosurat" id="nosurat">
                         </div>
                     </div>
-@*                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Jabatan</label>
-                            <input type="text" class="form-control" name="jabatan" id="jabatan">
-                        </div>
+                    @*                    <div class="col-sm-6">
+                    <div class="form-group">
+                    <label for="rekeningDebet">Jabatan</label>
+                    <input type="text" class="form-control" name="jabatan" id="jabatan">
+                    </div>
                     </div>*@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-print"></i> Cetak</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -69,6 +70,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-6">
+                        <input id="suratId" type="hidden" />
                         <div class="form-group">
                             <label for="rekeningDebet">Kepada</label>
                             <input type="text" class="form-control" name="kepada" id="kepada">
@@ -77,7 +79,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">Dari</label>
-                            <input type="text" class="form-control" name="dari" id="dari">
+                            <input type="text" class="form-control" name="dari" id="daris">
                         </div>
                     </div>
                 </div>
@@ -98,16 +100,16 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="nomorRefrensi">Penanggungjawab</label>
-                            <input type="text" class="form-control" name="penanggungjawab" id="penanggungjawab">
+                            <label for="nomorRefrensi">Nomor Surat</label>
+                            <input type="text" class="form-control" name="nosurat" id="nosurat">
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Jabatan</label>
-                            <input type="text" class="form-control" name="jabatan" id="jabatan">
-                        </div>
+                    @*                    <div class="col-sm-6">
+                    <div class="form-group">
+                    <label for="rekeningDebet">Jabatan</label>
+                    <input type="text" class="form-control" name="jabatan" id="jabatan">
                     </div>
+                    </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -116,6 +118,7 @@
         </div>
     </div>
 </div>
+
 
 <section class="content">
     <div class="container">
@@ -127,7 +130,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="nomorRefrensi">Tipe</label>
-                        <select name="tipe" data-placement="choose" class="form-control select"></select>
+                        <select name="tipe" id="tipe" data-placement="choose" class="form-control select"></select>
                     </div>
                     <div class="col">
                         <label for="nomorRefrensi">Jenis</label>
@@ -147,52 +150,151 @@
 
 @section scripts{
     <script>
-        $(document).ready(function(){
+        var paths = location.pathname.split("/")
+        var getid = paths[paths.length - 1]
+        var sId = getid
+        $(document).ready(function () {
+            GetTypes();
             GetType();
+           
         });
 
-        function GetType(){
+        function GetType() {
             $.ajax({
                 url: "@Url.Action("GetType","Kliring")",
-                type:"Get",
+                type: "Get",
                 dataType: "json",
-                success:function({data}){
+                success: function ({ data }) {
                     $("select[name=tipe]").append('<option value="">Pilih Tipe Surat</option>')
-                    $.each(data, function(i,value){
+                    $.each(data, function (i, value) {
                         $("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
         }
 
-        $("select[name=tipe]").on("change", function(){
+        function GetTypes() {
+            debugger;
+            var Id = sId;
+
+            $.ajax({
+                "url": "@Url.Action("GetById","Kliring")",
+                "type": "GET",
+                "datatype": "json",
+                "data": { Id:Id }
+            }).then((result) => {
+                if (result != null) {
+                    console.table(result);
+                    //$("#suratId").val(result.data.id).change();
+                    $("#tipe").val(result.data.typeId).change();
+                    
+
+                }
+            })
+        }
+
+        $("select[name=tipe]").on("change", function () {
             $.ajax({
                 url: "@Url.Action("GetJenisSurat","Master")/" + $(this).val(),
-                type:"get",
-                dataType:"Json",
-                success: function({data}){
+                type: "get",
+                dataType: "Json",
+                success: function ({ data }) {
                     $("select[name=jenis]").empty();
                     $("select[name=jenis]").append('<option value="">--Pilih Jenis Surat--</option>');
-                    $.each(data, function(i, value){
+                    $.each(data, function (i, value) {
                         $("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
 
                 }
             });
         })
-        
-        
-        function getModal(){
+
+
+        function getModal() {
             debugger;
             var jenisId = $("#jenis").val();
-            if(jenisId == ''){
-                alert('Anda Belum memilih Jenis Surat');
-            }
-            else if(jenisId == 2 || jenisId == 3){
-                $("#myModal").modal('show');
-            }else{
+            
+            if (jenisId == 1) {
                 $("#myModal2").modal('show');
             }
+            else if (jenisId == 2 || jenisId == 3) {
+                $("#myModal").modal('show');
+            } else {
+                alert('Anda Belum memilih Jenis Surat');
+            }
+        }
+
+        function save() {
+            debugger;
+            var isAllValid = true;
+            var kepada = $("#kepadar").val();
+            var dari = $("#daris").val();
+            $("#ItemError").text('');
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " Data Tidak Boleh Kosong!");
+                isAllValid = false;
+            }
+            if ($('#kepada').val() == '') {
+                $('#kepada').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#kepada').removeClass('is-invalid');
+            } if ($('#dari').val() == '') {
+                $('#dari').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#dari').removeClass('is-invalid');
+            } if ($('#hal').val() == '') {
+                $('#hal').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#hal').removeClass('is-invalid');
+            } if ($('#lampiran').val() == '') {
+                $('#lampiran').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#lampiran').removeClass('is-invalid');
+            }
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.sId = getid;
+                data.JenisId = $("#jenis").val();
+                data.TujuanSurat = $("#kepada").val();
+                data.AsalSurat = $("#dari").val();
+                data.Perihal = $("#hal").val();
+                data.Lampiran = $("#lampiran").val();
+                data.NomorSurat = $("#nosurat").val();
+                
+
+                $.ajax({
+                    url:"@Url.Action("SaveSurat","Kliring")",
+                    type:"POST",
+                    dataType: "json",
+                    data:data,
+                    success:(response)=>{
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Doned',
+                            text: 'Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.href = "@Url.Action("Monitoring","Kliring")";
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Tidak Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                })
+
+            }
+
         }
     </script>
 }
