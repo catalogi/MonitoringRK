@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "miBXuXsHaNUulcciSBavJ9+AmHw5QI/eQ+kl5hBDka4=",
+  "Hash": "/S8pxaerQvgs7bGes9hCV/jhvwcTTdHPE8qVwcRC7FU=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2310,6 +2310,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_04102022_Absen-Nur Ali Majid - TS-September2.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_06102022_Absen-Nur Ali Majid - TS-September (1).pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_06102022_Absen-Nur Ali Majid - TS-September (1).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_06102022_Absen-Nur Ali Majid - TS-September (1).pdf"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_06102022_dummies.pdf",
@@ -37621,12 +37638,12 @@
       "OriginalItemSpec": "wwwroot\\plugins\\uplot\\uPlot.min.css"
     },
     {
-      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\Memo_Keluar.docx",
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\Memo_Masuk.docx",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "Template/Memo_Keluar.docx",
+      "RelativePath": "Template/Memo_Masuk.docx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -37635,24 +37652,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Template\\Memo_Keluar.docx"
-    },
-    {
-      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\SURAT_RETUR_Keluar.doc",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "Template/SURAT_RETUR_Keluar.doc",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Template\\SURAT_RETUR_Keluar.doc"
+      "OriginalItemSpec": "wwwroot\\Template\\Memo_Masuk.docx"
     },
     {
       "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\SURAT_RETUR_Keluar.docx",
@@ -37672,12 +37672,12 @@
       "OriginalItemSpec": "wwwroot\\Template\\SURAT_RETUR_Keluar.docx"
     },
     {
-      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\TemplateMasuk\\template_surat_masuk.docx",
+      "Identity": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\Template\\template_surat_masuk.docx",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1405\\source\\repos\\MonitoringRKNew\\MonitoringRK\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "TemplateMasuk/template_surat_masuk.docx",
+      "RelativePath": "Template/template_surat_masuk.docx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -37686,7 +37686,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\TemplateMasuk\\template_surat_masuk.docx"
+      "OriginalItemSpec": "wwwroot\\Template\\template_surat_masuk.docx"
     }
   ]
 }

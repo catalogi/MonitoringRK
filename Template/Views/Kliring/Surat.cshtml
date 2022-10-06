@@ -1,248 +1,135 @@
 ﻿@{
-    ViewBag.Title = "Monitoring";
+    ViewBag.Title = "Surat";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Detail Monitoring</h4>
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Tipe Surat</label>
-                            <br />
-                            <input type="hidden" id="formId" value="Id" />
-                            <select id="Tipe" name="Tipe" disabled data-placement="choose" class="form-control select2 Tipe" style="width:100%"></select>
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating"> Tanggal Transaksi</label>
-                            <input id="TanggalTRX" type="date" class="form-control" disabled />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input id="suratId" type="hidden" />
+                        <div class="form-group">
+                            <label for="rekeningDebet">Kepada</label>
+                            <input type="text" class="form-control" name="kepada" id="kepada">
                         </div>
                     </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nomor Referensi</label>
-                            <input id="NoReferensi" type="text" class="form-control" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Cabang</label>
-                            <br />
-                            <select id="Cabang" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Dari</label>
+                            <input type="text" class="form-control" name="dari" id="dari">
                         </div>
                     </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Tanggal Surat</label>
-                            <input id="TanggalSurat" type="date" class="form-control" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Tanggal TestKey</label>
-                            <input id="TanggalTK" type="date" class="form-control" disabled />
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Hal</label>
+                            <input type="text" class="form-control" name="hal" id="hal">
                         </div>
                     </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nomor Surat</label>
-                            <input id="NomorSurat" type="text" class="form-control" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Nomor TestKey</label>
-                            <input id="NoTeskey" type="text" class="form-control" disabled />
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">Lampiran</label>
+                            <input type="text" class="form-control" name="lampiran" id="lampiran">
                         </div>
                     </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nama</label>
-                            <input id="Nama" type="text" class="form-control" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Nomor Rekening</label>
-                            <input id="NomorRekening" type="text" class="form-control" disabled />
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">Nomor Surat</label>
+                            <input type="text" class="form-control" name="nosurat" id="nosurat">
                         </div>
                     </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="control-label ">Nominal</label>
-                            <input id="Nominal" type="text" class="form-control number" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1 ">
-                            <label class="control-label ">Nominal Seharusnya</label>
-                            <input Id="Nominal2" type="text" class="form-control number" disabled />
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4 ">
-                            <label class="control-label">Bank</label>
-                            <select required Id="BankId" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="control-label">Keterangan</label>
-                            <select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4 ">
-                            <label class="control-label">Alasan</label>
-                            <select required Id="Alasan" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">SOR</label>
+                            <input type="text" class="form-control" name="sor1" id="sor1">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                @*<button type="button" class="btn btn-primary" id="Update" onclick="validation();">Simpan</button>*@
-                @*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="save();"><i class="fas fa-print"></i> Cetak</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input id="suratId" type="hidden" />
+                        <div class="form-group">
+                            <label for="rekeningDebet">Kepada</label>
+                            <input type="text" class="form-control" name="kepadas" id="kepadas">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rekeningDebet">SOR</label>
+                            <input type="text" class="form-control" name="sor2" id="sor2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saves();"><i class="fas fa-print"></i> Cetak</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <section class="content">
     <div class="container">
-        <div class="card">
-            <div class="card-header ">
-
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring Kliring</h2>
-                <p class="card-text font-weight-bolder">Transaksi Kliring</p>
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info">
+                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Surat</h3>
             </div>
-            <div class="card-body">
-                <div class="row" style="margin-left:20px">
-
-                    <div class="col-sm-4">
-                        <label class="bmd-label-floating">Tanggal Mulai Register</label>
-                        <input id="startDate" type="date" class="form-control" />
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col">
+                        <label for="nomorRefrensi">Tipe</label>
+                        <select name="tipe" id="tipe" data-placement="choose" class="form-control select"></select>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="bmd-label-floating">Tanggal Selesai Register</label>
-                        <input id="endDate" type="date" class="form-control" />
-                    </div>
-
-                    <div class="col-md-3">
-                        <br>
-                        <label class="bmd-label-floating"></label>
-                        <button class="btn btn-info " onclick="Filter();"><i></i>Filter</button>
-                        <button class="btn btn-info " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
+                    <div class="col">
+                        <label for="nomorRefrensi">Jenis</label>
+                        <select data-placement="choose" name="jenis" id="jenis" class="form-control select">
+                            <option value="">--Pilih Jenis Surat--</option>
+                        </select>
                     </div>
                 </div>
                 <br />
-                <table id="table" class="table display nowrap table-hover table-striped table-bordered">
-                    <thead style="background-color:#319DA0">
-                        <tr>
-                            <th>No.</th>
-                            <th>Tanggal Register</th>
-                            <th>Bank</th>
-                            <th>No.Rek</th>
-                            <th>Nasabah Penerima.</th>
-                            <th>Alasan</th>
-                            <th>Durasi(HK)</th>
-                            <th>Tipe Transaksi</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body"></tbody>
-                </table>
+                <button type="button" class="btn btn-warning float-right" onclick="getModal();"><i class="fas fa-envelope-open-text"></i> Buat Surat</button>
+                @*<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#myModal2" data-dismiss="modal"><i class="fas fa-book"></i> Buat Memo</button>*@
+
             </div>
         </div>
     </div>
 </section>
 
 @section scripts{
-
     <script>
-
+        var paths = location.pathname.split("/")
+        var getid = paths[paths.length - 1]
+        var sId = getid
         $(document).ready(function () {
+            GetTypes();
             GetType();
-            GetBank();
-            GetCabang();
-            GetAlasan();
-            GetKet();
-            //Filter();
-            Read();
-            $(".select2").select2({
-                "theme": "classic"
-            });
-            console.log(document.querySelector('table'))
+
         });
-
-        function Read() {
-            var table = $("table").DataTable({
-                scrollX: true,
-                "lengthChange": false,
-                "autoWidth": false,
-                ajax: {
-                    url: "@Url.Action("GetMonitoring","Kliring")",
-                    type: "GET",
-                    dataType: "json",
-                },
-                columnDefs: [
-                    { "width": "30px", "targets": 0 }
-                ],
-                columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                    },
-                    {
-                        render: function (data, type, row) {
-                            //return row.tanggalTRX;
-                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
-                        }
-                    },
-                    { data: "bank.nama" },
-                    { "data": "nomorRekening" },
-                    { "data": "namaPenerima" },
-                    { "data": "alasan.nama" },
-                    { "data": "durasi" },
-                    { "data": "type.nama" },
-
-                    {
-                        render: function (data, type, row) {
-                            if (row.suratId == null) {
-                                return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                    "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> ";
-                            } else {
-                                if (row.surat.jenisSuratId == 1) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                } else if (row.surat.jenisSuratId == 2) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                } else if (row.surat.jenisSuratId == 3) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                }
-                            }
-                        },
-
-                    },
-                ]
-            });
-        }
-
-
-        function download(id) {
-            location.href = '@Url.Action("TemplateSuratMasuk", "Kliring")/' + id;
-        }
-
-        function GetSurtId(Id) {
-            $.ajax({
-                url: "@Url.Action("TemplateSurat","Kliring")/" + Id,
-                type: "GET",
-                //data:{Id:Id},
-                dataType: "json",
-                success: function (response) {
-                    location.reload();
-                }
-            })
-        }
 
         function GetType() {
             $.ajax({
@@ -250,80 +137,18 @@
                 type: "Get",
                 dataType: "json",
                 success: function ({ data }) {
-                    //console.log(data);
-                    //$("select[id=Tipe]").empty();
-                    $("select[name=Tipe]").append('<option value="">--Pilih Tipe Surat--</option>')
+                    $("select[name=tipe]").append('<option value="">Pilih Tipe Surat</option>')
                     $.each(data, function (i, value) {
-                        $("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
+                        $("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
         }
 
-        function GetKet() {
-            $.ajax({
-                url: "@Url.Action("GetKeterangan","Master")",
-                type: "Get",
-                dataType: "json",
-            }).then(({ data }) => {
-                var ket = $("#Keterangan");
-                ket.html('');
-                $.each(data, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.nama).appendTo(ket);
-                });
-            });
-        }
-
-        function GetAlasan() {
-            $.ajax({
-                "url": "@Url.Action("GetAlasan","Master")",
-                "type": "Get",
-                "datatype": "json"
-            }).then(({ data }) => {
-                //console.log(data)
-                var alasan = $("#Alasan");
-                alasan.html('');
-                $("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
-                $("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
-                $.each(data, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
-                });
-            });
-        }
-        function GetCabang() {
-            $.ajax({
-                "url": "@Url.Action("GetCabang","Master")",
-                "type": "Get",
-                "datatype": "json"
-            }).then(({ data }) => {
-                //console.log(data)
-                var cabang = $("#Cabang");
-                cabang.html('');
-                $("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
-                $.each(data, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.nama).appendTo(cabang);
-                });
-            });
-        }
-        function GetBank() {
-            $.ajax({
-                "url": "@Url.Action("GetBank","Master")",
-                "type": "Get",
-                "datatype": "json"
-            }).then(({ data }) => {
-                //console.log(data)
-                var bank = $("#BankId");
-                bank.html('');
-                $("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
-                $.each(data, function (i, value) {
-                    $("<option></option>").val(value.id).text(value.nama).appendTo(bank);
-                });
-            });
-        }
-
-        function GetById(Id) {
+        function GetTypes() {
             debugger;
-            $("#myModal").modal('show');
+            var Id = sId;
+
             $.ajax({
                 "url": "@Url.Action("GetById","Kliring")",
                 "type": "GET",
@@ -332,113 +157,173 @@
             }).then((result) => {
                 if (result != null) {
                     console.table(result);
-                    $("#formId").val(result.data.id).change();
-                    $("#Tipe").val(result.data.typeId).change();
-                    $("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD'));
-                    $("#NoReferensi").val(result.data.noReferensi);
-                    $("#Cabang").val(result.data.cabangId).change();
-                    $("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
-                    $("#TanggalTK").val(moment(result.data.tanggaltestkey).format('YYYY-MM-DD'));
-                    $("#NomorSurat").val(result.data.nomorSurat);
-                    $("#NoTeskey").val(result.data.nomorTestkey).change();
-                    $("#Nama").val(result.data.namaPenerima);
-                    $("#NomorRekening").val(result.data.nomorRekening);
-                    $("#Nominal").val(result.data.nominal);
-                    $("#Nominal2").val(result.data.nominalSeharusnya);
-                    $("#BankId").val(result.data.bankId).change();
-                    $("#Alasan").val(result.data.alasanId).change();
-                    $("#Keterangan").val(result.data.keteranganId).change();
+                    //$("#suratId").val(result.data.id).change();
+                    $("#tipe").val(result.data.typeId).change();
+
 
                 }
             })
         }
 
-        function Filter() {
-            debugger;
-            var date = $('#startDate').val();
-            var date2 = $('#endDate').val();
-            var awal = date.substring(0, 10);
-            var akhir = date2.substring(0, 10);
-            $("#table").DataTable({
-                "scrollx": true,
-                ajax: {
-                    "url": "@Url.Action("Filter","Kliring")",
-                    "type": "POST",
-                    "data": { Awal: awal, Akhir: akhir },
-                    "dataType": "Json"
-                },
-                destroy: "true",
-                "columns": [
-                    {
-                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            //return row.tanggalTRX;
-                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
-                        }
-                    },
-                    { "data": "bank.nama" },
-                    { "data": "nomorRekening" },
-                    { "data": "namaPenerima" },
-                    { "data": "alasan.nama" },
-                    { "data": "durasi" },
-                    //{ "data": "SLA(HK)" },
-                    { "data": "type.nama" },
-                    {
-                        "render": function (data, type, row) {
-                            return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
-                            //"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
-                        },
+        $("select[name=tipe]").on("change", function () {
+            $.ajax({
+                url: "@Url.Action("GetJenisSurat","Master")/" + $(this).val(),
+                type: "get",
+                dataType: "Json",
+                success: function ({ data }) {
+                    $("select[name=jenis]").empty();
+                    $("select[name=jenis]").append('<option value="">--Pilih Jenis Surat--</option>');
+                    $.each(data, function (i, value) {
+                        $("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
 
-                    },
-                ]
+                }
             });
+        })
+
+
+        function getModal() {
+            debugger;
+            var jenisId = $("#jenis").val();
+
+            if (jenisId == 3) {
+                $("#myModal2").modal('show');
+            }
+            else if (jenisId == 1 || jenisId == 2) {
+                $("#myModal").modal('show');
+            }
+            else {
+                alert('Anda Belum memilih Jenis Surat');
+            }
         }
 
-        function clearFilter() {
-            var t = $('#table').DataTable({
-                //"scrollX": true,
-                "destroy": true,
-                "ajax": {
-                    "url": "@Url.Action("GetMonitoring", "Kliring")",
-                    "type": "GET",
-                    "datatype": "json"
-                },
-                "columns": [
-                    {
+        function save() {
+            debugger;
+            var isAllValid = true;
+            var kepada = $("#kepadar").val();
+            var dari = $("#daris").val();
+            $("#ItemError").text('');
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " Data Tidak Boleh Kosong!");
+                isAllValid = false;
+            }
+            if ($('#kepada').val() == '') {
+                $('#kepada').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#kepada').removeClass('is-invalid');
+            } if ($('#dari').val() == '') {
+                $('#dari').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#dari').removeClass('is-invalid');
+            } if ($('#hal').val() == '') {
+                $('#hal').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#hal').removeClass('is-invalid');
+            } if ($('#lampiran').val() == '') {
+                $('#lampiran').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#lampiran').removeClass('is-invalid');
+            }
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.sId = getid;
+                data.JenisId = $("#jenis").val();
+                data.TujuanSurat = $("#kepada").val();
+                data.AsalSurat = $("#dari").val();
+                data.Perihal = $("#hal").val();
+                data.Lampiran = $("#lampiran").val();
+                data.NomorSurat = $("#nosurat").val();
+                data.Sor = $("#sor1").val();
 
-                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            //return row.tanggalTRX;
-                            return moment(row.tanggalTRX).format('DD MMMM YYYY');
-                        }
-                    },
-                    { "data": "bank.nama" },
-                    { "data": "nomorRekening" },
-                    { "data": "namaPenerima" },
-                    { "data": "alasan.nama" },
-                    { "data": "alasan.nama" },
-                    //{ "data": "SLA(HK)" },
-                    { "data": "type.nama" },
-                    {
-                        "render": function (data, type, row) {
-                            return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
 
-                        },
-
+                $.ajax({
+                    url: "@Url.Action("SaveSurat","Kliring")",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: (response) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Doned',
+                            text: 'Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.href = "@Url.Action("Monitoring","Kliring")";
+                        });
                     },
-                ]
-            })
-            t.on('order.dt search.dt', function () {
-                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                    cell.innerHTML = i + 1;
-                });
-            }).draw();
+                    error: (err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Tidak Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                })
+
+            }
+
+        }
+        function saves() {
+            debugger;
+            var isAllValid = true;
+            var kepada = $("#kepadas").val();
+            var dari = $("#daris").val();
+            $("#ItemError").text('');
+            var errorItemCount = 0;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " Data Tidak Boleh Kosong!");
+                isAllValid = false;
+            }
+            if ($('#kepadas').val() == '') {
+                $('#kepadas').addClass('is-invalid');
+                isAllValid = false;
+            } else {
+                $('#kepadas').removeClass('is-invalid');
+            }
+            
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.sId = getid;
+                data.JenisId = $("#jenis").val();
+                data.TujuanSurat = $("#kepadas").val();
+                data.Sor = $("#sor2").val();
+
+
+                $.ajax({
+                    url: "@Url.Action("SaveSurat","Kliring")",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: (response) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Doned',
+                            text: 'Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.href = "@Url.Action("Monitoring","Kliring")";
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Tidak Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                })
+
+            }
+
         }
     </script>
-	}
+}
