@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ririn.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -64,10 +65,10 @@ namespace Ririn.Controllers
                     var createdUser = await _userManager.FindByNameAsync(data.NPP);
 
                     success = true;
-                    foreach (var item in data.Roles)
-                    {
-                        var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
-                    }
+                    //foreach (var item in data.Roles)
+                    //{
+                    //    var userResult = await _userManager.AddToRoleAsync(createdUser, item.RoleName);
+                    //}
                     return Json(success);
                 }
             }
@@ -91,10 +92,10 @@ namespace Ririn.Controllers
                     }
 
                     //Add Role to User
-                    foreach (var item in data.Roles)
-                    {
-                        var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
-                    }
+                    //foreach (var item in data.Roles)
+                    //{
+                    //    var userResult = await _userManager.AddToRoleAsync(UserDb, item.RoleName);
+                    //}
 
                 }
                 success = true;

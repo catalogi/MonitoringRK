@@ -5,11 +5,11 @@
 @inject UserManager<User> UserManager
 @inject AppDbContext context
 
-@{
+@*@{
     var user = context.User.Where(x => x.UserName ==
             User.Identity.Name).FirstOrDefault();
     var nama = user.Nama + " (" + user.NPP + ")";
-}
+}*@
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
@@ -38,7 +38,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="fas fa-user-injured"></i>
-                <span>@user.Nama</span>
+                @*<span>@user.Nama</span>*@
 
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">

@@ -16,7 +16,7 @@
 							<label class="bmd-label-floating">Tipe Surat</label>
 							<br />
 							<input type="hidden" id="formId" value="Id" />
-							<select id="Tipe" name="Tipe" disabled data-placement="choose" class="form-control select2 Tipe" style="width:100%" ></select>
+							<select id="Tipe" name="Tipe" disabled data-placement="choose" class="form-control select2 Tipe" style="width:100%"></select>
 						</div>
 						<div class="col-md-4 offset-md-1">
 							<label class="bmd-label-floating"> Tanggal Transaksi</label>
@@ -31,7 +31,7 @@
 						<div class="col-md-4 offset-md-1">
 							<label class="bmd-label-floating">Cabang</label>
 							<br />
-							<select id="Cabang" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%" ></select>
+							<select id="Cabang" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
 						</div>
 					</div>
 					<div class="row" style="margin-left:20px">
@@ -51,7 +51,7 @@
 						</div>
 						<div class="col-md-4 offset-md-1">
 							<label class="bmd-label-floating">Nomor TestKey</label>
-							<input id="NoTeskey" type="text" class="form-control" disabled/>
+							<input id="NoTeskey" type="text" class="form-control" disabled />
 						</div>
 					</div>
 					<div class="row" style="margin-left:20px">
@@ -105,7 +105,7 @@
 	<div class="container">
 		<div class="card" style="background-color:white">
 			<div class="card-header ">
-				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#e0a017">Monitoring Kliring</h2>
+				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Monitoring Kliring</h2>
 				<p class="card-text font-weight-bolder">Transaksi Kliring</p>
 			</div>
 			<div class="card-body">
@@ -119,15 +119,17 @@
 						<label class="bmd-label-floating">Tanggal Selesai Register</label>
 						<input id="endDate" type="date" class="form-control" />
 					</div>
+
 					<div class="col-md-3">
-						<br />
+						<br>
+						<label class="bmd-label-floating"></label>
 						<button class="btn btn-primary " onclick="Filter();">Filter</button>
-						<button class="btn btn-primary " onclick="clearFilter();">X</button>
+						<button class="btn btn-primary " onclick="clearFilter();"><i class="fas fa-window-close"></i></button>
 					</div>
 				</div>
 				<br />
 				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
-					<thead style="background-color:#e0a017">
+					<thead style="background-color:#319DA0">
 						<tr>
 							<th>No.</th>
 							<th>Tanggal Register</th>
@@ -135,7 +137,7 @@
 							<th>No.Rek</th>
 							<th>Nasabah Penerima.</th>
 							<th>Alasan</th>
-							<th>SLA(HK)</th>
+							<th>Durasi(HK)</th>
 							<th>Tipe Transaksi</th>
 							<th>Action</th>
 						</tr>
@@ -188,8 +190,8 @@
 					{
 						"render": function (data, type, row) {
 							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:10px'><i class='fab fa-mailchimp'></i></a> ";
-								//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
+							//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
 						},
 
 					},
@@ -202,13 +204,13 @@
 			}).draw();
 		}
 
-		function GetSurtId(Id){
+		function GetSurtId(Id) {
 			$.ajax({
-				url:"@Url.Action("TemplateSurat","Kliring")/"+Id,
-				type:"GET",
+				url: "@Url.Action("TemplateSurat","Kliring")/" + Id,
+				type: "GET",
 				//data:{Id:Id},
-				dataType:"json",
-				success: function(response){
+				dataType: "json",
+				success: function (response) {
 					location.reload();
 				}
 			})
@@ -230,15 +232,15 @@
 			})
 		}
 
-		function GetKet(){
+		function GetKet() {
 			$.ajax({
 				url: "@Url.Action("GetKeterangan","Master")",
-				type:"Get",
-				dataType:"json",
-			}).then(({data})=>{
+				type: "Get",
+				dataType: "json",
+			}).then(({ data }) => {
 				var ket = $("#Keterangan");
 				ket.html('');
-				$.each(data,function(i,value){
+				$.each(data, function (i, value) {
 					$("<option></option>").val(value.id).text(value.nama).appendTo(ket);
 				});
 			});
@@ -318,30 +320,29 @@
 					$("#BankId").val(result.data.bankId).change();
 					$("#Alasan").val(result.data.alasanId).change();
 					$("#Keterangan").val(result.data.keteranganId).change();
-					
+
 				}
 			})
 		}
 
-		function Filter(){
+		function Filter() {
 			debugger;
-			var date =$('#startDate').val();
-			var date2 =$('#endDate').val();
-			var awal = date.substring(0,10);
-			var akhir = date2.substring(0,10);
+			var date = $('#startDate').val();
+			var date2 = $('#endDate').val();
+			var awal = date.substring(0, 10);
+			var akhir = date2.substring(0, 10);
 			$("#table").DataTable({
-				"scrollx":true,
-				ajax:{
-					"url":"@Url.Action("Filter","Kliring")",
-					"type":"POST",
-					"data": {Awal: awal, Akhir:akhir},
+				"scrollx": true,
+				ajax: {
+					"url": "@Url.Action("Filter","Kliring")",
+					"type": "POST",
+					"data": { Awal: awal, Akhir: akhir },
 					"dataType": "Json"
 				},
-				destroy:"true",
-				"columns":[
+				destroy: "true",
+				"columns": [
 					{
-
-						"render":(data, type, row, meta)=> meta.row + meta.settings._iDisplayStart + 1
+						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
 					},
 					{
 						"render": function (data, type, row) {
@@ -359,8 +360,8 @@
 					{
 						"render": function (data, type, row) {
 							return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' ><i class='fab fa-mailchimp'></i></a> ";
-
+								"<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:6px'><i class='fab fa-mailchimp'></i></a> ";
+							//"<a href='@Url.Action("MemoKeluar","Kliring")/" + row.id + "' class='btn btn-info btn-sm text-white' style='width:8px ><i c lass='fa fa-car'></i></a> "
 						},
 
 					},

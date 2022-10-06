@@ -46,6 +46,12 @@ namespace Ririn.Controllers.Master
             return Json(new { data = result });
         }
 
+        public JsonResult GetJenisSurat(int? Id)
+        {
+            var result = _context.JenisSurat.Include(x => x.Type).Where(x => x.TypeId == Id);
+            return Json(new { data = result });
+        }
+
         public JsonResult GetUnitBy(int? Id)
         {
             var result = _context.Unit.Include(x => x.Kelompok).Where(x => x.KelompokId == Id);

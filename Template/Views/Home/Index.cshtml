@@ -1,118 +1,320 @@
-﻿@{
+﻿@using Microsoft.EntityFrameworkCore
+@using Ririn.Models.Master
+@using Ririn.Data
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject AppDbContext context
+@{
     ViewData["Title"] = "Home Page";
+}
+@inject UserManager<User> UserManager
+@inject AppDbContext _context
+@inject RoleManager<IdentityRole> _RoleManager
+
+@{
+    var user = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.UserName == User.Identity!.Name).FirstOrDefault();
+    var roles = UserManager.GetRolesAsync(user).Result;
+    var isAdmin = User.IsInRole("Admin");
+    var allRoles = _context.User.Select(x => x.Nama).ToList();
+    //var isApprover = roles.Contains();
+
 }
 
 <section class="content">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 offset-md-1">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Durasi(HK) Retur Kliring</h4>
-                        <p class="card-text">Surat Masuk</p>
+            @if (user.Unit.Nama != "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama != "RTGS")
+            {
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><h6>Jumlah Data</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:green">0</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Tercepat</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:orange">6</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Terlama</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:red">11</h6></td>
-                            </tr>
-                        </table>
-                    </div>
+                    <!-- /.card -->
                 </div>
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Durasi(HK) Retur Kliring</h4>
-                        <p class="card-text">Surat Keluar</p>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><h6>Jumlah Data</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:green">0</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Tercepat</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:orange">6</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Terlama</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:red">11</h6></td>
-                            </tr>
-                        </table>
-                    </div>
+                    <!-- /.card -->
                 </div>
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Durasi(HK) RTGS</h4>
-                        <p class="card-text">Surat Masuk</p>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><h6>Jumlah Data</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:green">0</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Tercepat</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:orange">6</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Terlama</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:red">11</h6></td>
-                            </tr>
-                        </table>
-                    </div>
+                    <!-- /.card -->
                 </div>
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Durasi(HK) RTGS</h4>
-                        <p class="card-text">Surat Keluar</p>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><h6>Jumlah Data</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:green">0</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Tercepat</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:orange">6</h6></td>
-                            </tr>
-                            <tr>
-                                <td><h6>Durasi Terlama</h6></td>
-                                <td><h6>:</h6></td>
-                                <td><h6 style="color:red">11</h6></td>
-                            </tr>
-                        </table>
-                    </div>
+                    <!-- /.card -->
                 </div>
-            </div>
+            }
+            else if(user.Unit.Nama == "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin"||user.Unit.Nama != "RTGS")
+            {
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) Retur Kliring</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            }
+            else if (user.Unit.Nama != "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "RTGS")
+            {
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Masuk</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header" style="background-color:white">
+                            <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Durasi(HK) RTGS</h3>
+                            <p class="card-text text-dark font-weight-bold">Surat Keluar</p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            }           
+            
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function(){
+        getDataChart();
+        getDataChartRTGS();
+    })
+    function getDataChart() {
+        $.ajax({
+            url: "@Url.Action("Donat","Home")",
+            type: "get",
+            dataType: "json",
+            success: (result) => {
+                console.log(result);
+                @*var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
+                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];*@
+                var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
+                var km = [result.kliringMasukCepat, result.kliringMasukLambat];
+
+                
+                getChartkk(kk);
+                getChartkm(km);
+               @* getChartrk(rk);
+                getChartrm(rm);
+*@
+            }
+        });
+    }function getDataChartRTGS() {
+        $.ajax({
+            url: "@Url.Action("Donat","Home")",
+            type: "get",
+            dataType: "json",
+            success: (result) => {
+                console.log(result);
+                var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
+                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];
+                @*var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
+                var km = [result.kliringMasukCepat, result.kliringMasukLambat];
+*@
+                
+               @* getChartkk(kk);
+                getChartkm(km);*@
+                getChartrk(rk);
+                getChartrm(rm);
+
+            }
+        });
+    }
+
+    function getChartrk(rk) {
+        var donutChartCanvas2 = $('#donutChart2').get(0).getContext('2d')
+        var donutData2 = {
+            labels: [                
+                'Durasi Tercepat',
+                'Durasi Terlama',
+            ],
+            datasets: [
+                {
+                    data: rk,
+                    backgroundColor: ['#4cc93e', '#d60202'],
+                }
+            ]
+        }
+        var donutOptions2 = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas2, {
+            type: 'doughnut',
+            data: donutData2,
+            options: donutOptions2
+        })
+    }
+
+    function getChartrm(rm) {
+        var donutChartCanvas3 = $('#donutChart3').get(0).getContext('2d')
+        var donutData3 = {
+            labels: [                
+                'Durasi Tercepat',
+                'Durasi Terlama',
+            ],
+            datasets: [
+                {
+                    data: rm,
+                    backgroundColor: ['#4cc93e', '#d60202'],
+                }
+            ]
+        }
+        var donutOptions3 = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas3, {
+            type: 'doughnut',
+            data: donutData3,
+            options: donutOptions3
+        })
+    }
+
+    function getChartkk(kk) {
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData = {
+            labels: [
+                'Durasi Tercepat',
+                'Durasi Terlama',
+            ],
+            datasets: [
+                {
+                    data: kk,
+                    backgroundColor: ['#4cc93e', '#d60202'],
+                }
+            ]
+        }
+        var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+        })
+    }
+
+    function getChartkm(km) {
+        console.log(km);
+        var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d')
+        var donutData1 = {
+            labels: [                
+                'Durasi Tercepat',
+                'Durasi Terlama',
+            ],
+            datasets: [
+                {
+                    data: km,
+                    backgroundColor: ['#4cc93e', '#d60202'],
+                }
+            ]
+        }
+        var donutOptions1 = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    formatter: (value, context) => {
+                        let datasets = context.chart.data.datasets;
+                        return value > 0 ? value : null;
+                    },
+                    color: '#fff',
+                    font: {
+                        size: 20
+                    }
+                }
+        }
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas1, {
+            type: 'doughnut',
+            data: donutData1,
+            options: donutOptions1
+        })         
+    }
+</script>

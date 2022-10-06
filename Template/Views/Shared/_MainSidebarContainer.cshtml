@@ -5,7 +5,6 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject AppDbContext context
-
 @*@{
     var user = context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault();
 }*@
@@ -24,19 +23,19 @@
 }
 <aside class="main-sidebar bg-bni-primary elevation-4 w-full">
 
-    @if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "Kliring" || user.Unit.Nama == "RTGS")
-    {
-        <!-- Brand Logo -->
-        <a asp-action="Index" asp-controller="Home" class="brand-link">
-            <img src="~/dist/img/AdminLTELogo.png" alt="MonitoringRK"
-             class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-bold text-bni-origin">
-                Ririn
-                <span class="text-bni-accent">PROJECT</span>
-            </span>
-        </a>
-        <!-- /.sidebar -->
-    }
+    @*@if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "Kliring" || user.Unit.Nama == "RTGS")*@
+    @*{*@
+    <!-- Brand Logo -->
+    <a asp-action="Index" asp-controller="Home" class="brand-link">
+        <img src="~/img/oprlogo.png" alt="MonitoringRK"
+             class="brand-image img-circle elevation-6" style="opacity: .9">
+        <span class="brand-text font-weight-bold text-bni-origin">
+            ARK
+            <span class="text-bni-accent">PROJECT</span>
+        </span>
+    </a>
+    <!-- /.sidebar -->
+    @*}*@
     <!-- Main Sidebar Container -->
     <!-- Brand Logo -->
     <div class="sidebar" style="overflow:hidden;">
@@ -102,7 +101,7 @@
                         <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-book text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Reports
+                                Report
                             </p>
                         </a>
                     </li>
@@ -180,7 +179,7 @@
                         <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-book text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Reports
+                                Report
                             </p>
                         </a>
                     </li>
@@ -249,7 +248,7 @@
                         </a>
                     </li>
                 }
-                else if(user.Unit.Nama == "Kliring")
+                else if (user.Unit.Nama == "Kliring")
                 {
                     <!-- Menu Monitoring Kliring -->
                     <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
@@ -289,7 +288,7 @@
                         <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-book text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Reports
+                                Report
                             </p>
                         </a>
                     </li>
@@ -303,7 +302,7 @@
                         </a>
                     </li>
                 }
-                else if(user.Unit.Nama == "RTGS")
+                else if (user.Unit.Nama == "RTGS")
                 {
                     <!-- Menu Monitoring RTGS -->
                     <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
@@ -348,10 +347,6 @@
                     </li>
                 }
 
-
-
-
-               
 
             </ul>
         </nav>
