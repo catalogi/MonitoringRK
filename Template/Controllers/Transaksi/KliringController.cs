@@ -35,6 +35,11 @@ namespace Ririn.Controllers.Transaksi
 
         }
 
+        //public private GetCurrentUser()
+        //{
+
+        //}
+
 
         #region View
         public IActionResult Index()
