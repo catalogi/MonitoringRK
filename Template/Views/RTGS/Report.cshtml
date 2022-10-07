@@ -4,42 +4,73 @@
 }
 <section class="content">
     <div class="container">
-<div class="card">
-    <div class="card-header card-header-info">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Report</h2>
-        <p class="card-category">RTGS</p>
+        <div class="card">
+            <div class="card-header card-header-info" style="background-color:#FF6600">
+                <h2 class="card-title font-weight-bolder" style="color:#006699; text-shadow: 0 0 5px #F5b590">Report</h2>
+                <p class="card-text font-weight-bolder" style="color:#ffe0cc;"><b>RTGS</b></p>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="bmd-label-floating">Dari Tanggal</label>
+                        <input id="Startreport" type="date" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="bmd-label-floating">Sampai Tanggal</label>
+                        <input id="Endreport" type="date" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1">Tipe</label>
+                    <div class="col-md-3">
+                        <select required id="tipe" name="tipe" data-placement="choose" class="form-control tipe"></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-5 offset-md-3">
+                        <a id="Print" class="btn btn-outline-rtgs" onclick="Report();">Unduh Laporan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <div class="form-group row">
-            <div class="col-md-3">
-                <label class="bmd-label-floating">Dari Tanggal</label>
-                <input id="startDate" type="date" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label class="bmd-label-floating">Sampai Tanggal</label>
-                <input id="endDate" type="date" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-1">Tipe</label>
-            <div class="col-md-3">
-                <select required id="tipe" data-placement="choose" class="form-control select2 tipe"></select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-5 offset-md-3">
-                <a id="print" class="btn btn-outline-primary" onclick="downloadReport();">Unduh Laporan</a>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
 </section>
-<script>
-    $(document).ready(()=>{
-        GetType();
-    })
-    function downloadReport(){
+@section scripts{
+    <script>
+        $(document).ready(() => {
 
-    }
-</script>
+            GetType();
+            //$(".select2").select2({
+            //    "theme": "classic"
+            //});
+
+        });
+
+        function GetType() {
+            $.ajax({
+                url: "@Url.Action("GetType","RTGS")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    //console.log(data);
+                    $("select[name=tipe]").empty();
+                    $("select[name=tipe]").append('<option value="">-- Pilih Tipe Surat --</option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            });
+        }
+
+        function Report() {
+            debugger;
+            var date = $("#Startreport").val();
+            var date2 = $("#Endreport").val();
+            var Awal = date.substring(0, 10);
+            var Akhir = date2.substring(0, 10);
+            var TypeId = $("#tipe").val();
+            const $downloadBtn = $("#Print");
+            $downloadBtn.attr("href", `@Url.Action("Reports","Kliring")/?start=${Awal}&end=${Akhir}&type=${TypeId}`);
+        }
+    </script>
+}

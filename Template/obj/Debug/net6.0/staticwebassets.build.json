@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AAcY1muAUJ7m9RJYHq6kZOKJGm2xUp0PQ4vJRkycrN8=",
+  "Hash": "ezeVSMs3WgVVPt5zrkH6N606SHMT968roe/1s85CMNk=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2327,6 +2327,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_06102022_Absen-Nur Ali Majid - TS-September (1).pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf",
