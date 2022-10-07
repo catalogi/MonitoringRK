@@ -153,9 +153,9 @@
 <section class="content">
 	<div class="container">
 		<div class="card" style="background-color:white">
-			<div class="card-header card-header-info">
-				<h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Proses</h2>
-				<p class="card-text font-weight-bolder">Transaksi Kliring Belum Selesai</p>
+			<div class="card-header card-header-info" style="background-color:#20948B">
+				<h2 class="card-title badge font-weight-bolder" style="color:#DE7A22; text-shadow: 0 0 3px #FF0000">Proses</h2>
+				<p class="card-text font-weight-bolder" style="color:#F4CC70">Transaksi Kliring Belum Selesai</p>
 				@*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
 
 				@*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
@@ -170,13 +170,13 @@
 						</select>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-danger rounded" style="color:#73f5d2" onclick="clearFilter();"><i class="fas fa-times"></i></button>
+						<button type="button" class="btn btn-danger" onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
 				@*<button type="button" class="btn btn-primary" onclick="clearFilter();">Refresh</button>*@
 					</div>
 				</div>
 				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
 					@*display nowrap*@
-					<thead style="background-color:#319DA0">
+					<thead style="background-color:#20948B">
 						<tr>
 							<th>No.</th>
 							<th>Tipe Transaksi</th>
@@ -540,6 +540,7 @@
 				"datatype": "json",
 				"data": { Id: Id }
 			}).then((result) => {
+				debugger;
 				if (result != null) {
 					console.log(result);
 					$("#formId").val(result.data.id).change;
@@ -548,7 +549,7 @@
 					$("#NoReferensi").val(result.data.noReferensi);
 					$("#Cabang").val(result.data.cabangId).change();
 					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
-					$("#TanggalTK").val(moment(result.data.tanggaltestkey).format('YYYY-MM-DD')).change();
+					$("#TanggalTK").val(moment(result.data.tanggalTestkey).format('YYYY-MM-DD'));
 					$("#NomorSurat").val(result.data.nomorSurat);
 					$("#NoTeskey").val(result.data.nomorTestkey).change();
 					$("#Nama").val(result.data.namaPenerima);

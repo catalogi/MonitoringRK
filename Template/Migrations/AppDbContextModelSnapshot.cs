@@ -240,7 +240,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Alasan", (string)null);
+                    b.ToTable("Alasan");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Bank", b =>
@@ -268,7 +268,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bank", (string)null);
+                    b.ToTable("Bank");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Cabang", b =>
@@ -294,7 +294,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cabang", (string)null);
+                    b.ToTable("Cabang");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.DataToken", b =>
@@ -351,7 +351,7 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("ModulId");
 
-                    b.ToTable("DataToken", (string)null);
+                    b.ToTable("DataToken");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.JenisSurat", b =>
@@ -366,14 +366,14 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UnitId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("TypeId");
 
-                    b.ToTable("JenisSurat", (string)null);
+                    b.ToTable("JenisSurat");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Kelompok", b =>
@@ -403,7 +403,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kelompok", (string)null);
+                    b.ToTable("Kelompok");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Keterangan", b =>
@@ -420,7 +420,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Keterangan", (string)null);
+                    b.ToTable("Keterangan");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Libur", b =>
@@ -442,7 +442,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Libur", (string)null);
+                    b.ToTable("Libur");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Modul", b =>
@@ -459,7 +459,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Modul", (string)null);
+                    b.ToTable("Modul");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Status", b =>
@@ -480,7 +480,7 @@ namespace ASK_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Status", (string)null);
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Surat", b =>
@@ -497,23 +497,23 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("JenisSuratId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Lampiran")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomorSurat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Perihal")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TujuanSurat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("lampiran")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nomorSurat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("perihal")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("JenisSuratId");
 
-                    b.ToTable("Surat", (string)null);
+                    b.ToTable("Surat");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
@@ -534,7 +534,7 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("TypeTrans", (string)null);
+                    b.ToTable("TypeTrans");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Unit", b =>
@@ -565,7 +565,7 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("KelompokId");
 
-                    b.ToTable("Unit", (string)null);
+                    b.ToTable("Unit");
                 });
 
             modelBuilder.Entity("Ririn.Models.Transaksi.T_Kliring", b =>
@@ -635,6 +635,9 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SuratId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("TanggalDone")
                         .HasColumnType("datetime2");
 
@@ -669,9 +672,11 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("StatusId");
 
+                    b.HasIndex("SuratId");
+
                     b.HasIndex("TypeId");
 
-                    b.ToTable("T_Kliring", (string)null);
+                    b.ToTable("T_Kliring");
                 });
 
             modelBuilder.Entity("Ririn.Models.Transaksi.T_RTGS", b =>
@@ -767,7 +772,7 @@ namespace ASK_Core.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("T_RTGS", (string)null);
+                    b.ToTable("T_RTGS");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.User", b =>
@@ -865,11 +870,11 @@ namespace ASK_Core.Migrations
 
             modelBuilder.Entity("Ririn.Models.Master.JenisSurat", b =>
                 {
-                    b.HasOne("Ririn.Models.Master.Unit", "Unit")
+                    b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
-                        .HasForeignKey("UnitId");
+                        .HasForeignKey("TypeId");
 
-                    b.Navigation("Unit");
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.Surat", b =>
@@ -931,6 +936,10 @@ namespace ASK_Core.Migrations
                         .WithMany()
                         .HasForeignKey("StatusId");
 
+                    b.HasOne("Ririn.Models.Master.Surat", "Surat")
+                        .WithMany()
+                        .HasForeignKey("SuratId");
+
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
@@ -948,6 +957,8 @@ namespace ASK_Core.Migrations
                     b.Navigation("Keterangan");
 
                     b.Navigation("Status");
+
+                    b.Navigation("Surat");
 
                     b.Navigation("Type");
                 });
