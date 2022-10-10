@@ -123,8 +123,10 @@
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
-            <div class="card-header card-header-info">
-                <h3 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">Surat</h3>
+            <div class="card-header card-header-info"  style="background-color:#006699">
+
+                <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Surat</h2>
+                
             </div>
             <div class="card-body ">
                 <div class="row">
@@ -214,11 +216,11 @@
             debugger;
             var jenisId = $("#jenis").val();
 
-            if (jenisId == 1) {
-                $("#myModal2").modal('show');
-            }
-            else if (jenisId == 2 || jenisId == 3) {
+            if (jenisId == 1 || jenisId == 2) {
                 $("#myModal").modal('show');
+            }
+            else if (jenisId == 3) {
+                $("#myModal2").modal('show');
             } else {
                 alert('Anda Belum memilih Jenis Surat');
             }
