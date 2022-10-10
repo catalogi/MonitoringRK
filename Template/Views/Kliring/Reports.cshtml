@@ -1,16 +1,16 @@
 ﻿@{
-	ViewBag.Title = "Reports";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <section class="content">
     <div class="container">
         <div class="card">
-            <div class="card-header">
-                <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#319DA0">
+            <div class="card-header card-header-info" style=" background-color:#006699">
+                <h2 class="card-title  font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">
                     Report
-                    </h2>
-                <p class="card-text font-weight-bolder">Retur Kliring</p>
+                </h2>
+                <p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">Retur Kliring</p>
             </div>
             <div class="card-body">
                 <div class="form-group row">
@@ -25,12 +25,12 @@
                 <div class="form-group row">
                     <label class="col-md-2">Tipe</label>
                     <div class="col-md-3">
-                        <select required id="Tipe" name="tipe" data-placement="choose" class="form-control select2 Tipe"></select>
+                        <select required id="tipe" name="tipe" data-placement="choose" class="form-control select2 Tipe"></select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-5 offset-md-3">
-                        <a id="Print" class="btn btn-outline-primary">Unduh Laporan</a>
+                        <a id="Print" class="btn btn-outline-kliring" onclick="Report();">Unduh Laporan</a>
                     </div>
                 </div>
             </div>
@@ -39,14 +39,14 @@
 </section>
 
 @section scripts{
-	<script>
-		$(document).ready(function () {
-			GetType();
-			$(".select2").select2({
-				"theme": "classic"
-			});
+    <script>
+        $(document).ready(function () {
+            GetType();
+            $(".select2").select2({
+                "theme": "classic"
+            });
 
-		});
+        });
 
         function GetType() {
             $.ajax({
@@ -62,6 +62,23 @@
                     })
                 }
             })
+        }
+
+        function Report() {
+            debugger;
+            var date = $("#Startreport").val();
+            var date2 = $("#Endreport").val();
+            var Awal = date.substring(0, 10);
+            var Akhir = date2.substring(0, 10);
+            var TypeId = $("#tipe").val();
+            const $downloadBtn = $("#Print");
+
+            if (TypeId == 1) {
+
+                $downloadBtn.attr("href", `@Url.Action("ReportMasuk","Kliring")/?start=${Awal}&end=${Akhir}&type=${TypeId}`);
+            } else {
+                $downloadBtn.attr("href", `@Url.Action("ReportKeluar","Kliring")/?start=${Awal}&end=${Akhir}&type=${TypeId}`);
+            }
         }
     </script>
 }

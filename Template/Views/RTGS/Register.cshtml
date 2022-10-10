@@ -6,6 +6,7 @@
 
 <section class="content">
     <div class="container">
+<<<<<<< HEAD
 <div class="card">
     <div class="card-header card=header-info">
                 <h2 class="card-title badge text-light font-weight-bolder" style="background-color:#ffa404">Registrasi</h2>
@@ -19,65 +20,80 @@
                 <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
                     <option value="">--pilih Tipe--</option>
                 </select>
+=======
+        <div class="card">
+            <div class="card-header card-header-info" style="background-color:#FF6600">
+                <h2 class="card-title font-weight-bolder" style="color:#006699; text-shadow: 0 0 5px #F5b590">Registrasi</h2>
+                <p class="card-text font-weight-bolder" style="color:#ffe0cc;"><b>TestKey Masuk/Keluar</b></p>
+>>>>>>> 9de2604c472d6262345e44ff6d44a2e8bf85c8cd
             </div>
-            <div class="col-md-4 offset-md-1">
-                <label class="control-label" id="lbank">Bank Pengirim</label>
-                <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
-                    <option value="">--Pilih Bank--</option>
-                </select>
+            <div class="card-body">
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4">
+                        <label class="bmd-label-floating">Jenis RTGS</label>
+                        <br />
+                        <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                            <option value="">--pilih Tipe--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="control-label" id="lbank">Bank Pengirim</label>
+                        <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
+                            <option value="">--Pilih Bank--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 Cabang">
+                        <label class="bmd-label-floating">Cabang</label>
+                        <br />
+                        <select required id="Cabang" data-placement="choose" class="form-control select2">
+                            <option value="">--Pilih Cabang--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="bmd-label-floating">Nomor Surat / Ni / Memo</label>
+                        <input id="NomorSurat" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 NoReferensi">
+                        <label class="control-label">REL TRN</label>
+                        <input id="RelTRN" type="text" class="form-control" />
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="control-label">TRN Pesan Admin</label>
+                        <input id="TRN" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4">
+                        <label class="bmd-label-floating">Nominal</label>
+                        <input id="Nominal" type="text" class="form-control number" />
+                    </div>
+                    <div class="col-md-4 offset-md-1 Tanggal">
+                        <label class="bmd-label-floating">Tanggal Proses</label>
+                        <input id="Tanggal" type="date" class="form-control" />
+                    </div>
+                </div>
+                <div class="row" style="margin-left:20px">
+                    <div class="col-md-4 Lampiran">
+                        <label class="control-label">Lampiran Bukti</label>
+                        <br />
+                        <canvas style="border:1px solid grey;" id="path"></canvas>
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <label class="control-label">No Test Key</label>
+                        <input id="TestKey" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="offset-md-8">
+                    <a class="btn btn-primary text-white" id="Save">Save</a>
+                    <a class="btn btn-default text-black" href="@Url.Action("Index, Home")" style="margin-left:10px;">Back</a>
+                </div>
             </div>
-        </div>
-        <div class="row" style="margin-left:20px">
-            <div class="col-md-4 Cabang">
-                <label class="bmd-label-floating">Cabang</label>
-                <br />
-                <select required id="Cabang" data-placement="choose" class="form-control select2">
-                    <option value="">--Pilih Cabang--</option>
-                </select>
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <label class="bmd-label-floating">Nomor Surat / Ni / Memo</label>
-                <input id="NomorSurat" type="text" class="form-control" />
-            </div>
-        </div>
-        <div class="row" style="margin-left:20px">
-            <div class="col-md-4 NoReferensi">
-                <label class="control-label">REL TRN</label>
-                <input id="RelTRN" type="text" class="form-control" />
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <label class="control-label">TRN Pesan Admin</label>
-                <input id="TRN" type="text" class="form-control" />
-            </div>
-        </div>
-        <div class="row" style="margin-left:20px">
-            <div class="col-md-4">
-                <label class="bmd-label-floating">Nominal</label>
-                <input id="Nominal" type="text" class="form-control number" />
-            </div>
-            <div class="col-md-4 offset-md-1 Tanggal">
-                <label class="bmd-label-floating">Tanggal Proses</label>
-                <input id="Tanggal" type="date" class="form-control" />
-            </div>
-        </div>
-        <div class="row" style="margin-left:20px">
-            <div class="col-md-4 Lampiran">
-                <label class="control-label">Lampiran Bukti</label>
-                <br />
-                <canvas style="border:1px solid grey;" id="path"></canvas>
-            </div>
-            <div class="col-md-4 offset-md-1">
-                <label class="control-label">No Test Key</label>
-                <input id="TestKey" type="text" class="form-control" />
-            </div>
-        </div>
-        <div class="offset-md-8">
-            <a class="btn btn-primary text-white" id="Save">Save</a>
-            <a class="btn btn-default text-black" href="@Url.Action("Index, Home")" style="margin-left:10px;">Back</a>
         </div>
     </div>
-</div>
-</div>
 </section>
 
 
@@ -133,7 +149,7 @@
         }
 
         $('#Save').click(async function () {
-            
+
 
             debugger;
             var isAllValid = true;
@@ -154,7 +170,7 @@
             else {
                 $('#Jenis').removeClass('is-invalid');
             }
-            if ($('#Tanggal').val() == ''){
+            if ($('#Tanggal').val() == '') {
                 $('#Tanggal').addClass('is-invalid');
                 isAllValid = false;
             }
@@ -196,7 +212,7 @@
             else {
                 $('#Nominal').removeClass('is-invalid');
             }
-            
+
 
             if (isAllValid) {
                 debugger;
@@ -219,20 +235,20 @@
                     dataType: "json",
                     data: data,
                     success: function (response) {
-                       Swal.fire({
-                           icon:'success',
-                           title:'Berhasil',
-                           text:'Data Berhasil Disimpan!'
-                       }).then(function(response){
-                           location.href ="@Url.Action("Proses","RTGS")";
-                       });
-                    },
-                    error:function(err){
                         Swal.fire({
-                            icon:'error',
-                            title:'Gagal',
-                            text:'Data Tidak Gagal Disimpan!'
-                        }).then(function(response){
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data Berhasil Disimpan!'
+                        }).then(function (response) {
+                            location.href = "@Url.Action("Proses","RTGS")";
+                        });
+                    },
+                    error: function (err) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Data Tidak Gagal Disimpan!'
+                        }).then(function (response) {
                             location.reload();
                         });
                     }
@@ -241,7 +257,7 @@
         })
 
 
-        function retrieveImageFromClipboardAsBlob(pasteEvent, callback) { 
+        function retrieveImageFromClipboardAsBlob(pasteEvent, callback) {
 
             if (pasteEvent.clipboardData == false) {
                 if (typeof (callback) == "function") {
@@ -323,13 +339,13 @@
             return bil;
         }
 
-        $('#Jenis').change( function () {
+        $('#Jenis').change(function () {
             var tId = ($('#Jenis').val());
             $.ajax({
-                "url" : "@Url.Action("GetBankId","RTGS")",
-                "type" : "GET",
-                "dataType" : "JSON",
-                "data" : {tId : tId}
+                "url": "@Url.Action("GetBankId","RTGS")",
+                "type": "GET",
+                "dataType": "JSON",
+                "data": { tId: tId }
             }).then((result) => {
                 if (result != 0) {
                     $('#BankTujuan').val(result).change();

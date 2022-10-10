@@ -50,6 +50,82 @@ body {
 a.text-bni-accent {
   color: var(--bni-accent);
 }
+
+/*CSS Button style*/
+/*button RTGS*/
+.btn-outline-rtgs {
+    color: #FF6600;
+    border-color: #FF6600
+}
+
+    .btn-outline-rtgs:hover {
+        color: #fff;
+        background-color: #FF6600;
+        border-color: #FF6600
+    }
+
+    .btn-outline-rtgs.focus,
+    .btn-outline-rtgs:focus {
+        box-shadow: 0 0 0 .2rem rgba(0,123,255,.5)
+    }
+
+    .btn-outline-rtgs.disabled,
+    .btn-outline-rtgs:disabled {
+        color: #FF6600;
+        background-color: transparent
+    }
+
+    .btn-outline-rtgs:not(:disabled):not(.disabled).active,
+    .btn-outline-rtgs:not(:disabled):not(.disabled):active, .show >
+    .btn-outline-rtgs.dropdown-toggle {
+        color: #fff;
+        background-color: #FF6600;
+        border-color: #FF6600
+    }
+
+        .btn-outline-rtgs:not(:disabled):not(.disabled).active:focus,
+        .btn-outline-rtgs:not(:disabled):not(.disabled):active:focus, .show >
+        .btn-outline-rtgs.dropdown-toggle:focus {
+            box-shadow: 0 0 0 .2rem rgba(0,123,255,.5)
+        }
+
+        /*button Kliring*/
+.btn-outline-kliring {
+    color: #006699;
+    border-color: #006699
+}
+
+    .btn-outline-kliring:hover {
+        color: #fff;
+        background-color: #006699;
+        border-color: #006699
+    }
+
+    .btn-outline-kliring.focus,
+    .btn-outline-kliring:focus {
+        box-shadow: 0 0 0 .2rem rgba(0,123,255,.5)
+    }
+
+    .btn-outline-kliring.disabled,
+    .btn-outline-kliring:disabled {
+        color: #006699;
+        background-color: transparent
+    }
+
+    .btn-outline-kliring:not(:disabled):not(.disabled).active,
+    .btn-outline-kliring:not(:disabled):not(.disabled):active, .show >
+    .btn-outline-kliring.dropdown-toggle {
+        color: #fff;
+        background-color: #006699;
+        border-color: #006699
+    }
+
+        .btn-outline-kliring:not(:disabled):not(.disabled).active:focus,
+        .btn-outline-kliring:not(:disabled):not(.disabled):active:focus, .show >
+        .btn-outline-kliring.dropdown-toggle:focus {
+            box-shadow: 0 0 0 .2rem rgba(0,123,255,.5)
+        }
+/*-- Button style*/
 /*CSS BOX*/
 
 .box {
