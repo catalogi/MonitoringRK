@@ -122,7 +122,7 @@
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Lampiran Bukti</label>
                                         <br />
-                                        <canvas style="border:1px solid grey;" id="Path"></canvas>
+                                        <canvas style="border:1px solid grey;" id="path"></canvas>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -482,13 +482,13 @@
 
         async function Edit() {
             //debugger;
-            const files = $("#path").prop('files');
-            //debugger;
-            const b64 = await FileToBase(files[0]);
-            const path = {
-                base64: b64,
-                fileName: files[0].name
-            }
+            var canvas = document.getElementById('path');
+            var dataURL = "";
+            if (canvas.length > 0) {
+                dataURL = canvas.toDataURL();
+            } else {
+                dataURL = null
+            }   
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');
@@ -682,7 +682,7 @@
             retrieveImageFromClipboardAsBlob(e, function (imageBlob) {
                 // If there's an image, display it in the canvas
                 if (imageBlob) {
-                    var canvas = document.getElementById("Path");
+                    var canvas = document.getElementById("path");
                     var ctx = canvas.getContext('2d');
 
                     // Create an image to render the blob on the canvas

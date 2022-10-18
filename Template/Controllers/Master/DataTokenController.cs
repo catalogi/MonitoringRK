@@ -32,12 +32,49 @@ namespace Ririn.Controllers.Master
             var data = _context.DataToken.Single(x => x.Id == Id);
             return Json(new { data = data });
         }
-        public JsonResult Save(DataToken datatoken)
+        public JsonResult Save(TokenVM datatoken)
         {
+            var success = false;
             if (datatoken.Id == 0)
             {
+                var newModul = 0;
 
-                _context.DataToken.Add(datatoken);
+                if (datatoken.ModulId == null)
+                {
+                    if (datatoken.AddModul != null)
+                    {
+                        var mod = new Modul
+                        {
+                            Nama = datatoken.AddModul,
+                        };
+                        _context.Modul.Add(mod);
+                        _context.SaveChanges();
+
+                        newModul = mod.Id;
+                    }
+                }
+                else
+                {
+                    newModul = datatoken.ModulId ?? 0;
+                }
+                var token = new DataToken
+                {
+                    KelompokId = datatoken.KelompokId,
+                    ModulId = newModul,
+                    NPP = datatoken.NPP,
+                    UserId = datatoken.UserId,
+                    Nama = datatoken.Nama,
+                    Group = datatoken.Group,
+                    ApprovalLimit = datatoken.ApprovalLimit,
+                    UserIdToken = datatoken.UserIdToken,
+                    TokenExpired = datatoken.TokenExpired,
+                    Keterangan = datatoken.Keterangan,
+                    IsDeleted = false,
+                    CreateDate = DateTime.Now
+                };
+                _context.DataToken.Add(token);
+                _context.SaveChanges();
+                success = true;
             }
             else
             {
@@ -55,10 +92,10 @@ namespace Ririn.Controllers.Master
                 data.IsDeleted = false;
                 data.UpdateDate = DateTime.Now;
                 _context.Entry(data).State = EntityState.Modified;
+                _context.SaveChanges();
+                success = true;
             }
-            _context.SaveChanges();
-
-            return Json(datatoken);
+            return Json(success);
         }
         //public JsonResult PerpanjangTanggal(int Id)
         //{
@@ -88,9 +125,9 @@ namespace Ririn.Controllers.Master
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
             var filter = _context.DataToken
-                .Include(x=>x.Kelompok)
-                .Include(x=>x.Modul)
-               
+                .Include(x => x.Kelompok)
+                .Include(x => x.Modul)
+
                 .Where(x => x.IsDeleted == false && (x.TokenExpired.Date >= Awal.Date
                 && x.TokenExpired.Date <= Akhir.Date))
                 .ToList();

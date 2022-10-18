@@ -741,9 +741,6 @@ namespace ASK_Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Tanggal")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("TanggalDone")
                         .HasColumnType("datetime2");
 

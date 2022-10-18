@@ -139,7 +139,13 @@
             var isAllValid = true;
             $('#ItemError').text('');
             var canvas = document.getElementById('path');
-            var dataURL = canvas.toDataURL();
+            console.log(canvas);
+            var dataURL = "";
+            if (canvas.length > 0) {
+                dataURL = canvas.toDataURL();
+            } else {
+                dataURL = null
+            }
             console.log(dataURL);
             var errorItemCount = 0;
             if (errorItemCount > 0) {
@@ -271,25 +277,31 @@
             // Handle the event
             retrieveImageFromClipboardAsBlob(e, function (imageBlob) {
                 // If there's an image, display it in the canvas
+                debugger;
                 if (imageBlob) {
                     var canvas = document.getElementById("path");
-                    var ctx = canvas.getContext('2d');
+                    if (canvas.length > 0) {
 
-                    // Create an image to render the blob on the canvas
-                    var img = new Image();
 
-                    // Once the image loads, render the img on the canvas
-                    img.onload = function () {
-                        canvas.style.width = '100%';
-                        canvas.style.height = '100%';
-                        // Update dimensions of the canvas with the dimensions of the image
-                        canvas.width = this.width;
-                        canvas.height = this.height;
+                        var ctx = canvas.getContext('2d');
 
-                        // Draw the image
-                        ctx.drawImage(img, 0, 0);
-                    };
+                        // Create an image to render the blob on the canvas
+                        img = new Image();
 
+                        // Once the image loads, render the img on the canvas
+                        img.onload = function () {
+                            canvas.style.width = '100%';
+                            canvas.style.height = '100%';
+                            // Update dimensions of the canvas with the dimensions of the image
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+
+                            // Draw the image
+                            ctx.drawImage(img, 0, 0);
+                        };
+                    }else{
+                        var img = null;
+                    }
                     // Crossbrowser support for URL
                     var URLObj = window.URL || window.webkitURL;
 

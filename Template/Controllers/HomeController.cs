@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Ririn.Models.Master;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using Ririn.ViewModels;
 
 namespace Ririn.Controllers
 {
@@ -32,18 +33,66 @@ namespace Ririn.Controllers
             //_con = new SqlConnection(configuration.GetConnectionString("ASKAldi"));
         }
 
-        #region RoleUser
-        public IActionResult Index()
-        {
-            return View();
-
-        }
-        #endregion
         private User GetCurrentUser()
         {
             return _context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault()!;
         }
 
+        
+        public IActionResult Index()
+        {
+            ReminderVM result = new ReminderVM();
+
+            var DurasiKliring = _context.T_Kliring.Where(x => x.StatusId == 1).ToList();
+            var hariHK = DurasiKliring.Select(x => x.Durasi).ToList();
+            var DurasiRTGS = _context.T_RTGS.Where(x => x.StatusId == 1).ToList();
+            var hariHR = DurasiRTGS.Select(x => x.Durasi).ToList();
+            var TanggalToken = _context.DataToken.ToList();
+
+            foreach (var harihk in hariHK)
+            {
+                if(harihk == 5)
+                {
+                    result.HariHk += 1;
+                }else if(harihk > 5)
+                {
+                    result.Hplus1k +=1;
+                }
+                else
+                {
+                    result.HariHk = 0;
+                    result.Hplus1k = 0;
+                }
+
+                result.MessageHariHk = "Anda Memiliki Data yang belum di proses dalam waktu 5 Hari";
+                result.MessageHplus1k = "Anda Memiliki Data yang belum di proses dalam waktu lebih dari 5 Hari";
+            }
+
+            foreach (var harihr in hariHR)
+            {
+                if (harihr == 5)
+                {
+                    result.HariHr += 1;
+                }
+                else if (harihr > 5)
+                {
+                    result.Hplus1r += 1;
+                }
+                else
+                {
+                    result.HariHr = 0;
+                    result.Hplus1r = 0;
+                }
+
+                result.MessageHariHr = "Anda Memiliki Data yang belum di proses dalam waktu 5 Hari";
+                result.MessageHplus1r = "Anda Memiliki Data yang belum di proses dalam waktu lebih dari 5 Hari";
+            }
+
+
+
+            return View(result);
+
+        }
 
         public IActionResult Privacy()
         {
@@ -73,8 +122,10 @@ namespace Ririn.Controllers
             kliringKeluarCepat = data.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 2).Count();
             kliringKeluarLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 2).Count();
             var data1 = _context.T_RTGS.ToList();
-            rtgsMasukCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2).Count();
-            rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2).Count();
+            rtgsMasukCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 3).Count();
+            rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 3).Count(); 
+            rtgsKeluarCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 4).Count();
+            rtgsKeluarLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 4).Count();
             //var type = _context.
 
             dynamic result = new
@@ -91,6 +142,11 @@ namespace Ririn.Controllers
             };
 
             return Ok(result);
+        }
+
+        public IActionResult Reminder()
+        {
+            return Ok();
         }
     }
 }

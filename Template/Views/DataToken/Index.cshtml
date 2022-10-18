@@ -1,8 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewBag.Title = "Data Token";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -58,7 +58,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">NPP</label>
-                            <input type="text" class="form-control" name="NPP" id="NPP">
+                            <input type="text" class="form-control" name="NPP" id="npp">
                         </div>
                     </div>
                 </div>
@@ -66,14 +66,18 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nomorRefrensi">Modul</label>
-                            <select id="modul" name="modul" data-placement="choose" class="form-control select2">
-                            </select>
+                            <select id="modul" name="modul" onchange="AddModul();" data-placement="choose" class="form-control select2"></select>
+                            <div id="Modul-div">
+                                <label class="control-label">Tambah Modul</label>
+                                <br />
+                                <input id="tambahModul" class="form-control" type="text" />
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">User Id</label>
-                            <input type="text" class="form-control" name="userid" id="userid">
+                            <input type="text" class="form-control" name="userid" id="userId">
                         </div>
                     </div>
                 </div>
@@ -81,7 +85,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nomorRefrensi">User ID Token</label>
-                            <input type="text" class="form-control" name="useridtoken" id="useridtoken">
+                            <input type="text" class="form-control" name="useridtoken" id="userIdToken">
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -121,9 +125,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearScreen()">Close</button>
                 <button type="button" class="btn btn-primary" id="Save" onclick="Validation();">Simpan</button>
-                <button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>
+                
             </div>
         </div>
     </div>
@@ -180,7 +184,8 @@
 </section>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+        $("#Modul-div").hide();
         //LoadTable();
         $("#table").DataTable({
             lengthChange: false,
@@ -227,11 +232,11 @@
                     "data": "keterangan"
                 },
                 {
-                    render: function(data, type, row) {
+                    render: function (data, type, row) {
                         var date = moment(row.tokenExpired).format('YYYY-MM-DD');
                         return `<button class='btn btn-success btn-sm text-white' onclick = "Perpanjang(${row.id},'${date}')"><i class='fas fa-calendar-alt'></i></button>
-                                    <button class='btn btn-primary btn-sm text-white' onclick = "GetById(${row.id})"><i class='fas fa-edit'></i></button>
-                                    <button class='btn btn-danger btn-sm text-white' onclick = "Delete(${row.id})"><i class='fas fa-trash'></i></button>`;
+                                                <button class='btn btn-primary btn-sm text-white' onclick = "GetById(${row.id})"><i class='fas fa-edit'></i></button>
+                                                <button class='btn btn-danger btn-sm text-white' onclick = "Delete(${row.id})"><i class='fas fa-trash'></i></button>`;
                     },
                 },
             ]
@@ -242,11 +247,11 @@
             url: "@Url.Action("GetAllKelompok","Master")",
             type: "get",
             dataType: "json",
-            success: function({ data }) {
+            success: function ({ data }) {
 
                 $("select[name=kelompok]").empty();
                 $("select[name=kelompok]").append(`<option value="">--Kelompok--</option>`)
-                $.each(data, function(i, value) {
+                $.each(data, function (i, value) {
                     $("select[name=kelompok]").append(`<option value="${value.id}">${value.nama}</option>`)
                 })
             }
@@ -256,21 +261,34 @@
             url: "@Url.Action("GetModul","Master")",
             type: "get",
             dataType: "json",
-            success: function({ data }) {
+            success: function ({ data }) {
                 $("select[name=modul]").empty();
-                $("select[name=modul]").append(`<option value="">--Modul--</option>`)
-                $.each(data, function(i, value) {
+                $("select[name=modul]").append(`<option value="">--Pilih Modul--</option>`)
+                $("select[name=modul]").append(`<option value="custom" style="font-weight: bold;">Tambah Modul</option>`)
+                $.each(data, function (i, value) {
                     $("select[name=modul]").append(`<option value="${value.id}">${value.nama}</option>`)
                 })
             }
         })
     });
 
+    function AddModul() {
+        debugger;
+        var Mod = $("#modul").val();
+        if (Mod == 'custom') {
+            $("#Modul-div").show();
+        }
+        else {
+            $("#Modul-div").hide();
+        }
+    }
+
     function Save() {
         debugger;
         var data = new Object();
         data.KelompokId = $("#kelompok").val();
         data.ModulId = $("#modul").val();
+        data.AddModul = $("#tambahModul").val();
         data.NPP = $("#NPP").val();
         data.UserId = $("#userid").val();
         data.Nama = $("#nama").val();
@@ -321,12 +339,12 @@
                 $("#idToken").val(result.data.id);
                 $("#kelompok").val(result.data.kelompokId);
                 $("#modul").val(result.data.modulId);
-                $("#NPP").val(result.data.npp);
-                $("#userid").val(result.data.userId);
+                $("#npp").val(result.data.npp);
+                $("#userId").val(result.data.userId);
                 $("#nama").val(result.data.nama);
                 $("#group").val(result.data.group);
                 $("#approve").val(result.data.approvalLimit);
-                $("#useridtoken").val(result.data.userIdToken);
+                $("#userIdToken").val(result.data.userIdToken);
                 $("#perpanjangtoken").val(moment(result.data.tokenExpired).format("YYYY-MM-DD"));
                 $("#keterangan").val(result.data.keterangan);
                 $("#myModal").modal('show');
@@ -383,10 +401,10 @@
                     "data": "keterangan"
                 },
                 {
-                    render: function(data, type, row) {
+                    render: function (data, type, row) {
                         return `<button class='btn btn-success btn-sm text-white' onclick = "Perpanjang(${row.id},${row})"><i class='fas fa-calendar-alt'></i></button>
-                                    <button class='btn btn-primary btn-sm text-white' onclick = "GetById(${row.id})"><i class='fas fa-edit'></i></button>
-                                    <button class='btn btn-danger btn-sm text-white' onclick = "Delete(${row.id})"><i class='fas fa-trash'></i></button>`;
+                                                <button class='btn btn-primary btn-sm text-white' onclick = "GetById(${row.id})"><i class='fas fa-edit'></i></button>
+                                                <button class='btn btn-danger btn-sm text-white' onclick = "Delete(${row.id})"><i class='fas fa-trash'></i></button>`;
                     },
                 },
 
@@ -398,21 +416,21 @@
         //debugger;
         console.log(Id, date);
         $("#myModal1").modal('show');
-        $("#idTokenP").val(Id);     
-        $("#tokenexp").val(date); 
-        
-        
+        $("#idTokenP").val(Id);
+        $("#tokenexp").val(date);
+
+
     }
     function Perbarui() {
         var idTokenP = $("#idTokenP").val();
         var tokenP = $("#tokenpanjang").val();
 
-        console.log(tokenP,idTokenP);
+        console.log(tokenP, idTokenP);
         $.ajax({
             "url": "@Url.Action("PerpanjangToken","DataToken")",
             "type": "POST",
             "datatype": "json",
-            "data": { date: tokenP, idToken:idTokenP }
+            "data": { date: tokenP, idToken: idTokenP }
         }).then((result) => {
             if (result != false) {
                 Swal.fire(
@@ -439,15 +457,15 @@
         data.Id = $("#idToken").val();
         data.KelompokId = $("#kelompok").val();
         data.ModulId = $("#modul").val();
-        data.NPP = $("#NPP").val();
-        data.UserId = $("#userid").val();
+        data.NPP = $("#npp").val();
+        data.UserId = $("#userId").val();
         data.Nama = $("#nama").val();
         data.Group = $("#group").val();
         data.ApprovalLimit = $("#approve").val();
-        data.UserIdToken = $("#useridtoken").val();
+        data.UserIdToken = $("#userIdToken").val();
         data.TokenExpired = $("#perpanjangtoken").val();
-        
-        
+
+
         data.Keterangan = $("#keterangan").val();
         $.ajax({
             "url": "@Url.Action("Save","DataToken")",
@@ -462,8 +480,8 @@
                     'success'
                 ).then(() => {
                     $("#myModal").modal('hide');
-                    $('#table').DataTable().ajax.reload();
                 })
+                window.location.reload();
             }
             else {
                 Swal.fire(
@@ -472,8 +490,8 @@
                     'Failed'
                 ).then(() => {
                     $("#myModal").modal('hide');
-                    $('#table').DataTable().ajax.reload();
                 })
+                window.location.reload();
             }
         })
     }
@@ -524,13 +542,14 @@
         $("#idToken").val('');
         $("#kelompok").val('');
         $("#modul").val('');
+        $("#Modul-div").hide();
         $("#npp").val('');
         $("#userId").val('');
         $("#nama").val('');
         $("#group").val('');
         $("#approve").val('');
         $("#userIdToken").val('');
-        $("#tokenExpired").val('');
+        $("#perpanjangtoken").val('');
         $("#keterangan").val('');
         $("#Update").hide();
         $("#Save").show();

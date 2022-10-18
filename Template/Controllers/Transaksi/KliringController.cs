@@ -292,19 +292,24 @@ namespace Ririn.Controllers.Transaksi
         {
             var success = false;
             var user = GetCurrentUser();
+            string generateNameFile = "";
 
             #region upload File Lampiran
-            if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+            if (data.Path.Base64 != null)
             {
-                _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-            }
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "File", "Kliring");
-            string generateNameFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyyyy") + "_" + data.Path.FileName;
-            Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
-            Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNameFile));
+                if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
+                {
+                    _webHostEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                }
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                string path = Path.Combine(webRootPath, "File", "Kliring");
+                generateNameFile = "Kliring" + "_" + DateTime.Now.ToString("ddMMyyyy") + "_" + data.Path.FileName;
+                Byte[] bytes = Convert.FromBase64String(data.Path.Base64.Substring(data.Path.Base64.LastIndexOf(",") + 1));
+                Lib.Lib.SaveBase64(bytes, Path.Combine(path, generateNameFile));
 
+            }
             #endregion
+
 
             if (data.Id == null)
             {

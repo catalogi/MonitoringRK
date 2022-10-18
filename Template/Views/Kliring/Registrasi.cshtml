@@ -222,6 +222,7 @@
         
 
 		function AddAlasan() {
+			debugger;
 			var Alasan = $("#Alasan").val();
 			if (Alasan == 'custom') {
 				$("#Alasan-div").show();
@@ -250,16 +251,24 @@
 
 			const files =$("#path").prop('files');
 			//debugger;
-			const b64 = await FileToBase(files[0]);
-			const path = {
-				base64 : b64,
-				fileName: files[0].name
+			let path = {};
+			if(files.length > 0){
+				const b64 = await FileToBase(files[0]);
+				path = {
+					base64: b64,
+					fileName: files[0].name
+				}
 			}
-
+			else{
+				path = {
+					base64: null,
+					fileName: null
+				}
+			}
 			var isAllValid = true;
 			//validate order items
 			$('#ItemError').text('');
-			var canvas = document.getElementById('Path');
+			//var canvas = document.getElementById('Path');
 			//var dataURL = canvas.toDataURL();
 			var errorItemCount = 0;
 			//debugger;

@@ -24,7 +24,7 @@
 <section class="content">
     <div class="container">
         <div class="row">
-            @if (user.Unit.Nama != "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama != "RTGS")
+            @if ( user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" )
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
@@ -83,7 +83,7 @@
                     <!-- /.card -->
                 </div>
             }
-            else if(user.Unit.Nama == "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin"||user.Unit.Nama != "RTGS")
+            else if(user.Unit.Nama == "Kliring" )
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
@@ -114,7 +114,7 @@
                     <!-- /.card -->
                 </div>
             }
-            else if (user.Unit.Nama != "Kliring" || user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" || user.Unit.Nama == "RTGS")
+            else if (user.Unit.Nama == "RTGS")
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
