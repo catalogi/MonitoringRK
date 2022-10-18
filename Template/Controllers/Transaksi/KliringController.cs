@@ -20,6 +20,11 @@ using System.Net;
 
 using SkiaSharp;
 using Microsoft.AspNetCore.Authorization;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Drawing;
+using Color = System.Drawing.Color;
+using Microsoft.AspNet.Identity;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -35,10 +40,13 @@ namespace Ririn.Controllers.Transaksi
 
         }
 
-        //public private GetCurrentUser()
-        //{
-
-        //}
+        public User GetCurrentUser()
+        {
+            var user = _context.User
+                        .Where(x => x.UserName == User.Identity!.Name)
+                        .FirstOrDefault();
+            return user!;
+        }
 
 
         #region View
@@ -163,6 +171,7 @@ namespace Ririn.Controllers.Transaksi
         public IActionResult Done(DoneVM data)
         {
             bool success = false;
+            var user = GetCurrentUser();
 
             if (data.Id != null)
             {
@@ -193,6 +202,7 @@ namespace Ririn.Controllers.Transaksi
 
                 dat.AlasanId = data.AlasanId;
                 dat.KeteranganId = ket;
+                dat.AcceptorId = user.Id;
                 dat.StatusId = 2;
                 dat.TanggalDone = DateTime.Now;
 
@@ -280,7 +290,7 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult Save(KliringVM data)
         {
             var success = false;
-            //var user = GetCurrentUser();
+            var user = GetCurrentUser();
 
             #region upload File Lampiran
             if (string.IsNullOrWhiteSpace(_webHostEnvironment.WebRootPath))
@@ -338,7 +348,8 @@ namespace Ririn.Controllers.Transaksi
                     AlasanId = alasanLain,
                     TypeId = data.TypeId,
                     StatusId = 1,
-                    Durasi = 0
+                    Durasi = 0,
+                    CreaterId = user.Id
 
                 };
                 _context.T_Kliring.Add(kliring);
@@ -673,6 +684,364 @@ namespace Ririn.Controllers.Transaksi
             string contentType = "application/docx";
             string filenamed = "Memo Masuk " + DateTime.Now.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
             return File(stream, contentType, filenamed);
+        }
+        #endregion
+        #endregion
+
+        #region Report
+        #region Report Masuk
+        public IActionResult ReportMasuk(DateTime start, DateTime end, int? type)
+        {
+            var stream = new MemoryStream();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var pack = new ExcelPackage();
+            var sheetTitle = "Kliring Masuk";
+            ExcelWorksheet worksheet = pack.Workbook.Worksheets.Add(sheetTitle);
+
+            var cultureInfo = new System.Globalization.CultureInfo("id-ID");
+            #region Create Judul
+            worksheet.Cells[1, 1].Value = "REGISTER SURAT RETURN MASUK";
+            worksheet.Cells[2, 1].Value = start.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + "-" + end.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID"));
+
+            #region Style Judul
+            worksheet.Cells[1, 1, 1, 20].Merge = true;
+            worksheet.Cells[2, 1, 2, 20].Merge = true;
+            worksheet.Cells[1, 1, 2, 20].Style.Numberformat.Format = "@";
+            worksheet.Cells[1, 1, 2, 20].Style.Font.Size = 15;
+            worksheet.Cells[1, 1, 2, 20].Style.Font.Bold = true;
+            worksheet.Cells[1, 1, 2, 20].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[1, 1, 2, 20].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            #endregion
+            #endregion
+
+            #region Table
+            #region Create Thead
+            worksheet.Cells[4, 1].Value = "NO";
+            worksheet.Cells[4, 2].Value = "TANGGAL SURAT";
+            worksheet.Cells[4, 3].Value = "BANK";
+            worksheet.Cells[4, 4].Value = "TGL TRX";
+            worksheet.Cells[4, 5].Value = "NOMINAL";
+            worksheet.Cells[4, 6].Value = "NO.REKENING";
+            worksheet.Cells[4, 7].Value = "NASABAH PENERIMA";
+            worksheet.Cells[4, 8].Value = "ALASAN";
+            worksheet.Cells[4, 9].Value = "CABANG";
+            worksheet.Cells[4, 10].Value = "KODE CABANG";
+            worksheet.Cells[4, 11].Value = "NO.TESTKEY 1";
+            worksheet.Cells[4, 12].Value = "TANGGAL TESTKEY 1";
+            worksheet.Cells[4, 13].Value = "NO TESTKEY 2 (BILATERAL)";
+            worksheet.Cells[4, 14].Value = "TANGGAL TESTKEY 2 (BILATERAL)";
+            worksheet.Cells[4, 15].Value = "TANGGAL SELESAI";
+            worksheet.Cells[4, 16].Value = "WAKTU PENYELESAIAN";
+            worksheet.Cells[4, 17].Value = "SUDAH SELESAI";
+            worksheet.Cells[4, 18].Value = "BELUM SELESAI";
+            worksheet.Cells[4, 19].Value = "KETERANGAN";
+            worksheet.Cells[4, 20].Value = "PIC YANG MEMBUAT";
+            #region Style THead
+            worksheet.Cells[4, 1, 4, 20].Style.Numberformat.Format = "@";
+            worksheet.Cells[4, 1, 4, 20].Style.Font.Size = 12;
+            worksheet.Cells[4, 1, 4, 20].Style.Font.Bold = true;
+            worksheet.Cells[4, 1, 4, 20].Style.Font.Color.SetColor(Color.White);
+            worksheet.Cells[4, 1, 4, 20].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            worksheet.Cells[4, 1, 4, 20].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#31869B"));
+            worksheet.Cells[4, 1, 4, 20].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[4, 1, 4, 20].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            worksheet.Cells[4, 1, 4, 20].Style.WrapText = true;
+
+            worksheet.Column(1).Width = 5;
+            worksheet.Column(2).Width = 20;
+            worksheet.Column(3).Width = 30;
+            worksheet.Column(4).Width = 20;
+            worksheet.Column(5).Width = 20;
+            worksheet.Column(6).Width = 18;
+            worksheet.Column(7).Width = 25;
+            worksheet.Column(8).Width = 17;
+            worksheet.Column(9).Width = 17;
+            worksheet.Column(10).Width = 17;
+            worksheet.Column(11).Width = 17;
+            worksheet.Column(12).Width = 17;
+            worksheet.Column(13).Width = 17;
+            worksheet.Column(14).Width = 22;
+            worksheet.Column(15).Width = 17;
+            worksheet.Column(16).Width = 17;
+            worksheet.Column(17).Width = 10;
+            worksheet.Column(18).Width = 10;
+            worksheet.Column(19).Width = 37;
+            worksheet.Column(20).Width = 17;
+            #endregion
+            #endregion
+
+            var recordIndex = 5;
+            #region Create TBody
+            var I = 0;
+            var datareport = _context.T_Kliring.Include(x => x.Bank).Include(x => x.Alasan).Include(x => x.Keterangan).Include(x => x.Creater).Include(x => x.Type).Include(x => x.Cabang).Include(x => x.Status)
+                .Where(x => x.CreateDate >= start.Date && x.CreateDate < end.Date.AddDays(1) && x.TypeId == type);
+
+            if (datareport.Count() > 0)
+            {
+                #region Data Tersedia
+                foreach (var item in datareport)
+                {
+                    I += 1;
+                    worksheet.Cells[recordIndex, 1].Value = I;
+                    worksheet.Cells[recordIndex, 2].Value = item.TanggalSurat;
+                    worksheet.Cells[recordIndex, 2].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    worksheet.Cells[recordIndex, 3].Value = item.Bank.Nama;
+                    worksheet.Cells[recordIndex, 4].Value = item.TanggalTRX;
+                    worksheet.Cells[recordIndex, 4].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    worksheet.Cells[recordIndex, 5].Value = item.Nominal;
+                    worksheet.Cells[recordIndex, 6].Value = item.NomorRekening;
+                    worksheet.Cells[recordIndex, 7].Value = item.NamaPenerima;
+                    worksheet.Cells[recordIndex, 8].Value = item.Alasan.Nama;
+                    worksheet.Cells[recordIndex, 9].Value = item.Cabang.Nama;
+                    worksheet.Cells[recordIndex, 10].Value = item.Cabang.Sandi;
+                    if (item.KeteranganId == 2)
+                    {
+                        worksheet.Cells[recordIndex, 11].Value = "";
+                        worksheet.Cells[recordIndex, 12].Value = "";
+                        worksheet.Cells[recordIndex, 13].Value = item.NomorTestkey;
+                        worksheet.Cells[recordIndex, 13].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[recordIndex, 13].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        worksheet.Cells[recordIndex, 14].Value = item.TanggalTestkey;
+                        worksheet.Cells[recordIndex, 14].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 11].Value = item.NomorTestkey;
+                        worksheet.Cells[recordIndex, 11].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[recordIndex, 11].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        worksheet.Cells[recordIndex, 12].Value = item.TanggalTestkey;
+                        worksheet.Cells[recordIndex, 12].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                        worksheet.Cells[recordIndex, 13].Value = "";
+                        worksheet.Cells[recordIndex, 14].Value = "";
+                    }
+                    worksheet.Cells[recordIndex, 15].Value = item.TanggalDone;
+                    worksheet.Cells[recordIndex, 15].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    worksheet.Cells[recordIndex, 16].Value = item.Durasi + " Hari";
+                    worksheet.Cells[recordIndex, 16].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[recordIndex, 16].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    if (item.TanggalDone != null)
+                    {
+                        worksheet.Cells[recordIndex, 17].Value = "V";
+                        worksheet.Cells[recordIndex, 17].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[recordIndex, 17].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 18].Value = "V";
+                        worksheet.Cells[recordIndex, 18].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[recordIndex, 18].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    }
+                    if (item.KeteranganId != null)
+                    {
+                        worksheet.Cells[recordIndex, 19].Value = item.Keterangan.Nama;
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 19].Value = "";
+                    }
+                    if (item.CreaterId != null)
+                    {
+                        worksheet.Cells[recordIndex, 20].Value = item.Creater.Nama;
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 20].Value = "";
+                    }
+                    recordIndex++;
+                }
+                #endregion
+            }
+            else
+            {
+                worksheet.Cells[recordIndex, 1].Value = "Data tidak tersedia";
+                worksheet.Cells[recordIndex, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells[recordIndex, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 20].Merge = true;
+
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 20].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 20].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 20].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 20].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            }
+            #endregion
+            #endregion
+
+            string fileTitle = "Report Return Kliring Masuk - " + DateTime.Now.ToString("dd-MM-yyyy") + ".xls";
+            string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+            pack.SaveAs(stream);
+            stream.Position = 0;
+            return File(stream, contentType, fileTitle);
+        }
+        #endregion
+
+        #region Report Keluar
+        public IActionResult ReportKeluar(DateTime start, DateTime end, int? type)
+        {
+            var stream = new MemoryStream();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var pack = new ExcelPackage();
+            var sheetTitle = "Kliring Keluar";
+            ExcelWorksheet worksheet = pack.Workbook.Worksheets.Add(sheetTitle);
+
+            var cultureInfo = new System.Globalization.CultureInfo("id-ID");
+            #region Create Judul
+            worksheet.Cells[1, 1].Value = "REGISTER SURAT RETURN KELUAR";
+            worksheet.Cells[2, 1].Value = start.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + "-" + end.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID"));
+
+            #region Style Judul
+            worksheet.Cells[1, 1, 1, 19].Merge = true;
+            worksheet.Cells[2, 1, 2, 19].Merge = true;
+            worksheet.Cells[1, 1, 2, 19].Style.Numberformat.Format = "@";
+            worksheet.Cells[1, 1, 2, 19].Style.Font.Size = 15;
+            worksheet.Cells[1, 1, 2, 19].Style.Font.Bold = true;
+            worksheet.Cells[1, 1, 2, 19].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[1, 1, 2, 19].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            #endregion
+            #endregion
+
+            #region Table
+            #region Create Thead
+            worksheet.Cells[4, 1].Value = "NO";
+            worksheet.Cells[4, 2].Value = "TANGGAL TRX";
+            worksheet.Cells[4, 3].Value = "CABANG";
+            worksheet.Cells[4, 4].Value = "NO TESTKEY";
+            worksheet.Cells[4, 5].Value = "NOMOR REFERENSI";
+            worksheet.Cells[4, 6].Value = "NO.REKENING PENERIMA";
+            worksheet.Cells[4, 7].Value = "NAMA PENERIMA";
+            worksheet.Cells[4, 8].Value = "NOMINAL";
+            worksheet.Cells[4, 9].Value = "BANK TUJUAN";
+            worksheet.Cells[4, 10].Value = "ALASAN";
+            worksheet.Cells[4, 11].Value = "NOMOR SURAT";
+            worksheet.Cells[4, 12].Value = "TANGGAL SURAT";
+            worksheet.Cells[4, 13].Value = "TANGGAL SELESAI";
+            worksheet.Cells[4, 14].Value = "WAKTU PENYELESAIAN (HK)";
+            worksheet.Cells[4, 15].Value = "SUDAH SELESAI";
+            worksheet.Cells[4, 16].Value = "BELUM SELESAI";
+            worksheet.Cells[4, 17].Value = "KETERANGAN";
+            worksheet.Cells[4, 18].Value = "PIC YANG MEMBUAT";
+            worksheet.Cells[4, 19].Value = "TANGGAL TERAKHIR CEK DI STPKL";
+            //worksheet.Cells[4, 20].Value = "PIC YANG MEMBUAT";
+            #region Style THead
+            worksheet.Cells[4, 1, 4, 19].Style.Numberformat.Format = "@";
+            worksheet.Cells[4, 1, 4, 19].Style.Font.Size = 12;
+            worksheet.Cells[4, 1, 4, 19].Style.Font.Bold = true;
+            worksheet.Cells[4, 1, 4, 19].Style.Font.Color.SetColor(Color.White);
+            worksheet.Cells[4, 1, 4, 19].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            worksheet.Cells[4, 1, 4, 19].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#31869B"));
+            worksheet.Cells[4, 1, 4, 19].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[4, 1, 4, 19].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            worksheet.Cells[4, 1, 4, 19].Style.WrapText = true;
+
+            worksheet.Column(1).Width = 5;
+            worksheet.Column(2).Width = 20;
+            worksheet.Column(3).Width = 20;
+            worksheet.Column(4).Width = 20;
+            worksheet.Column(5).Width = 20;
+            worksheet.Column(6).Width = 25;
+            worksheet.Column(7).Width = 20;
+            worksheet.Column(8).Width = 17;
+            worksheet.Column(9).Width = 37;
+            worksheet.Column(10).Width = 20;
+            worksheet.Column(11).Width = 17;
+            worksheet.Column(12).Width = 20;
+            worksheet.Column(13).Width = 20;
+            worksheet.Column(14).Width = 22;
+            worksheet.Column(15).Width = 17;
+            worksheet.Column(16).Width = 17;
+            worksheet.Column(17).Width = 30;
+            worksheet.Column(18).Width = 17;
+            worksheet.Column(19).Width = 20;
+            //worksheet.Column(20).Width = 20;
+            #endregion
+            #endregion
+
+            var recordIndex = 5;
+            #region Create TBody
+            var I = 0;
+            var datareport = _context.T_Kliring.Include(x => x.Bank).Include(x => x.Alasan).Include(x => x.Keterangan).Include(x => x.Creater).Include(x => x.Type).Include(x => x.Cabang).Include(x => x.Status)
+                .Where(x => x.CreateDate >= start.Date && x.CreateDate < end.Date.AddDays(1) && x.TypeId == type);
+
+            if (datareport.Count() > 0)
+            {
+                #region Data Tersedia
+                foreach (var item in datareport)
+                {
+                    I += 1;
+                    worksheet.Cells[recordIndex, 1].Value = I;
+                    worksheet.Cells[recordIndex, 2].Value = item.TanggalTRX;
+                    worksheet.Cells[recordIndex, 2].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    worksheet.Cells[recordIndex, 3].Value = item.Cabang.Nama;
+                    worksheet.Cells[recordIndex, 4].Value = item.NomorTestkey;
+                    worksheet.Cells[recordIndex, 5].Value = item.NoReferensi;
+                    worksheet.Cells[recordIndex, 6].Value = item.NomorRekening;
+                    worksheet.Cells[recordIndex, 7].Value = item.NamaPenerima;
+                    worksheet.Cells[recordIndex, 8].Value = item.Nominal;
+                    worksheet.Cells[recordIndex, 9].Value = item.Bank.Nama;
+                    worksheet.Cells[recordIndex, 10].Value = item.Alasan.Nama;
+                    worksheet.Cells[recordIndex, 11].Value = item.NomorSurat;
+
+                    worksheet.Cells[recordIndex, 12].Value = item.TanggalSurat;
+                    worksheet.Cells[recordIndex, 12].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    worksheet.Cells[recordIndex, 13].Value = item.TanggalDone;
+                    worksheet.Cells[recordIndex, 13].Style.Numberformat.Format = "[$-421]DD MMMM YYYY";
+                    worksheet.Cells[recordIndex, 14].Value = item.Durasi + " Hari";
+                    worksheet.Cells[recordIndex, 14].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[recordIndex, 14].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    if (item.TanggalDone != null)
+                    {
+                        worksheet.Cells[recordIndex, 15].Value = "V";
+                        worksheet.Cells[recordIndex, 15].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[recordIndex, 15].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 16].Value = "V";
+                        worksheet.Cells[recordIndex, 16].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[recordIndex, 16].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    }
+                    if (item.KeteranganId != null)
+                    {
+                        worksheet.Cells[recordIndex, 17].Value = item.Keterangan.Nama;
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 17].Value = "";
+                    }
+                    if (item.CreaterId != null)
+                    {
+                        worksheet.Cells[recordIndex, 18].Value = item.Creater.Nama;
+                    }
+                    else
+                    {
+                        worksheet.Cells[recordIndex, 18].Value = "";
+                    }
+                    worksheet.Cells[recordIndex, 19].Value = "";
+                    recordIndex++;
+                }
+                #endregion
+            }
+            else
+            {
+                worksheet.Cells[recordIndex, 1].Value = "Data tidak tersedia";
+                worksheet.Cells[recordIndex, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells[recordIndex, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 19].Merge = true;
+
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 19].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 19].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 19].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[recordIndex, 1, recordIndex + 1, 19].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            }
+            #endregion
+            #endregion
+
+            string fileTitle = "Report Return Kliring keluar - " + DateTime.Now.ToString("dd-MM-yyyy") + ".xls";
+            string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+            pack.SaveAs(stream);
+            stream.Position = 0;
+            return File(stream, contentType, fileTitle);
         }
         #endregion
         #endregion
