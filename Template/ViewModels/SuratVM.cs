@@ -10,5 +10,6 @@
         public string? Perihal { get; set; }
         public string? Lampiran { get; set; }
         public string? NomorSurat { get; set; }
+        public string? Sor { get; set; }
     }
 }

@@ -221,7 +221,7 @@ namespace Ririn.Controllers.Transaksi
             var success = false;
             if (data.Id == null)
             {
-                if (data.NomorSurat != null)
+                if (data.JenisId == 1 || data.JenisId == 2)
                 {
 
                     var surat = new Surat
@@ -232,6 +232,7 @@ namespace Ririn.Controllers.Transaksi
                         Lampiran = data.Lampiran,
                         Perihal = data.Perihal,
                         NomorSurat = data.NomorSurat,
+                        Sor = data.Sor,
                     };
                     _context.Surat.Add(surat);
                     _context.SaveChanges();
@@ -246,9 +247,7 @@ namespace Ririn.Controllers.Transaksi
                     {
                         JenisSuratId = data.JenisId,
                         TujuanSurat = data.TujuanSurat,
-                        AsalSurat = data.AsalSurat,
-                        Lampiran = data.Lampiran,
-                        Perihal = data.Perihal,
+                        Sor = data.Sor,
 
                     };
                     _context.Surat.Add(surat);
@@ -504,7 +503,6 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
                 .Include(x => x.Surat)
-
                 .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
@@ -524,10 +522,11 @@ namespace Ririn.Controllers.Transaksi
             var PENGIRIM = data.Bank.Nama;
             var PENERIMA = data.NamaPenerima;
             var ALASAN = data.Alasan.Nama;
+            var KEPADA = data.Surat.TujuanSurat;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
-            string filename = "SURAT_RETUR_KELUAR";
+            string filename = "SURAT_RETUR_KELUAR1";
 
             FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
@@ -541,6 +540,7 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
             MemoryStream stream = new MemoryStream();
@@ -550,7 +550,7 @@ namespace Ririn.Controllers.Transaksi
             stream.Position = 0;
 
             string contentType = "application/docx";
-            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            string filenamed = "Surat Retur  " + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
             return File(stream, contentType, filenamed);
             docs.Dispose();
             docs.Close();
@@ -589,7 +589,7 @@ namespace Ririn.Controllers.Transaksi
             var ALASAN = data.Alasan.Nama;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string path = Path.Combine(webRootPath, "TemplateMasuk");
+            string path = Path.Combine(webRootPath, "Template");
             string filename = "template_surat_masuk";
 
             FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -616,7 +616,7 @@ namespace Ririn.Controllers.Transaksi
             stream.Position = 0;
 
             string contentType = "application/docx";
-            string filenamed = "Surat Retur" + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            string filenamed = "Surat Retur Masuk " + DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
             return File(stream, contentType, filenamed);
             docs.Dispose();
             docs.Close();
@@ -634,6 +634,7 @@ namespace Ririn.Controllers.Transaksi
                         .Include(x => x.Keterangan)
                         .Include(x => x.Type)
                         .Include(x => x.Alasan)
+                        .Include(x => x.Surat)
                         .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TanggalSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
@@ -644,10 +645,14 @@ namespace Ririn.Controllers.Transaksi
             var NOREK = data.NomorRekening;
             var NOMINAL = data.Nominal;
             var ALASAN = data.Alasan.Nama;
+            var KEPADA = data.Surat.TujuanSurat;
+            var DARI = data.Surat.AsalSurat;
+            var HAL = data.Surat.Perihal;
+            var LAMPIRAN = data.Surat.Lampiran;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
-            string filename = "Memo_Keluar";
+            string filename = "Memo_Masuk";
 
             FileStream fileStreamPath = new FileStream(Path.Combine(path, filename + ".docx"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
@@ -661,6 +666,10 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%NOREK%", NOREK.ToString(), false, true);
             docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
+            docs.Replace("%DARI%", DARI.ToString(), false, true);
+            docs.Replace("%PERIHAL%", HAL.ToString(), false, true);
+            docs.Replace("%LAMPIRAN%", LAMPIRAN.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
             //PdfDocument pdfDoc = render.ConvertToPDF(docs);
@@ -673,7 +682,7 @@ namespace Ririn.Controllers.Transaksi
             //pdfDoc.Close();
             docs.Close();
             string contentType = "application/docx";
-            string filenamed = "Memo Keluar " + DateTime.Now.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
+            string filenamed = "Memo Masuk " + DateTime.Now.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")) + ".docx";
             return File(stream, contentType, filenamed);
         }
         #endregion
