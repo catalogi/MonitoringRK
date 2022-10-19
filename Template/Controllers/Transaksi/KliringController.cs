@@ -20,16 +20,13 @@ using System.Net;
 
 using SkiaSharp;
 using Microsoft.AspNetCore.Authorization;
-<<<<<<< HEAD
 using DocumentFormat.OpenXml.Office2010.Excel;
-=======
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Drawing;
 using Color = System.Drawing.Color;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Drawing;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
->>>>>>> 9de2604c472d6262345e44ff6d44a2e8bf85c8cd
-
 namespace Ririn.Controllers.Transaksi
 {
     [Authorize]

@@ -1,10 +1,6 @@
 {
   "Version": 1,
-<<<<<<< HEAD
-  "Hash": "xbfJSC3qU+YWfo+l2X0KtefPzm9B43KzVGFmdTkAVAg=",
-=======
-  "Hash": "ezeVSMs3WgVVPt5zrkH6N606SHMT968roe/1s85CMNk=",
->>>>>>> 9de2604c472d6262345e44ff6d44a2e8bf85c8cd
+  "Hash": "RrkF4E9Jn043o34E862dGhYfCaRlBLX5DHOZWS71e9c=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2350,13 +2346,10 @@
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_06102022_Absen-Nur Ali Majid - TS-September (1).pdf"
     },
     {
-<<<<<<< HEAD
-      "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf",
-=======
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf",
+      "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
       "RelativePath": "File/Kliring/Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf",
       "AssetKind": "All",
@@ -2370,8 +2363,7 @@
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf",
->>>>>>> 9de2604c472d6262345e44ff6d44a2e8bf85c8cd
+      "Identity": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\File\\Kliring\\Kliring_1111113_26092022_level 2.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1394\\source\\repos\\catalogi\\MonitoringRK\\Template\\wwwroot\\",

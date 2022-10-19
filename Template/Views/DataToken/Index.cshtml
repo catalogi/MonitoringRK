@@ -153,9 +153,9 @@
                         <button class="btn btn-sm btn-primary" onclick="Filter()">Filter</button>
                     </div>
                 </div>
-                <table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
-                    <thead style="text-align:center">
-                        <tr class="bg-info" style="color:white!important; height:1px;">
+                <table id="table" class="table table-bordered table-responsive-md display nowrap" style="width:100%">
+                    <thead style="text-align:center; background-color: #66665c">
+                        <tr  style="color:white!important; height:1px;">
                             <th rowspan="2" style="vertical-align:middle">No</th>
                             <th rowspan="2" style="vertical-align:middle">Kel</th>
                             <th rowspan="2" style="vertical-align:middle">Modul</th>
@@ -165,7 +165,7 @@
                             <th rowspan="2" style="vertical-align:middle">Keterangan</th>
                             <th rowspan="2" style="vertical-align:middle">Action</th>
                         </tr>
-                        <tr class="bg-warning">
+                        <tr style="background-color:#E0E0E0; color: #66665c">
                             <th style="vertical-align:middle">NPP</th>
                             <th style="vertical-align:middle">User Id</th>
                             <th style="vertical-align:middle">Nama</th>
@@ -185,7 +185,7 @@
         $("#table").DataTable({
             lengthChange: false,
             autoWidth: false,
-
+            scrollX : true,
             ajax: {
                 "url": "@Url.Action("GetData","DataToken")",
                 "type": "GET",
