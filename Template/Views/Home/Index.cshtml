@@ -1,6 +1,7 @@
 ﻿@using Microsoft.EntityFrameworkCore
 @using Ririn.Models.Master
 @using Ririn.Data
+@using Newtonsoft.Json
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -8,6 +9,11 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+@{
+    var data = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+}
+
 @inject UserManager<User> UserManager
 @inject AppDbContext _context
 @inject RoleManager<IdentityRole> _RoleManager
@@ -22,9 +28,12 @@
 }
 
 <section class="content">
+    <div id="sound"></div>
+    @*<input type="hidden" value="@user.UnitId" id="userId"/>*@
+    <input type="hidden" id="uId" value="@user.UnitId" />
     <div class="container">
         <div class="row">
-            @if ( user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin" )
+            @if (user.Unit.Nama == "Super Admin" || user.Unit.Nama == "Admin")
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
@@ -83,7 +92,7 @@
                     <!-- /.card -->
                 </div>
             }
-            else if(user.Unit.Nama == "Kliring" )
+            else if (user.Unit.Nama == "Kliring")
             {
                 <div class="col-md-4 offset-md-1">
                     <!-- DONUT CHART -->
@@ -144,17 +153,24 @@
                     </div>
                     <!-- /.card -->
                 </div>
-            }           
-            
+            }
+
         </div>
     </div>
 </section>
 
 <script>
-    $(document).ready(function(){
+    const synth = window.speechSynthesis;
+    $(document).ready(function () {
         getDataChart();
         getDataChartRTGS();
-    })
+
+        const voice = synth.getVoices();
+        LoadNotif(voice);
+
+
+
+    });
     function getDataChart() {
         $.ajax({
             url: "@Url.Action("Donat","Home")",
@@ -162,20 +178,20 @@
             dataType: "json",
             success: (result) => {
                 console.log(result);
-                @*var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
-                var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];*@
-                var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
+    @*var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
+                    var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];*@
+                                                var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
                 var km = [result.kliringMasukCepat, result.kliringMasukLambat];
 
-                
+
                 getChartkk(kk);
                 getChartkm(km);
-               @* getChartrk(rk);
-                getChartrm(rm);
-*@
-            }
+    @* getChartrk(rk);
+                    getChartrm(rm);
+                    *@
+                                            }
         });
-    }function getDataChartRTGS() {
+    } function getDataChartRTGS() {
         $.ajax({
             url: "@Url.Action("Donat","Home")",
             type: "get",
@@ -184,13 +200,13 @@
                 console.log(result);
                 var rk = [result.rtgsKeluarCepat, result.rtgsKeluarLambat];
                 var rm = [result.rtgsMasukCepat, result.rtgsMasukLambat];
-                @*var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
-                var km = [result.kliringMasukCepat, result.kliringMasukLambat];
-*@
-                
-               @* getChartkk(kk);
-                getChartkm(km);*@
-                getChartrk(rk);
+    @*var kk = [result.kliringKeluarCepat, result.kliringKeluarLambat];
+                    var km = [result.kliringMasukCepat, result.kliringMasukLambat];
+                    *@
+
+    @* getChartkk(kk);
+                    getChartkm(km);*@
+                    getChartrk(rk);
                 getChartrm(rm);
 
             }
@@ -200,7 +216,7 @@
     function getChartrk(rk) {
         var donutChartCanvas2 = $('#donutChart2').get(0).getContext('2d')
         var donutData2 = {
-            labels: [                
+            labels: [
                 'Durasi Tercepat',
                 'Durasi Terlama',
             ],
@@ -227,7 +243,7 @@
     function getChartrm(rm) {
         var donutChartCanvas3 = $('#donutChart3').get(0).getContext('2d')
         var donutData3 = {
-            labels: [                
+            labels: [
                 'Durasi Tercepat',
                 'Durasi Terlama',
             ],
@@ -282,7 +298,7 @@
         console.log(km);
         var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d')
         var donutData1 = {
-            labels: [                
+            labels: [
                 'Durasi Tercepat',
                 'Durasi Terlama',
             ],
@@ -307,7 +323,7 @@
                         size: 20
                     }
                 }
-        }
+            }
         }
         //Create pie or douhnut chart
         // You can switch between pie and douhnut using the method below.
@@ -315,6 +331,144 @@
             type: 'doughnut',
             data: donutData1,
             options: donutOptions1
-        })         
+        })
+    }
+
+    function LoadNotif(voices) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("Notif","Home")",
+            dataType: "JSON",
+            success: function (result) {
+                debugger;
+                const suaraIndo = voices.filter(x => x.lang === 'id-ID')[0];
+                var useriD = $("#uId").val();
+                if (useriD == 1) {
+
+                    if (result.hariHk != 0) {
+
+                        Swal.fire({
+                            title: result.hariHk + ' ' + result.messageHariHk,
+                            imageUrl: '@Url.Content("~/img/swalproses.png")',
+                            imageWidth: 150,
+                            imageHeight: 150,
+                            imageAlt: 'Custom image',
+                            width: 300,
+                            padding: '0',
+                            color: '#716add',
+                            background: '#fff',
+                            customClass: {
+                                popup: 'border-swal'
+                            },
+                            didOpen: function () {
+                                const tts = new SpeechSynthesisUtterance(result.hariHk + " " + result.messageHariHk);
+                                tts.voice = suaraIndo;
+                                tts.pitch = 0.92;
+                                tts.rate = 0.95;
+                                synth.speak(tts);
+                            }
+                        });
+                    }
+                } else if (useriD == 2) {
+                    if (result.hariHr != 0) {
+
+                        Swal.fire({
+                            title: result.hariHr + ' ' + result.messageHariHr,
+                            imageUrl: '@Url.Content("~/img/swalproses.png")',
+                            imageWidth: 150,
+                            imageHeight: 150,
+                            imageAlt: 'Custom image',
+                            width: 300,
+                            padding: '2em',
+                            color: '#716add',
+                            background: '#fff',
+                            customClass: {
+                                popup: 'border-swal'
+                            },
+                            didOpen: function () {
+                                const tts = new SpeechSynthesisUtterance(result.hariHr + " " + result.messageHariHr);
+                                tts.voice = suaraIndo;
+                                tts.pitch = 0.92;
+                                tts.rate = 0.95;
+                                synth.speak(tts);
+                            }
+                        });
+                    }
+                } else if (useriD == 3) {
+                    if (result.hariHk != 0 && result.hariHr != 0) {
+
+                        Swal.fire({
+                            title: result.hariHk + ' Transaksi Kliring dan ' + result.hariHr + ' Transaksi RTGS Perlu Segera Diproses!',
+                            imageUrl: '@Url.Content("~/img/swalproses.png")',
+                            imageWidth: 150,
+                            imageHeight: 150,
+                            imageAlt: 'Custom image',
+                            width: 300,
+                            padding: '0',
+                            color: '#716add',
+                            background: '#fff',
+                            customClass: {
+                                popup: 'border-swal'
+                            },
+                            didOpen: function () {
+                                const tts = new SpeechSynthesisUtterance(result.hariHk + " Transaksi Kliring dan " + result.hariHr + " Transaksi RTGS Perlu Segera Diproses!");
+                                tts.voice = suaraIndo;
+                                tts.pitch = 0.92;
+                                tts.rate = 0.95;
+                                synth.speak(tts);
+                            }
+                        });
+                    } else if (result.hariHk != 0) {
+                        Swal.fire({
+                            title: result.hariHk + ' ' + result.messageHariHk,
+                            imageUrl: '@Url.Content("~/img/swalproses.png")',
+                            imageWidth: 150,
+                            imageHeight: 150,
+                            imageAlt: 'Custom image',
+                            width: 300,
+                            padding: '2em',
+                            color: '#716add',
+                            background: '#fff',
+                            customClass: {
+                                popup: 'border-swal'
+                            },
+                            didOpen: function () {
+                                const tts = new SpeechSynthesisUtterance(result.hariHr + " " + result.messageHariHr);
+                                tts.voice = suaraIndo;
+                                tts.pitch = 0.92;
+                                tts.rate = 0.95;
+                                synth.speak(tts);
+                            }
+                        });
+                    }
+                    else if (result.hariHr != 0) {
+                        Swal.fire({
+                            title: result.hariHr + ' ' + result.messageHariHr,
+                            imageUrl: '@Url.Content("~/img/swalproses.png")',
+                            imageWidth: 150,
+                            imageHeight: 150,
+                            imageAlt: 'Custom image',
+                            width: 300,
+                            padding: '2em',
+                            color: '#716add',
+                            background: '#fff',
+                            customClass: {
+                                popup: 'border-swal'
+                            },
+                            didOpen: function () {
+                                const tts = new SpeechSynthesisUtterance("memiliki" + result.hariHr + " " + result.messageHariHr);
+                                tts.voice = suaraIndo;
+                                tts.pitch = 0.92;
+                                tts.rate = 0.95;
+                                synth.speak(tts);
+                            }
+                        });
+                    }
+
+                    
+                }
+
+            }
+        })
     }
 </script>

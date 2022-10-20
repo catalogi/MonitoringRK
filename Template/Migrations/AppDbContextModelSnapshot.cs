@@ -506,6 +506,9 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Perihal")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Sor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TujuanSurat")
                         .HasColumnType("nvarchar(max)");
 

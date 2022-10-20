@@ -740,6 +740,9 @@ th .mid {
     from {
         background-color: #FF6600;
     }
+    50% {
+        background-color: #DE76E6;
+    }
 
     to {
         background-color: #006699;
@@ -810,5 +813,18 @@ a.hellyr:hover i.move {
     animation: move 1s ease-in-out forwards;
 }a.hellyg:hover i.move {
     animation: move 1s ease-in-out forwards;
+}
+
+ .border-swal{
+     border-radius:25px;
+ }
+ .brand-img-kkr {
+    /*float: left;*/
+    line-height: .8;
+    margin-left: 0.8rem;
+    margin-right: 0.5rem;
+    margin-top: -3px;
+    max-height: 40px;
+    width: auto;
 }
 

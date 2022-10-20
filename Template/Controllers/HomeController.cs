@@ -38,65 +38,135 @@ namespace Ririn.Controllers
             return _context.User.Where(x => x.NPP == User.Identity!.Name).FirstOrDefault()!;
         }
 
-        
+
         public IActionResult Index()
         {
-            ReminderVM result = new ReminderVM();
-
-            var DurasiKliring = _context.T_Kliring.Where(x => x.StatusId == 1).ToList();
-            var hariHK = DurasiKliring.Select(x => x.Durasi).ToList();
-            var DurasiRTGS = _context.T_RTGS.Where(x => x.StatusId == 1).ToList();
-            var hariHR = DurasiRTGS.Select(x => x.Durasi).ToList();
-            var TanggalToken = _context.DataToken.ToList();
-
-            foreach (var harihk in hariHK)
-            {
-                if(harihk == 5)
-                {
-                    result.HariHk += 1;
-                }else if(harihk > 5)
-                {
-                    result.Hplus1k +=1;
-                }
-                else
-                {
-                    result.HariHk = 0;
-                    result.Hplus1k = 0;
-                }
-
-                result.MessageHariHk = "Anda Memiliki Data yang belum di proses dalam waktu 5 Hari";
-                result.MessageHplus1k = "Anda Memiliki Data yang belum di proses dalam waktu lebih dari 5 Hari";
-            }
-
-            foreach (var harihr in hariHR)
-            {
-                if (harihr == 5)
-                {
-                    result.HariHr += 1;
-                }
-                else if (harihr > 5)
-                {
-                    result.Hplus1r += 1;
-                }
-                else
-                {
-                    result.HariHr = 0;
-                    result.Hplus1r = 0;
-                }
-
-                result.MessageHariHr = "Anda Memiliki Data yang belum di proses dalam waktu 5 Hari";
-                result.MessageHplus1r = "Anda Memiliki Data yang belum di proses dalam waktu lebih dari 5 Hari";
-            }
-
-
-
-            return View(result);
+            return View();
 
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Notif()
+        {
+            var users = GetCurrentUser();
+            //var cekUser = _context.User.Include(x => x.Kelompok).Include(x => x.Unit).Where(x => x.Id == users.Id).ToList();
+            ReminderVM result = new ReminderVM();
+
+
+
+            //var TanggalToken = _context.DataToken.ToList();
+
+            if (users.UnitId == 1)
+            {
+                var DurasiKliring = _context.T_Kliring.Where(x => x.StatusId == 1).ToList();
+                var hariHK = DurasiKliring.Select(x => x.Durasi).ToList();
+                foreach (var harihk in hariHK)
+                {
+                    if (harihk >= 5)
+                    {
+                        result.HariHk += 1;
+                    }
+                    else
+                    {
+                        result.HariHk = 0;
+
+                    }
+
+                    result.MessageHariHk = "Transaksi Perlu Segera Diproses!";
+
+                }
+            }
+            else if (users.UnitId == 2)
+            {
+                var DurasiRTGS = _context.T_RTGS.Where(x => x.StatusId == 1).ToList();
+                var hariHR = DurasiRTGS.Select(x => x.Durasi).ToList();
+                foreach (var harihr in hariHR)
+                {
+                    if (harihr >= 5)
+                    {
+                        result.HariHr += 1;
+                    }
+                    else
+                    {
+                        result.HariHr = 0;
+
+                    }
+
+                    result.MessageHariHr = "Transaksi Perlu Segera Diproses!";
+
+                }
+            }
+            else if (users.UnitId == 3)
+            {
+                var DurasiKliring = _context.T_Kliring.Where(x => x.StatusId == 1).ToList();
+                var hariHK = DurasiKliring.Select(x => x.Durasi).ToList();
+                var DurasiRTGS = _context.T_RTGS.Where(x => x.StatusId == 1).ToList();
+                var hariHR = DurasiRTGS.Select(x => x.Durasi).ToList();
+                var TanggalToken = _context.DataToken.Select(x => x.TokenExpired).ToList();
+
+                //Kliring
+                foreach (var harihk in hariHK)
+                {
+                    if (harihk >= 5)
+                    {
+                        result.HariHk += 1;
+                    }
+                    else
+                    {
+                        result.HariHk = 0;
+
+                    }
+                    result.MessageHariHk = "Transaksi Perlu Segera Diproses!";
+                }
+                //RTGS
+                foreach (var harihr in hariHR)
+                {
+                    if (harihr >= 5)
+                    {
+                        result.HariHr += 1;
+                    }
+                    else
+                    {
+                        result.HariHr = 0;
+
+                    }
+                    result.MessageHariHr = "Transaksi Perlu Segera Diproses!";
+
+
+                }
+                foreach (var item in TanggalToken)
+                {
+                    if (item == DateTime.Now.AddDays(-30).Date)
+                    {
+                        result.Sebulan += 1;
+                    }
+                    else if (item == DateTime.Now.AddDays(-7).Date)
+                    {
+                        result.Seminggu += 1;
+                    }
+                    else if (item == DateTime.Now.AddDays(-1).Date)
+                    {
+                        result.Hmin1 += 1;
+                    }
+                    else if (item >= DateTime.Now.Date)
+                    {
+                        result.HariH += 1;
+                    }
+
+                    result.MessageSebulan = "Tanggal Token Akan Berakhir 30 Hari Lagi";
+                    result.MessageSeminggu = "Tanggal Token Akan Berakhir 7 Hari Lagi";
+                    result.MessageHmin1 = "Tanggal Token Akan Berakhir Besok";
+                    result.MessageHariH = "Mohon Ganti Tanggal Token";
+                }
+            }
+
+
+
+            return Ok(result);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -123,7 +193,7 @@ namespace Ririn.Controllers
             kliringKeluarLambat = data.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 2).Count();
             var data1 = _context.T_RTGS.ToList();
             rtgsMasukCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 3).Count();
-            rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 3).Count(); 
+            rtgsMasukLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 3).Count();
             rtgsKeluarCepat = data1.Where(x => x.Durasi <= 5 && x.StatusId == 2 && x.TypeId == 4).Count();
             rtgsKeluarLambat = data1.Where(x => x.Durasi > 5 && x.StatusId == 2 && x.TypeId == 4).Count();
             //var type = _context.

@@ -136,17 +136,18 @@
 
 
             debugger;
-            var isAllValid = true;
-            $('#ItemError').text('');
+
             var canvas = document.getElementById('path');
-            console.log(canvas);
             var dataURL = "";
             if (canvas.length > 0) {
                 dataURL = canvas.toDataURL();
             } else {
                 dataURL = null
-            }
-            console.log(dataURL);
+            }   
+
+            var isAllValid = true;
+            $('#ItemError').text('');
+            
             var errorItemCount = 0;
             if (errorItemCount > 0) {
                 $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
@@ -280,7 +281,7 @@
                 debugger;
                 if (imageBlob) {
                     var canvas = document.getElementById("path");
-                    if (canvas.length > 0) {
+                   
 
 
                         var ctx = canvas.getContext('2d');
@@ -299,9 +300,7 @@
                             // Draw the image
                             ctx.drawImage(img, 0, 0);
                         };
-                    }else{
-                        var img = null;
-                    }
+                    
                     // Crossbrowser support for URL
                     var URLObj = window.URL || window.webkitURL;
 

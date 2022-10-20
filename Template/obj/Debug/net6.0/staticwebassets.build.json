@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/akYtgPyBOsiCLfZznpOysZNTDVglyDohZPGDLt3gqs=",
+  "Hash": "GMwv+L25HcU5sf7twSzwn9qnv7Vw424sJTFgIEsuZ2U=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2346,6 +2346,57 @@
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_06102022_Absen-Nur Ali Majid - TS-September (1).pdf"
     },
     {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_06102022_dummies.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_06102022_dummies.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_06102022_dummies.pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_06102022_level 2.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_06102022_level 2.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_06102022_level 2.pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_07102022_level 2.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_07102022_level 2.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_07102022_level 2.pdf"
+    },
+    {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
@@ -2361,6 +2412,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_07102022_Makna Logo Sayembara IF ITERA.pdf"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_07102022_Mekanisme Tunjangan Kesehatan internal.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/Kliring/Kliring_07102022_Mekanisme Tunjangan Kesehatan internal.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_07102022_Mekanisme Tunjangan Kesehatan internal.pdf"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_11102022_invoice-1311481168.pdf",
@@ -2822,6 +2890,23 @@
       "OriginalItemSpec": "wwwroot\\File\\RTGS\\RTGS_543453_03102022_.png"
     },
     {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\tts.mpeg",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/tts.mpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\tts.mpeg"
+    },
+    {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\Dashboard.jpeg",
       "SourceId": "Template",
       "SourceType": "Discovered",
@@ -2854,6 +2939,57 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\Dashboard-2.png"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\kk.png",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "img/kk.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\kk.png"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\KKR.png",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "img/KKR.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\KKR.png"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\KKR1.png",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "img/KKR1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\KKR1.png"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\logobni.png",
@@ -2905,6 +3041,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\rinjani.jpg"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\swalproses.png",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "img/swalproses.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\swalproses.png"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\js\\jquery.js",
@@ -37706,12 +37859,12 @@
       "OriginalItemSpec": "wwwroot\\Template\\Memo_Keluar.docx"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\Template\\SURAT_RETUR_Keluar.doc",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\Template\\Memo_Masuk.docx",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "Template/SURAT_RETUR_Keluar.doc",
+      "RelativePath": "Template/Memo_Masuk.docx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -37720,7 +37873,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Template\\SURAT_RETUR_Keluar.doc"
+      "OriginalItemSpec": "wwwroot\\Template\\Memo_Masuk.docx"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\Template\\SURAT_RETUR_Keluar.docx",
@@ -37740,12 +37893,12 @@
       "OriginalItemSpec": "wwwroot\\Template\\SURAT_RETUR_Keluar.docx"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\TemplateMasuk\\template_surat_masuk.docx",
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\Template\\template_surat_masuk.docx",
       "SourceId": "Template",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
       "BasePath": "_content/Template",
-      "RelativePath": "TemplateMasuk/template_surat_masuk.docx",
+      "RelativePath": "Template/template_surat_masuk.docx",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -37754,7 +37907,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\TemplateMasuk\\template_surat_masuk.docx"
+      "OriginalItemSpec": "wwwroot\\Template\\template_surat_masuk.docx"
     }
   ]
 }

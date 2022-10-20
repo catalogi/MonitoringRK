@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -47,12 +46,12 @@
                             <input type="text" class="form-control" name="nosurat" id="nosurat">
                         </div>
                     </div>
-                    @*                    <div class="col-sm-6">
-                    <div class="form-group">
-                    <label for="rekeningDebet">Jabatan</label>
-                    <input type="text" class="form-control" name="jabatan" id="jabatan">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="nomorRefrensi">SOR</label>
+                            <input type="text" class="form-control" name="sor1" id="sor1">
+                        </div>
                     </div>
-                    </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -61,6 +60,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -73,44 +73,16 @@
                         <input id="suratId" type="hidden" />
                         <div class="form-group">
                             <label for="rekeningDebet">Kepada</label>
-                            <input type="text" class="form-control" name="kepadas" id="kepada">
+                            <input type="text" class="form-control" name="kepadas" id="kepadas">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="rekeningDebet">Dari</label>
-                            <input type="text" class="form-control" name="daris" id="daris">
+                            <label for="rekeningDebet">SOR</label>
+                            <input type="text" class="form-control" name="sor2" id="sor2">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Hal</label>
-                            <input type="text" class="form-control" name="hals" id="hal">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="rekeningDebet">Lampiran</label>
-                            <input type="text" class="form-control" name="lampirans" id="lampiran">
-                        </div>
-                    </div>
-                </div>
-                @* <div class="row">
-                <div class="col-sm-6">
-                <div class="form-group">
-                <label for="nomorRefrensi">Nomor Surat</label>
-                <input type="text" class="form-control" name="nosurat" id="nosurat">
-                </div>
-                </div>
-                @*                    <div class="col-sm-6">
-                <div class="form-group">
-                <label for="rekeningDebet">Jabatan</label>
-                <input type="text" class="form-control" name="jabatan" id="jabatan">
-                </div>
-                </div
-                </div>*@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saves();"><i class="fas fa-print"></i> Cetak</button>
@@ -132,7 +104,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="nomorRefrensi">Tipe</label>
-                        <select name="tipe" id="tipe" data-placement="choose" class="form-control select"></select>
+                        <select name="tipe" id="tipe" data-placement="choose" class="form-control select" disabled readonly></select>
                     </div>
                     <div class="col">
                         <label for="nomorRefrensi">Jenis</label>
@@ -268,6 +240,7 @@
                 data.Perihal = $("#hal").val();
                 data.Lampiran = $("#lampiran").val();
                 data.NomorSurat = $("#nosurat").val();
+                data.Sor = $("#sor1").val();
 
 
                 $.ajax({
@@ -314,32 +287,15 @@
                 isAllValid = false;
             } else {
                 $('#kepadas').removeClass('is-invalid');
-            } if ($('#daris').val() == '') {
-                $('#daris').addClass('is-invalid');
-                isAllValid = false;
-            } else {
-                $('#daris').removeClass('is-invalid');
-            } if ($('#hals').val() == '') {
-                $('#hals').addClass('is-invalid');
-                isAllValid = false;
-            } else {
-                $('#hals').removeClass('is-invalid');
-            } if ($('#lampirans').val() == '') {
-                $('#lampirans').addClass('is-invalid');
-                isAllValid = false;
-            } else {
-                $('#lampirans').removeClass('is-invalid');
             }
+            
             if (isAllValid) {
                 debugger;
                 var data = new Object();
                 data.sId = getid;
                 data.JenisId = $("#jenis").val();
                 data.TujuanSurat = $("#kepadas").val();
-                data.AsalSurat = $("#daris").val();
-                data.Perihal = $("#hals").val();
-                data.Lampiran = $("#lampirans").val();
-                data.NomorSurat = $("#nosurats").val();
+                data.Sor = $("#sor2").val();
 
 
                 $.ajax({
