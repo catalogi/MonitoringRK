@@ -30,7 +30,7 @@ namespace Ririn.Controllers
             _logger = logger;
             _userManager = userManager;
             _configuration = configuration;
-            //_con = new SqlConnection(configuration.GetConnectionString("ASKAldi"));
+           
         }
 
         private User GetCurrentUser()
@@ -106,7 +106,7 @@ namespace Ririn.Controllers
                 var hariHK = DurasiKliring.Select(x => x.Durasi).ToList();
                 var DurasiRTGS = _context.T_RTGS.Where(x => x.StatusId == 1).ToList();
                 var hariHR = DurasiRTGS.Select(x => x.Durasi).ToList();
-                var TanggalToken = _context.DataToken.Select(x => x.TokenExpired).ToList();
+                var TanggalToken = _context.his_tgltoken.Select(x => x.DateToken).ToList();
 
                 //Kliring
                 foreach (var harihk in hariHK)

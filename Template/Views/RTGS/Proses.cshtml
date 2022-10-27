@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger disabled" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger " data-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-primary" id="submit" onclick="Validate();">Done</button>
                             </div>
                         </form>
@@ -57,7 +57,7 @@
                                         <input type="hidden" id="formId" />
                                         <label for="recipient-name" class="col-form-label">Jenis RTGS</label>
                                         <br />
-                                        <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control select2" style="width:100%">
+                                        <select id="Jenisj" name="Jenis" data-placement="choose" class="form-control " style="width:100%">
                                             <option value="">--pilih Tipe--</option>
                                         </select>
                                     </div>
@@ -146,19 +146,19 @@
 
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info" style="background-color:#FF6600">
-                <h2 class="card-title font-weight-bolder" style="color:#006699; text-shadow: 0 0 5px #F5b590">Proses</h2>
+                <h2 class="card-title font-weight-bolder" style="color:#006699; text-shadow: 0 0 5px #F5b590">Monitroing</h2>
                 <p class="card-text font-weight-bolder" style="color:#ffe0cc;"><b>Transaksi RTGS Belum Selesai</b></p>
             </div>
             <div class="card-body table-responsive">
                 <div class="row" style="margin-left:20px;margin-bottom:20px">
                     <label class="bmd-label-floating">Tipe Transaksi </label>
                     <div class="col-md-4">
-                        <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                        <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control Tipe">
                             <option value="">--Pilih Tipe--</option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <a class="btn btn-primary" onclick="read();">x</a>
+                        <button class="btn btn-danger" onclick="read();"><i class="fas fa-times-circle"></i></button>
                     </div>
                 </div>
                 <table id="table" class="table table-bordered table-responsive-md display nowrap" style="width:100%">
@@ -257,6 +257,7 @@
             }).then((result) => {
                 if (result != null) {
                     console.log(result);
+                    debugger;
                     $("#formId").val(result.data.id);
                     $("#Jenisj").val(result.data.typeId).change();
                     $("#Cabang").val(result.data.cabangId).change();
@@ -387,7 +388,7 @@
                 DataType: "json",
                 success: function ({ data }) {
                     $.each(data, function (i, value) {
-                        $("select[id=Jenisj]").append(`<option value="${value.id}">${value.nama}</option>`)
+                        $("select[name=Jenisj]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })

@@ -31,7 +31,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
-				<button type="button" class="btn btn-primary" id="Donedd" onclick="vali();">Selesai</button>
+				<button type="button" class="btn btn-primary" id="Doned" onclick="vali();">Selesai</button>
 				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
 			</div>
 		</div>
@@ -47,11 +47,11 @@
 				<div class="form-horizontal">
 					<div class="row" style="margin-left:20px">
 						<div class="col-md-4 ">
-							<label class="bmd-label-floating">Tipe Surat</label>
+							<label class="bmd-label-floating">Tipe Kliring</label>
 							<br />
 
 							<input type="hidden" id="formId" value="Id" />
-							<select required Id="Tipe2" data-placement="choose" class="form-control select2 Tipe" style="width:100%"></select>
+							<select required Id="Tipe2" data-placement="choose" class="form-control  Tipe" style="width:100%"></select>
 						</div>
 						<div class="col-md-4 offset-md-1">
 							<label class="bmd-label-floating">Tanggal TRX</label>
@@ -154,7 +154,7 @@
 	<div class="container">
 		<div class="card" style="background-color:white">
 			<div class="card-header card-header-info" style="background-color:#006699">
-				<h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Proses</h2>
+				<h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Monitoring</h2>
 				<p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">Transaksi Kliring Belum Selesai</p>
 				@*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
 
@@ -237,7 +237,7 @@
 				success: function ({ data }) {
 					//console.log(data);
 					//$("select[id=Tipe]").empty();
-					$("select[name=Tipe]").append('<option value="">---  Pilih Tipe Surat ---</option>')
+					$("select[name=Tipe]").append('<option value="">---  Pilih Tipe Transaksi ---</option>')
 					$.each(data, function (i, value) {
 						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
 					})
@@ -254,7 +254,7 @@
 				//console.log(data)
 				var type = $("#Tipe2");
 				type.html('');
-				$("<option></option>").val('').text('--- Pilih Tipe Surat ---').appendTo(type);
+				$("<option></option>").val('').text('--- Pilih Tipe Transaksi ---').appendTo(type);
 				$.each(data, function (i, value) {
 					$("<option></option>").val(value.id).text(value.nama).appendTo(type);
 				});
@@ -599,7 +599,7 @@
 					success: (response) => {
 						Swal.fire({
 							icon: 'success',
-							title: 'Doned',
+							title: 'Selesai',
 							text: 'Berhasil Diselesaikan!'
 						}).then(() => {
 							location.href = "@Url.Action("Monitoring","Kliring")";

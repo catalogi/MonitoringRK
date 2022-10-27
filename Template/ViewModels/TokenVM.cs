@@ -13,7 +13,7 @@
         public string Group { get; set; }
         public decimal ApprovalLimit { get; set; }
         public string UserIdToken { get; set; }
-        public DateTime TokenExpired { get; set; }
+        public DateTime DateToken { get; set; }
 
     }
 

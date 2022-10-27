@@ -21,9 +21,10 @@ namespace Ririn.Controllers.Master
         }
         public JsonResult GetData()
         {
-            var result = _context.DataToken
-                .Include(x => x.Kelompok)
-                .Include(x => x.Modul)
+            var result = _context.his_tgltoken
+                .Include(x=>x.datatoken)
+                .Include(x => x.datatoken.Kelompok)
+                .Include(x => x.datatoken.Modul)
                 .ToList();
             return Json(new { data = result });
         }
@@ -35,6 +36,7 @@ namespace Ririn.Controllers.Master
         public JsonResult Save(TokenVM datatoken)
         {
             var success = false;
+            var tokenID = 0;
             if (datatoken.Id == 0)
             {
                 var newModul = 0;
@@ -67,14 +69,23 @@ namespace Ririn.Controllers.Master
                     Group = datatoken.Group,
                     ApprovalLimit = datatoken.ApprovalLimit,
                     UserIdToken = datatoken.UserIdToken,
-                    TokenExpired = datatoken.TokenExpired,
                     Keterangan = datatoken.Keterangan,
                     IsDeleted = false,
                     CreateDate = DateTime.Now
                 };
                 _context.DataToken.Add(token);
                 _context.SaveChanges();
-                success = true;
+                tokenID = token.Id;
+
+                var result = new his_tgltoken
+                {
+                    DateToken = datatoken.DateToken,
+                    Keterangant = "Tanggal Awal",
+                    datatokenId = tokenID,
+                    CreateDate = DateTime.Now
+                };
+                _context.his_tgltoken.Add(result);
+                _context.SaveChanges();
             }
             else
             {
@@ -87,14 +98,28 @@ namespace Ririn.Controllers.Master
                 data.Group = datatoken.Group;
                 data.ApprovalLimit = datatoken.ApprovalLimit;
                 data.UserIdToken = datatoken.UserIdToken;
-                data.TokenExpired = datatoken.TokenExpired;
                 data.Keterangan = datatoken.Keterangan;
                 data.IsDeleted = false;
                 data.UpdateDate = DateTime.Now;
                 _context.Entry(data).State = EntityState.Modified;
                 _context.SaveChanges();
-                success = true;
+                tokenID = data.Id;
+
+                var tgltoken = _context.his_tgltoken.Where(x => x.datatokenId == tokenID).FirstOrDefault();
+
+                if (datatoken.DateToken != tgltoken.DateToken)
+                {
+                    tgltoken.DateToken = datatoken.DateToken;
+                    tgltoken.datatokenId = tokenID;
+                    tgltoken.UpdateDate = DateTime.Now;
+                    _context.Entry(tgltoken).State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                }
+                
             }
+
+            success = true;
             return Json(success);
         }
         //public JsonResult PerpanjangTanggal(int Id)
@@ -124,22 +149,23 @@ namespace Ririn.Controllers.Master
         }
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
-            var filter = _context.DataToken
-                .Include(x => x.Kelompok)
-                .Include(x => x.Modul)
+            var filter = _context.his_tgltoken
+                .Include(x => x.datatoken.Kelompok)
+                .Include(x => x.datatoken.Modul)
 
-                .Where(x => x.IsDeleted == false && (x.TokenExpired.Date >= Awal.Date
-                && x.TokenExpired.Date <= Akhir.Date))
+                .Where(x => x.datatoken.IsDeleted == false && (x.DateToken.Date >= Awal.Date
+                && x.DateToken.Date <= Akhir.Date))
                 .ToList();
             return Ok(new { data = filter });
         }
-        public IActionResult PerpanjangToken(DateTime date, int idToken)
+        public IActionResult PerpanjangToken(DateTime date, int idToken, string Keterangant)
         {
             var success = false;
             if (date != null && idToken != null)
             {
-                var expired = _context.DataToken.Where(x => x.Id == idToken).FirstOrDefault();
-                expired.TokenExpired = date;
+                var expired = _context.his_tgltoken.Where(x => x.datatokenId == idToken).FirstOrDefault();
+                expired.DateToken = date;
+                expired.Keterangant = Keterangant;
                 _context.Entry(expired).State = EntityState.Modified;
                 success = true;
             }

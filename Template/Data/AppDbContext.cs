@@ -1,4 +1,5 @@
 ﻿
+using Ririn.Models.Master;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Models.Master;
@@ -21,13 +22,14 @@ namespace Ririn.Data
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Keterangan> Keterangan { get; set; }
         public DbSet<Alasan> Alasan { get; set; }
-        //public DbSet<Testkey> Testkey { get; set; }
+        public DbSet<trans_surat> Trans_Surat { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<TypeTrans> TypeTrans { get; set; }
         public DbSet<Modul> Modul { get; set; }
         public DbSet<Libur> Libur { get; set; }
         public DbSet<DataToken> DataToken { get; set; }
+        public DbSet<his_tgltoken> his_tgltoken { get; set; }
         public DbSet<Surat> Surat { get; set; }
         public DbSet<JenisSurat> JenisSurat { get; set; }
      

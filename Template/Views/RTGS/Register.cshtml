@@ -12,6 +12,7 @@
                 <p class="card-text font-weight-bolder" style="color:#ffe0cc;"><b>TestKey Masuk/Keluar</b></p>
             </div>
             <div class="card-body">
+                <form id="sialex">
                 <div class="row" style="margin-left:20px">
                     <div class="col-md-4">
                         <label class="bmd-label-floating">Jenis RTGS</label>
@@ -71,9 +72,10 @@
                         <input id="TestKey" type="text" class="form-control" />
                     </div>
                 </div>
+                </form>
                 <div class="offset-md-8">
                     <a class="btn btn-primary text-white" id="Save">Save</a>
-                    <a class="btn btn-default text-black" href="@Url.Action("Index, Home")" style="margin-left:10px;">Back</a>
+                    <button class="btn btn-light text-black" onclick=" ClearScreen()" style="margin-left:10px;">Reset</button>
                 </div>
             </div>
         </div>
@@ -323,6 +325,24 @@
                     ;
             });
         }));
+
+        function ClearScreen() {
+            //$("#idToken").val('');
+            $("#Jenis").val('').trigger('change');
+            $("#BankTujuan").val('').trigger('change');
+            //$("#Modul-div").hide();
+            $("#Cabang").val('').trigger('change');
+            //$("#NomorSurat").val('');
+            //$("#RelTRN").val('');
+            //$("#TRN").val('');
+            //$("#Nominal").val('');
+            //$("#Tanggal").val('');
+            //$("#TestKey").val('');
+            //$("#keterangan").val('');
+            //$("#Update").hide();
+            //$("#Save").show();
+            $('#sialex').trigger('reset');
+        }
 
 
         function minkoma(angka) {

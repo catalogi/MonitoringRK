@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ririn.Data;
 
@@ -11,9 +12,10 @@ using Ririn.Data;
 namespace ASK_Core.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221026035155_his_surat")]
+    partial class his_surat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,62 @@ namespace ASK_Core.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ASK_Core.Models.Master.his_tgltoken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Keterangan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("createDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("datatokenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("datokId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("datatokenId");
+
+                    b.ToTable("his_tgltoken");
+                });
+
+            modelBuilder.Entity("ASK_Core.Models.Master.trans_surat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("kliringId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("suratId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("kliringId");
+
+                    b.HasIndex("suratId");
+
+                    b.ToTable("Trans_Surat");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -332,6 +390,9 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Nama")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("TokenExpired")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
@@ -349,36 +410,6 @@ namespace ASK_Core.Migrations
                     b.HasIndex("ModulId");
 
                     b.ToTable("DataToken");
-                });
-
-            modelBuilder.Entity("Ririn.Models.Master.his_tgltoken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateToken")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Keterangant")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("datatokenId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("datatokenId");
-
-                    b.ToTable("his_tgltoken");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.JenisSurat", b =>
@@ -544,38 +575,6 @@ namespace ASK_Core.Migrations
                     b.HasIndex("JenisSuratId");
 
                     b.ToTable("Surat");
-                });
-
-            modelBuilder.Entity("Ririn.Models.Master.trans_surat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("kliringId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("suratId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("kliringId");
-
-                    b.HasIndex("suratId");
-
-                    b.ToTable("Trans_Surat");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
@@ -852,6 +851,32 @@ namespace ASK_Core.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("ASK_Core.Models.Master.his_tgltoken", b =>
+                {
+                    b.HasOne("Ririn.Models.Master.DataToken", "datatoken")
+                        .WithMany()
+                        .HasForeignKey("datatokenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("datatoken");
+                });
+
+            modelBuilder.Entity("ASK_Core.Models.Master.trans_surat", b =>
+                {
+                    b.HasOne("Ririn.Models.Transaksi.T_Kliring", "kliring")
+                        .WithMany()
+                        .HasForeignKey("kliringId");
+
+                    b.HasOne("Ririn.Models.Master.Surat", "surat")
+                        .WithMany()
+                        .HasForeignKey("suratId");
+
+                    b.Navigation("kliring");
+
+                    b.Navigation("surat");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -920,15 +945,6 @@ namespace ASK_Core.Migrations
                     b.Navigation("Modul");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Master.his_tgltoken", b =>
-                {
-                    b.HasOne("Ririn.Models.Master.DataToken", "datatoken")
-                        .WithMany()
-                        .HasForeignKey("datatokenId");
-
-                    b.Navigation("datatoken");
-                });
-
             modelBuilder.Entity("Ririn.Models.Master.JenisSurat", b =>
                 {
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
@@ -945,21 +961,6 @@ namespace ASK_Core.Migrations
                         .HasForeignKey("JenisSuratId");
 
                     b.Navigation("JenisSurat");
-                });
-
-            modelBuilder.Entity("Ririn.Models.Master.trans_surat", b =>
-                {
-                    b.HasOne("Ririn.Models.Transaksi.T_Kliring", "kliring")
-                        .WithMany()
-                        .HasForeignKey("kliringId");
-
-                    b.HasOne("Ririn.Models.Master.Surat", "surat")
-                        .WithMany()
-                        .HasForeignKey("suratId");
-
-                    b.Navigation("kliring");
-
-                    b.Navigation("surat");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ririn.Data;
 
@@ -11,9 +12,10 @@ using Ririn.Data;
 namespace ASK_Core.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221027035201_hisTanggal")]
+    partial class hisTanggal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,6 +334,9 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Nama")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("TokenExpired")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
@@ -362,16 +367,19 @@ namespace ASK_Core.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateToken")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Keterangant")
+                    b.Property<string>("Keterangan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("datatokenId")
+                    b.Property<int>("datatokenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("datokId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -924,7 +932,9 @@ namespace ASK_Core.Migrations
                 {
                     b.HasOne("Ririn.Models.Master.DataToken", "datatoken")
                         .WithMany()
-                        .HasForeignKey("datatokenId");
+                        .HasForeignKey("datatokenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("datatoken");
                 });

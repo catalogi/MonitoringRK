@@ -95,10 +95,10 @@
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
-            <div class="card-header card-header-info"  style="background-color:#006699">
+            <div class="card-header card-header-info" style="background-color:#006699">
 
                 <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Surat</h2>
-                
+
             </div>
             <div class="card-body ">
                 <div class="row">
@@ -119,6 +119,41 @@
 
             </div>
         </div>
+        <div class="card mt-2 shadow  rounded" id="hisurat">
+            <div class="card-header card-header-info">
+                <h2 class="card-title font-weight-bolder" style="color:#FF6600;"> Histori Surat</h2>
+            </div>
+            <div class="card-body" id="tab1">
+                <div class="row">
+                    <table id="table" class="table display nowrap table-hover table-striped table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kepada</th>
+                                <th>SOR</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+            <div class="card-body" id="tab2">
+                <div class="row">
+                    <table id="table" class="table display nowrap table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kepada</th>
+                                <th>SOR</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -130,6 +165,11 @@
         $(document).ready(function () {
             GetTypes();
             GetType();
+            getTab();
+
+            $("#tab1").hide();
+            $("#tab2").hide();
+
 
         });
 
@@ -183,6 +223,37 @@
             });
         })
 
+        $("#jenis").change(function () {
+            debugger;
+            var Id = $("#jenis").val();
+            if (Id == 1 || Id == 2) {
+                $("#tab1").show();
+                getTab(Id)
+            } else if (Id == 3) {
+                $("#tab2").show();
+                getTab(Id);
+            }
+        })
+
+        function getTab(Id) {
+            debugger;
+            var jenId = $("#jenis").val();
+            console.log(jenId);
+            if (Id == 1 || Id == 2) {
+                var h = $("table").DataTable({
+                    ajax: {
+                        url: "@Url.Action("getHisSurat","Kliring")",
+                        type: "GET",
+                        dataType: "Json",
+                        data: { Id: Id }
+                    },
+                    destroy: true,
+                    columns:[
+
+                    ]
+                })
+            }
+        }
 
         function getModal() {
             debugger;
@@ -288,7 +359,7 @@
             } else {
                 $('#kepadas').removeClass('is-invalid');
             }
-            
+
             if (isAllValid) {
                 debugger;
                 var data = new Object();

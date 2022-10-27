@@ -25,6 +25,7 @@ using System.Drawing;
 using Color = System.Drawing.Color;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+//using Ririn.ViewModels;
 
 namespace Ririn.Controllers.Transaksi
 {
@@ -101,14 +102,14 @@ namespace Ririn.Controllers.Transaksi
 
         public JsonResult GetMonitoring()
         {
-            var result = _context.T_Kliring
+
+            var results = _context.T_Kliring
                 .Include(x => x.Keterangan)
                 .Include(x => x.Alasan)
                 .Include(x => x.Bank)
                 .Include(x => x.Cabang)
-                .Include(x => x.Surat)
                 .Include(x => x.Type).Where(x => x.IsDeleted == false && x.StatusId == 2);
-            var data = result.Select(x => x.Id).ToList();
+            var data = results.Select(x => x.Id).ToList();
 
 
             foreach (var item in data)
@@ -116,9 +117,17 @@ namespace Ririn.Controllers.Transaksi
                 GetLibur(item);
 
             }
-            return Json(new { data = result });
+            return Json(new { data = results });
         }
 
+        public JsonResult getHisSurat(int Id)
+        {
+            var result = _context.Trans_Surat.Include(x => x.surat)
+                .Include(x => x.surat.JenisSurat).
+                Where(x => x.surat.JenisSuratId == Id).ToList();
+
+            return Json(new { data = result });
+        }
 
         public JsonResult GetType()
         {
@@ -148,7 +157,6 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Type)
                 .Include(x => x.Keterangan)
-                .Include(x => x.Surat)
                 .Where(x => x.IsDeleted == false && x.StatusId == 2 && (x.TanggalTRX > Awal.Date.AddDays(-1) && x.TanggalTRX < Akhir.Date)).ToList();
             return Json(new { data = result });
         }
@@ -216,8 +224,9 @@ namespace Ririn.Controllers.Transaksi
 
         public IActionResult SaveSurat(SuratVM data)
         {
-            var noReg = _context.T_Kliring.Where(x => x.Id == data.sId).FirstOrDefault();
 
+            var surId = 0;
+            var kliId = _context.T_Kliring.Where(x => x.Id == data.sId).FirstOrDefault();
             var success = false;
             if (data.Id == null)
             {
@@ -237,9 +246,8 @@ namespace Ririn.Controllers.Transaksi
                     _context.Surat.Add(surat);
                     _context.SaveChanges();
 
-                    noReg.SuratId = surat.Id;
-                    _context.Entry(noReg).State = EntityState.Modified;
-                    _context.SaveChanges();
+                    surId = surat.Id;
+
                 }
                 else
                 {
@@ -253,11 +261,18 @@ namespace Ririn.Controllers.Transaksi
                     _context.Surat.Add(surat);
                     _context.SaveChanges();
 
-                    noReg.SuratId = surat.Id;
-                    _context.Entry(noReg).State = EntityState.Modified;
-                    _context.SaveChanges();
+                    surId = surat.Id;
+
                 }
 
+                var tranSurat = new trans_surat
+                {
+                    suratId = surId,
+                    kliringId = kliId.Id
+                };
+
+                _context.Trans_Surat.Add(tranSurat);
+                _context.SaveChanges();
                 success = true;
             }
             return Json(success);
@@ -507,7 +522,6 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.Alasan)
                 .Include(x => x.Cabang)
                 .Include(x => x.Keterangan)
-                .Include(x => x.Surat)
                 .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
@@ -527,7 +541,7 @@ namespace Ririn.Controllers.Transaksi
             var PENGIRIM = data.Bank.Nama;
             var PENERIMA = data.NamaPenerima;
             var ALASAN = data.Alasan.Nama;
-            var KEPADA = data.Surat.TujuanSurat;
+            //var KEPADA = data.Surat.TujuanSurat;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
@@ -545,7 +559,7 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
-            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
+            //docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
             MemoryStream stream = new MemoryStream();
@@ -639,7 +653,7 @@ namespace Ririn.Controllers.Transaksi
                         .Include(x => x.Keterangan)
                         .Include(x => x.Type)
                         .Include(x => x.Alasan)
-                        .Include(x => x.Surat)
+
                         .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
             var TanggalSEKARANG = DateTime.Now;
             var NOSURAT = data.NomorSurat;
@@ -650,10 +664,10 @@ namespace Ririn.Controllers.Transaksi
             var NOREK = data.NomorRekening;
             var NOMINAL = data.Nominal;
             var ALASAN = data.Alasan.Nama;
-            var KEPADA = data.Surat.TujuanSurat;
-            var DARI = data.Surat.AsalSurat;
-            var HAL = data.Surat.Perihal;
-            var LAMPIRAN = data.Surat.Lampiran;
+            //var KEPADA = data.Surat.TujuanSurat;
+            //var DARI = data.Surat.AsalSurat;
+            //var HAL = data.Surat.Perihal;
+            //var LAMPIRAN = data.Surat.Lampiran;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
@@ -671,10 +685,10 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%NOREK%", NOREK.ToString(), false, true);
             docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
-            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
-            docs.Replace("%DARI%", DARI.ToString(), false, true);
-            docs.Replace("%PERIHAL%", HAL.ToString(), false, true);
-            docs.Replace("%LAMPIRAN%", LAMPIRAN.ToString(), false, true);
+            //docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
+            //docs.Replace("%DARI%", DARI.ToString(), false, true);
+            //docs.Replace("%PERIHAL%", HAL.ToString(), false, true);
+            //docs.Replace("%LAMPIRAN%", LAMPIRAN.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
             //PdfDocument pdfDoc = render.ConvertToPDF(docs);

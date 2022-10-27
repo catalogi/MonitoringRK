@@ -106,7 +106,7 @@
         <div class="card">
             <div class="card-header card-header-info"  style="background-color:#006699">
 
-                <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Monitoring Kliring</h2>
+                <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">History </h2>
                 <p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">Transaksi Kliring</p>
             </div>
             <div class="card-body">
@@ -124,7 +124,7 @@
                         <br>
                         <label class="bmd-label-floating"></label>
                         <button class="btn btn-info " onclick="Filter();"><i></i>Filter</button>
-                        <button class="btn btn-info " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-danger " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
                     </div>
                 </div>
                 <br />
@@ -146,6 +146,7 @@
                 </table>
             </div>
         </div>
+        
     </div>
 
 </section>
@@ -204,24 +205,24 @@
                     { "data": "type.nama" },
                     {
                         render: function (data, type, row) {
-                            if (row.suratId == null) {
+                            //if (row.suratId == null) {
                                 return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
                                     "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> ";
-                            } else {
-                                if (row.surat.jenisSuratId == 1) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                } else if (row.surat.jenisSuratId == 2) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                } else if (row.surat.jenisSuratId == 3) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                }
-                            }
+                            //} else {
+                            //    if (row.surat.jenisSuratId == 1) {
+                            //        return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                            //            "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                            //            "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                            //    } else if (row.surat.jenisSuratId == 2) {
+                            //        return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                            //            "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                            //            "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                            //    } else if (row.surat.jenisSuratId == 3) {
+                            //        return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                            //            "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                            //            "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                            //    }
+                            //}
                         },
 
                     },

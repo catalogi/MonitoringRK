@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GMwv+L25HcU5sf7twSzwn9qnv7Vw424sJTFgIEsuZ2U=",
+  "Hash": "uZGiB9E/kuEEGk/YVYAWA4ukWMTaUrF+ZH5JPCE0Pl0=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -2261,23 +2261,6 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\ARK Manual.pdf",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "File/ARK Manual.pdf",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\File\\ARK Manual.pdf"
-    },
-    {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\Kliring\\Kliring_03102022_Form rekap Lembur_Nur Ali Majid.pdf",
       "SourceId": "Template",
       "SourceType": "Discovered",
@@ -2754,6 +2737,23 @@
       "OriginalItemSpec": "wwwroot\\File\\Kliring\\Kliring_9898776_26092022_juli.pdf"
     },
     {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\MORE_Manual.pdf",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "File/MORE_Manual.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\File\\MORE_Manual.pdf"
+    },
+    {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\File\\RTGS\\RTGS_11111_03102022_.png",
       "SourceId": "Template",
       "SourceType": "Discovered",
@@ -2939,23 +2939,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\Dashboard-2.png"
-    },
-    {
-      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\kk.png",
-      "SourceId": "Template",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
-      "BasePath": "_content/Template",
-      "RelativePath": "img/kk.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\kk.png"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\img\\KKR.png",

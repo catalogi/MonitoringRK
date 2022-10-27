@@ -13,6 +13,7 @@
 				<p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">TesKey / Surat</p>
 			</div>
 			<div class="card-body">
+				<form id="sialex">
 				<div class="row" style="margin-left:20px">
 					<div class="col-md-4">
 						<input type="hidden" id="regisId" />
@@ -106,9 +107,10 @@
 						@*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
 					</div>
 				</div>
+				</form>
 				<div class="offset-md-8">
 					<a class="btn btn-primary text-white" id="Save">Save</a>
-					<a class="btn btn-primary text-white" href="@Url.Action("Index","Home")" style="margin-left:10px;">Back</a>
+					<button class="btn btn-light text-black" onclick=" ClearScreen()" style="margin-left:10px;">Reset</button>
 				</div>
 			</div>
 		</div>
@@ -515,5 +517,23 @@
 					}
 				})
 		});
+
+		function ClearScreen() {
+			//$("#idToken").val('');
+			$("#tipe").val('').trigger('change');
+			$("#BTujuan").val('').trigger('change');
+			//$("#Modul-div").hide();
+			$("#Cabang").val('').trigger('change');
+			$("#Alasan").val('').trigger('change');
+			//$("#RelTRN").val('');
+			//$("#TRN").val('');
+			//$("#Nominal").val('');
+			//$("#Tanggal").val('');
+			//$("#TestKey").val('');
+			//$("#keterangan").val('');
+			//$("#Update").hide();
+			//$("#Save").show();
+			$('#sialex').trigger('reset');
+		}
 	</script>
 }

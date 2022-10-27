@@ -36,8 +36,8 @@ namespace Ririn.Models.Transaksi
         public string? CreaterId { get; set; }
         public User Acceptor { get; set; }
         public string? AcceptorId { get; set; }
-        public Surat Surat { get; set; }
-        public int? SuratId { get; set; }
+        //public Surat Surat { get; set; }
+        //public int? SuratId { get; set; }
 
 
     }
