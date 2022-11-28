@@ -15,7 +15,8 @@ namespace Ririn.ViewModels
         public int BankId { get; set; }
         public string NomorRekening { get; set; }
         public decimal Nominal { get; set; }
-        public int CabangId { get; set; }
+        public int? CabangId { get; set; }
+     
         public DateTime TanggalTRX { get; set; }
         public int? KeteranganId { get; set; }
         public int? AlasanId { get; set; }
@@ -29,6 +30,10 @@ namespace Ririn.ViewModels
         public string? AcceptorId { get; set; }
         public string NomorTestKey { get; set; }
         public string? AlasanLain { get; set; }
+        public string? CabangLain { get; set; }
+        public string? KodeCabang { get; set; }
+        public string? Sandi { get; set; }
+        public int? Type_DeptId { get; set; }
         public DateTime TanggalTestKey { get; set; }
         //public List<TestKeyVM> Testkeys { get; set; }
     }

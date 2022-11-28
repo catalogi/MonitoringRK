@@ -9,14 +9,13 @@ namespace Ririn.Models.Master
         public Kelompok Kelompok { get; set; }
         public int KelompokId { get; set; }
         public Modul Modul { get; set; }
-        public int ModulId { get; set; }
+        public int? ModulId { get; set; }
         public string? NPP { get; set; }
         public string? UserId { get; set; }
         public string? Nama { get; set; }
         public string? Group { get; set; }
         public decimal? ApprovalLimit { get; set; }
         public string UserIdToken { get; set; }
-        public DateTime TokenExpired { get; set; }
         public string? Keterangan { get; set; }
        
 

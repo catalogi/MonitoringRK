@@ -28,11 +28,12 @@
     <!-- Brand Logo -->
     <a asp-action="Index" asp-controller="Home" class="brand-link">
         <img src="~/img/oprlogo.png" alt="MonitoringRK"
-             class="brand-image img-circle elevation-6" style="opacity: .9">
-        <span class="brand-text font-weight-bold text-bni-origin">
-            Ririn
-            <span class="text-bni-accent">PROJECT</span>
-        </span>
+             class="brand-image img-circle elevation-6">
+        @*<span class="brand-text" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">*@
+            <img src="~/img/kkr.png" alt="MonitoringRK"
+                 class="brand-img-kkr elevation-6">
+        @*</span>
+        <span class="text-bni-accent"> </span>*@
     </a>
     <!-- /.sidebar -->
     @*}*@
@@ -92,7 +93,7 @@
                         <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Monitoring
+                                History
                             </p>
                         </a>
                     </li>
@@ -101,7 +102,7 @@
                         <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-book text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Reports
+                                Report
                             </p>
                         </a>
                     </li>
@@ -113,7 +114,7 @@
                         <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
                             <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Monitoring
+                                History
                             </p>
                         </a>
                     </li>
@@ -157,11 +158,11 @@
 
 
                     <li class="nav-item">
-                        <a asp-action="Proses" asp-controller="Kliring" class="nav-link">
+                        <a asp-action="Proses" asp-controller="Kliring" class="nav-link hellyr">
 
                             <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Proses
+                                Monitoring
                             </p>
                         </a>
                     </li>
@@ -170,7 +171,7 @@
                         <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Monitoring
+                                History
                             </p>
                         </a>
                     </li>
@@ -179,12 +180,10 @@
                         <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-book text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Reports
+                                Report
                             </p>
                         </a>
                     </li>
-
-                    
 
                     <!-- Menu Monitoring RTGS -->
                     <li class="nav-header text-bni-primary bg-bni-accent mx-2 rounded-sm mb-2">
@@ -200,10 +199,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a asp-action="Proses" asp-controller="RTGS" class="nav-link">
+                        <a asp-action="Proses" asp-controller="RTGS" class="nav-link hellyg">
                             <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Proses
+                                Monitoring
                             </p>
                         </a>
                     </li>
@@ -214,7 +213,7 @@
                         <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
                             <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Monitoring
+                                History
                             </p>
                         </a>
                     </li>
@@ -263,7 +262,7 @@
 
                             <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Proses
+                                Monitoring
                             </p>
                         </a>
                     </li>
@@ -272,7 +271,7 @@
                         <a asp-action="Monitoring" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Monitoring
+                                History
                             </p>
                         </a>
                     </li>
@@ -281,12 +280,12 @@
                         <a asp-action="Reports" asp-controller="Kliring" class="nav-link">
                             <i class="fas fa-book text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Reports
+                                Report
                             </p>
                         </a>
                     </li>
 
-                    
+
                 }
                 else if (user.Unit.Nama == "RTGS")
                 {
@@ -304,10 +303,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a asp-action="Proses" asp-controller="RTGS" class="nav-link">
+                        <a asp-action="Proses" asp-controller="RTGS" class="nav-link hellyg">
                             <i class="fas fa-space-shuttle text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Proses
+                                Monitoring
                             </p>
                         </a>
                     </li>
@@ -318,7 +317,7 @@
                         <a asp-action="Monitoring" asp-controller="RTGS" class="nav-link">
                             <i class="fas fa-chalkboard-teacher text-bni-accent nav-icon"></i>
                             <p class="text-bni-accent brand-text">
-                                Monitoring
+                                History
                             </p>
                         </a>
                     </li>
@@ -340,5 +339,17 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+<script>
+    $(document).ready(function () {
+        $('.sidebar').overlayScrollbars();
+        $(".hellyr").on("mouseover", function () {
+
+            document.querySelector(".hellyr i").classList.add('move');
+        }); $(".hellyg").on("mouseover", function () {
+
+            document.querySelector(".hellyg i").classList.add('move');
+        });
+    })
+</script>
 
 <!-- Content Wrapper. Contains page content -->

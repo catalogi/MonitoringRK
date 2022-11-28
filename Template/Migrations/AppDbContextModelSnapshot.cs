@@ -289,10 +289,15 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Sandi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Type_DeptId")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Type_DeptId");
 
                     b.ToTable("Cabang");
                 });
@@ -323,7 +328,7 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Keterangan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ModulId")
+                    b.Property<int?>("ModulId")
                         .HasColumnType("int");
 
                     b.Property<string>("NPP")
@@ -331,9 +336,6 @@ namespace ASK_Core.Migrations
 
                     b.Property<string>("Nama")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TokenExpired")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -352,6 +354,36 @@ namespace ASK_Core.Migrations
                     b.HasIndex("ModulId");
 
                     b.ToTable("DataToken");
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.his_tgltoken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateToken")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Keterangant")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("datatokenId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("datatokenId");
+
+                    b.ToTable("his_tgltoken");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.JenisSurat", b =>
@@ -519,6 +551,55 @@ namespace ASK_Core.Migrations
                     b.ToTable("Surat");
                 });
 
+            modelBuilder.Entity("Ririn.Models.Master.trans_surat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("kliringId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("suratId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("kliringId");
+
+                    b.HasIndex("suratId");
+
+                    b.ToTable("Trans_Surat");
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.Type_Dept", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nama")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Type_Dept");
+                });
+
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
                 {
                     b.Property<int>("Id")
@@ -638,9 +719,6 @@ namespace ASK_Core.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SuratId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("TanggalDone")
                         .HasColumnType("datetime2");
 
@@ -674,8 +752,6 @@ namespace ASK_Core.Migrations
                     b.HasIndex("KeteranganId");
 
                     b.HasIndex("StatusId");
-
-                    b.HasIndex("SuratId");
 
                     b.HasIndex("TypeId");
 
@@ -743,9 +819,6 @@ namespace ASK_Core.Migrations
                     b.Property<string>("TRN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Tanggal")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("TanggalDone")
                         .HasColumnType("datetime2");
@@ -852,6 +925,15 @@ namespace ASK_Core.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ririn.Models.Master.Cabang", b =>
+                {
+                    b.HasOne("Ririn.Models.Master.Type_Dept", "Type_Dept")
+                        .WithMany()
+                        .HasForeignKey("Type_DeptId");
+
+                    b.Navigation("Type_Dept");
+                });
+
             modelBuilder.Entity("Ririn.Models.Master.DataToken", b =>
                 {
                     b.HasOne("Ririn.Models.Master.Kelompok", "Kelompok")
@@ -862,13 +944,20 @@ namespace ASK_Core.Migrations
 
                     b.HasOne("Ririn.Models.Master.Modul", "Modul")
                         .WithMany()
-                        .HasForeignKey("ModulId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ModulId");
 
                     b.Navigation("Kelompok");
 
                     b.Navigation("Modul");
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.his_tgltoken", b =>
+                {
+                    b.HasOne("Ririn.Models.Master.DataToken", "datatoken")
+                        .WithMany()
+                        .HasForeignKey("datatokenId");
+
+                    b.Navigation("datatoken");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.JenisSurat", b =>
@@ -887,6 +976,21 @@ namespace ASK_Core.Migrations
                         .HasForeignKey("JenisSuratId");
 
                     b.Navigation("JenisSurat");
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.trans_surat", b =>
+                {
+                    b.HasOne("Ririn.Models.Transaksi.T_Kliring", "kliring")
+                        .WithMany()
+                        .HasForeignKey("kliringId");
+
+                    b.HasOne("Ririn.Models.Master.Surat", "surat")
+                        .WithMany()
+                        .HasForeignKey("suratId");
+
+                    b.Navigation("kliring");
+
+                    b.Navigation("surat");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
@@ -939,10 +1043,6 @@ namespace ASK_Core.Migrations
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Ririn.Models.Master.Surat", "Surat")
-                        .WithMany()
-                        .HasForeignKey("SuratId");
-
                     b.HasOne("Ririn.Models.Master.TypeTrans", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
@@ -960,8 +1060,6 @@ namespace ASK_Core.Migrations
                     b.Navigation("Keterangan");
 
                     b.Navigation("Status");
-
-                    b.Navigation("Surat");
 
                     b.Navigation("Type");
                 });

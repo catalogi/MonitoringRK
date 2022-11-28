@@ -40,54 +40,63 @@
                             <input id="TanggalSurat" type="date" class="form-control" disabled />
                         </div>
                         <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Divisi</label>
+                            <br />
+                            <select required Id="divisi" name="divisi" onchange="AddDivisi();" data-placement="choose" class="form-control select2" style="width:100%" disabled>
+                            </select>
+                           
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Nomor Surat / Memo</label>
+                            <input id="NomorSurat" type="text" class="form-control " disabled/>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
                             <label class="bmd-label-floating">Tanggal TestKey</label>
-                            <input id="TanggalTK" type="date" class="form-control" disabled />
+                            <input id="TanggalTK" type="date" class="form-control datepicker" disabled/>
                         </div>
+
                     </div>
                     <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nomor Surat</label>
-                            <input id="NomorSurat" type="text" class="form-control" disabled />
+                        <div class="col-md-4 Nama">
+                            <label class="control-label">Nama Penerima</label>
+                            <input id="Nama" type="text" class="form-control" disabled/>
                         </div>
                         <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Nomor TestKey</label>
-                            <input id="NoTeskey" type="text" class="form-control" disabled />
+                            <label class="control-label">Nomor Teskey</label>
+                            <input id="NoTeskey" type="text" class="form-control" disabled/>
                         </div>
-                    </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nama</label>
-                            <input id="Nama" type="text" class="form-control" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Nomor Rekening</label>
-                            <input id="NomorRekening" type="text" class="form-control" disabled />
-                        </div>
+
                     </div>
                     <div class="row" style="margin-left:20px">
                         <div class="col-md-4">
                             <label class="control-label ">Nominal</label>
-                            <input id="Nominal" type="text" class="form-control number" disabled />
+                            <input id="Nominal" type="text" class="form-control number" disabled/>
                         </div>
                         <div class="col-md-4 offset-md-1 ">
                             <label class="control-label ">Nominal Seharusnya</label>
-                            <input Id="Nominal2" type="text" class="form-control number" disabled />
+                            <input id="Nominal2" type="text" class="form-control number" disabled/>
                         </div>
                     </div>
                     <div class="row" style="margin-left:20px">
-                        <div class="col-md-4 ">
+                         <div class="col-md-4 ">
                             <label class="control-label">Bank</label>
                             <select required Id="BankId" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
                         </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="control-label">Keterangan</label>
-                            <select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
+                        <div class="col-md-4 offset-md-1 NomorRekening">
+                            <label class="control-label">Nomor Rekening</label>
+                            <input id="NomorRekening" type="text" class="form-control" disabled/>
                         </div>
                     </div>
                     <div class="row" style="margin-left:20px">
                         <div class="col-md-4 ">
                             <label class="control-label">Alasan</label>
                             <select required Id="Alasan" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="control-label">Keterangan</label>
+                            <select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
                         </div>
                     </div>
                 </div>
@@ -106,7 +115,7 @@
         <div class="card">
             <div class="card-header card-header-info"  style="background-color:#006699">
 
-                <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Monitoring Kliring</h2>
+                <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">History </h2>
                 <p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">Transaksi Kliring</p>
             </div>
             <div class="card-body">
@@ -124,7 +133,7 @@
                         <br>
                         <label class="bmd-label-floating"></label>
                         <button class="btn btn-info " onclick="Filter();"><i></i>Filter</button>
-                        <button class="btn btn-info " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-danger " onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
                     </div>
                 </div>
                 <br />
@@ -146,6 +155,7 @@
                 </table>
             </div>
         </div>
+        
     </div>
 
 </section>
@@ -160,6 +170,7 @@
             GetCabang();
             GetAlasan();
             GetKet();
+            GetDivisi();
             //Filter();
             Read();
             $(".select2").select2({
@@ -204,24 +215,24 @@
                     { "data": "type.nama" },
                     {
                         render: function (data, type, row) {
-                            if (row.suratId == null) {
+                            //if (row.suratId == null) {
                                 return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
                                     "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> ";
-                            } else {
-                                if (row.surat.jenisSuratId == 1) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                } else if (row.surat.jenisSuratId == 2) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                } else if (row.surat.jenisSuratId == 3) {
-                                    return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
-                                        "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
-                                        "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
-                                }
-                            }
+                            //} else {
+                            //    if (row.surat.jenisSuratId == 1) {
+                            //        return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                            //            "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                            //            "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                            //    } else if (row.surat.jenisSuratId == 2) {
+                            //        return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                            //            "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                            //            "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                            //    } else if (row.surat.jenisSuratId == 3) {
+                            //        return "<button class='btn btn-info btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-eye'></i></button> " +
+                            //            "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a> " +
+                            //            "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                            //    }
+                            //}
                         },
 
                     },
@@ -272,6 +283,18 @@
                 ket.html('');
                 $.each(data, function (i, value) {
                     $("<option></option>").val(value.id).text(value.nama).appendTo(ket);
+                });
+            });
+        }function GetDivisi() {
+            $.ajax({
+                url: "@Url.Action("GetDivisi","Master")",
+                type: "Get",
+                dataType: "json",
+            }).then(({ data }) => {
+                var div = $("#divisi");
+                div.html('');
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(div);
                 });
             });
         }

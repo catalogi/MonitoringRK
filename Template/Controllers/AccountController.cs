@@ -135,7 +135,7 @@ namespace Ririn.Controllers
 
         public JsonResult GetById(string? id)
         {
-            var result = _context.User.Where(x => x.Id == id).FirstOrDefault();
+            var result = _context.User.Include(x=>x.Kelompok).Include(x=>x.Unit).Where(x => x.Id == id).FirstOrDefault();
             return Json(new { data = result });
         }
 

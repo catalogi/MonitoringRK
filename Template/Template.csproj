@@ -46,6 +46,7 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Hub\" />
     <Folder Include="wwwroot\File\Kliring\" />
     <Folder Include="wwwroot\File\RTGS\" />
   </ItemGroup>

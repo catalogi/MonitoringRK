@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ririn.Data;
 using Ririn.Models.Master;
+//using ASK_Core.Models.Master;
 
 namespace Ririn.Controllers.Master
 {
@@ -66,8 +67,33 @@ namespace Ririn.Controllers.Master
         }
         public JsonResult GetCabang()
         {
-            var result = _context.Cabang.ToList();
+            var result = _context.Cabang.Where(x => x.Type_DeptId == 2).ToList();
             return Json(new { data = result });
+        }
+        public JsonResult GetDivisi()
+        {
+            var result = _context.Cabang.Where(x=>x.Type_DeptId == 1).ToList();
+            return Json(new { data = result });
+        }
+        public JsonResult GetType_dept()
+        {
+            var result = _context.Type_Dept.ToList();
+            return Json(new {data= result});
+        }
+        public void addTypeDept()
+        {
+            List<string> type_dept = new List<string>()
+            {
+                "Divisi", "Cabang","Wilayah"
+            };
+
+            foreach (var t in type_dept)
+            {
+                var type_Dept = new Type_Dept();
+                type_Dept.Nama = t;
+                _context.Type_Dept.Add(type_Dept);
+                _context.SaveChanges();
+            }
         }
         public JsonResult GetAlasan()
         {

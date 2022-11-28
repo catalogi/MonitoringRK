@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("MonitoringRK");
+var connectionString = builder.Configuration.GetConnectionString("ARK");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

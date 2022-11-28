@@ -14,10 +14,8 @@ namespace Ririn.Models.Transaksi
         public string NomorRekening { get; set; }
         public decimal Nominal { get; set; }
         public Cabang Cabang { get; set; }
-        public int? CabangId { get; set; }
+        public int? CabangId { get; set; } 
         public DateTime TanggalTRX { get; set; }
-        //public Testkey Testkey { get; set; }
-        //public int? TestkeyId { get; set; }
         public DateTime TanggalTestkey { get; set; }
         public string NomorTestkey { get; set; }
         public Keterangan Keterangan { get; set; }
@@ -36,8 +34,8 @@ namespace Ririn.Models.Transaksi
         public string? CreaterId { get; set; }
         public User Acceptor { get; set; }
         public string? AcceptorId { get; set; }
-        public Surat Surat { get; set; }
-        public int? SuratId { get; set; }
+        //public Surat Surat { get; set; }
+        //public int? SuratId { get; set; }
 
 
     }
