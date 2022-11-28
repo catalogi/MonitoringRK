@@ -124,26 +124,29 @@
                 <h2 class="card-title font-weight-bolder" style="color:#FF6600;"> Histori Surat</h2>
             </div>
             <div class="card-body" id="tab1">
-                <div class="row">
-                    <table id="table" class="table display nowrap table-hover table-striped table-bordered ">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kepada</th>
-                                <th>SOR</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                    </table>
 
-                </div>
+                <table id="table" class="table display nowrap table-hover table-responsive table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Jenis Surat</th>
+                            <th>Tujuan Surat</th>
+                            <th>Asal Surat</th>
+                            <th>Perihal</th>
+                            <th>Lampiran</th>
+                            <th>SOR</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
             <div class="card-body" id="tab2">
-                <div class="row">
-                    <table id="table" class="table display nowrap table-hover table-striped table-bordered">
+                
+                    <table id="table2" class="table display nowrap table-hover table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Jenis Surat</th>
                                 <th>Kepada</th>
                                 <th>SOR</th>
                                 <th>Aksi</th>
@@ -151,7 +154,7 @@
                         </thead>
                     </table>
 
-                </div>
+              
             </div>
         </div>
     </div>
@@ -218,7 +221,6 @@
                     $.each(data, function (i, value) {
                         $("select[name=jenis]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
-
                 }
             });
         })
@@ -237,19 +239,79 @@
 
         function getTab(Id) {
             debugger;
-            var jenId = $("#jenis").val();
-            console.log(jenId);
+
+            //console.log(jenId);
             if (Id == 1 || Id == 2) {
-                var h = $("table").DataTable({
+                var h = $("#table").DataTable({
                     ajax: {
                         url: "@Url.Action("getHisSurat","Kliring")",
                         type: "GET",
-                        dataType: "Json",
+                        dataType: "json",
                         data: { Id: Id }
                     },
                     destroy: true,
-                    columns:[
+                    columns: [
+                        {
+                            render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                        },
+                        {
+                            "data": "surat.jenisSurat.nama"
+                        },
+                        {
+                            "data": "surat.tujuanSurat"
+                        },
+                        {
+                            "data": "surat.asalSurat"
+                        },
+                        {
+                            "data": "surat.perihal"
+                        },
+                        {
+                            "data": "surat.lampiran"
+                        },
+                        {
+                            "data": "surat.sor"
+                        },
+                        {
+                            render: (data, type, row, meta) => {
+                                if (Id == 1) {
+                                    return "<a href='@Url.Action("TemplateSuratMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+                                }else if(Id ==2){
+                                    return "<a href='@Url.Action("MemoMasuk","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
 
+                                }
+                            }
+                        }
+                    ]
+                });
+            }else if(Id == 3){
+                var h = $("#table2").DataTable({
+                    ajax: {
+                        url: "@Url.Action("getHisSurat","Kliring")",
+                        type: "GET",
+                        dataType: "json",
+                        data: { Id: Id }
+                    },
+                    destroy: true,
+                    columns: [
+                        {
+                            render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                        },
+                        {
+                            "data": "surat.jenisSurat.nama"
+                        },
+                        {
+                            "data": "surat.tujuanSurat"
+                        },                      
+                        {
+                            "data": "surat.sor"
+                        },
+                        {
+                            render: (data, type, row, meta) => {
+                                return "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
+
+                            }
+                        }
                     ]
                 })
             }
@@ -325,7 +387,7 @@
                             title: 'Doned',
                             text: 'Berhasil Diselesaikan!'
                         }).then(() => {
-                            location.href = "@Url.Action("Monitoring","Kliring")";
+                            location.href = "@Url.Action("surat","Kliring")";
                         });
                     },
                     error: (err) => {

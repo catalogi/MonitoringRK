@@ -308,6 +308,11 @@ D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\Template.MvcApplicationPa
 D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\Template.MvcApplicationPartsAssemblyInfo.cache
 D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\Template.RazorAssemblyInfo.cache
 D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\Template.RazorAssemblyInfo.cs
+D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets\msbuild.Template.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets\msbuild.build.Template.props
+D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Template.props
+D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Template.props
+D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets.pack.json
 D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets.build.json
 D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\staticwebassets.development.json
 D:\Project\Project BNI\Ririn\Template\obj\Debug\net6.0\scopedcss\bundle\Template.styles.css

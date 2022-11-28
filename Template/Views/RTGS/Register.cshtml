@@ -13,65 +13,94 @@
             </div>
             <div class="card-body">
                 <form id="sialex">
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4">
-                        <label class="bmd-label-floating">Jenis RTGS</label>
-                        <br />
-                        <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
-                            <option value="">--pilih Tipe--</option>
-                        </select>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Jenis RTGS</label>
+                            <br />
+                            <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
+                                <option value="">--pilih Tipe--</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="control-label" id="lbank">Bank Pengirim</label>
+                            <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
+                                <option value="">--Pilih Bank--</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="control-label" id="lbank">Bank Pengirim</label>
-                        <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
-                            <option value="">--Pilih Bank--</option>
-                        </select>
+                    <div class="row mt-2" style="margin-left:20px">
+                        <div class="col-md-4  Cabang">
+                            <label class="radio-inline"><input type="radio" name="optradio" id="radDivisi" value="1"> Divisi</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" id="radCabang" value="2"> Cabang</label>
+                            <div id="div-cab">
+                                <label class="bmd-label-floating">Cabang</label>
+                                <select id="Cabang" name="cabang" onchange="AddCabang();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
+                                <div id="cabang-div">
+                                    <label class="control-label">Nama Cabang</label>
+                                    <br />
+                                    <input id="cabanglain" class="form-control" type="text" style="text-transform: capitalize" />
+                                    <label class="control-label">Kode Cabang</label>
+                                    <br />
+                                    <input id="kodecabang" class="form-control" type="text" style="text-transform: uppercase" />
+                                    <label class="control-label">Sandi Cabang</label>
+                                    <br />
+                                    <input id="sandicabang" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div id="div-div">
+                                <label class="bmd-label-floating">Divisi</label>
+                                <br />
+                                <select id="Divisi" name="divisi" onchange="AddDivisi();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
+                                <div id="divisi-div">
+                                    <label class="control-label">Nama Divisi</label>
+                                    <br />
+                                    <input id="divisilain" class="form-control" type="text" style="text-transform: capitalize" />
+
+                                    <label class="control-label">Kode Divisi</label>
+                                    <br />
+                                    <input id="kodedivisi" class="form-control" type="text" style="text-transform: uppercase" />
+                                    <label class="control-label">Sandi Divisi</label>
+                                    <br />
+                                    <input id="sandidivisi" class="form-control" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Nomor Surat / Ni / Memo</label>
+                            <input id="NomorSurat" type="text" class="form-control" />
+                        </div>
                     </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 Cabang">
-                        <label class="bmd-label-floating">Cabang</label>
-                        <br />
-                        <select required id="Cabang" data-placement="choose" class="form-control select2">
-                            <option value="">--Pilih Cabang--</option>
-                        </select>
+                    <div class="row mt-3" style="margin-left:20px">
+                        <div class="col-md-4  NoReferensi">
+                            <label class="control-label">REL TRN</label>
+                            <input id="RelTRN" type="text" class="form-control" />
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="control-label">TRN Pesan Admin</label>
+                            <input id="TRN" type="text" class="form-control" />
+                        </div>
                     </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="bmd-label-floating">Nomor Surat / Ni / Memo</label>
-                        <input id="NomorSurat" type="text" class="form-control" />
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Nominal</label>
+                            <input id="Nominal" type="text" class="form-control number" />
+                        </div>
+                        <div class="col-md-4 offset-md-1 Tanggal">
+                            <label class="bmd-label-floating">Tanggal Proses</label>
+                            <input id="Tanggal" type="date" class="form-control" />
+                        </div>
                     </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 NoReferensi">
-                        <label class="control-label">REL TRN</label>
-                        <input id="RelTRN" type="text" class="form-control" />
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4 Lampiran">
+                            <label class="control-label">Lampiran Bukti</label>
+                            <br />
+                            <canvas style="border:1px solid grey;" id="path"></canvas>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="control-label">No Test Key</label>
+                            <input id="TestKey" type="text" class="form-control" />
+                        </div>
                     </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="control-label">TRN Pesan Admin</label>
-                        <input id="TRN" type="text" class="form-control" />
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4">
-                        <label class="bmd-label-floating">Nominal</label>
-                        <input id="Nominal" type="text" class="form-control number" />
-                    </div>
-                    <div class="col-md-4 offset-md-1 Tanggal">
-                        <label class="bmd-label-floating">Tanggal Proses</label>
-                        <input id="Tanggal" type="date" class="form-control" />
-                    </div>
-                </div>
-                <div class="row" style="margin-left:20px">
-                    <div class="col-md-4 Lampiran">
-                        <label class="control-label">Lampiran Bukti</label>
-                        <br />
-                        <canvas style="border:1px solid grey;" id="path"></canvas>
-                    </div>
-                    <div class="col-md-4 offset-md-1">
-                        <label class="control-label">No Test Key</label>
-                        <input id="TestKey" type="text" class="form-control" />
-                    </div>
-                </div>
                 </form>
                 <div class="offset-md-8">
                     <a class="btn btn-primary text-white" id="Save">Save</a>
@@ -89,7 +118,12 @@
             //GetJenis();
             GetBank();
             GetCabang();
+            GetDivisi();
             load();
+            $("#cabang-div").hide();
+            $("#divisi-div").hide();
+            $("#div-div").hide();
+            $("#div-cab").hide();
             $(".select2").select2({
                 "theme": "classic"
             })
@@ -124,15 +158,71 @@
         function GetCabang() {
             $.ajax({
                 url: "@Url.Action("GetCabang","Master")",
-                type: "GET",
-                DataType: "json",
+                type: "Get",
+                dataType: "json",
                 success: function ({ data }) {
+
+                    $("select[name=cabang]").empty();
+                    $("select[name=cabang]").append('<option value="">--Pilih Cabang--</option>')
+                    $("select[name=cabang]").append('<option value="custom" style="font-weight:bold"><strong>TAMBAH CABANG</strong></option>')
                     $.each(data, function (i, value) {
-                        $("select[id=Cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
+                        $("select[name=cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
         }
+
+        function GetDivisi() {
+            $.ajax({
+                url: "@Url.Action("GetDivisi","Master")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    debugger;
+                    console.log(data);
+                    $("select[name=divisi]").empty();
+                    $("select[name=divisi]").append('<option value="">--Pilih Divisi--</option>')
+                    $("select[name=divisi]").append('<option value="custom" >TAMBAH DIVISI</option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=divisi]").append(`<option value="${value.id}">${value.sandi}-${value.kodeCabang}-${value.nama}</option>`)
+                    })
+                }
+            });
+        }
+
+        function AddCabang() {
+            var Cabang = $("#Cabang").val();
+            if (Cabang == 'custom') {
+                $("#cabang-div").show();
+            }
+            else {
+                $("#cabang-div").hide();
+            }
+        }
+
+        function AddDivisi() {
+            debugger;
+            var Divisi = $("#Divisi").val();
+            if (Divisi == 'custom') {
+                $("#divisi-div").show();
+            }
+            else {
+                $("#divisi-div").hide();
+            }
+        }
+
+        $("input[name=optradio]").change(() => {
+            debugger;
+            if ($("#radCabang").is(":checked")) {
+                $('#div-cab').show();
+                $('#div-div').hide();
+            } else {
+                $('#div-div').show();
+                $('#div-cab').hide();
+
+            }
+        });
+
 
         $('#Save').click(async function () {
 
@@ -145,11 +235,11 @@
                 dataURL = canvas.toDataURL();
             } else {
                 dataURL = null
-            }   
+            }
 
             var isAllValid = true;
             $('#ItemError').text('');
-            
+
             var errorItemCount = 0;
             if (errorItemCount > 0) {
                 $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
@@ -170,12 +260,24 @@
             else {
                 $('#Tanggal').removeClass('is-invalid');
             }
-            if ($('#Cabang').val() == '') {
-                $('#Cabang').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Cabang').removeClass('is-invalid');
+            if ($("input[name=optradio]:checked").val() == 2) {
+                if ($('#Cabang').val() == '') {
+                    $('#Cabang').siblings('span.error').css('visibility', 'visible');
+                    $('.Cabang').addClass('has-error');
+                    isAllValid = false;
+                }
+                else {
+                    $('#Cabang').siblings('span.error').css('visibility', 'hidden');
+                }
+            } else {
+                if ($('#Divisi').val() == '') {
+                    $('#Divisi').siblings('span.error').css('visibility', 'visible');
+                    $('.Divisi').addClass('has-error');
+                    isAllValid = false;
+                }
+                else {
+                    $('#Divisi').siblings('span.error').css('visibility', 'hidden');
+                }
             }
             if ($('#NomerSurat').val() == '') {
                 $('#NomerSurat').addClass('is-invalid');
@@ -210,9 +312,21 @@
             if (isAllValid) {
                 debugger;
                 var data = new Object();
+                if ($("input[name=optradio]:checked").val() == 2) {
+                    data.CabangId = $("#Cabang").val();
+                    data.CabangLain = $("#cabanglain").val();
+                    data.KodeCabang = $("#kodecabang").val().toUpperCase();
+                    data.Sandi = $("#sandicabang").val();
+                    data.Type_DeptId = 2;
+                } else {
+                    data.CabangId = $("#Divisi").val();
+                    data.CabangLain = $("#divisilain").val();
+                    data.KodeCabang = $("#kodedivisi").val().toUpperCase();
+                    data.Sandi = $("#sandidivisi").val();
+                    data.Type_DeptId = 1;
+                }
                 data.TypeId = $('#Jenis').val();
                 data.TanggalProses = $("#Tanggal").val();
-                data.CabangId = $("#Cabang").val();
                 data.NomorSurat = $("#NomorSurat").val();
                 data.RelTRN = $("#RelTRN").val();
                 data.BankId = $("#BankTujuan").val();
@@ -225,7 +339,7 @@
                 $.ajax({
                     url: "@Url.Action("Save","RTGS")",
                     type: "POST",
-                    dataType: "json",
+                    dataType: "Json",
                     data: data,
                     success: function (response) {
                         Swal.fire({
@@ -240,7 +354,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal',
-                            text: 'Data Tidak Gagal Disimpan!'
+                            text: 'Data Gagal Disimpan!'
                         }).then(function (response) {
                             location.reload();
                         });
@@ -283,26 +397,26 @@
                 debugger;
                 if (imageBlob) {
                     var canvas = document.getElementById("path");
-                   
 
 
-                        var ctx = canvas.getContext('2d');
 
-                        // Create an image to render the blob on the canvas
-                        img = new Image();
+                    var ctx = canvas.getContext('2d');
 
-                        // Once the image loads, render the img on the canvas
-                        img.onload = function () {
-                            canvas.style.width = '100%';
-                            canvas.style.height = '100%';
-                            // Update dimensions of the canvas with the dimensions of the image
-                            canvas.width = this.width;
-                            canvas.height = this.height;
+                    // Create an image to render the blob on the canvas
+                    img = new Image();
 
-                            // Draw the image
-                            ctx.drawImage(img, 0, 0);
-                        };
-                    
+                    // Once the image loads, render the img on the canvas
+                    img.onload = function () {
+                        canvas.style.width = '100%';
+                        canvas.style.height = '100%';
+                        // Update dimensions of the canvas with the dimensions of the image
+                        canvas.width = this.width;
+                        canvas.height = this.height;
+
+                        // Draw the image
+                        ctx.drawImage(img, 0, 0);
+                    };
+
                     // Crossbrowser support for URL
                     var URLObj = window.URL || window.webkitURL;
 

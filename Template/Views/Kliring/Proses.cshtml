@@ -1,911 +1,1021 @@
 ﻿@model Ririn.ViewModels.KliringVM
 @{
-	ViewBag.Title = "Proses";
-	var count = 1;
+    ViewBag.Title = "Proses";
+    var count = 1;
 }
 <div class="modal fade" id="donedModal" tabindex="=-1" role="dialog" aria-labelledby="donedModalLabel" aria-hidden="true">
-	<div class="modal-dialog ">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="donedModalLabel">Done</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="col-md Alasan">
-						<input type="hidden" id="donedId" value="Id" />
-						<label class="control-label">Alasan</label>
-						<br />
-						<select required Id="Dosan" data-placement="choose" class="form-control select2" style="width:100%"></select>
-					</div>
-					<div class="col-md Keterangan">
-						<label class="control-label">Keterangan</label>
-						<br />
-						<select Id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%"></select>
-						<div id="Keterangan-div">
-							<label class="control-label">Keterangan Lain</label>
-							<br />
-							<input id="KeteranganLain" class="form-control" type="text" />
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
-				<button type="button" class="btn btn-primary" id="Doned" onclick="vali();">Selesai</button>
-				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="donedModalLabel">Done</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="col-md Alasan">
+                        <input type="hidden" id="donedId" value="Id" />
+                        <label class="control-label">Alasan</label>
+                        <br />
+                        <select required Id="Dosan" data-placement="choose" class="form-control select2" style="width:100%"></select>
+                    </div>
+                    <div class="col-md Keterangan">
+                        <label class="control-label">Keterangan</label>
+                        <br />
+                        <select Id="keterangan" onchange="AddKeterangan();" data-placement="choose" class="form-control select2" style="width:100%"></select>
+                        <div id="Keterangan-div">
+                            <label class="control-label">Keterangan Lain</label>
+                            <br />
+                            <input id="KeteranganLain" class="form-control" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+                <button type="button" class="btn btn-primary" id="Doned" onclick="vali();">Selesai</button>
+                @*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
+            </div>
+        </div>
+    </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Input Data</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 ">
-							<label class="bmd-label-floating">Tipe Kliring</label>
-							<br />
+<div class="modal fade" id="myModal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Input Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <input type="hidden" id="formId" value="Id" />
+                            <label class="bmd-label-floating">Tipe Surat</label>
+                            <br />
+                            <select required id="Tipe2" name="Tipe2" data-placement="choose" class="form-control select2 " style="width:100%" tabindex="-1" aria-hidden="true">
+                                <option value="">--- Pilih Tipe Surat ---</option>
+                            </select>
+                            <br />
+                            <label class="control-label">Nomor Referensi</label>
+                            <input id="NoReferensi" type="text" class="form-control" />
 
-							<input type="hidden" id="formId" value="Id" />
-							<select required Id="Tipe2" data-placement="choose" class="form-control  Tipe" style="width:100%"></select>
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Tanggal TRX</label>
-							<input id="TanggalTRX" type="date" class="form-control" value="" />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 NoReferensi">
-							<label class="control-label">Nomor Referensi</label>
-							<input id="NoReferensi" type="text" class="form-control" />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Divisi / Cabang</label>
-							<br />
-							<select required Id="Cabang" data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Tanggal Surat</label>
-							<input id="TanggalSurat" type="date" class="form-control datepicker" value="" />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="bmd-label-floating">Tanggal TestKey</label>
-							<input id="TanggalTK" type="date" class="form-control datepicker" />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="bmd-label-floating">Nomor Surat</label>
-							<input id="NomorSurat" type="text" class="form-control" value="" />
-						</div>
-						<div class="col-md-4 offset-md-1">
-							<label class="control-label">Nomor Teskey</label>
-							<input id="NoTeskey" type="text" class="form-control" value="" />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 Nama">
-							<label class="control-label">Nama</label>
-							<input id="Nama" type="text" class="form-control" value="" />
-						</div>
-						<div class="col-md-4 offset-md-1 NomorRekening">
-							<label class="control-label">Nomor Rekening</label>
-							<input id="NomorRekening" type="text" class="form-control" value="" />
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4">
-							<label class="control-label ">Nominal</label>
-							<input id="Nominal" type="text" class="form-control number" value="" />
-						</div>
-						<div class="col-md-4 offset-md-1 ">
-							<label class="control-label ">Nominal Seharusnya</label>
-							<input id="Nominal2" type="text" class="form-control number" />
-						</div>
-					</div>
+                            <label class="bmd-label-floating">Tanggal Surat</label>
+                            <input id="TanggalSurat" type="date" class="form-control " />
+                            <label class="bmd-label-floating">Nomor Surat / Memo</label>
+                            <input id="NomorSurat" type="text" class="form-control " />
+                            <label class="control-label">Nama Penerima</label>
+                            <input id="Nama" type="text" class="form-control" />
+                            <label class="control-label ">Nominal</label>
+                            <input id="Nominal" type="text" class="form-control number" />
 
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 ">
-							<label class="control-label">Bank</label>
-							<select required Id="BTujuan" data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
-						</div>
-					</div>
-					<div class="row" style="margin-left:20px">
-						<div class="col-md-4 Alasan">
-							<label class="control-label">Alasan</label>
-							<br />
-							<select required Id="Alasan" onchange="AddAlasan();" data-placement="choose" class="form-control select2" style="width:100%"></select>
-							<div id="Alasan-div">
-								<label class="control-label">Alasan Lain</label>
-								<br />
-								<input id="AlasanLain" class="form-control" type="text" />
-							</div>
-						</div>
-						@*<div class="offset-md-8">
-						<a class="btn btn-primary text-white" id="Save">Save</a>
-						<a class="btn btn-primary text-white" href="@Url.Action("Index","Home")" style="margin-left:10px;">Back</a>
-						</div>*@
-						<div class="col-md-4 offset-md-1 Bukti">
-							<label class="control-label">Lampiran Bukti</label>
-							<br />
-							<input type="hidden" id="Path" />
-							<input type="file" class="inputFileHidden" id="path" accept=".pdf" style="min-width:100%">
-							@*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="Update" onclick="validation();">Simpan</button>
-				@*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
-			</div>
-		</div>
-	</div>
+                            <label class="control-label">Bank</label>
+                            <select required id="BTujuan" name="banktj" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true">
+                                <option value="">--Pilih Bank--</option>
+                            </select>
+                            @*<select class="form-control select2" id="BTujuan"></select>*@
+                            <br />
+                            <label class="control-label">Alasan</label>
+                            <br />
+                            <select required id="Alasan" name="Alasan" onchange="AddAlasan();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
+                            <div id="Alasan-div">
+                                <label class="control-label">Alasan Lain</label>
+                                <br />
+                                <input id="alasanLain" class="form-control" type="text" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="bmd-label-floating">Tanggal Transaksi</label>
+                            <input id="TanggalTRX" type="date" class="form-control " />
+                            <label class="bmd-label-floating" style="padding-top:6px">Pilih Tujuan</label>
+                            <br />
+                            <label class="radio-inline"><input type="radio" name="optradio" id="radDivisi" value="1"> Divisi</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" id="radCabang" value="2"> Cabang</label>
+                            <br />
+                            <div id="div-cab">
+                                <label class="bmd-label-floating">Cabang</label>
+                                <select id="Cabang" name="cabang" onchange="AddCabang();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
+                                <div id="cabang-div">
+                                    <label class="control-label">Nama Cabang</label>
+                                    <br />
+                                    <input id="cabanglain" class="form-control" type="text" style="text-transform: capitalize" />
+                                    <label class="control-label">Kode Cabang</label>
+                                    <br />
+                                    <input id="kodecabang" class="form-control" type="text" style="text-transform: uppercase" />
+                                    <label class="control-label">Sandi Cabang</label>
+                                    <br />
+                                    <input id="sandicabang" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div id="div-div">
+                                <label class="bmd-label-floating">Divisi</label>
+                                <br />
+                                <select id="Divisi" name="divisi" onchange="AddDivisi();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
+                                <div id="divisi-div">
+                                    <label class="control-label">Nama Divisi</label>
+                                    <br />
+                                    <input id="divisilain" class="form-control" type="text" style="text-transform: capitalize" />
+
+                                    <label class="control-label">Kode Divisi</label>
+                                    <br />
+                                    <input id="kodedivisi" class="form-control" type="text" style="text-transform: uppercase" />
+                                    <label class="control-label">Sandi Divisi</label>
+                                    <br />
+                                    <input id="sandidivisi" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <label class="bmd-label-floating">Tanggal TestKey</label>
+                            <input id="TanggalTK" type="date" class="form-control " />
+                            <label class="control-label">Nomor Teskey</label>
+                            <input id="NoTeskey" type="text" class="form-control" />
+                            <label class="control-label">Nomor Rekening</label>
+                            <input id="NomorRekening" type="text" class="form-control" />
+                            <label class="control-label ">Nominal Seharusnya</label>
+                            <input id="Nominal2" type="text" class="form-control number" />
+                            <div class="col-md-4 mt-5">
+                                <label class="control-label">Lampiran Bukti</label>
+                                <br />
+                                <input type="hidden" id="Path" />
+                                <input type="file" class="inputFileHidden" id="path" accept=".pdf" style="min-width:100%">
+                                @*<canvas style="border:1px solid grey;" id="Path"></canvas>*@
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="row mt-5">
+                        <div class="col d-flex justify-content-end">
+                            <a class="btn btn-primary text-white" id="Save">Save</a>
+                            <a class="btn btn-light text-black" href="@Url.Action("Index","Home")" style="margin-left:10px;">Back</a>
+                        </div>
+                    </div>*@
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="Update" onclick="validation();">Simpan</button>
+                @*<button type="button" class="btn btn-primary" id="Update" onclick="Validation();">Perbarui</button>*@
+            </div>
+        </div>
+    </div>
 </div>
 
 <section class="content">
-	<div class="container">
-		<div class="card" style="background-color:white">
-			<div class="card-header card-header-info" style="background-color:#006699">
-				<h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Monitoring</h2>
-				<p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">Transaksi Kliring Belum Selesai</p>
-				@*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
+    <div class="container">
+        <div class="card" style="background-color:white">
+            <div class="card-header card-header-info" style="background-color:#006699">
+                <h2 class="card-title font-weight-bolder" style="color:#FF6600; text-shadow: 0 0 3px #FF0000">Monitoring</h2>
+                <p class="card-text font-weight-bolder" style="color:#F4CC70; text-shadow: 0 0 3px #FF0000">Transaksi Kliring Belum Selesai</p>
+                @*<a class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>*@
 
-				@*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
-			</div>
-			<div class="card-body ">
-				<div class="row" style="margin-left:20px;margin-bottom:20px">
-					<label class="bmd-label-floating">Tipe Surat</label>
+                @*<a class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;><i class="fa fa-plus"></i></a>*@
+            </div>
+            <div class="card-body ">
+                <div class="row" style="margin-left:20px;margin-bottom:20px">
+                    <label class="bmd-label-floating">Tipe Surat</label>
 
-					<div class="col-md-4">
-						<select required Id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe">
-							@*<option value="">--- Pilih Tipe ---</option>*@
-						</select>
-					</div>
-					<div class="col-md-4">
-						<button type="button" class="btn btn-danger" onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
-				@*<button type="button" class="btn btn-primary" onclick="clearFilter();">Refresh</button>*@
-					</div>
-				</div>
-				<table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
-					@*display nowrap*@
-					<thead style="background-color:#006699">
-						<tr>
-							<th>No.</th>
-							<th>Tipe Transaksi</th>
-							<th>No.Referensi</th>
-							<th>Bank</th>
-							<th style="vertical-align:middle">No. Rekening</th>
-							<th>Nasabah Penerima</th>
-							<th>Nominal</th>
-							<th>Alasan</th>
-							<th>Durasi</th>
-							<th>Aksi</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+                    <div class="col-md-4">
+                        <select required id="Tipe" name="Tipe" data-placement="choose" class="form-control select2 Tipe">
+                            @*<option value="">--- Pilih Tipe ---</option>*@
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-danger" onclick="clearFilter();"><i class="fas fa-times-circle"></i></button>
+                        @*<button type="button" class="btn btn-primary" onclick="clearFilter();">Refresh</button>*@
+                    </div>
+                </div>
+                <table id="table" class="table table-bordered table-responsive nowrap" style="width:100%">
+                    @*display nowrap*@
+                    <thead style="background-color:#006699">
+                        <tr>
+                            <th>No.</th>
+                            <th>Tipe Transaksi</th>
+                            <th>No.Referensi</th>
+                            <th>Bank</th>
+                            <th style="vertical-align:middle">No. Rekening</th>
+                            <th>Nasabah Penerima</th>
+                            <th>Nominal</th>
+                            <th>Alasan</th>
+                            <th>Durasi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </section>
 
 @section scripts{
 
-	<script>
+    <script>
 
-		$(document).ready(function () {
-			GetType();
-			GetType2();
-			GetBank();
-			GetCabang();
-			GetAlasan();
-			GetDosan();
-			GetKet();
-			Read();
-			$("#Alasan-div").hide();
-			$("#Keterangan-div").hide();
-			//$(".select2").select2({
-			//	"theme": "classic"
-			//});
+        $(document).ready(function () {
+            GetType();
+            GetType2();
+            GetBank();
+            GetDivisi();
+            GetCabang();
+            GetAlasan();
+            GetDosan();
+            GetKet();
+            Read();
+            setRadio();
+            $("#Alasan-div").hide();
+            $("#divisi-div").hide();
+            $("#cabang-div").hide();
+            $("#div-div").hide();
+            $("#div-cab").hide();
+            $("#Keterangan-div").hide();
+            $(".select2").select2({
+                "theme": "classic"
+            });
 
-			$('#path').on('change', function (e) {
-				const files = e.target.files;
-				if (files.length > 0) {
-					const file = files[0];
-					$(this).next().text(file.name)
-				} else {
-					$(this).next().text("Choose File")
-				}
-			})
-		});
+            $('#path').on('change', function (e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    $(this).next().text(file.name)
+                } else {
+                    $(this).next().text("Choose File")
+                }
+            })
+        });
 
 
-		function GetType() {
-			$.ajax({
-				url: "@Url.Action("GetType","Kliring")",
-				type: "Get",
-				dataType: "json",
-				success: function ({ data }) {
-					//console.log(data);
-					//$("select[id=Tipe]").empty();
-					$("select[name=Tipe]").append('<option value="">---  Pilih Tipe Transaksi ---</option>')
-					$.each(data, function (i, value) {
-						$("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
-					})
-				}
-			})
-		}
+        function GetType() {
+            $.ajax({
+                url: "@Url.Action("GetType","Kliring")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    //console.log(data);
+                    //$("select[id=Tipe]").empty();
+                    $("select[name=Tipe]").append('<option value="">---  Pilih Tipe Transaksi ---</option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=Tipe]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
 
-		function GetType2() {
-			$.ajax({
-				"url": "@Url.Action("GetType","Kliring")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var type = $("#Tipe2");
-				type.html('');
-				$("<option></option>").val('').text('--- Pilih Tipe Transaksi ---').appendTo(type);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(type);
-				});
-			});
-		}
+        function GetType2() {
+            $.ajax({
+                "url": "@Url.Action("GetType","Kliring")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var type = $("#Tipe2");
+                type.html('');
+                $("<option></option>").val('').text('--- Pilih Tipe Transaksi ---').appendTo(type);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(type);
+                });
+            });
+        }
 
-		function GetCabang() {
-			$.ajax({
-				"url": "@Url.Action("GetCabang","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var cabang = $("#Cabang");
-				cabang.html('');
-				$("<option></option>").val('').text('--- Pilih Cabang ---').appendTo(cabang);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(cabang);
-				});
-			});
-		}
+        function GetCabang() {
+            $.ajax({
+                url: "@Url.Action("GetCabang","Master")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
 
-		function GetBank() {
-			$.ajax({
-				"url": "@Url.Action("GetBank","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var bank = $("#BTujuan");
-				bank.html('');
-				$("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(bank);
-				});
-			});
-		}
+                    $("select[name=cabang]").empty();
+                    $("select[name=cabang]").append('<option value="">--Pilih Cabang--</option>')
+                    $("select[name=cabang]").append('<option value="custom" style="font-weight:bold"><strong>TAMBAH CABANG</strong></option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
+                    })
+                }
+            })
+        }
 
-		function GetKet() {
-			$.ajax({
-				"url": "@Url.Action("GetKeterangan","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var ket = $("#keterangan");
-				ket.html('');
-				$("<option></option>").val('').text('--- Pilih Keterangan ---').appendTo(ket);
-				$("<option></option>").val('custom').text(' *Keterangan Lain* ').appendTo(ket);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(ket);
-				});
-			});
-		}
+        function GetDivisi() {
+            $.ajax({
+                url: "@Url.Action("GetDivisi","Master")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    debugger;
+                    console.log(data);
+                    $("select[name=divisi]").empty();
+                    $("select[name=divisi]").append('<option value="">--Pilih Divisi--</option>')
+                    $("select[name=divisi]").append('<option value="custom" style="font-weight:bold"><strong>TAMBAH DIVISI</strong></option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=divisi]").append(`<option value="${value.id}">${value.sandi}-${value.kodeCabang}-${value.nama}</option>`)
+                    })
+                }
+            });
+        }
 
-		function GetAlasan() {
-			$.ajax({
-				"url": "@Url.Action("GetAlasan","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var alasan = $("#Alasan");
-				alasan.html('');
-				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
-				$("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
-				});
-			});
-		}
-		function GetDosan() {
-			$.ajax({
-				"url": "@Url.Action("GetAlasan","Master")",
-				"type": "Get",
-				"datatype": "json"
-			}).then(({ data }) => {
-				//console.log(data)
-				var alasan = $("#Dosan");
-				alasan.html('');
-				$("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
-				//$("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
-				$.each(data, function (i, value) {
-					$("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
-				});
-			});
-		}
+        $("input[name=optradio]").change(() => {
+            debugger;
+            var t = $("input[name=optradio]").val();
+            console.log(t);
+            if ($("#radCabang").is(":checked")) {
+                $('#div-cab').show();
+                $('#div-div').hide();
+            } else {
+                $('#div-div').show();
+                $('#div-cab').hide();
 
-		function AddAlasan() {
-			var alasan = $("#Alasan").val();
-			if (alasan == 'custom') {
-				$("#Alasan-div").show();
-			}
-			else {
-				$("#Alasan-div").hide();
-			}
-		}
-		function AddKeterangan() {
-			var keterangan = $("#keterangan").val();
-			if (keterangan == 'custom') {
-				$("#Keterangan-div").show();
-			}
-			else {
-				$("#Keterangan-div").hide();
-			}
-		}
+            }
+        });
 
-		function Read() {
-			var t = $("#table").DataTable({
-				destroy : true,
-				//lengthChange: false,
-				//autoWidth: false,
-				"ajax": {
+        function AddCabang() {
+            var Cabang = $("#Cabang").val();
+            if (Cabang == 'custom') {
+                $("#cabang-div").show();
+            }
+            else {
+                $("#cabang-div").hide();
+            }
+        }
 
-					"url": "@Url.Action("GetAll","Kliring")",
-					"type": "GET",
-					"datatype": "json"
-				},
-				"columns": [
-					{ "data": null },
-					{ "data": "type.nama" },
-					{ "data": "noReferensi" },
-					{ "data": "bank.nama" },
-					{ "data": "nomorRekening" },
-					{ "data": "namaPenerima" },
-					{ "data": "nominal" },
-					{ "data": "alasan.nama" },
-					{
-						"render": function (data, type, row) {
-							return row.durasi + " Hari";
-						}
-					},
+        function AddDivisi() {
+            debugger;
+            var Divisi = $("#Divisi").val();
+            if (Divisi == 'custom') {
+                $("#divisi-div").show();
+            }
+            else {
+                $("#divisi-div").hide();
+            }
+        }
 
-					{
-						"render": function (data, type, row) {
-							return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
-								"<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-								"<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
-						},
+        function GetBank() {
+            $.ajax({
+                "url": "@Url.Action("GetBank","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                console.log(data)
+                var bank = $("#BTujuan");
+                bank.html('');
+                $("<option></option>").val('').text('--- Pilih Bank ---').appendTo(bank);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(bank);
+                });
+            });
+        }
 
-					},
-				]
-			})
-			t.on('order.dt search.dt', function () {
-				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-					cell.innerHTML = i + 1;
-				});
-			}).draw();
+        function GetKet() {
+            $.ajax({
+                "url": "@Url.Action("GetKeterangan","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var ket = $("#keterangan");
+                ket.html('');
+                $("<option></option>").val('').text('--- Pilih Keterangan ---').appendTo(ket);
+                $("<option class='font-weight-bolder'></option>").val('custom').text(' Tambah Keterangan ').appendTo(ket);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(ket);
+                });
+            });
+        }
 
-			$.ajax({
-				url: "@Url.Action("GetAllKelompok","Master")",
-				type: "get",
-				dataType: "json",
-				success: function ({ data }) {
-					$.each(data, function (i, kel) {
-						$("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
-					})
-				}
-			})
-		}
+        function GetAlasan() {
+            $.ajax({
+                "url": "@Url.Action("GetAlasan","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var alasan = $("#Alasan");
+                alasan.html('');
+                $("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
+                $("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+                });
+            });
+        }
+        function GetDosan() {
+            $.ajax({
+                "url": "@Url.Action("GetAlasan","Master")",
+                "type": "Get",
+                "datatype": "json"
+            }).then(({ data }) => {
+                //console.log(data)
+                var alasan = $("#Dosan");
+                alasan.html('');
+                $("<option></option>").val('').text('--- Pilih Alasan ---').appendTo(alasan);
+                //$("<option></option>").val('custom').text(' Alasan Lain ').appendTo(alasan);
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(alasan);
+                });
+            });
+        }
 
-		function Read2(Id) {
-			var t = $("#table").DataTable({
-				//lengthChange: false,
-				//autoWidth: false,
-				"ajax": {
+        function AddAlasan() {
+            var alasan = $("#Alasan").val();
+            if (alasan == 'custom') {
+                $("#Alasan-div").show();
+            }
+            else {
+                $("#Alasan-div").hide();
+            }
+        }
+        function setRadio() {
+            console.log($('#Cabang').val());
+            if ($("#Cabang").val() == 2) {
+                $('#radCabang').prop('checked', true);
+            } else {
+                $('#radDivisi').prop('checked', true);
+            }
+        }
 
-					"url": "@Url.Action("FilterType","Kliring")",
-					"type": "GET",
-					"datatype": "json",
-					"data": { Id: Id }
-				},
-				"destroy": true,
-				"columns": [
-					{
-						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
-					},
-					{ "data": "type.nama" },
-					{ "data": "noReferensi" },
-					{ "data": "bank.nama" },
-					{ "data": "nomorRekening" },
-					{ "data": "namaPenerima" },
-					{ "data": "nominal" },
-					{ "data": "alasan.nama" },
-					{
-						"render": function (data, type, row) {
-							return row.durasi + " Hari";
-						}
-					},
+        function AddKeterangan() {
+            var keterangan = $("#keterangan").val();
+            if (keterangan == 'custom') {
+                $("#Keterangan-div").show();
+            }
+            else {
+                $("#Keterangan-div").hide();
+            }
+        }
 
-					{
-						"render": function (data, type, row) {
-							return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
-								"<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-								"<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
-						},
+        function Read() {
+            var t = $("#table").DataTable({
+                destroy: true,
+                //lengthChange: false,
+                //autoWidth: false,
+                "ajax": {
 
-					},
-				]
-			})
-			t.on('order.dt search.dt', function () {
-				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-					cell.innerHTML = i + 1;
-				});
-			}).draw();
-		}
+                    "url": "@Url.Action("GetAll","Kliring")",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": null },
+                    { "data": "type.nama" },
+                    { "data": "noReferensi" },
+                    { "data": "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "nominal" },
+                    { "data": "alasan.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return row.durasi + " Hari";
+                        }
+                    },
 
-		$("#Tipe").change(function () {
-			debugger;
-			var Id = this.value;
-			if (Id == "") {
-				Read();
-			}
-			else{
-			Read2(Id);
-			}
-		})
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
+                                "<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> " +
+                                "<a href='@Url.Action("surat","Kliring")/" + row.id + "' class='btn btn-warning btn-sm text-white' style='display:inline;' title='Buat Surat'><i class='fas fa-envelope-open-text'></i></a>";
+                        },
 
-		function clearFilter() {
-			var t = $('#table').DataTable({
-				//"scrollX": true,
-				"destroy": true,
-				"ajax": {
-					"url": "@Url.Action("GetAll", "Kliring")",
-					"type": "GET",
-					"datatype": "json"
-				},
-				"columns": [
-					{
-						"render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
-					},
-					{ "data": "type.nama" },
-					{ "data": "noReferensi" },
-					{ "data": "bank.nama" },
-					{ "data": "nomorRekening" },
-					{ "data": "namaPenerima" },
-					{ "data": "nominal" },
-					{ "data": "alasan.nama" },
-					{
-						"render": function (data, type, row) {
-							return row.durasi + " Hari";
-						}
-					},
+                    },
+                ]
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
 
-					{
-						"render": function (data, type, row) {
-							return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
-								"<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
-								"<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
-						},
+            $.ajax({
+                url: "@Url.Action("GetAllKelompok","Master")",
+                type: "get",
+                dataType: "json",
+                success: function ({ data }) {
+                    $.each(data, function (i, kel) {
+                        $("select[name=kelompokId]").append(`<option value="${kel.Id}">${kel.nama}</option> `)
+                    })
+                }
+            })
+        }
 
-					},
-				]
-			})
-			t.on('order.dt search.dt', function () {
-				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-					cell.innerHTML = i + 1;
-				});
-			}).draw();
-		}
+        function Read2(Id) {
+            var t = $("#table").DataTable({
+                //lengthChange: false,
+                //autoWidth: false,
+                "ajax": {
 
-		function Doned(Id) {
-			$("#donedModal").modal('show');
-			$.ajax({
-				"url": "@Url.Action("GetById","Kliring")",
-				"type": "GET",
-				"datatype": "json",
-				"data": { Id: Id }
-			}).then((result) => {
-				if (result != null) {
-					$("#donedId").val(result.data.id).change();
-					$("#Dosan").val(result.data.alasanId).change();
-					//$("#Keterangan").val(result.data.id).change();
-				}
-			})
-		}
+                    "url": "@Url.Action("FilterType","Kliring")",
+                    "type": "GET",
+                    "datatype": "json",
+                    "data": { Id: Id }
+                },
+                "destroy": true,
+                "columns": [
+                    {
+                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                    },
+                    { "data": "type.nama" },
+                    { "data": "noReferensi" },
+                    { "data": "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "nominal" },
+                    { "data": "alasan.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return row.durasi + " Hari";
+                        }
+                    },
 
-		function GetById(Id) {
-			$("#myModal").modal('show');
-			$.ajax({
-				"url": "@Url.Action("GetById","Kliring")",
-				"type": "GET",
-				"datatype": "json",
-				"data": { Id: Id }
-			}).then((result) => {
-				debugger;
-				if (result != null) {
-					console.log(result);
-					$("#formId").val(result.data.id).change;
-					$("#Tipe2").val(result.data.typeId).change();
-					$("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
-					$("#NoReferensi").val(result.data.noReferensi);
-					$("#Cabang").val(result.data.cabangId).change();
-					$("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
-					$("#TanggalTK").val(moment(result.data.tanggalTestkey).format('YYYY-MM-DD'));
-					$("#NomorSurat").val(result.data.nomorSurat);
-					$("#NoTeskey").val(result.data.nomorTestkey).change();
-					$("#Nama").val(result.data.namaPenerima);
-					$("#NomorRekening").val(result.data.nomorRekening);
-					$("#Nominal").val(result.data.nominal);
-					$("#Nominal2").val(result.data.nominalSeharusnya);
-					$("#BTujuan").val(result.data.bankId).change();
-					$("#Alasan").val(result.data.alasanId).change();
-					$("#path").val(result.data.path).change();
-					$("#myModal").modal('show');
-					$("#").show();
-					$("#Save").hide();
-				}
-			})
-		}
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
+                                "<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
+                        },
 
-		function SaveDone() {
-			debugger;
-			var isAllValid = true;
-			var errorItemCount = 0;
-			//debugger;
-			if (errorItemCount > 0) {
-				$('#ItemError').text(errorItemCount + " invalid entry in order item list.");
-				isAllValid = false;
-			}
-			if ($('#Dosan').val() == '') {
-				$('#Dosan').siblings('span.error').css('visibility', 'visible');
-				$('.Dosan').addClass('has-error');
-				isAllValid = false;
-			}
-			else {
-				$('#Dosan').siblings('span.error').css('visibility', 'hidden');
-			}
-			if (isAllValid) {
-				debugger;
-				var data = new Object();
-				data.Id = $("#donedId").val();
-				data.AlasanId = $("#Dosan").val();
-				data.KeteranganId = $("#keterangan").val();
-				data.KeteranganLain = $("#KeteranganLain").val();
+                    },
+                ]
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        }
 
-				$.ajax({
-					url: "@Url.Action("Done","Kliring")",
-					type: "POST",
-					dataType: "json",
-					data: data,
-					success: (response) => {
-						Swal.fire({
-							icon: 'success',
-							title: 'Selesai',
-							text: 'Berhasil Diselesaikan!'
-						}).then(() => {
-							location.href = "@Url.Action("Monitoring","Kliring")";
-						});
-					},
-					error: (err) => {
-						Swal.fire({
-							icon: 'error',
-							title: 'Gagal',
-							text: 'Tidak Berhasil Diselesaikan!'
-						}).then(() => {
-							location.reload();
-						});
-					}
-				});
-			}
-		}
+        $("#Tipe").change(function () {
+            debugger;
+            var Id = this.value;
+            if (Id == "") {
+                Read();
+            }
+            else {
+                Read2(Id);
+            }
+        })
 
-		function Delete(Id) {
-			Swal.fire({
-				title: 'Apakah Anda Yakin!!',
-				text: "Data Akan Hilang Jika Dihapus.",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes',
-			}).then((result) => {
-				if (result.value) {
-					$.ajax({
-						"url": "@Url.Action("Delete","Kliring")",
-						"datatype": "json",
-						"data": { Id: Id }
-					}).then((result) => {
-						if (result.data != 0) {
-							Swal.fire(
-								'Success!',
-								'Data Terhapus',
-								'success'
-							).then(() => {
-								$('#table').DataTable().ajax.reload();
-							})
-						}
-						else {
-							Swal.fire(
-								'Failed!',
-								'Data Tidak Terhapus',
-								'success'
-							).then(() => {
-								$('#table').DataTable().ajax.reload();
-							})
-						}
-						$("#myModal").modal('hide');
-						$('#table_role').DataTable().ajax.reload();
-					})
-				}
-			})
-		}
+        function clearFilter() {
+            var t = $('#table').DataTable({
+                //"scrollX": true,
+                "destroy": true,
+                "ajax": {
+                    "url": "@Url.Action("GetAll", "Kliring")",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {
+                        "render": (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1
+                    },
+                    { "data": "type.nama" },
+                    { "data": "noReferensi" },
+                    { "data": "bank.nama" },
+                    { "data": "nomorRekening" },
+                    { "data": "namaPenerima" },
+                    { "data": "nominal" },
+                    { "data": "alasan.nama" },
+                    {
+                        "render": function (data, type, row) {
+                            return row.durasi + " Hari";
+                        }
+                    },
 
-		function FileToBase(file) {
-			if (file =! null){
-			return new Promise((resolve, reject) => {
-				const fileReader = new FileReader();
-				fileReader.onloadend = function (result) {
-					resolve(result.target.result);
-				}
-				fileReader.onerror = function (err) {
-					reject(err)
-				}
-				fileReader.readAsDataURL(file)
-			});
-			}else{
-				return null;
-			}
-		}
+                    {
+                        "render": function (data, type, row) {
+                            return "<button class='btn btn-primary btn-sm text-white' onclick = Doned('" + row.id + "')><i class='fa fa-check'></i></button> " +
+                                "<button class='btn btn-sm btn-info text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
+                                "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button> ";
+                        },
 
-		async function Edit() {
-			debugger;
-			const files = $("#path").prop('files');
-			//debugger;
-			let path = {};
-			if(files.length > 0){
-				const b64 = await FileToBase(files[0]);
-				path = {
-					base64: b64,
-					fileName: files[0].name
-				}
-			}
-			else{
-				path = {
-					base64: null,
-					fileName: null
-				}
-			}
-			var isAllValid = true;
-			//validate order items
-			$('#ItemError').text('');
-			var canvas = document.getElementById('Path');
-			//var dataURL = canvas.toDataURL();
-			var errorItemCount = 0;
-			//debugger;
-			if (errorItemCount > 0) {
-				$('#ItemError').text(errorItemCount + " invalid entry in order item list.");
-				isAllValid = false;
-			}
+                    },
+                ]
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        }
 
-			if ($('#NomorSurat').val().trim() == '' && $('#tipe').val() == 2) {
-				$('#NomorSurat').addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#NomorSurat').removeClass('is-invalid');
-			}
+        function Doned(Id) {
+            $("#donedModal").modal('show');
+            $.ajax({
+                "url": "@Url.Action("GetById","Kliring")",
+                "type": "GET",
+                "datatype": "json",
+                "data": { Id: Id }
+            }).then((result) => {
+                if (result != null) {
+                    $("#donedId").val(result.data.id).change();
+                    $("#Dosan").val(result.data.alasanId).change();
+                    //$("#Keterangan").val(result.data.id).change();
+                }
+            })
+        }
 
-			if ($('#TanggalSurat').val() == '') {
-				$("#TanggalSurat").addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$("#TanggalSurat").removeClass('is-invalid');
-			}
+        function GetById(Id) {
+            $("#myModal").modal('show');
+            $.ajax({
+                "url": "@Url.Action("GetById","Kliring")",
+                "type": "GET",
+                "datatype": "json",
+                "data": { Id: Id }
+            }).then((result) => {
+                debugger;
+                if (result != null) {
+                    var tg = $("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
+                    console.log(tg);
+                    $("#formId").val(result.data.id).change;
+                    $("#Tipe2").val(result.data.typeId).change();
+                    $("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
+                    $("#NoReferensi").val(result.data.noReferensi);
+                    if (result.data.cabang.type_DeptId == 2) {
+                        $('#radCabang').prop('checked', true);
+                         $('#div-cab').show();
+                        $("#Cabang").val(result.data.cabangId).change();
+                    }else{
+                        $('#radDivisi').prop('checked', true);
+                         $('#div-div').show();
+                        $("#Divisi").val(result.data.cabangId).change();
+                    }
+                    //$("#divisi").val(result.data.divisiId).change();
+                    $("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));
+                    $("#TanggalTK").val(moment(result.data.tanggalTestkey).format('YYYY-MM-DD'));
+                    $("#NomorSurat").val(result.data.nomorSurat);
+                    $("#NoTeskey").val(result.data.nomorTestkey).change();
+                    $("#Nama").val(result.data.namaPenerima);
+                    $("#NomorRekening").val(result.data.nomorRekening);
+                    $("#Nominal").val(result.data.nominal);
+                    $("#Nominal2").val(result.data.nominalSeharusnya);
+                    $("#BTujuan").val(result.data.bankId).change();
+                    $("#Alasan").val(result.data.alasanId).change();
+                    $("#path").val(result.data.path).change();
+                    $("#myModal").modal('show');
+                    $("#").show();
+                    $("#Save").hide();
+                }
+            })
+        }
 
-			if ($('#Tipe2').val() == '') {
-				$("#Tipe2").addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#Tipe2').removeClass('is-invalid');
-			}
-			if ($('#Nama').val() == '') {
-				$('#Nama').addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#Nama').removeClass('is-invalid');
-			}
-			if ($('#NomorRekening').val() == '') {
-				$('#NomorRekening').addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#NomorRekening').removeClass('is-invalid');
-			}
-			if ($('#Nominal').val() == '') {
-				$('#Nominal').addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#Nominal').siblings('span.error').css('visibility', 'hidden');
-			}
+        function SaveDone() {
+            debugger;
+            var isAllValid = true;
+            var errorItemCount = 0;
+            //debugger;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+                isAllValid = false;
+            }
+            if ($('#Dosan').val() == '') {
+                $('#Dosan').siblings('span.error').css('visibility', 'visible');
+                $('.Dosan').addClass('has-error');
+                isAllValid = false;
+            }
+            else {
+                $('#Dosan').siblings('span.error').css('visibility', 'hidden');
+            }
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                data.Id = $("#donedId").val();
+                data.AlasanId = $("#Dosan").val();
+                data.KeteranganId = $("#keterangan").val();
+                data.KeteranganLain = $("#KeteranganLain").val();
 
-			if ($('#BPengirim').val() == '') {
-				$('#BPengirim').addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#BPengirim').siblings('span.error').css('visibility', 'hidden');
-			}
+                $.ajax({
+                    url: "@Url.Action("Done","Kliring")",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: (response) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Selesai',
+                            text: 'Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.href = "@Url.Action("Monitoring","Kliring")";
+                        });
+                    },
+                    error: (err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Tidak Berhasil Diselesaikan!'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        }
 
-			if ($('#BTujuan').val() == '') {
-				$('#BTujuan').addClass('is-invalid');
-				isAllValid = false;
-			}
-			else {
-				$('#BTujuan').siblings('span.error').css('visibility', 'hidden');
-			}
+        function Delete(Id) {
+            Swal.fire({
+                title: 'Apakah Anda Yakin!!',
+                text: "Data Akan Hilang Jika Dihapus.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        "url": "@Url.Action("Delete","Kliring")",
+                        "datatype": "json",
+                        "data": { Id: Id }
+                    }).then((result) => {
+                        if (result.data != 0) {
+                            Swal.fire(
+                                'Success!',
+                                'Data Terhapus',
+                                'success'
+                            ).then(() => {
+                                $('#table').DataTable().ajax.reload();
+                            })
+                        }
+                        else {
+                            Swal.fire(
+                                'Failed!',
+                                'Data Tidak Terhapus',
+                                'success'
+                            ).then(() => {
+                                $('#table').DataTable().ajax.reload();
+                            })
+                        }
+                        $("#myModal").modal('hide');
+                        $('#table_role').DataTable().ajax.reload();
+                    })
+                }
+            })
+        }
 
-			if ($('#Alasan').val() == '') {
-				$('#Alasan').siblings('span.error').css('visibility', 'visible');
-				$('.Alasan').addClass('has-error');
-				isAllValid = false;
-			}
-			else {
-				$('#Alasan').siblings('span.error').css('visibility', 'hidden');
-			}
-			if ($('#Cabang').val() == '') {
-				$('#Cabang').siblings('span.error').css('visibility', 'visible');
-				$('.Cabang').addClass('has-error');
-				isAllValid = false;
-			}
-			else {
-				$('#Cabang').siblings('span.error').css('visibility', 'hidden');
-			}
-			if ($('#NoTeskey').val() == '') {
-				$('#NoTeskey').siblings('span.error').css('visibility', 'visible');
-				$('.NoTeskey').addClass('has-error');
-				isAllValid = false;
-			}
-			else {
-				$('#NoTeskey').siblings('span.error').css('visibility', 'hidden');
-			}
-			if ($('#TanggalTRX').val() == '') {
-				$('#TanggalTRX').siblings('span.error').css('visibility', 'visible');
-				$('.TanggalTRX').addClass('has-error');
-				isAllValid = false;
-			}
-			else {
-				$('#TanggalTRX').siblings('span.error').css('visibility', 'hidden');
-			}
-			if ($('#NoReferensi').val() == '') {
-				$('#NoReferensi').siblings('span.error').css('visibility', 'visible');
-				$('.NoReferensi').addClass('has-error');
-				isAllValid = false;
-			}
-			else {
-				$('#NoReferensi').siblings('span.error').css('visibility', 'hidden');
-			}
+        function FileToBase(file) {
+            if (file = ! null) {
+                return new Promise((resolve, reject) => {
+                    const fileReader = new FileReader();
+                    fileReader.onloadend = function (result) {
+                        resolve(result.target.result);
+                    }
+                    fileReader.onerror = function (err) {
+                        reject(err)
+                    }
+                    fileReader.readAsDataURL(file)
+                });
+            } else {
+                return null;
+            }
+        }
 
-			if (isAllValid) {
-				debugger;
-				var data = new Object();
-				data.Id = $("#formId").val();
-				data.NomorSurat = $("#NomorSurat").val();
-				data.TanggalSurat = $("#TanggalSurat").val();
-				data.TypeId = $("#Tipe2").val();
-				data.NamaPenerima = $("#Nama").val();
-				data.NomorRekening = $("#NomorRekening").val();
-				data.Nominal = minkoma($("#Nominal").val());
-				data.BankId = $("#BTujuan").val();
-				data.AlasanId = $("#Alasan").val();
-				data.AlasanLain = $("#alasanLain").val();
-				data.Path = path;
-				data.TanggalTRX = $("#TanggalTRX").val();
-				data.TanggalTestKey = $("#TanggalTK").val();
-				data.NomorTestKey = $("#NoTeskey").val();
-				data.NoReferensi = $("#NoReferensi").val();
-				data.CabangId = $("#Cabang").val();
-				data.NominalSeharusnya = minkoma($("#Nominal2").val());
-				console.log(data);
+        async function Edit() {
+            debugger;
+            const files = $("#path").prop('files');
+            //debugger;
+            let path = {};
+            if (files.length > 0) {
+                const b64 = await FileToBase(files[0]);
+                path = {
+                    base64: b64,
+                    fileName: files[0].name
+                }
+            }
+            else {
+                path = {
+                    base64: null,
+                    fileName: null
+                }
+            }
+            var isAllValid = true;
+            //validate order items
+            $('#ItemError').text('');
+            var canvas = document.getElementById('Path');
+            //var dataURL = canvas.toDataURL();
+            var errorItemCount = 0;
+            //debugger;
+            if (errorItemCount > 0) {
+                $('#ItemError').text(errorItemCount + " invalid entry in order item list.");
+                isAllValid = false;
+            }
 
-				$.ajax({
-					url: '@Url.Action("Save","Kliring")',
-					type: 'Post',
-					dataType: "json",
-					data: data,
+            if ($('#NomorSurat').val().trim() == '' && $('#tipe').val() == 2) {
+                $('#NomorSurat').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#NomorSurat').removeClass('is-invalid');
+            }
 
-					success: function (response) {
-						Swal.fire({
-							icon: "success",
-							title: "Berhasil",
-							text: "Data Berhasil Di Tambah"
-						}).then(function (response) {
-							location.href = '@Url.Action("Proses","Kliring")';
-						});;
+            if ($('#TanggalSurat').val() == '') {
+                $("#TanggalSurat").addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $("#TanggalSurat").removeClass('is-invalid');
+            }
 
-					}, error: (err) => {
-						Swal.fire({
-							icon: "error",
-							title: "Gagal",
-							text: "Data Gagal Di Tambah"
-						}).then(function () {
-							location.reload();
-						});
+            if ($('#Tipe2').val() == '') {
+                $("#Tipe2").addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Tipe2').removeClass('is-invalid');
+            }
+            if ($('#Nama').val() == '') {
+                $('#Nama').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Nama').removeClass('is-invalid');
+            }
+            if ($('#NomorRekening').val() == '') {
+                $('#NomorRekening').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#NomorRekening').removeClass('is-invalid');
+            }
+            if ($('#Nominal').val() == '') {
+                $('#Nominal').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#Nominal').siblings('span.error').css('visibility', 'hidden');
+            }
 
-					}
-				});
-			}
+            if ($('#BPengirim').val() == '') {
+                $('#BPengirim').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#BPengirim').siblings('span.error').css('visibility', 'hidden');
+            }
 
-			$(this).val('Please wait...');
+            if ($('#BTujuan').val() == '') {
+                $('#BTujuan').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#BTujuan').siblings('span.error').css('visibility', 'hidden');
+            }
 
-		}
+            if ($('#Alasan').val() == '') {
+                $('#Alasan').siblings('span.error').css('visibility', 'visible');
+                $('.Alasan').addClass('has-error');
+                isAllValid = false;
+            }
+            else {
+                $('#Alasan').siblings('span.error').css('visibility', 'hidden');
+            }
+            if ($("input[name=optradio]").val() == 2) {
+                if ($('#Cabang').val() == '') {
+                    $('#Cabang').siblings('span.error').css('visibility', 'visible');
+                    $('.Cabang').addClass('has-error');
+                    isAllValid = false;
+                }
+                else {
+                    $('#Cabang').siblings('span.error').css('visibility', 'hidden');
+                }
+            } else {
+                if ($('#Divisi').val() == '') {
+                    $('#Divisi').siblings('span.error').css('visibility', 'visible');
+                    $('.Divisi').addClass('has-error');
+                    isAllValid = false;
+                }
+                else {
+                    $('#Divisi').siblings('span.error').css('visibility', 'hidden');
+                }
+            }
+            if ($('#NoTeskey').val() == '') {
+                $('#NoTeskey').siblings('span.error').css('visibility', 'visible');
+                $('.NoTeskey').addClass('has-error');
+                isAllValid = false;
+            }
+            else {
+                $('#NoTeskey').siblings('span.error').css('visibility', 'hidden');
+            }
+            if ($('#TanggalTRX').val() == '') {
+                $('#TanggalTRX').siblings('span.error').css('visibility', 'visible');
+                $('.TanggalTRX').addClass('has-error');
+                isAllValid = false;
+            }
+            else {
+                $('#TanggalTRX').siblings('span.error').css('visibility', 'hidden');
+            }
+            if ($('#NoReferensi').val() == '') {
+                $('#NoReferensi').siblings('span.error').css('visibility', 'visible');
+                $('.NoReferensi').addClass('has-error');
+                isAllValid = false;
+            }
+            else {
+                $('#NoReferensi').siblings('span.error').css('visibility', 'hidden');
+            }
 
-		$(document).on("keyup", ".number", (function (event) {
+            if (isAllValid) {
+                debugger;
+                var data = new Object();
+                if ($("input[name=optradion]:checked").val() == 2) {
+                    data.CabangId = $("#Cabang").val();
+                    data.CabangLain = $("#cabanglain").val();
+                    data.KodeCabang = $("#kodecabang").val().toUpperCase();
+                    data.Sandi = $("#sandicabang").val();
+                    data.Type_DeptId = 2;
+                } else {
+                    data.CabangId = $("#Divisi").val();
+                    data.CabangLain = $("#divisilain").val();
+                    data.KodeCabang = $("#kodedivisi").val().toUpperCase();
+                    data.Sandi = $("#sandidivisi").val();
+                    data.Type_DeptId = 1;
+                }
+                data.Id = $("#formId").val();
+                data.NomorSurat = $("#NomorSurat").val();
+                data.TanggalSurat = $("#TanggalSurat").val();
+                data.TypeId = $("#Tipe2").val();
+                data.NamaPenerima = $("#Nama").val();
+                data.NomorRekening = $("#NomorRekening").val();
+                data.Nominal = minkoma($("#Nominal").val());
+                data.BankId = $("#BTujuan").val();
+                data.AlasanId = $("#Alasan").val();
+                data.AlasanLain = $("#alasanLain").val();
+                data.Path = path;
+                data.TanggalTRX = $("#TanggalTRX").val();
+                data.TanggalTestKey = $("#TanggalTK").val();
+                data.NomorTestKey = $("#NoTeskey").val();
+                data.NoReferensi = $("#NoReferensi").val();
+                data.CabangId = $("#Cabang").val();
+                data.NominalSeharusnya = minkoma($("#Nominal2").val());
+                console.log(data);
 
-			// skip for arrow keys
-			if (event.which >= 37 && event.which <= 40) return;
+                $.ajax({
+                    url: '@Url.Action("Save","Kliring")',
+                    type: 'Post',
+                    dataType: "json",
+                    data: data,
 
-			// format number
-			$(this).val(function (index, value) {
-				return value
-					.replace(/\D/g, "")
-					.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-					;
-			});
-		}));
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data Berhasil Di Tambah"
+                        }).then(function (response) {
+                            location.href = '@Url.Action("Proses","Kliring")';
+                        });;
 
-		function minkoma(angka) {
-			var bil = angka;
-			var loop = Math.floor(angka.length / 3);
-			for (var i = 0; i < loop; i++) {
-				bil = bil.replace(',', '');
-			}
-			return bil;
-		}
+                    }, error: (err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Data Gagal Di Tambah"
+                        }).then(function () {
+                            location.reload();
+                        });
 
-		function validation() {
-			debugger;
-			var cek = $("#donedId").val();
-			if ($("#TanggalTRX").val() == "" || $("#TanggalTRX").val() == "") {
-				Swal.fire('Data Tidak Ditemukan !!!');
-			}
+                    }
+                });
+            }
 
-			else {
-				Edit($("#formId").val());
+            $(this).val('Please wait...');
 
-			}
-		}
+        }
 
-		function vali() {
-			debugger;
-			if ($("#donedId").val() == "" || $("#donedId").val() == "") {
-				Swal.fire('Data Tidak Ditemukan !!!');
-			}
-			else {
-				SaveDone($("#donedId").val());
-			}
-		}
-	</script>
+        $(document).on("keyup", ".number", (function (event) {
+
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+        }));
+
+        function minkoma(angka) {
+            var bil = angka;
+            var loop = Math.floor(angka.length / 3);
+            for (var i = 0; i < loop; i++) {
+                bil = bil.replace(',', '');
+            }
+            return bil;
+        }
+
+        function validation() {
+            debugger;
+            var cek = $("#donedId").val();
+            if ($("#TanggalTRX").val() == "" || $("#TanggalTRX").val() == "") {
+                Swal.fire('Data Tidak Ditemukan !!!');
+            }
+
+            else {
+                Edit($("#formId").val());
+
+            }
+        }
+
+        function vali() {
+            debugger;
+            if ($("#donedId").val() == "" || $("#donedId").val() == "") {
+                Swal.fire('Data Tidak Ditemukan !!!');
+            }
+            else {
+                SaveDone($("#donedId").val());
+            }
+        }
+    </script>
    }

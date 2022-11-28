@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ririn.Data;
 
@@ -11,9 +12,10 @@ using Ririn.Data;
 namespace ASK_Core.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221107100000_InitialDivisi")]
+    partial class InitialDivisi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,15 +291,10 @@ namespace ASK_Core.Migrations
                     b.Property<string>("Sandi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Type_DeptId")
-                        .HasColumnType("int");
-
                     b.Property<bool?>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Type_DeptId");
 
                     b.ToTable("Cabang");
                 });
@@ -354,6 +351,29 @@ namespace ASK_Core.Migrations
                     b.HasIndex("ModulId");
 
                     b.ToTable("DataToken");
+                });
+
+            modelBuilder.Entity("Ririn.Models.Master.Divisi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("KodeDivisi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nama")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isDelete")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Divisi");
                 });
 
             modelBuilder.Entity("Ririn.Models.Master.his_tgltoken", b =>
@@ -583,23 +603,6 @@ namespace ASK_Core.Migrations
                     b.ToTable("Trans_Surat");
                 });
 
-            modelBuilder.Entity("Ririn.Models.Master.Type_Dept", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Nama")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Type_Dept");
-                });
-
             modelBuilder.Entity("Ririn.Models.Master.TypeTrans", b =>
                 {
                     b.Property<int>("Id")
@@ -678,6 +681,9 @@ namespace ASK_Core.Migrations
                     b.Property<string>("CreaterId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("DivisiId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Durasi")
                         .HasColumnType("int");
 
@@ -748,6 +754,8 @@ namespace ASK_Core.Migrations
                     b.HasIndex("CabangId");
 
                     b.HasIndex("CreaterId");
+
+                    b.HasIndex("DivisiId");
 
                     b.HasIndex("KeteranganId");
 
@@ -925,15 +933,6 @@ namespace ASK_Core.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Ririn.Models.Master.Cabang", b =>
-                {
-                    b.HasOne("Ririn.Models.Master.Type_Dept", "Type_Dept")
-                        .WithMany()
-                        .HasForeignKey("Type_DeptId");
-
-                    b.Navigation("Type_Dept");
-                });
-
             modelBuilder.Entity("Ririn.Models.Master.DataToken", b =>
                 {
                     b.HasOne("Ririn.Models.Master.Kelompok", "Kelompok")
@@ -1035,6 +1034,10 @@ namespace ASK_Core.Migrations
                         .WithMany()
                         .HasForeignKey("CreaterId");
 
+                    b.HasOne("Ririn.Models.Master.Divisi", "Divisi")
+                        .WithMany()
+                        .HasForeignKey("DivisiId");
+
                     b.HasOne("Ririn.Models.Master.Keterangan", "Keterangan")
                         .WithMany()
                         .HasForeignKey("KeteranganId");
@@ -1056,6 +1059,8 @@ namespace ASK_Core.Migrations
                     b.Navigation("Cabang");
 
                     b.Navigation("Creater");
+
+                    b.Navigation("Divisi");
 
                     b.Navigation("Keterangan");
 

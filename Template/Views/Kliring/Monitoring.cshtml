@@ -40,54 +40,63 @@
                             <input id="TanggalSurat" type="date" class="form-control" disabled />
                         </div>
                         <div class="col-md-4 offset-md-1">
+                            <label class="bmd-label-floating">Divisi</label>
+                            <br />
+                            <select required Id="divisi" name="divisi" onchange="AddDivisi();" data-placement="choose" class="form-control select2" style="width:100%" disabled>
+                            </select>
+                           
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:20px">
+                        <div class="col-md-4">
+                            <label class="bmd-label-floating">Nomor Surat / Memo</label>
+                            <input id="NomorSurat" type="text" class="form-control " disabled/>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
                             <label class="bmd-label-floating">Tanggal TestKey</label>
-                            <input id="TanggalTK" type="date" class="form-control" disabled />
+                            <input id="TanggalTK" type="date" class="form-control datepicker" disabled/>
                         </div>
+
                     </div>
                     <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nomor Surat</label>
-                            <input id="NomorSurat" type="text" class="form-control" disabled />
+                        <div class="col-md-4 Nama">
+                            <label class="control-label">Nama Penerima</label>
+                            <input id="Nama" type="text" class="form-control" disabled/>
                         </div>
                         <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Nomor TestKey</label>
-                            <input id="NoTeskey" type="text" class="form-control" disabled />
+                            <label class="control-label">Nomor Teskey</label>
+                            <input id="NoTeskey" type="text" class="form-control" disabled/>
                         </div>
-                    </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nama</label>
-                            <input id="Nama" type="text" class="form-control" disabled />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="bmd-label-floating">Nomor Rekening</label>
-                            <input id="NomorRekening" type="text" class="form-control" disabled />
-                        </div>
+
                     </div>
                     <div class="row" style="margin-left:20px">
                         <div class="col-md-4">
                             <label class="control-label ">Nominal</label>
-                            <input id="Nominal" type="text" class="form-control number" disabled />
+                            <input id="Nominal" type="text" class="form-control number" disabled/>
                         </div>
                         <div class="col-md-4 offset-md-1 ">
                             <label class="control-label ">Nominal Seharusnya</label>
-                            <input Id="Nominal2" type="text" class="form-control number" disabled />
+                            <input id="Nominal2" type="text" class="form-control number" disabled/>
                         </div>
                     </div>
                     <div class="row" style="margin-left:20px">
-                        <div class="col-md-4 ">
+                         <div class="col-md-4 ">
                             <label class="control-label">Bank</label>
                             <select required Id="BankId" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
                         </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="control-label">Keterangan</label>
-                            <select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
+                        <div class="col-md-4 offset-md-1 NomorRekening">
+                            <label class="control-label">Nomor Rekening</label>
+                            <input id="NomorRekening" type="text" class="form-control" disabled/>
                         </div>
                     </div>
                     <div class="row" style="margin-left:20px">
                         <div class="col-md-4 ">
                             <label class="control-label">Alasan</label>
                             <select required Id="Alasan" disabled data-placement="choose" class="form-control select2" data-live-search="true" style="width:100%"></select>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <label class="control-label">Keterangan</label>
+                            <select id="Keterangan" disabled data-placement="choose" class="form-control select2 Cabang" style="width:100%"></select>
                         </div>
                     </div>
                 </div>
@@ -161,6 +170,7 @@
             GetCabang();
             GetAlasan();
             GetKet();
+            GetDivisi();
             //Filter();
             Read();
             $(".select2").select2({
@@ -273,6 +283,18 @@
                 ket.html('');
                 $.each(data, function (i, value) {
                     $("<option></option>").val(value.id).text(value.nama).appendTo(ket);
+                });
+            });
+        }function GetDivisi() {
+            $.ajax({
+                url: "@Url.Action("GetDivisi","Master")",
+                type: "Get",
+                dataType: "json",
+            }).then(({ data }) => {
+                var div = $("#divisi");
+                div.html('');
+                $.each(data, function (i, value) {
+                    $("<option></option>").val(value.id).text(value.nama).appendTo(div);
                 });
             });
         }

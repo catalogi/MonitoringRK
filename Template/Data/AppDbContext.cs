@@ -2,7 +2,6 @@
 using Ririn.Models.Master;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Ririn.Models.Master;
 using Ririn.Models.Transaksi;
 
 
@@ -18,6 +17,7 @@ namespace Ririn.Data
         #region Master 
         public DbSet<Bank> Bank { get; set; }
         public DbSet<Cabang> Cabang { get; set; }
+        public DbSet<Type_Dept> Type_Dept { get; set; }
         public DbSet<Kelompok> Kelompok { get; set; }
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Keterangan> Keterangan { get; set; }

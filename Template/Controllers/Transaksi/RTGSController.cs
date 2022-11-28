@@ -110,7 +110,9 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult GetById(int Id)
         {
             var data = _context.T_RTGS
-                .Include(x => x.Type.Unit)
+                .Include(x => x.Cabang)
+                .Include(x => x.Bank)
+                .Include(x => x.Type)
                 .Where(x => x.Type.UnitId == 2).Single(x => x.Id == Id);
             return Json(new { data = data });
         }
@@ -164,6 +166,7 @@ namespace Ririn.Controllers.Transaksi
         {
             var user = GetCurrentUser();
             var success = false;
+            var CabId = 0;
             //var user = GetCurrentUSer();
             #region upload File Lampiran
             string generateNameFile = "";
@@ -183,11 +186,33 @@ namespace Ririn.Controllers.Transaksi
             #endregion
             if (data.Id == null)
             {
+                
+                if (data.CabangId == null)
+                {
+                    if (data.CabangLain != null)
+                    {
+                        var newCabang = new Cabang
+                        {
+                            Nama = data.CabangLain,
+                            KodeCabang = data.KodeCabang,
+                            Sandi = data.Sandi,
+                            Type_DeptId = data.Type_DeptId,
+                            isDeleted = false,
+                        };
+                        _context.Cabang.Add(newCabang);
+                        _context.SaveChanges();
+                        CabId = newCabang.Id;
+                    }
+                }
+                else
+                {
+                    CabId = data.CabangId ?? 0;
+                }
                 var rtgs = new T_RTGS
                 {
                     TypeId = data.TypeId,
                     BankId = data.BankId,
-                    CabangId = data.CabangId,
+                    CabangId = CabId,
                     //KeteranganId = data.KeteranganId,
                     RelTRN = data.RelTRN,
                     TRN = data.TRN,
@@ -206,10 +231,32 @@ namespace Ririn.Controllers.Transaksi
             }
             else
             {
+                if (data.CabangId == null)
+                {
+                    if (data.CabangLain != null)
+                    {
+                        var newCabang = new Cabang
+                        {
+                            Nama = data.CabangLain,
+                            KodeCabang = data.KodeCabang,
+                            Sandi = data.Sandi,
+                            Type_DeptId = data.Type_DeptId,
+                            isDeleted = false,
+                        };
+                        _context.Cabang.Add(newCabang);
+                        _context.SaveChanges();
+                        CabId = newCabang.Id;
+                    }
+                }
+                else
+                {
+                    CabId = data.CabangId ?? 0;
+                }
+
                 var result = _context.T_RTGS.Where(x => x.Id == data.Id).FirstOrDefault();
                 result.TypeId = data.TypeId;
                 result.BankId = data.BankId;
-                result.CabangId = data.CabangId;
+                result.CabangId = CabId;
                 result.Path = generateNameFile;
                 result.RelTRN = data.RelTRN;
                 result.TRN = data.TRN;

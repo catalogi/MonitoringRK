@@ -130,11 +130,11 @@
             </li>
         </ul>
     }
-    else
+    else if(user.Unit.Nama =="Admin")
     {
-
-        if (m.Hplus1k != 0 && m.Hplus1r != 0)
-        {
+       
+        @*if (m.Hplus1k != 0 && m.Hplus1r != 0)
+        {*@
             <ul style="flex:auto; flex-grow:1;" class="navbar-nav">
                 <li style="flex:1; " class="nav-item">
                     <marquee class="animate-marquee text-light" style="margin: 0 auto;display-block;font-weight: 700;border-radius:30px;"
@@ -146,8 +146,8 @@
                     </marquee>
                 </li>
             </ul>
-        }
-        else if (m.Hplus1r != 0)
+       @* }
+        else if (m.Hplus1r > 0)
         {
       
             <ul style="flex:auto; flex-grow:1;" class="navbar-nav">
@@ -161,7 +161,7 @@
                     </marquee>
                 </li>
             </ul>
-        }else if(m.Hplus1k != 0 ){
+        }else if(m.Hplus1k > 0 ){
             <ul style="flex:auto; flex-grow:1;" class="navbar-nav">
                 <li style="flex:1; " class="nav-item">
                     <marquee class="animate-marquee text-light" style="margin: 0 auto;display-block;font-weight: 700;border-radius:30px;"
@@ -173,7 +173,7 @@
                     </marquee>
                 </li>
             </ul>
-        }
+        }*@
     }
     <ul class="navbar-nav pl-4  ml-auto">
         <li class="nav-item dropdown">

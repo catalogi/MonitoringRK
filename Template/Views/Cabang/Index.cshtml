@@ -30,6 +30,12 @@
                             <input type="text" class="form-control" id="sandi" />
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Kategori</label>
+                        <div class="col-sm-6">
+                            <select id="Type_dept" name="type_dept" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -40,13 +46,44 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="uploadData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Data</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <form id="uploadfile" style="display: flex;" class="ml-4">
+                    <div class="row justify-content-start">
+                        <div class="input-group">
+                            @*<div class="input-group-prepend">
+                                <span id="inputgroupfileaddon01" class="input-group-text">upload</span>
+                            </div>*@
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input form-control-sm" id="upload">
+                                <label id="upload" class="custom-file-label">Choose File</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  justify-content-end ml-5">
+                        <button type="submit" class="btn btn-sm btn-warning">upload</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <section class="content">
     <div class="container">
         <div class="card" style="background-color:white">
             <div class="card-header card-header-info">
-                <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Master Cabang</h3>                
-                <a class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()" data-backdrop="static" data-keyboard="false" ;>Tambah Data <i class="fas fa-plus-circle"></i></a>
+                <h3 class="card-title badge text-light font-weight-bold" style="background-color:#319DA0">Master Cabang</h3>
+                <a class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#myModal" onclick="ClearScreen()">Tambah Data <i class="fas fa-plus-circle"></i></a>
+                <button class="btn btn-success btn-sm float-right mr-2" data-toggle="modal" data-target="#uploadData" ><i class="fas fa-file-excel"></i> Upload Data</button>
             </div>
             <div class="card-body ">
                 <table id="table" class="table table-bordered">
@@ -54,7 +91,9 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Cabang</th>
+                            <th>Kode Cabang</th>
                             <th>Sandi</th>
+                            <th>Kategori</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -67,8 +106,22 @@
 </section>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         read();
+        getType_dept();
+        $(".select2").select2({
+            "theme": "classic"
+        });
+
+        $('input[type=file]#fileExcel').on('change', function (e) {
+            const files = e.targer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                $('label[for=fileExcel]').text(file.name);
+            } else {
+                $('label[for=fileExcel]').text('Choose File');
+            }
+        });
     })
 
     function read() {
@@ -81,20 +134,45 @@
             "columns": [
                 { "data": null },
                 { "data": "nama" },
+                { "data": "kodeCabang" },
                 { "data": "sandi" },
+                //{ "data": "type_Dept.nama" },
                 {
-                    "render": function(data, type, row) {
+                    "render": function (data, type, row) {
+                        if (row.type_DeptId == null) {
+                            return "";
+                        } else {
+                            return row.type_Dept.nama;
+                        }
+                    }
+                },
+                {
+                    "render": function (data, type, row) {
                         return "<button class='btn btn-primary btn-sm text-white' onclick = GetById('" + row.id + "');><i class='fas fa-edit'></i></button> " +
                             "<button class='btn btn-danger btn-sm text-white' onclick = Delete('" + row.id + "');><i class='fa fa-trash'></i></button>";
                     },
                 },
             ]
         })
-        t.on('order.dt search.dt', function() {
-            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+        t.on('order.dt search.dt', function () {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
                 cell.innerHTML = i + 1;
             });
         }).draw();
+    }
+
+    function getType_dept() {
+        $.ajax({
+            url: "@Url.Action("GetType_dept","Master")",
+            type: "GET",
+            dataType: "Json",
+            success: (({ data }) => {
+                $("select[id=Type_dept]").append(`<option value="">-- Pilih Kategori --</option>`)
+                $.each(data, function (i, value) {
+                    $("select[id=Type_dept]").append(`<option value="${value.id}">${value.nama}</option>`)
+                })
+            })
+        })
     }
     function GetById(Id) {
         $.ajax({
@@ -109,18 +187,65 @@
                 $("#nama").val(result.data.nama);
                 $("#kode").val(result.data.kodeCabang);
                 $("#sandi").val(result.data.sandi);
+                $("#Type_dept").val(result.data.type_DeptId);
                 $("#myModal").modal('show');
                 $("#Update").show();
                 $("#Save").hide();
             }
         })
     }
+    $("#uploadfile").on("submit", function (e) {
+        e.preventDefault()
+        const fileData = new FormData()
+        const file = document.getElementById("upload").files[0]
+        if (!file) {
+            return Swal.fire({
+                title: "Validasi Gagal",
+                text: "File Belum Di input",
+                icon: "error"
+            });
+        }
+
+        fileData.append('files', file);
+
+        $.ajax({
+            url: "@Url.Action("UploadData","Cabang")",
+            type: "POST",
+            data: fileData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function () {
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data sukses ditambahkan",
+                    icon: "success"
+                });
+                $('#table').DataTable().ajax.reload();
+                $("#fileExcel").trigger('reset')
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Gagal",
+                    text: "Data gagal ditambahkan, Data yang di upload tidak sesuai!",
+                    icon: "error"
+                });
+            }
+
+        });
+    });
+    $("input#upload").on("change", function (e) {
+        const fn = e.target?.files[0]?.name
+        $("label.custom-file-label").text(fn ?? "choose file")
+    })
 
     function Save() {
+        debugger;
         var data = new Object();
         data.nama = $("#nama").val();
         data.kodeCabang = $("#kode").val();
         data.sandi = $("#sandi").val();
+        data.Type_DeptId = $("#Type_dept").val();
         $.ajax({
             "url": "@Url.Action("Save","Cabang")",
             "type": "POST",
@@ -155,6 +280,7 @@
         data.nama = $("#nama").val();
         data.kodeCabang = $("#kode").val();
         data.sandi = $("#sandi").val();
+        data.Type_DeptId = $("#Type_dept").val();
         $.ajax({
             "url": "@Url.Action("Save","Cabang")",
             "type": "POST",
@@ -231,6 +357,7 @@
         $("#nama").val('');
         $("#kode").val('');
         $("#sandi").val('');
+        $("#Type_dept").val('').trigger('change');
         $("#Update").hide();
         $("#Save").show();
     }

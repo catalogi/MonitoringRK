@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Bank Pengirim</label>
                                         <br />
-                                        <select id="BankTujuan" class="form-control bank select2" style="width:100% data-placement="choose">
+                                        <select id="BankTujuan" class="form-control bank select2" style="width:100%;" data-placement="choose">
                                             <option value="">--Pilih Bank--</option>
                                         </select>
                                     </div>
@@ -74,12 +74,39 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Cabang</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="radDivisi" value="1"> Divisi</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="radCabang" value="2"> Cabang</label>
+                                    <div id="div-cab">
+                                        <label class="bmd-label-floating">Cabang</label>
+                                        <select id="Cabang" name="cabang" onchange="AddCabang();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%"  aria-hidden="true"></select>
+                                        <div id="cabang-div">
+                                            <label class="control-label">Nama Cabang</label>
+                                            <br />
+                                            <input id="cabanglain" class="form-control" type="text" style="text-transform: capitalize" />
+                                            <label class="control-label">Kode Cabang</label>
+                                            <br />
+                                            <input id="kodecabang" class="form-control" type="text" style="text-transform: uppercase" />
+                                            <label class="control-label">Sandi Cabang</label>
+                                            <br />
+                                            <input id="sandicabang" class="form-control" type="text" />
+                                        </div>
+                                    </div>
+                                    <div id="div-div">
+                                        <label class="bmd-label-floating">Divisi</label>
                                         <br />
-                                        <select required id="Cabang" data-placement="choose" class="form-control select2" style="width:100%">
-                                            <option value="">--Pilih Cabang--</option>
-                                        </select>
+                                        <select id="Divisi" name="divisi" onchange="AddDivisi();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%"  aria-hidden="true"></select>
+                                        <div id="divisi-div">
+                                            <label class="control-label">Nama Divisi</label>
+                                            <br />
+                                            <input id="divisilain" class="form-control" type="text" style="text-transform: capitalize" />
+
+                                            <label class="control-label">Kode Divisi</label>
+                                            <br />
+                                            <input id="kodedivisi" class="form-control" type="text" style="text-transform: uppercase" />
+                                            <label class="control-label">Sandi Divisi</label>
+                                            <br />
+                                            <input id="sandidivisi" class="form-control" type="text" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -192,15 +219,25 @@
             //readFilter();
             load();
             GetCabang();
+            GetDivisi();
             GetBank();
             GetKet();
             GetType();
+            $("#divisi-div").hide();
+            $("#cabang-div").hide();
+            $("#div-div").hide();
+            $("#div-cab").hide();
             $("#Keterangan-div").hide();
             //GetById();
+            debugger;
             $(".select2").select2({
+                
                 "theme": "classic"
-            })
+            });
+           
         });
+
+        
 
         function read() {
             var t = $("#table").DataTable({
@@ -249,6 +286,7 @@
         }
 
         function GetById(Id) {
+            
             $.ajax({
                 "url": "@Url.Action("GetById","RTGS")",
                 "type": "GET",
@@ -257,10 +295,18 @@
             }).then((result) => {
                 if (result != null) {
                     console.log(result);
-                    debugger;
+
                     $("#formId").val(result.data.id);
                     $("#Jenisj").val(result.data.typeId).change();
-                    $("#Cabang").val(result.data.cabangId).change();
+                    if (result.data.cabang.type_DeptId == 2) {
+                        $('#radCabang').prop('checked', true);
+                        $('#div-cab').show();
+                        $('#Cabang').val(result.data.cabangId).change();
+                    } else {
+                        $('#radDivisi').prop('checked', true);
+                        $('#div-div').show();
+                        $('#Divisi').val(result.data.cabangId).change();
+                    }
                     $("#BankTujuan").val(result.data.bankId).change();
                     $("#NomorSurat").val(result.data.nomorSurat);
                     $("#RelTRN").val(result.data.relTRN);
@@ -269,13 +315,14 @@
                     $("#Testkey").val(result.data.nomorTestkey).change();
                     $("#Nominal").val(result.data.nominal).change();
                     $("#myModal").modal('show');
+
                     $("#Save").hide();
                 }
             })
         }
 
         $("#Jenis").change(function () {
-            debugger;
+
             var Id = this.value;
             if (Id == "") {
                 read();
@@ -410,14 +457,71 @@
         function GetCabang() {
             $.ajax({
                 url: "@Url.Action("GetCabang","Master")",
-                type: "GET",
-                DataType: "json",
+                type: "Get",
+                dataType: "json",
                 success: function ({ data }) {
+
+                    $("select[name=cabang]").empty();
+                    $("select[name=cabang]").append('<option value="">--Pilih Cabang--</option>')
+                    $("select[name=cabang]").append('<option value="custom" style="font-weight:bold"><strong>TAMBAH CABANG</strong></option>')
                     $.each(data, function (i, value) {
-                        $("select[id=Cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
+                        $("select[name=cabang]").append(`<option value="${value.id}">${value.nama}</option>`)
                     })
                 }
             })
+        }
+
+        function GetDivisi() {
+            $.ajax({
+                url: "@Url.Action("GetDivisi","Master")",
+                type: "Get",
+                dataType: "json",
+                success: function ({ data }) {
+                    debugger;
+                    console.log(data);
+                    $("select[name=divisi]").empty();
+                    $("select[name=divisi]").append('<option value="">--Pilih Divisi--</option>')
+                    $("select[name=divisi]").append('<option value="custom" style="font-weight:bold"><strong>TAMBAH DIVISI</strong></option>')
+                    $.each(data, function (i, value) {
+                        $("select[name=divisi]").append(`<option value="${value.id}">${value.sandi}-${value.kodeCabang}-${value.nama}</option>`)
+                    })
+                }
+            });
+        }
+
+        $("input[name=optradio]").change(() => {
+            debugger;
+            var t =  $("input[name=optradio]:checked").val();
+            console.log(t);
+            if ($("#radCabang").is(":checked")) {
+                $('#div-cab').show();
+                $('#div-div').hide();
+            } else {
+                $('#div-div').show();
+                $('#div-cab').hide();
+
+            }
+        });
+
+        function AddCabang() {
+            var Cabang = $("#Cabang").val();
+            if (Cabang == 'custom') {
+                $("#cabang-div").show();
+            }
+            else {
+                $("#cabang-div").hide();
+            }
+        }
+
+        function AddDivisi() {
+            
+            var Divisi = $("#Divisi").val();
+            if (Divisi == 'custom') {
+                $("#divisi-div").show();
+            }
+            else {
+                $("#divisi-div").hide();
+            }
         }
 
         function minkoma(angka) {
@@ -489,7 +593,7 @@
                 dataURL = canvas.toDataURL();
             } else {
                 dataURL = null
-            }   
+            }
             var isAllValid = true;
             $('#ItemError').text('');
             //var canvas = document.getElementById('Path');
@@ -514,12 +618,24 @@
             else {
                 $('#TanggalProses').removeClass('is-invalid');
             }
-            if ($('#Cabang').val() == '') {
-                $('#Cabang').addClass('is-invalid');
-                isAllValid = false;
-            }
-            else {
-                $('#Cabang').removeClass('is-invalid');
+            if ($("input[name=optradio]:checked").val() == 2) {
+                if ($('#Cabang').val() == '') {
+                    $('#Cabang').siblings('span.error').css('visibility', 'visible');
+                    $('.Cabang').addClass('has-error');
+                    isAllValid = false;
+                }
+                else {
+                    $('#Cabang').siblings('span.error').css('visibility', 'hidden');
+                }
+            } else {
+                if ($('#Divisi').val() == '') {
+                    $('#Divisi').siblings('span.error').css('visibility', 'visible');
+                    $('.Divisi').addClass('has-error');
+                    isAllValid = false;
+                }
+                else {
+                    $('#Divisi').siblings('span.error').css('visibility', 'hidden');
+                }
             }
             if ($('#NomerSurat').val() == '') {
                 $('#NomerSurat').addClass('is-invalid');
@@ -554,11 +670,25 @@
 
             if (isAllValid) {
                 debugger;
+                var d = $("input[name=optradio]:checked").val();
+                console.log(d);
                 var data = new Object();
+                if ($("input[name=optradio]:checked").val() == "2") {
+                    data.CabangId = $("#Cabang").val();
+                    data.CabangLain = $("#cabanglain").val();
+                    data.KodeCabang = $("#kodecabang").val().toUpperCase();
+                    data.Sandi = $("#sandicabang").val();
+                    data.Type_DeptId = 2;
+                } else {
+                    data.CabangId = $("#Divisi").val();
+                    data.CabangLain = $("#divisilain").val();
+                    data.KodeCabang = $("#kodedivisi").val().toUpperCase();
+                    data.Sandi = $("#sandidivisi").val();
+                    data.Type_DeptId = 1;
+                }
                 data.Id = $('#formId').val();
                 data.TypeId = $("#Jenisj").val();
                 data.TanggalProses = $("#TanggalProses").val();
-                data.CabangId = $("#Cabang").val();
                 data.NomorSurat = $("#NomorSurat").val();
                 data.RelTRN = $("#RelTRN").val();
                 data.BankId = $("#BankTujuan").val();

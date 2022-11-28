@@ -22,15 +22,19 @@ namespace Ririn.Controllers.Master
         public JsonResult GetData()
         {
             var result = _context.his_tgltoken
-                .Include(x=>x.datatoken)
+                .Include(x => x.datatoken)
                 .Include(x => x.datatoken.Kelompok)
                 .Include(x => x.datatoken.Modul)
-                .ToList();
+                .ToList().OrderByDescending(x=>x.Id).DistinctBy(x => x.datatokenId);
             return Json(new { data = result });
         }
         public JsonResult GetById(int Id)
         {
-            var data = _context.DataToken.Single(x => x.Id == Id);
+            var data = _context.his_tgltoken
+                .Include(x=>x.datatoken)
+                .Include(x=>x.datatoken.Kelompok)
+                .Include(x=>x.datatoken.Modul)
+                .FirstOrDefault(x => x.datatokenId == Id);
             return Json(new { data = data });
         }
         public JsonResult Save(TokenVM datatoken)
@@ -116,7 +120,7 @@ namespace Ririn.Controllers.Master
                     _context.SaveChanges();
 
                 }
-                
+
             }
 
             success = true;
@@ -134,14 +138,21 @@ namespace Ririn.Controllers.Master
 
         //    }
         //}
-        public JsonResult Delete(int Id)
+
+        public IActionResult gethistoken(int Id, int datatokenId)
+        {
+            var result = _context.his_tgltoken.Include(x => x.datatoken).Where(x => x.datatokenId == datatokenId).ToList();
+
+            return Ok(new { data = result });
+        }
+        public JsonResult Delete(int? Id)
         {
             bool result = false;
-            var data = _context.DataToken.Single(x => x.Id == Id);
+            var data = _context.his_tgltoken.Single(x => x.Id == Id);
             if (data != null)
             {
-                data.IsDeleted = true;
-                _context.DataToken.Remove(data);
+               
+                _context.his_tgltoken.Remove(data);
                 _context.SaveChanges();
 
             }
@@ -150,6 +161,7 @@ namespace Ririn.Controllers.Master
         public IActionResult Filter(DateTime Awal, DateTime Akhir)
         {
             var filter = _context.his_tgltoken
+                .Include(x => x.datatoken)
                 .Include(x => x.datatoken.Kelompok)
                 .Include(x => x.datatoken.Modul)
 
@@ -158,18 +170,25 @@ namespace Ririn.Controllers.Master
                 .ToList();
             return Ok(new { data = filter });
         }
-        public IActionResult PerpanjangToken(DateTime date, int idToken, string Keterangant)
+        public IActionResult PerpanjangToken(DateTime date, int idToken, string Keterangant, int datatokenId)
         {
             var success = false;
             if (date != null && idToken != null)
             {
-                var expired = _context.his_tgltoken.Where(x => x.datatokenId == idToken).FirstOrDefault();
-                expired.DateToken = date;
-                expired.Keterangant = Keterangant;
-                _context.Entry(expired).State = EntityState.Modified;
+                var dataTokenId = _context.his_tgltoken.Where(x => x.datatokenId == datatokenId).FirstOrDefault();
+                var expired = new his_tgltoken
+                {
+                    DateToken = date,
+                    Keterangant = Keterangant,
+                    datatokenId = datatokenId,
+                    CreateDate = DateTime.Now,
+
+                };
+                _context.his_tgltoken.Add(expired);
+                _context.SaveChanges();
                 success = true;
             }
-            _context.SaveChanges();
+
             return Ok(success);
         }
         //public IActionResult PerpanjangToken(TokenVM data)

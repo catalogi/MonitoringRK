@@ -25,6 +25,8 @@ using System.Drawing;
 using Color = System.Drawing.Color;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using DocumentFormat.OpenXml.Wordprocessing;
+using NuGet.Protocol.Plugins;
 //using Ririn.ViewModels;
 
 namespace Ririn.Controllers.Transaksi
@@ -123,8 +125,8 @@ namespace Ririn.Controllers.Transaksi
         public JsonResult getHisSurat(int Id)
         {
             var result = _context.Trans_Surat.Include(x => x.surat)
-                .Include(x => x.surat.JenisSurat).
-                Where(x => x.surat.JenisSuratId == Id).ToList();
+                .Include(x => x.surat.JenisSurat)
+                .Where(x => x.surat.JenisSuratId == Id).ToList();
 
             return Json(new { data = result });
         }
@@ -304,6 +306,8 @@ namespace Ririn.Controllers.Transaksi
         [HttpPost]
         public JsonResult Save(KliringVM data)
         {
+            //try
+            //{
             var success = false;
             var user = GetCurrentUser();
             string generateNameFile = "";
@@ -327,11 +331,32 @@ namespace Ririn.Controllers.Transaksi
 
             if (data.Id == null)
             {
+                var CabId = 0;
                 var alasanLain = 0;
 
+                if (data.CabangId == null)
+                {
+                    if (data.CabangLain != null)
+                    {
+                        var newCabang = new Cabang
+                        {
+                            Nama = data.CabangLain,
+                            KodeCabang = data.KodeCabang,
+                            Sandi = data.Sandi,
+                            Type_DeptId = data.Type_DeptId,
+                            isDeleted = false,
+                        };
+                        _context.Cabang.Add(newCabang);
+                        _context.SaveChanges();
+                        CabId = newCabang.Id;
+                    }
+                }
+                else
+                {
+                    CabId = data.CabangId ?? 0;
+                }
+
                 if (data.AlasanId == null)
-
-
                 {
                     if (data.AlasanLain != null)
                     {
@@ -364,7 +389,7 @@ namespace Ririn.Controllers.Transaksi
                     NominalSeharusnya = data.NominalSeharusnya,
                     Path = generateNameFile,
                     BankId = data.BankId,
-                    CabangId = data.CabangId,
+                    CabangId = CabId,
                     AlasanId = alasanLain,
                     TypeId = data.TypeId,
                     StatusId = 1,
@@ -396,7 +421,26 @@ namespace Ririn.Controllers.Transaksi
                 result.NominalSeharusnya = data.NominalSeharusnya;
                 result.Path = generateNameFile;
                 result.BankId = data.BankId;
-                result.CabangId = data.CabangId;
+                //result.CabangId = CabId;
+                //result.DivisiId = divId;
+                if (data.CabangId == null)
+                {
+                    if (data.CabangLain != null)
+                    {
+                        var newCabang = new Cabang
+                        {
+                            Nama = data.CabangLain,
+                            KodeCabang = data.KodeCabang,
+                        };
+                        _context.Cabang.Add(newCabang);
+                        _context.SaveChanges();
+                        result.CabangId = newCabang.Id;
+                    }
+                }
+                else
+                {
+                    result.CabangId = data.CabangId;
+                }
                 if (data.AlasanId == null)
                 {
                     if (data.AlasanLain != null)
@@ -420,14 +464,10 @@ namespace Ririn.Controllers.Transaksi
 
                 _context.Entry(result).State = EntityState.Modified;
                 _context.SaveChanges();
-                success = true;
             }
+            success = true;
             return Json(success);
-            //}
-            //catch (NullReferenceException e)
-            //{
-            //   return BadRequest(e.Message);
-            //}
+
         }
         #endregion
 
@@ -516,32 +556,35 @@ namespace Ririn.Controllers.Transaksi
         #region Surat keluar
         public IActionResult TemplateSuratKeluar(int? Id)
         {
-            var data = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Bank)
-                .Include(x => x.Alasan)
-                .Include(x => x.Cabang)
-                .Include(x => x.Keterangan)
-                .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var data = _context.Trans_Surat
+                .Include(x => x.kliring.Type)
+                .Include(x => x.kliring.Bank)
+                .Include(x => x.kliring.Alasan)
+                .Include(x => x.kliring.Cabang)
+                .Include(x => x.kliring.Keterangan)
+                .Include(x => x.kliring.Status)
+                .Include(x => x.surat)
+                .Include(x => x.surat.JenisSurat)
+                .Where(x => x.Id == Id && x.kliring.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
-            var NOSURAT = data.NomorSurat;
+            var NOSURAT = data.kliring.NomorSurat;
             var KETERANGAN = "";
-            if (data.KeteranganId == null)
+            if (data.kliring.KeteranganId == null)
             {
                 KETERANGAN = "-";
             }
             else
             {
-                KETERANGAN = data.Keterangan.Nama;
+                KETERANGAN = data.kliring.Keterangan.Nama;
             }
-            var TANGGALTRX = data.TanggalTRX;
-            var NOMORREFERENSI = data.NoReferensi;
-            var NOMINAL = Convert.ToInt64(data.Nominal);
-            var NOREK = data.NomorRekening;
-            var PENGIRIM = data.Bank.Nama;
-            var PENERIMA = data.NamaPenerima;
-            var ALASAN = data.Alasan.Nama;
-            //var KEPADA = data.Surat.TujuanSurat;
+            var TANGGALTRX = data.kliring.TanggalTRX;
+            var NOMORREFERENSI = data.kliring.NoReferensi;
+            var NOMINAL = Convert.ToInt64(data.kliring.Nominal);
+            var NOREK = data.kliring.NomorRekening;
+            var PENGIRIM = data.kliring.Bank.Nama;
+            var PENERIMA = data.kliring.NamaPenerima;
+            var ALASAN = data.kliring.Alasan.Nama;
+            var KEPADA = data.surat.TujuanSurat;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
@@ -559,7 +602,7 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
-            //docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
+            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
             MemoryStream stream = new MemoryStream();
@@ -580,32 +623,35 @@ namespace Ririn.Controllers.Transaksi
         #region Surat Masuk
         public IActionResult TemplateSuratMasuk(int? Id)
         {
-            var data = _context.T_Kliring
-                .Include(x => x.Type)
-                .Include(x => x.Bank)
-                .Include(x => x.Alasan)
-                .Include(x => x.Cabang)
-                .Include(x => x.Keterangan)
-                .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+            var data = _context.Trans_Surat
+                .Include(x => x.surat)
+                .Include(x => x.kliring)
+                .Include(x => x.kliring.Type)
+                .Include(x => x.kliring.Bank)
+                .Include(x => x.kliring.Alasan)
+                .Include(x => x.kliring.Cabang)
+                .Include(x => x.kliring.Keterangan)
+                .Where(x => x.Id == Id && x.kliring.StatusId == 2).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
-            var NOSURAT = data.NomorSurat;
+            var NOSURAT = data.surat.NomorSurat;
             var KETERANGAN = "";
-            if (data.KeteranganId == null)
+            if (data.kliring.KeteranganId == null)
             {
                 KETERANGAN = "-";
             }
             else
             {
-                KETERANGAN = data.Keterangan.Nama;
+                KETERANGAN = data.kliring.Keterangan.Nama;
             }
-            var TESTKEY = data.NomorTestkey;
-            var TANGGALTRX = data.TanggalTRX;
-            var NOMORREFERENSI = data.NoReferensi;
-            var NOMINAL = Convert.ToInt64(data.Nominal);
-            var NOREK = data.NomorRekening;
-            var PENGIRIM = data.Bank.Nama;
-            var PENERIMA = data.NamaPenerima;
-            var ALASAN = data.Alasan.Nama;
+            var TESTKEY = data.kliring.NomorTestkey;
+            var TANGGALTRX = data.kliring.TanggalTRX;
+            var NOMORREFERENSI = data.kliring.NoReferensi;
+            var NOMINAL = Convert.ToInt64(data.kliring.Nominal);
+            var NOREK = data.kliring.NomorRekening;
+            var PENGIRIM = data.kliring.Bank.Nama;
+            var PENERIMA = data.kliring.NamaPenerima;
+            var ALASAN = data.kliring.Alasan.Nama;
+
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
@@ -646,28 +692,31 @@ namespace Ririn.Controllers.Transaksi
         #region Memo
         public IActionResult MemoMasuk(int? Id)
         {
-            var data = _context.T_Kliring
-                        .Include(x => x.Bank)
-                        .Include(x => x.Cabang)
-                        .Include(x => x.Type)
-                        .Include(x => x.Keterangan)
-                        .Include(x => x.Type)
-                        .Include(x => x.Alasan)
+            var data = _context.Trans_Surat
+                        .Include(x => x.surat)
+                        .Include(x => x.kliring)
+                        .Include(x => x.kliring.Bank)
+                        .Include(x => x.kliring.Cabang)
+                        .Include(x => x.kliring.Type)
+                        .Include(x => x.kliring.Keterangan)
+                        .Include(x => x.kliring.Type)
+                        .Include(x => x.kliring.Alasan)
 
-                        .Where(x => x.Id == Id && x.StatusId == 2).FirstOrDefault();
+                        .Where(x => x.Id == Id && x.kliring.StatusId == 2).FirstOrDefault();
             var TanggalSEKARANG = DateTime.Now;
-            var NOSURAT = data.NomorSurat;
-            var TANGGALTRX = data.TanggalTRX;
-            var NOMORREFERENSI = data.NoReferensi;
-            var PENERIMA = data.NamaPenerima;
-            var PENGIRIM = data.Bank.Nama;
-            var NOREK = data.NomorRekening;
-            var NOMINAL = data.Nominal;
-            var ALASAN = data.Alasan.Nama;
-            //var KEPADA = data.Surat.TujuanSurat;
-            //var DARI = data.Surat.AsalSurat;
-            //var HAL = data.Surat.Perihal;
-            //var LAMPIRAN = data.Surat.Lampiran;
+            var NOSURAT = data.kliring.NomorSurat;
+            var TANGGALTRX = data.kliring.TanggalTRX;
+            var NOMORREFERENSI = data.kliring.NoReferensi;
+            var PENERIMA = data.kliring.NamaPenerima;
+            var PENGIRIM = data.kliring.Bank.Nama;
+            var NOREK = data.kliring.NomorRekening;
+            var NOMINAL = data.kliring.Nominal;
+            var ALASAN = data.kliring.Alasan.Nama;
+            var KEPADA = data.surat.TujuanSurat;
+            var DARI = data.surat.AsalSurat;
+            var HAL = data.surat.Perihal;
+            var LAMPIRAN = data.surat.Lampiran;
+            var NSurat = data.surat.NomorSurat;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
@@ -678,6 +727,7 @@ namespace Ririn.Controllers.Transaksi
 
             docs.Replace("%TanggalSEKARANG%", TanggalSEKARANG.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
             docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            docs.Replace("%NSURAT%", NSurat.ToString(), false, true);
             docs.Replace("%TANGGALTRX%", TanggalSEKARANG.ToString("dd MM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
             docs.Replace("%NOMORREFERENSI%", NOMORREFERENSI.ToString(), false, true);
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
@@ -685,10 +735,10 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%NOREK%", NOREK.ToString(), false, true);
             docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
-            //docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
-            //docs.Replace("%DARI%", DARI.ToString(), false, true);
-            //docs.Replace("%PERIHAL%", HAL.ToString(), false, true);
-            //docs.Replace("%LAMPIRAN%", LAMPIRAN.ToString(), false, true);
+            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
+            docs.Replace("%DARI%", DARI.ToString(), false, true);
+            docs.Replace("%PERIHAL%", HAL.ToString(), false, true);
+            docs.Replace("%LAMPIRAN%", LAMPIRAN.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
             //PdfDocument pdfDoc = render.ConvertToPDF(docs);

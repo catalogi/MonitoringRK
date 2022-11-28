@@ -113,11 +113,11 @@ namespace Ririn.Controllers
                 {
                     if (harihk >= 5)
                     {
-                        result.HariHk += 1;
+                        result.Hplus1k += 1;
                     }
                     else
                     {
-                        result.HariHk = 0;
+                        result.Hplus1k = 0;
 
                     }
                     result.MessageHariHk = "Transaksi Perlu Segera Diproses!";
@@ -127,11 +127,11 @@ namespace Ririn.Controllers
                 {
                     if (harihr >= 5)
                     {
-                        result.HariHr += 1;
+                        result.Hplus1r += 1;
                     }
                     else
                     {
-                        result.HariHr = 0;
+                        result.Hplus1r = 0;
 
                     }
                     result.MessageHariHr = "Transaksi Perlu Segera Diproses!";
