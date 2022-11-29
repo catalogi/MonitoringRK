@@ -29,6 +29,8 @@ namespace Ririn.ViewModels
         public string? CreaterId { get; set; }
         public string? AcceptorId { get; set; }
         public string NomorTestKey { get; set; }
+        public string SOR{ get; set; }
+        public string? SORLain{ get; set; }
         public string? AlasanLain { get; set; }
         public string? CabangLain { get; set; }
         public string? KodeCabang { get; set; }

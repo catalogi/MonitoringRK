@@ -243,7 +243,7 @@ namespace Ririn.Controllers.Transaksi
                         Lampiran = data.Lampiran,
                         Perihal = data.Perihal,
                         NomorSurat = data.NomorSurat,
-                        Sor = data.Sor,
+                        //Sor = data.Sor,
                     };
                     _context.Surat.Add(surat);
                     _context.SaveChanges();
@@ -257,7 +257,7 @@ namespace Ririn.Controllers.Transaksi
                     {
                         JenisSuratId = data.JenisId,
                         TujuanSurat = data.TujuanSurat,
-                        Sor = data.Sor,
+                        //Sor = data.Sor,
 
                     };
                     _context.Surat.Add(surat);
@@ -387,6 +387,8 @@ namespace Ririn.Controllers.Transaksi
                     TanggalTestkey = data.TanggalTestKey,
                     NomorTestkey = data.NomorTestKey,
                     NominalSeharusnya = data.NominalSeharusnya,
+                    SOR = data.SOR,
+                    SORLain = data.SORLain,
                     Path = generateNameFile,
                     BankId = data.BankId,
                     CabangId = CabId,
@@ -412,6 +414,8 @@ namespace Ririn.Controllers.Transaksi
                 result.NomorSurat = data.NomorSurat;
                 result.TanggalSurat = data.TanggalSurat;
                 result.NoReferensi = data.NoReferensi;
+                result.SOR = data.SOR;
+                result.SORLain = data.SORLain;
                 result.NamaPenerima = data.NamaPenerima;
                 result.NomorRekening = data.NomorRekening;
                 result.Nominal = data.Nominal;
@@ -565,7 +569,7 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.kliring.Status)
                 .Include(x => x.surat)
                 .Include(x => x.surat.JenisSurat)
-                .Where(x => x.Id == Id && x.kliring.StatusId == 2).FirstOrDefault();
+                .Where(x => x.Id == Id ).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.kliring.NomorSurat;
             var KETERANGAN = "";
@@ -585,6 +589,8 @@ namespace Ririn.Controllers.Transaksi
             var PENERIMA = data.kliring.NamaPenerima;
             var ALASAN = data.kliring.Alasan.Nama;
             var KEPADA = data.surat.TujuanSurat;
+            var SOR = data.kliring.SOR;
+            var SORLain = data.kliring.SORLain;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string path = Path.Combine(webRootPath, "Template");
@@ -600,8 +606,16 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%NOMINAL%", NOMINAL.ToString(), false, true);
             docs.Replace("%NOREK%", NOREK.ToString(), false, true);
             docs.Replace("%PENGIRIM%", PENGIRIM.ToString(), false, true);
-            docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
-            docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+            docs.Replace("%PENERIMA%", PENERIMA.ToString().ToUpper(), false, true);
+            docs.Replace("%SOR%", SOR.ToString(), false, true);
+            if (data.kliring.AlasanId == 1)
+            {
+                docs.Replace("%ALASAN%", ALASAN.ToString().ToUpper()+" DGN SOR " +SOR.ToString(),false, true);
+            }
+            else
+            {
+                docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
+            }
             docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
 
             DocIORenderer render = new DocIORenderer();
@@ -631,9 +645,11 @@ namespace Ririn.Controllers.Transaksi
                 .Include(x => x.kliring.Alasan)
                 .Include(x => x.kliring.Cabang)
                 .Include(x => x.kliring.Keterangan)
-                .Where(x => x.Id == Id && x.kliring.StatusId == 2).FirstOrDefault();
+                .Where(x => x.Id == Id).FirstOrDefault();
             var TANGGALSEKARANG = DateTime.Now;
             var NOSURAT = data.surat.NomorSurat;
+            var NOSUR = data.kliring.NomorSurat;
+            var TGLSUR = data.kliring.TanggalSurat;
             var KETERANGAN = "";
             if (data.kliring.KeteranganId == null)
             {
@@ -651,6 +667,7 @@ namespace Ririn.Controllers.Transaksi
             var PENGIRIM = data.kliring.Bank.Nama;
             var PENERIMA = data.kliring.NamaPenerima;
             var ALASAN = data.kliring.Alasan.Nama;
+            var KEPADA = data.surat.TujuanSurat;
 
 
             string webRootPath = _webHostEnvironment.WebRootPath;
@@ -661,6 +678,8 @@ namespace Ririn.Controllers.Transaksi
             WordDocument docs = new WordDocument(fileStreamPath, FormatType.Docx);
             docs.Replace("%TANGGALSEKARANG%", TANGGALSEKARANG.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
             docs.Replace("%NOSURAT%", NOSURAT.ToString(), false, true);
+            docs.Replace("%NOSUR%", NOSUR.ToString(), false, true);
+            docs.Replace("%TGLSUR%", TGLSUR.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
             docs.Replace("%KETERANGAN%", KETERANGAN.ToString(), false, true);
             docs.Replace("%TANGGALTRX%", TANGGALTRX.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID")), false, true);
             docs.Replace("%HARI%", TANGGALTRX.ToString("ddd", new System.Globalization.CultureInfo("id-ID")), false, true);
@@ -671,6 +690,7 @@ namespace Ririn.Controllers.Transaksi
             docs.Replace("%PENERIMA%", PENERIMA.ToString(), false, true);
             docs.Replace("%ALASAN%", ALASAN.ToString(), false, true);
             docs.Replace("%TESTKEY%", TESTKEY.ToString(), false, true);
+            docs.Replace("%KEPADA%", KEPADA.ToString(), false, true);
 
 
             DocIORenderer render = new DocIORenderer();
@@ -702,7 +722,7 @@ namespace Ririn.Controllers.Transaksi
                         .Include(x => x.kliring.Type)
                         .Include(x => x.kliring.Alasan)
 
-                        .Where(x => x.Id == Id && x.kliring.StatusId == 2).FirstOrDefault();
+                        .Where(x => x.Id == Id).FirstOrDefault();
             var TanggalSEKARANG = DateTime.Now;
             var NOSURAT = data.kliring.NomorSurat;
             var TANGGALTRX = data.kliring.TanggalTRX;

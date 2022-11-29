@@ -14,6 +14,7 @@ namespace Ririn.ViewModels
         public decimal Nominal { get; set; }
         public DateTime? TanggalDone { get; set; }
         public string? FollowUp { get; set; }
+        public string? Bor { get; set; }
         public int TypeId { get; set; }
         public int? KeteranganId { get; set; }
         public string? AlasanLain { get; set; }

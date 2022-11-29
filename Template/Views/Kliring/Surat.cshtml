@@ -46,12 +46,12 @@
                             <input type="text" class="form-control" name="nosurat" id="nosurat">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    @*<div class="col-sm-6">
                         <div class="form-group">
                             <label for="nomorRefrensi">SOR</label>
                             <input type="text" class="form-control" name="sor1" id="sor1">
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -69,19 +69,19 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col">
                         <input id="suratId" type="hidden" />
                         <div class="form-group">
                             <label for="rekeningDebet">Kepada</label>
                             <input type="text" class="form-control" name="kepadas" id="kepadas">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                   @* <div class="col-sm-6">
                         <div class="form-group">
                             <label for="rekeningDebet">SOR</label>
                             <input type="text" class="form-control" name="sor2" id="sor2">
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -125,7 +125,7 @@
             </div>
             <div class="card-body" id="tab1">
 
-                <table id="table" class="table display nowrap table-hover table-responsive table-bordered" style="width:100%">
+                <table id="table" class="table display nowrap table-hover  table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -134,7 +134,7 @@
                             <th>Asal Surat</th>
                             <th>Perihal</th>
                             <th>Lampiran</th>
-                            <th>SOR</th>
+                            @*<th>SOR</th>*@
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -148,7 +148,7 @@
                                 <th>No</th>
                                 <th>Jenis Surat</th>
                                 <th>Kepada</th>
-                                <th>SOR</th>
+                                @*<th>SOR</th>*@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -269,9 +269,9 @@
                         {
                             "data": "surat.lampiran"
                         },
-                        {
-                            "data": "surat.sor"
-                        },
+                        //{
+                        //    "data": "surat.sor"
+                        //},
                         {
                             render: (data, type, row, meta) => {
                                 if (Id == 1) {
@@ -303,9 +303,9 @@
                         {
                             "data": "surat.tujuanSurat"
                         },                      
-                        {
-                            "data": "surat.sor"
-                        },
+                        //{
+                        //    "data": "surat.sor"
+                        //},
                         {
                             render: (data, type, row, meta) => {
                                 return "<a href='@Url.Action("TemplateSuratKeluar","Kliring")/" + row.id + "' class='btn btn-success btn-sm text-white' style='display:inline;' title='Download Surat' ><i class='fas fa-file-download'></i></a> ";
@@ -373,7 +373,7 @@
                 data.Perihal = $("#hal").val();
                 data.Lampiran = $("#lampiran").val();
                 data.NomorSurat = $("#nosurat").val();
-                data.Sor = $("#sor1").val();
+                //data.Sor = $("#sor1").val();
 
 
                 $.ajax({
@@ -387,7 +387,7 @@
                             title: 'Doned',
                             text: 'Berhasil Diselesaikan!'
                         }).then(() => {
-                            location.href = "@Url.Action("surat","Kliring")";
+                            window.location.reload();
                         });
                     },
                     error: (err) => {
@@ -395,9 +395,10 @@
                             icon: 'error',
                             title: 'Gagal',
                             text: 'Tidak Berhasil Diselesaikan!'
-                        }).then(() => {
-                            location.reload();
                         });
+                        //.then(() => {
+                        //    location.reload();
+                        //});
                     }
                 })
 
@@ -428,7 +429,7 @@
                 data.sId = getid;
                 data.JenisId = $("#jenis").val();
                 data.TujuanSurat = $("#kepadas").val();
-                data.Sor = $("#sor2").val();
+                //data.Sor = $("#sor2").val();
 
 
                 $.ajax({
@@ -442,7 +443,7 @@
                             title: 'Doned',
                             text: 'Berhasil Diselesaikan!'
                         }).then(() => {
-                            location.href = "@Url.Action("Monitoring","Kliring")";
+                            window.location.reload();
                         });
                     },
                     error: (err) => {
@@ -450,9 +451,10 @@
                             icon: 'error',
                             title: 'Gagal',
                             text: 'Tidak Berhasil Diselesaikan!'
-                        }).then(() => {
-                            location.reload();
                         });
+                        //.then(() => {
+                        //    location.reload();
+                        //});
                     }
                 })
 

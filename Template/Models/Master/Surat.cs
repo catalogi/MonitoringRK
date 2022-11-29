@@ -12,7 +12,7 @@ namespace Ririn.Models.Master
         public string? Perihal { get; set; }
 
         public string? Lampiran { get; set; }
-        public string? Sor { get; set; }
+        //public string? Sor { get; set; }
         public string? NomorSurat { get; set; }
         public JenisSurat JenisSurat { get; set; }
         public int? JenisSuratId { get; set; }

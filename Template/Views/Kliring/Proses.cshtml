@@ -56,7 +56,8 @@
                             <br />
                             <label class="control-label">Nomor Referensi</label>
                             <input id="NoReferensi" type="text" class="form-control" />
-
+                            <label class="control-label padtopx">SOR</label>
+                            <input id="sor" type="number" class="form-control" />
                             <label class="bmd-label-floating">Tanggal Surat</label>
                             <input id="TanggalSurat" type="date" class="form-control " />
                             <label class="bmd-label-floating">Nomor Surat / Memo</label>
@@ -129,6 +130,10 @@
                             <input id="NomorRekening" type="text" class="form-control" />
                             <label class="control-label ">Nominal Seharusnya</label>
                             <input id="Nominal2" type="text" class="form-control number" />
+                            <div id="div-sor">
+                                <label class="control-label ">SOR Lain</label>
+                                <input id="sorlain" type="number" class="form-control " />
+                            </div>
                             <div class="col-md-4 mt-5">
                                 <label class="control-label">Lampiran Bukti</label>
                                 <br />
@@ -224,6 +229,7 @@
             $("#cabang-div").hide();
             $("#div-div").hide();
             $("#div-cab").hide();
+            $("#div-sor").hide();
             $("#Keterangan-div").hide();
             $(".select2").select2({
                 "theme": "classic"
@@ -624,6 +630,7 @@
                     $("#Tipe2").val(result.data.typeId).change();
                     $("#TanggalTRX").val(moment(result.data.tanggalTRX).format('YYYY-MM-DD')).change();
                     $("#NoReferensi").val(result.data.noReferensi);
+                    $("#sor").val(result.data.sor);
                     if (result.data.cabang.type_DeptId == 2) {
                         $('#radCabang').prop('checked', true);
                          $('#div-cab').show();
@@ -632,6 +639,10 @@
                         $('#radDivisi').prop('checked', true);
                          $('#div-div').show();
                         $("#Divisi").val(result.data.cabangId).change();
+                    }
+                    if(result.data.alasanId ==1){
+                        $("#div-sor").show();
+                        $("#sorlain").val(result.data.sorLain);
                     }
                     //$("#divisi").val(result.data.divisiId).change();
                     $("#TanggalSurat").val(moment(result.data.tanggalSurat).format('YYYY-MM-DD'));

@@ -23,16 +23,18 @@
                                 <option value="">--- Pilih Tipe Surat ---</option>
                             </select>
                             <br />
-                            <label class="control-label">Nomor Referensi</label>
+                            <label class="control-label " style="padding-top:45px">Nomor Referensi</label>
                             <input id="NoReferensi" type="text" class="form-control" />
+                            <label class="control-label padtopx">SOR</label>
+                            <input id="sor" type="number" class="form-control" />
 
-                            <label class="bmd-label-floating">Tanggal Surat</label>
+                            <label class="bmd-label-floating padtopx">Tanggal Surat</label>
                             <input id="TanggalSurat" type="date" class="form-control " />
-                            <label class="bmd-label-floating">Nomor Surat / Memo</label>
+                            <label class="bmd-label-floating padtopx">Nomor Surat / Memo</label>
                             <input id="NomorSurat" type="text" class="form-control " />
-                            <label class="control-label">Nama Penerima</label>
+                            <label class="control-label padtopx">Nama Penerima</label>
                             <input id="Nama" type="text" class="form-control" />
-                            <label class="control-label ">Nominal</label>
+                            <label class="control-label padtopx">Nominal</label>
                             <input id="Nominal" type="text" class="form-control number" />
 
                             <label class="control-label">Bank</label>
@@ -44,7 +46,7 @@
                             <br />
                             <select required id="Alasan" name="Alasan" onchange="AddAlasan();" data-placement="choose" class="form-control select2 select2-hidden-accessible" style="width:100%" tabindex="-1" aria-hidden="true"></select>
                             <div id="Alasan-div">
-                                <label class="control-label">Alasan Lain</label>
+                                <label class="control-label">Tambah Alasan</label>
                                 <br />
                                 <input id="alasanLain" class="form-control" type="text" />
                             </div>
@@ -91,12 +93,16 @@
                             </div>
                             <label class="bmd-label-floating">Tanggal TestKey</label>
                             <input id="TanggalTK" type="date" class="form-control " />
-                            <label class="control-label">Nomor Teskey</label>
+                            <label class="control-label padtopx">Nomor Teskey</label>
                             <input id="NoTeskey" type="text" class="form-control" />
-                            <label class="control-label">Nomor Rekening</label>
+                            <label class="control-label padtopx">Nomor Rekening</label>
                             <input id="NomorRekening" type="text" class="form-control" />
-                            <label class="control-label ">Nominal Seharusnya</label>
+                            <label class="control-label padtopx">Nominal Seharusnya</label>
                             <input id="Nominal2" type="text" class="form-control number" />
+                            <div id="div-sor">
+                                <label class="control-label ">SOR Lain</label>
+                                <input id="sorlain" type="number" class="form-control " />
+                            </div>
                             <div class="col-md-4 mt-5">
                                 <label class="control-label">Lampiran Bukti</label>
                                 <br />
@@ -135,6 +141,7 @@
             $("#divisi-div").hide();
             $("#div-div").hide();
             $("#div-cab").hide();
+            $("#div-sor").hide();
             $(".select2").select2({
                 "theme": "classic"
             });
@@ -231,6 +238,15 @@
 
             }
         });
+
+        $("#Alasan").change(()=>{
+            console.log($("#Alasan").val());
+            if($("#Alasan").val() == 1 || $("#Alasan").val() == 'double transfer'){
+                $("#div-sor").show();
+            }else{
+                $("#div-sor").hide();
+            }
+        })
 
         function GetAlasan() {
             $.ajax({
@@ -372,7 +388,13 @@
             else {
                 $('#Nominal').siblings('span.error').css('visibility', 'hidden');
             }
-
+            if ($('#sor').val() == '') {
+                $('#sor').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#sor').siblings('span.error').css('visibility', 'hidden');
+            }
             if ($('#BPengirim').val() == '') {
                 $('#BPengirim').addClass('is-invalid');
                 isAllValid = false;
@@ -464,6 +486,8 @@
                 //});
 
                 data.NomorSurat = $("#NomorSurat").val();
+                data.SORLain = $("#sorlain").val();
+                data.SOR = $("#sor").val();
                 data.TanggalSurat = $("#TanggalSurat").val();
                 data.TypeId = $("#tipe").val();
                 data.NamaPenerima = $("#Nama").val();

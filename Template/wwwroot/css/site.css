@@ -828,6 +828,12 @@ a.hellyr:hover i.move {
     width: auto;
 }
 
+ .padtop{
+     padding-top:4px;
+ } 
+ .padtopx{
+     padding-top:9px;
+ }
 /*.select2-results__option {
     font-weight: bolder;
 }

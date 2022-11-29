@@ -215,6 +215,7 @@ namespace Ririn.Controllers.Transaksi
                     CabangId = CabId,
                     //KeteranganId = data.KeteranganId,
                     RelTRN = data.RelTRN,
+                    Bor = data.Bor,
                     TRN = data.TRN,
                     Nominal = data.Nominal,
                     NomorSurat = data.NomorSurat,
@@ -259,6 +260,7 @@ namespace Ririn.Controllers.Transaksi
                 result.CabangId = CabId;
                 result.Path = generateNameFile;
                 result.RelTRN = data.RelTRN;
+                result.Bor = data.Bor;
                 result.TRN = data.TRN;
                 result.Nominal = data.Nominal;
                 result.NomorSurat = data.NomorSurat;

@@ -12,24 +12,15 @@
                 <p class="card-text font-weight-bolder" style="color:#ffe0cc;"><b>TestKey Masuk/Keluar</b></p>
             </div>
             <div class="card-body">
-                <form id="sialex">
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
                             <label class="bmd-label-floating">Jenis RTGS</label>
                             <br />
                             <select required id="Jenis" name="Jenis" data-placement="choose" class="form-control select2 Tipe">
                                 <option value="">--pilih Tipe--</option>
                             </select>
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="control-label" id="lbank">Bank Pengirim</label>
-                            <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
-                                <option value="">--Pilih Bank--</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-2" style="margin-left:20px">
-                        <div class="col-md-4  Cabang">
+                            <br />
                             <label class="radio-inline"><input type="radio" name="optradio" id="radDivisi" value="1"> Divisi</label>
                             <label class="radio-inline"><input type="radio" name="optradio" id="radCabang" value="2"> Cabang</label>
                             <div id="div-cab">
@@ -64,47 +55,38 @@
                                     <input id="sandidivisi" class="form-control" type="text" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 offset-md-1">
+                            <br />
                             <label class="bmd-label-floating">Nomor Surat / Ni / Memo</label>
                             <input id="NomorSurat" type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row mt-3" style="margin-left:20px">
-                        <div class="col-md-4  NoReferensi">
-                            <label class="control-label">REL TRN</label>
-                            <input id="RelTRN" type="text" class="form-control" />
-                        </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="control-label">TRN Pesan Admin</label>
-                            <input id="TRN" type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4">
-                            <label class="bmd-label-floating">Nominal</label>
-                            <input id="Nominal" type="text" class="form-control number" />
-                        </div>
-                        <div class="col-md-4 offset-md-1 Tanggal">
-                            <label class="bmd-label-floating">Tanggal Proses</label>
+                            <label class="bmd-label-floating padtopx" ">Tanggal Proses</label>
                             <input id="Tanggal" type="date" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left:20px">
-                        <div class="col-md-4 Lampiran">
+                            <label class="bmd-label-floating padtopx">Nominal</label>
+                            <input id="Nominal" type="text" class="form-control number" />
+                            <br/>
                             <label class="control-label">Lampiran Bukti</label>
                             <br />
                             <canvas style="border:1px solid grey;" id="path"></canvas>
                         </div>
-                        <div class="col-md-4 offset-md-1">
-                            <label class="control-label">No Test Key</label>
+                        <div class="col">
+                            <label class="control-label" id="lbank">Bank Pengirim</label>
+                            <select id="BankTujuan" class="form-control bank select2" data-placement="choose">
+                                <option value="">--Pilih Bank--</option>
+                            </select>
+                            <label class="bmd-label-floating" style="padding-top:33px">BOR</label>
+                            <input id="bor" type="text" class="form-control" />
+                            <label class="control-label padtop" style="padding-top:9px">REL TRN</label>
+                            <input id="RelTRN" type="text" class="form-control" />
+                            <label class="control-label padtop">TRN Pesan Admin</label>
+                            <input id="TRN" type="text" class="form-control" />
+                            <label class="control-label padtop">No Test Key</label>
                             <input id="TestKey" type="text" class="form-control" />
                         </div>
                     </div>
-                </form>
-                <div class="offset-md-8">
-                    <a class="btn btn-primary text-white" id="Save">Save</a>
-                    <button class="btn btn-light text-black" onclick=" ClearScreen()" style="margin-left:10px;">Reset</button>
+
+                    <div class="offset-md-8">
+                        <a class="btn btn-primary text-white" id="Save">Save</a>
+                        <button class="btn btn-light text-black" onclick=" ClearScreen()" style="margin-left:10px;">Reset</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,6 +268,13 @@
             else {
                 $('#NomerSurat').removeClass('is-invalid');
             }
+            if ($('#bor').val() == '') {
+                $('#bor').addClass('is-invalid');
+                isAllValid = false;
+            }
+            else {
+                $('#bor').removeClass('is-invalid');
+            }
             if ($('#RelTRN').val() == '') {
                 $('#RelTRN').addClass('is-invalid');
                 isAllValid = false;
@@ -328,6 +317,7 @@
                 data.TypeId = $('#Jenis').val();
                 data.TanggalProses = $("#Tanggal").val();
                 data.NomorSurat = $("#NomorSurat").val();
+                data.Bor = $("#bor").val();
                 data.RelTRN = $("#RelTRN").val();
                 data.BankId = $("#BankTujuan").val();
                 data.Nominal = minkoma($("#Nominal").val());

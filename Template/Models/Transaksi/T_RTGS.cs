@@ -9,6 +9,7 @@ namespace Ririn.Models.Transaksi
         public string NomorSurat { get; set; }
         public DateTime TanggalProses { get; set; }
         public string RelTRN { get; set; }
+        public string Bor { get; set; }
         public string TRN { get; set; }
         public Cabang Cabang { get; set; }
         public int? CabangId { get; set; }

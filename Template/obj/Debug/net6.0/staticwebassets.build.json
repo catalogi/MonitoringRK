@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NTkI6+l1WS9tn/maGow5rVzDuNcbs2cMuHMc13J6lU4=",
+  "Hash": "t1yH8hHlrFuWtttJIhL/0z1+BQmsE7ueZNlCBxAM1+I=",
   "Source": "Template",
   "BasePath": "_content/Template",
   "Mode": "Default",
@@ -37279,6 +37279,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\plugins\\uplot\\uPlot.min.css"
+    },
+    {
+      "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\Template\\~$mplate_surat_masuk.docx",
+      "SourceId": "Template",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\",
+      "BasePath": "_content/Template",
+      "RelativePath": "Template/~$mplate_surat_masuk.docx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Template\\~$mplate_surat_masuk.docx"
     },
     {
       "Identity": "D:\\Project\\Project BNI\\Ririn\\Template\\wwwroot\\Template\\Memo_Keluar.docx",

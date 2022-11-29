@@ -8,6 +8,8 @@ namespace Ririn.Models.Transaksi
         public string NomorSurat { get; set; }
         public DateTime TanggalSurat { get; set; }
         public string NoReferensi { get; set; }
+        public string SOR { get; set; }
+        public string? SORLain { get; set; }
         public string NamaPenerima { get; set; }
         public Bank Bank { get; set; }
         public int BankId { get; set; }
